@@ -21,6 +21,7 @@ This project is a desktop application designed for searching, browsing, sorting,
 - **IDEs**:
   - VS Code
   - Visual Studio
+  - QT
 - **Version Control**:
   - GIT/GitHub
 
