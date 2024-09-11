@@ -32,5 +32,6 @@ This desktop application provides users with a comprehensive tool for managing t
 - [9/5/24](https://github.com/TelloViz/Card-Collection/discussions/11)
 
 ## Preliminary GUI Mockup
-![Preliminary GUI Mockup](https://github.com/user-attachments/assets/aada5bd8-d110-4af6-8bdb-f8538cd88bcb)
+![Preliminary GUI Mockup](https://github.com/user-attachments/assets/135e6c82-3a47-47f1-9657-52a306de590a)
+
 
