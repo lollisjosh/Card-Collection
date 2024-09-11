@@ -1,7 +1,7 @@
 # Card Collection Searching and Tracking
 ![Static Badge](https://img.shields.io/badge/Current_Phase-Communication-yellow)
 ## Project Overview
-This project is a desktop application designed for searching, browsing, sorting, filtering, and maintaining a collection of trading cards. The project is developed as part of the CPSC 362 Software Engineering course.
+This project is a desktop application designed for searching, browsing, filtering, and maintaining a collection of trading cards. The project is developed as part of the CPSC 362 Software Engineering course.
 
 ## Team Members
 
@@ -12,21 +12,18 @@ This project is a desktop application designed for searching, browsing, sorting,
 
 ## Technologies Used
 
-- **Languages and Libraries**: 
-  - C++
+- **Languages/Frameworks/Libraries**: 
   - Python
   - REST
-  - CMAKE
-  - SFML
+  - QT Quick
 - **IDEs**:
+  - QT Creator
   - VS Code
-  - Visual Studio
-  - QT
 - **Version Control**:
   - GIT/GitHub
 
 ## Project Description
-This desktop application provides users with a comprehensive tool for managing their trading card collections. It features a user-friendly interface that allows for easy searching, sorting, filtering, and displaying of trading cards. Users can also track their collection, making it simple to organize and keep up-to-date with their trading cards.
+This desktop application provides users with a comprehensive tool for managing their trading card collections. It features a user-friendly interface that allows for easy searching, filtering, and displaying of trading cards. Users will also be able to mark their favorites and view them in their "Collection".
 
 #### See Our Most Recent Progress Reports
 - [9/5/24](https://github.com/TelloViz/Card-Collection/discussions/11)
