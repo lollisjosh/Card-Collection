@@ -1,5 +1,7 @@
 # Card Collection Searching and Tracking
-![Static Badge](https://img.shields.io/badge/Current_Phase-Communication-yellow)
+![Static Badge](https://img.shields.io/badge/Current_Phase-Planning-orange?style=for-the-badge)
+
+
 ## Project Overview
 This project is a desktop application designed for searching, browsing, filtering, and maintaining a collection of trading cards. The project is developed as part of the CPSC 362 Software Engineering course.
 
