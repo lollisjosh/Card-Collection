@@ -9,6 +9,7 @@ This project is a desktop application designed for searching, browsing, filterin
 
 | Name             | Role                          |
 |------------------|-------------------------------|
+| Batu Demirtas    | Developer                     |
 | Christian Ramirez| Developer                     |
 | Josh Lollis      | Developer                     |
 
