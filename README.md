@@ -32,6 +32,10 @@ This desktop application provides users with a comprehensive tool for managing t
 - [9/5/24](https://github.com/TelloViz/Card-Collection/discussions/11)
 - [9/13/24](https://github.com/TelloViz/Card-Collection/discussions/32)
 
+## Proposed Architecture
+
+![image](https://github.com/user-attachments/assets/a808f0fc-4a9f-4b75-bcd6-ec6d0b5f04bb)
+
 ## Preliminary GUI Mockup
 ![cardCollectionProto](https://github.com/user-attachments/assets/d9e8cfb1-43d9-417c-b80f-c7c15893e1dd)
 
