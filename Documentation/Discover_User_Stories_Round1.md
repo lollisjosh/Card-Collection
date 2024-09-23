@@ -1,0 +1,3 @@
+- As an **_artist_** I want to be able to **_discover_** any random Pokemon for **_drawing_ _inspiration_** when I have art-block.
+- As a **competitive deck builder** I want to be able to **_discover_** a random Card **_from the most recent sets_** for **_ideas of new tactics_** when building a new deck.
+- As a **_fan of fire-type Pokemon_** I want to be able to **_discover_** a random Card of **_fire-type_** in order to **_find new favorite fire-type Pokemon_**.
