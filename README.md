@@ -34,7 +34,7 @@ This desktop application provides users with a comprehensive tool for managing t
 
 ## Proposed Architecture
 
-![cardCollectionArchitecture](https://github.com/user-attachments/assets/51015b8b-53ab-4e48-be41-2d65a6e0c5a6)
+![cardCollectionArchitecture](Documentation/cardCollectionArchitecture.png)
 
 
 ## Preliminary GUI Mockup
