@@ -28,3 +28,7 @@
 ## Action Items
 - Christian: Troubleshoot and fix QT Mac issues by Thursday.
 - Josh: Create a prototype branch on the repo and push the prototype project to that branch.
+
+## Task Status Report
+
+![Task Status Report 9/24/24](Documentation/Meetings/taskStatusReport_9_24_24.png)
