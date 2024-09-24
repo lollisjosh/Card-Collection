@@ -31,4 +31,4 @@
 
 ## Task Status Report
 
-![Task Status Report 9/24/24](Documentation/Meetings/taskStatusReport_9_24_24.png)
+![TaskStatus](taskStatusReport_9_24_24.png)
