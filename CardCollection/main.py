@@ -3,6 +3,7 @@ from pathlib import Path
 from PySide6.QtCore import QObject, Slot, Signal
 from PySide6.QtGui import QGuiApplication
 from PySide6.QtQml import QQmlApplicationEngine
+from PySide6.QtQuickControls2 import QQuickStyle
 from pokemontcgsdk import RestClient, Card, Set
 import json
 
@@ -35,7 +36,7 @@ class PokemonAPI(QObject):
 if __name__ == "__main__":
     app = QGuiApplication(sys.argv)
     engine = QQmlApplicationEngine()
-
+    QQuickStyle.setStyle("Fusion")
 
     api = PokemonAPI()
     engine.rootContext().setContextProperty("api", api)
