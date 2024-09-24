@@ -1,6 +1,10 @@
 {
     "files": [
+        "AppTabs.qml",
         "main.py",
-        "main.qml"
+        "main.qml",
+        "qtquickcontrols2.conf",
+        "requirements.txt",
+        "resource.qrc"
     ]
 }
