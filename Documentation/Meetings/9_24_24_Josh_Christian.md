@@ -1,4 +1,4 @@
-# Meeting Notes for Software Engineering Group Project
+# Meeting Notes
 
 **Date:** 9/24/24 \
 **Attendees:** Christian, Josh \
