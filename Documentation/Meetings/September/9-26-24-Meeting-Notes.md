@@ -68,3 +68,8 @@
 - **Batu**: Troubleshoot QT issues on Mac, or switch to another system for now. Get more acquainted with the PokémonTCGSDK Python SDK in the Python interpreter.
 - **Christian**: Work on progress report 3. Get better acquainted with the PokémonTCGSDK Python API through the Python interpreter.
 - **Josh**: Prototype the data passing using a map to test feasibility. Figure out what the API needs to perform the type of query with the **((A) AND (B) AND (X OR Y))** structure discussed. Determine the tasks needed to progress through the modeling phase.
+
+
+# Status Report
+
+![TaskStatus](9-26-24-Status-Report.png)
