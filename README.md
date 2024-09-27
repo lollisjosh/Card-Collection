@@ -1,5 +1,5 @@
 # Card Collection Searching and Tracking
-![Static Badge](https://img.shields.io/badge/Current_Phase-Planning-orange?style=for-the-badge)
+![Static Badge](https://img.shields.io/badge/Current_Phase-Modeling-yellow?style=for-the-badge)
 
 
 ## Project Overview
