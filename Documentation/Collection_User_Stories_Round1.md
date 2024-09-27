@@ -1,4 +1,0 @@
-- As a **_Pokemon TCG collector_**, I want to keep track of my current card collection **_so I don't always have to flip through my binder_**.
-- As a **_Competitive Pokemon TCG player_**, I want to keep a collection to **_help with deck building ideas_** for future competitions.
-- As a **_Rayquaza fan_**, I want to make a collection of **_wish-list cards I'm still looking for_**.
-- As a **_Pokemon TCG collector_** who purchases cards frequently, I want to keep track of what I've got in my collection **_to avoid purchasing duplicates_**.
