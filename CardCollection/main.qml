@@ -13,33 +13,7 @@ Window {
 
 
 
-    // // TabBar for navigation
-    // TabBar {
-    //     id: tabBar
-    //     anchors.top: parent.top
-    //     currentIndex: 1
-    //     width: parent.width
-    //     height: 50
 
-    //     TabButton {
-    //         text: "Search"
-    //         anchors.top: parent.top
-    //         anchors.bottom: parent.bottom
-    //         onClicked: stackLayout.currentIndex = 0
-    //     }
-    //     TabButton {
-    //         text: "Discover"
-    //         anchors.top: parent.top
-    //         anchors.bottom: parent.bottom
-    //         onClicked: stackLayout.currentIndex = 1
-    //     }
-    //     TabButton {
-    //         text: "Collection"
-    //         anchors.top: parent.top
-    //         anchors.bottom: parent.bottom
-    //         onClicked: stackLayout.currentIndex = 2
-    //     }
-    // }
 
     // StackLayout to switch between pages
 
@@ -48,8 +22,34 @@ Window {
         anchors.fill: parent
         spacing: 0
 
-        AppTabs {
-            id: appTabs
+        // TabBar for navigation
+        TabBar {
+            id: tabBar
+            anchors.top: parent.top
+            Layout.fillWidth: true
+            currentIndex: 0
+            width: parent.width
+            Layout.preferredHeight: parent.height * 0.08
+            height: 50
+
+            TabButton {
+                text: "Search"
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
+                onClicked: stackLayout.currentIndex = 0
+            }
+            TabButton {
+                text: "Discover"
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
+                onClicked: stackLayout.currentIndex = 1
+            }
+            TabButton {
+                text: "Collection"
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
+                onClicked: stackLayout.currentIndex = 2
+            }
         }
 
         StackLayout {
@@ -60,7 +60,7 @@ Window {
             Layout.fillWidth: true
             currentIndex: 0
             clip: false
-            z: 1
+            z: 0
 
             // Page 1: Search Page
             Item {
@@ -82,7 +82,6 @@ Window {
                         contentHeight: 48
                         z: 0
                         Layout.fillWidth: true
-                        Layout.alignment: Qt.AlignLeft | Qt.AlignTop
 
                         RowLayout {
                             id: rowLayout
@@ -103,7 +102,7 @@ Window {
                                 height: 40
                                 text: qsTr("Search")
                                 Layout.fillWidth: false
-                                onClicked: api.search_card(txtSearchBox.text)
+                                onClicked: api.searchCardByName(txtSearchBox.text)
                             }
                         }
                     }
@@ -121,7 +120,6 @@ Window {
                         anchors.bottomMargin: -79
                         anchors.horizontalCenter: toolBar.horizontalCenter
                         Layout.fillHeight: false
-                        Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                         Layout.fillWidth: true
                         Layout.preferredHeight: 30
                         Layout.preferredWidth: 480

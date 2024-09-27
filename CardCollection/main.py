@@ -17,7 +17,7 @@ class PokemonAPI(QObject):
         super().__init__()
 
     @Slot(str)
-    def search_card(self, card_name):
+    def searchCardByName(self, card_name):
         try:
             # Search for cards by name
             cards = Card.where(q=f'name:{card_name}')
