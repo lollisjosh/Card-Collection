@@ -29,8 +29,8 @@ This project is a desktop application designed for searching, browsing, filterin
 This desktop application provides users with a comprehensive tool for managing their trading card collections. It features a user-friendly interface that allows for easy searching, filtering, and displaying of trading cards. Users will also be able to mark their favorites and view them in their "Collection".
 
 #### See Our Most Recent Progress Reports
-- [9/05/24](https://github.com/TelloViz/Card-Collection/discussions/11)
-- [9/19/24](https://github.com/TelloViz/Card-Collection/discussions/32)
+- [09/05/24](https://github.com/TelloViz/Card-Collection/discussions/11)
+- [09/19/24](https://github.com/TelloViz/Card-Collection/discussions/32)
 - [10/03/24](https://github.com/TelloViz/Card-Collection/discussions/63)
 
 ## Proposed Architecture
