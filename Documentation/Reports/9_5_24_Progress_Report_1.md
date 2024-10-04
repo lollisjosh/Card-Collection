@@ -1,5 +1,5 @@
 # Team 8: Card Collection
-![Static Badge](https://img.shields.io/badge/Current_Phase-Communication-red?style=for-the-badge)
+![Static Badge](https://img.shields.io/badge/Current_Phase-Communication-red?style=for-the-badge)  
 **Date:** September 5, 2024
 
 ## Developers:
