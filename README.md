@@ -30,7 +30,8 @@ This desktop application provides users with a comprehensive tool for managing t
 
 #### See Our Most Recent Progress Reports
 - [9/5/24](https://github.com/TelloViz/Card-Collection/discussions/11)
-- [9/13/24](https://github.com/TelloViz/Card-Collection/discussions/32)
+- [9/19/24](https://github.com/TelloViz/Card-Collection/discussions/32)
+- [10/03/24](https://github.com/TelloViz/Card-Collection/discussions/63)
 
 ## Proposed Architecture
 
