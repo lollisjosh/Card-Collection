@@ -1,5 +1,5 @@
 # Card Collection Searching and Tracking
-![Static Badge](https://img.shields.io/badge/Current_Phase-Modeling-yellow?style=for-the-badge)
+![Static Badge](https://img.shields.io/badge/Current_Phase-Construction-green?style=for-the-badge)
 
 
 ## Project Overview
@@ -17,13 +17,15 @@ This project is a desktop application designed for searching, browsing, filterin
 
 - **Languages/Frameworks/Libraries**: 
   - Python
+  - QML
+  - JavaScript
   - REST
   - QT Quick
 - **IDEs**:
   - QT Creator
   - VS Code
 - **Version Control**:
-  - GIT/GitHub
+  - git/GitHub
 
 ## Project Description
 This desktop application provides users with a comprehensive tool for managing their trading card collections. It features a user-friendly interface that allows for easy searching, filtering, and displaying of trading cards. Users will also be able to mark their favorites and view them in their "Collection".
