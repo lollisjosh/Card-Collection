@@ -12,6 +12,10 @@ from pokemontcgsdk import Subtype
 from pokemontcgsdk import Rarity
 
 class Example:  
+    jsonSearchResults = Signal(str)  # Signal that sends JSON string
+    jsonDiscoverResults = Signal(str)
+    jsonLoadResults = Signal(str)
+
     def __init__(self):  
         pass  
 
