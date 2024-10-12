@@ -32,27 +32,27 @@ class BackendController(QObject):
     @Slot(list)
     def request_discover(self, params: list[tuple[str,str,str]]):
         """
-        The function `requestDiscover` takes a list of tuples as input parameters.
+        Provide an interface for the front end to make discover requests with the given parameters.
         
-        :param params: The `requestDiscover` method takes a list of tuples as the `params` parameter.
-        Each tuple in the list should contain three strings
-        :type params: list[tuple[str,str,str]]
+        Args:
+            params (list[tuple[str, str, str]]): List of search parameter tuples of the form (category, subcategory, target)
         """
 
     @Slot()
     def request_load_collection(self):
         """
-        The function `requestLoadCollection` is defined in Python but does not contain any code inside
-        its body.
+        Provide an interface for the front end to request teh back end to load and return the user's collection.
+        
+        Args:
+            none: This function does not take any arguments.
         """
         
     @Slot(list)
-    def request_cave_collection(self, params: list[tuple[str, str, str]]):
+    def request_save_collection(self, params: list[tuple[str, str, str]]):
         """
-        The function `requestSaveCollection` takes a list of tuples as input parameters.
+        Provide an interface for the front end to save users collection to system using the given parameters.
         
-        :param params: The `requestSaveCollection` function takes a parameter `params`, which is a list
-        of tuples. Each tuple in the list contains three strings
-        :type params: list[tuple[str, str, str]]
+        Args:
+            params (list[tuple[str, str, str]]): List of tuples of the form (category, subcategory, target) representing the users collection.
         """
         
