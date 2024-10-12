@@ -2,6 +2,7 @@
 BackendController Class Module
 Handles any front end requests for backend interaction.
 """
+
 from PySide6.QtCore import QObject, Slot, Signal
 
 from pokemontcgsdk import Card
@@ -11,16 +12,24 @@ from pokemontcgsdk import Supertype
 from pokemontcgsdk import Subtype
 from pokemontcgsdk import Rarity
 
-class Example:  
-    jsonSearchResults = Signal(str)  # Signal that sends JSON string
-    jsonDiscoverResults = Signal(str)
-    jsonLoadResults = Signal(str)
+class BackendController:  
+    jsonSearchResults = Signal(str)  # Signal that emits JSON string
+    jsonDiscoverResults = Signal(str)  # Signal that emits JSON string
+    jsonLoadResults = Signal(str)  # Signal that emits JSON string
 
-    def __init__(self):  
-        pass  
+    @Slot(list)
+    def requestSearch(params: list[tuple[str, str, str]]):
+        pass
 
-    def myFunc(self):  
-        pass  
+    @Slot(list)
+    def requestDiscover(params: list[tuple[str,str,str]]):
+        pass
 
-    def myOtherFunc(self, parameter):  
-        pass  
+    @Slot()
+    def requestLoadCollection():
+        pass
+
+    @Slot(list)
+    def requestSaveCollection(params: list[tuple[str, str, str]]):
+        pass
+    
