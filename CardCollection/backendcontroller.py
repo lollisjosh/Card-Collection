@@ -14,6 +14,13 @@ class BackendController(QObject):
 
     Args:
         QObject (_type_): Inheritance of QObject allows for the use of QT Signals and Slots
+
+    ## Note:
+    The `@Slot` decorator in this code is used to define a slot function that can be connected to a
+    signal in a Qt application. Slots are functions or methods that can be called in response to a
+    signal being emitted. By using the `@Slot` decorator, you are explicitly defining which functions
+    can be connected to signals in the Qt framework. This helps in maintaining a clear separation
+    between signals and slots in the codebase and ensures that the connections are set up correctly.
     """
 
     jsonSearchResults = Signal(str)  # Signal that emits JSON string
@@ -27,12 +34,6 @@ class BackendController(QObject):
             Provide an interface for the front end to make search requests with the given search parameters.
         Args:
             params (list[tuple[str, str, str]]): List of search parameter tuples of the form (category, subcategory, target)
-        ## Note:
-        The `@Slot` decorator in this code is used to define a slot function that can be connected to a
-        signal in a Qt application. Slots are functions or methods that can be called in response to a
-        signal being emitted. By using the `@Slot` decorator, you are explicitly defining which functions
-        can be connected to signals in the Qt framework. This helps in maintaining a clear separation
-        between signals and slots in the codebase and ensures that the connections are set up correctly.
         """
 
     @Slot(list)
@@ -43,13 +44,6 @@ class BackendController(QObject):
 
         Args:
             params (list[tuple[str, str, str]]): List of search parameter tuples of the form (category, subcategory, target)
-
-        ## Note:
-        The `@Slot` decorator in this code is used to define a slot function that can be connected to a
-        signal in a Qt application. Slots are functions or methods that can be called in response to a
-        signal being emitted. By using the `@Slot` decorator, you are explicitly defining which functions
-        can be connected to signals in the Qt framework. This helps in maintaining a clear separation
-        between signals and slots in the codebase and ensures that the connections are set up correctly.
         """
 
     @Slot()
@@ -60,13 +54,6 @@ class BackendController(QObject):
 
         Args:
             none: This function does not take any arguments.
-
-        ## Note:
-        The `@Slot` decorator in this code is used to define a slot function that can be connected to a
-        signal in a Qt application. Slots are functions or methods that can be called in response to a
-        signal being emitted. By using the `@Slot` decorator, you are explicitly defining which functions
-        can be connected to signals in the Qt framework. This helps in maintaining a clear separation
-        between signals and slots in the codebase and ensures that the connections are set up correctly.
         """
 
     @Slot(list)
@@ -77,11 +64,4 @@ class BackendController(QObject):
 
         Args:
             params (list[tuple[str, str, str]]): List of tuples of the form (category, subcategory, target) representing the users collection.
-
-        ## Note:
-        The `@Slot` decorator in this code is used to define a slot function that can be connected to a
-        signal in a Qt application. Slots are functions or methods that can be called in response to a
-        signal being emitted. By using the `@Slot` decorator, you are explicitly defining which functions
-        can be connected to signals in the Qt framework. This helps in maintaining a clear separation
-        between signals and slots in the codebase and ensures that the connections are set up correctly.
         """
