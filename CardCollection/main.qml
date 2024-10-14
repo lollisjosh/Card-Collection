@@ -21,7 +21,6 @@ Window {
         // TabBar for navigation
         TabBar {
             id: tabBar
-            anchors.top: parent.top
             Layout.fillWidth: true
             currentIndex: 0
             width: parent.width
