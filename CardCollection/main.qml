@@ -84,6 +84,11 @@ Window {
                             anchors.fill: parent
                             spacing: 5
 
+
+
+                            ComboBox {
+                                id: comboBox
+                            }
                             TextField {
                                 id: txtSearchBox
                                 width: 200
@@ -91,7 +96,6 @@ Window {
                                 placeholderText: qsTr("Enter card name")
                                 Layout.fillWidth: true
                             }
-
                             Button {
                                 id: btnSearch
                                 width: 100
