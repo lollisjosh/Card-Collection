@@ -134,13 +134,14 @@ Window {
                         id: toolBar1
                         position: ToolBar.Footer
                         Layout.fillHeight: true
-                        Layout.fillWidth: false
+                        Layout.fillWidth: true
                         Layout.preferredHeight: 30
                         Layout.preferredWidth: 480
                         contentWidth: 464
                         contentHeight: 40
 
                         RowLayout {
+                            height: 26
                             visible: true
                             anchors.verticalCenter: parent.verticalCenter
                             uniformCellSizes: false
