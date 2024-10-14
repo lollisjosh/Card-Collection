@@ -2,6 +2,7 @@
     "files": [
         "main.py",
         "main.qml",
-        "qtquickcontrols2.conf"
+        "qtquickcontrols2.conf",
+        "resource.qrc"
     ]
 }
