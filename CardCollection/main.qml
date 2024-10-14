@@ -1,6 +1,6 @@
 import QtQuick
-import QtQuick.Controls 2.15
-import QtQuick.Layouts 2.15
+import QtQuick.Controls
+import QtQuick.Layouts
 
 Window {
     width: 480
@@ -103,52 +103,6 @@ Window {
                         }
                     }
 
-                    ToolBar {
-                        id: toolBar1
-                        anchors.verticalCenter: toolBar.verticalCenter
-                        anchors.left: toolBar.right
-                        anchors.right: toolBar.left
-                        anchors.top: toolBar.bottom
-                        anchors.bottom: toolBar.top
-                        anchors.leftMargin: -480
-                        anchors.rightMargin: -480
-                        anchors.topMargin: 0
-                        anchors.bottomMargin: -79
-                        anchors.horizontalCenter: toolBar.horizontalCenter
-                        Layout.fillHeight: false
-                        Layout.fillWidth: true
-                        Layout.preferredHeight: 30
-                        Layout.preferredWidth: 480
-                        contentWidth: 464
-                        contentHeight: 36
-
-                        RowLayout {
-                            y: 3
-                            visible: true
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            spacing: 50
-
-                            Button {
-                                text: "Previous"
-                                enabled: selectedIndex > 0
-                                onClicked: {
-                                    if (selectedIndex > 0) {
-                                        selectedIndex--;
-                                    }
-                                }
-                            }
-
-                            Button {
-                                text: "Next"
-                                enabled: selectedIndex < cards.length - 1
-                                onClicked: {
-                                    if (selectedIndex < cards.length - 1) {
-                                        selectedIndex++;
-                                    }
-                                }
-                            }
-                        }
-                    }
 
                     Frame {
                         id: frame
@@ -174,7 +128,46 @@ Window {
                             fillMode: Image.PreserveAspectFit
                         }
                     }
-}
+                    ToolBar {
+                        id: toolBar1
+                        position: ToolBar.Footer
+                        Layout.fillHeight: true
+                        Layout.fillWidth: false
+                        Layout.preferredHeight: 30
+                        Layout.preferredWidth: 480
+                        contentWidth: 464
+                        contentHeight: 40
+
+                        RowLayout {
+                            visible: true
+                            anchors.verticalCenter: parent.verticalCenter
+                            uniformCellSizes: false
+                            anchors.horizontalCenterOffset: 0
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            spacing: 50
+
+                            Button {
+                                text: "Previous"
+                                enabled: selectedIndex > 0
+                                onClicked: {
+                                    if (selectedIndex > 0) {
+                                        selectedIndex--;
+                                    }
+                                }
+                            }
+
+                            Button {
+                                text: "Next"
+                                enabled: selectedIndex < cards.length - 1
+                                onClicked: {
+                                    if (selectedIndex < cards.length - 1) {
+                                        selectedIndex++;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
 
                 ListModel {
                     id: imageModel
