@@ -132,13 +132,14 @@ Window {
                     }
                     ToolBar {
                         id: toolBar1
-                        position: ToolBar.Footer
+                        position: ToolBar.Header
+                        topPadding: 0
                         Layout.fillHeight: true
                         Layout.fillWidth: true
-                        Layout.preferredHeight: 30
+                        Layout.preferredHeight: 32
                         Layout.preferredWidth: 480
-                        contentWidth: 464
-                        contentHeight: 40
+                        contentWidth: -1
+                        contentHeight: -1
 
                         RowLayout {
                             height: 26
