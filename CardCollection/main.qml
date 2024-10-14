@@ -50,7 +50,6 @@ Window {
         StackLayout {
             id: stackLayout
             visible: true
-            anchors.top: tabBar.bottom
             Layout.fillHeight: true
             Layout.fillWidth: true
             currentIndex: 0
