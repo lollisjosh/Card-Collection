@@ -87,7 +87,7 @@ Window {
 
 
                             ComboBox {
-                                id: comboBox
+                                id: setComboBox
                             }
                             TextField {
                                 id: txtSearchBox
