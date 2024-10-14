@@ -1,11 +1,10 @@
 import QtQuick
-import QtQuick.Window
-import QtQuick.Controls
-import QtQuick.Layouts
+import QtQuick.Controls 2.15
+import QtQuick.Layouts 2.15
 
 Window {
-    width: 640
-    height: 480
+    width: 480
+    height: 600
     visible: true
     title: qsTr("Card Collection")
 
