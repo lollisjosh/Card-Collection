@@ -4,5 +4,9 @@
         "main.qml",
         "qtquickcontrols2.conf",
         "resource.qrc"
+        "backend.py",
+        "inithandler.py",
+        "searchhandler.py",
+        "backendcontroller.py"
     ]
 }
