@@ -7,6 +7,10 @@ from pokemontcgsdk import Supertype
 from pokemontcgsdk import Subtype
 from pokemontcgsdk import Rarity
 
+import inithandler
+import searchhandler
+
+
 
 class BackendController(QObject):
     """
