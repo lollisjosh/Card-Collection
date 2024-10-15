@@ -23,10 +23,20 @@ class BackendController(QObject):
     between signals and slots in the codebase and ensures that the connections are set up correctly.
     """
 
-    jsonSearchResults = Signal(str)  # Signal that emits JSON string
-    jsonDiscoverResults = Signal(str)  # Signal that emits JSON string
-    jsonLoadResults = Signal(str)  # Signal that emits JSON string
+    setsResults = Signal(str) # Signal that emits JSON string
+    searchResults = Signal(str)  # Signal that emits JSON string
+    discoverResults = Signal(str)  # Signal that emits JSON string
+    loadResults = Signal(str)  # Signal that emits JSON string
 
+
+    @Slot()
+    def request_sets_retrieve(self):
+        """
+        ## Description:
+            Provide an interface for the front end to retrieve all available sets.
+        Args:
+            params none
+        """
     @Slot(list)
     def request_search(self, params: list[tuple[str, str, str]]):
         """
