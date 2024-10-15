@@ -142,7 +142,9 @@ Window {
                         Image {
                             id: cardImage
                             anchors.fill: parent
-                            source: cards.length > 0 ? cards[selectedIndex].imageUrl : ""
+                            source: (selectedIndex >= 0 && selectedIndex < cards.length)
+                                ? (cards[selectedIndex].imageUrl || "")  // Show the image URL or an empty string if not available
+                                : ""  // Show nothing initially if no valid card is selected
                             Layout.fillHeight: false
                             Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
                             Layout.preferredHeight: 500
@@ -151,6 +153,8 @@ Window {
                             scale: 0.75
                             fillMode: Image.PreserveAspectFit
                         }
+
+
                     }
                     ToolBar {
                         id: toolBar1
@@ -203,7 +207,7 @@ Window {
 
                 Connections {
                     target: backendController
-                    onSearchResults: function(response) {
+                    function onSearchResults(response) {
                         var data = JSON.parse(response);
                         if (data.error) {
                             cards = [];
