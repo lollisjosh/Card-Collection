@@ -1,6 +1,8 @@
 {
     "files": [
         "main.py",
-        "main.qml"
+        "main.qml",
+        "inithandler.py",
+        "inithandler.py"
     ]
 }
