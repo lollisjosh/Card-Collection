@@ -1,4 +1,15 @@
-# This Python file uses the following encoding: utf-8
+from pokemontcgsdk import Set
 
-# if __name__ == "__main__":
-#     pass
+
+class InitHandler:
+    """
+    Handles any front end requests for requesting data for the front end to initalize components.
+    """
+
+    def handle_sets_retrieve(self) -> list[Set]:
+        """
+        ## Description:
+            Provide an interface for the front end to retrieve all available sets.
+        Args:
+            params none
+        """
