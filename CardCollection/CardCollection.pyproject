@@ -3,8 +3,8 @@
         "main.py",
         "main.qml",
         "backend.py",
-        "backendcontroller.py",
         "inithandler.py",
-        "searchhandler.py"
+        "searchhandler.py",
+        "backendcontroller.py"
     ]
 }
