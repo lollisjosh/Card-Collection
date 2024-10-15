@@ -2,6 +2,9 @@
     "files": [
         "main.py",
         "main.qml",
-        "backendcontroller.py"
+        "backend.py",
+        "backendcontroller.py",
+        "inithandler.py",
+        "searchhandler.py"
     ]
 }
