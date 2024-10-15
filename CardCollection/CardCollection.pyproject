@@ -2,7 +2,6 @@
     "files": [
         "main.py",
         "main.qml",
-        "inithandler.py",
         "inithandler.py"
     ]
 }
