@@ -108,7 +108,21 @@ Window {
                                 height: 40
                                 text: qsTr("Search")
                                 Layout.fillWidth: false
-                                onClicked: api.searchCardByName(txtSearchBox.text)
+                                onClicked: {
+                                    // Initialize an empty array for the search parameters
+                                            var testSearchParams = [];
+
+                                            // Check if the search box is not empty
+                                            if (txtSearchBox.text.trim() !== "") {
+                                                // Create a tuple with the entered name
+                                                testSearchParams.push(['', 'name', txtSearchBox.text]);
+                                            }
+
+                                            // Call the request_search function with the built tuples if there are any
+                                            if (testSearchParams.length > 0) {
+                                                backendController.request_search(testSearchParams);
+                                            }
+                                    }
                             }
                         }
                     }
@@ -188,8 +202,8 @@ Window {
                 }
 
                 Connections {
-                    target: api
-                    searchResults: function(response) {
+                    target: backendController
+                    onSearchResults: function(response) {
                         var data = JSON.parse(response);
                         if (data.error) {
                             cards = [];
