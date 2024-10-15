@@ -77,3 +77,4 @@ venv/
 .tool-versions
 driver_main.py
 withspaces.py
+.qtcreator/
