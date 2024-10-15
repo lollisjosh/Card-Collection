@@ -86,9 +86,12 @@ Window {
 
                             ComboBox {
                                 id: setComboBox
+                                Layout.fillHeight: false
+                                Layout.fillWidth: false
+
 
                                 Component.onCompleted: {
-                                    // TODO init combo box here
+                                    backendController.request_sets_retrieve()
                                 }
 
                             }
