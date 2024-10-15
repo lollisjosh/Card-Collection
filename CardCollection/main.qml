@@ -86,6 +86,11 @@ Window {
 
                             ComboBox {
                                 id: setComboBox
+
+                                Component.onCompleted: {
+                                    // TODO init combo box here
+                                }
+
                             }
                             TextField {
                                 id: txtSearchBox
