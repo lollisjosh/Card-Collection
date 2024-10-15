@@ -10,8 +10,6 @@ from pokemontcgsdk import Rarity
 import inithandler
 import searchhandler
 
-
-
 class BackendController(QObject):
     """
     Handles any front end requests for backend interaction.
