@@ -189,7 +189,7 @@ Window {
 
                 Connections {
                     target: api
-                    onResultFetched: function(response) {
+                    searchResults: function(response) {
                         var data = JSON.parse(response);
                         if (data.error) {
                             cards = [];
