@@ -1,6 +1,7 @@
-import QtQuick
+import QtQuick 2.7
 import QtQuick.Controls
 import QtQuick.Layouts
+import QtQuick.Window 2.1
 
 Window {
     width: 480
@@ -8,6 +9,7 @@ Window {
     visible: true
     property alias searchToolsLower: searchToolsLower
     title: qsTr("Card Collection")
+
 
     property int selectedIndex: -1
     property var cards: []  // List of card objects
@@ -139,10 +141,9 @@ Window {
 
                         ToolBar {
                             id: searchToolsLower
-                            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                            contentHeight: 29
-                            Layout.fillHeight: false
+                            Layout.fillHeight: true
                             Layout.fillWidth: true
+                            contentHeight: 30
 
                             RowLayout {
                                 id: typeButtonRow
@@ -156,10 +157,11 @@ Window {
                                     width: 28
                                     height: 28
                                     text: "+"
-                                    Layout.fillWidth: false
-                                    Layout.fillHeight: false
                                     checked: false
                                     checkable: true
+                                    palette {
+                                        button: "limegreen"
+                                    }
                                 }
 
                                 RoundButton {
@@ -171,6 +173,9 @@ Window {
                                     checkable: true
                                     Layout.fillWidth: false
                                     Layout.fillHeight: false
+                                    palette {
+                                        button: "red"
+                                    }
                                 }
 
                                 RoundButton {
@@ -182,6 +187,9 @@ Window {
                                     checkable: true
                                     Layout.fillWidth: false
                                     Layout.fillHeight: false
+                                    palette {
+                                        button: "blue"
+                                    }
                                 }
 
                                 RoundButton {
@@ -193,6 +201,9 @@ Window {
                                     checkable: true
                                     Layout.fillWidth: false
                                     Layout.fillHeight: false
+                                    palette {
+                                        button: "gold"
+                                    }
                                 }
 
                                 RoundButton {
@@ -204,6 +215,9 @@ Window {
                                     checkable: true
                                     Layout.fillWidth: false
                                     Layout.fillHeight: false
+                                    palette {
+                                        button: "darkviolet"
+                                    }
                                 }
 
                                 RoundButton {
@@ -215,6 +229,9 @@ Window {
                                     checkable: true
                                     Layout.fillWidth: false
                                     Layout.fillHeight: false
+                                    palette {
+                                        button: "saddlebrown"
+                                    }
                                 }
 
                                 RoundButton {
@@ -226,6 +243,9 @@ Window {
                                     checkable: true
                                     Layout.fillWidth: false
                                     Layout.fillHeight: false
+                                    palette {
+                                        button: "darkslategrey"
+                                    }
                                 }
 
                                 RoundButton {
@@ -237,6 +257,9 @@ Window {
                                     checkable: true
                                     Layout.fillWidth: false
                                     Layout.fillHeight: false
+                                    palette {
+                                        button: "lightgrey"
+                                    }
                                 }
 
                                 RoundButton {
@@ -248,6 +271,9 @@ Window {
                                     checkable: true
                                     Layout.fillWidth: false
                                     Layout.fillHeight: false
+                                    palette {
+                                        button: "white"
+                                    }
                                 }
 
                                 RoundButton {
@@ -259,6 +285,9 @@ Window {
                                     checkable: true
                                     Layout.fillWidth: false
                                     Layout.fillHeight: false
+                                    palette {
+                                        button: "hotpink"
+                                    }
                                 }
 
                                 RoundButton {
@@ -270,7 +299,11 @@ Window {
                                     checkable: true
                                     Layout.fillWidth: false
                                     Layout.fillHeight: false
+                                    palette {
+                                        button: "goldenrod"
+                                    }
                                 }
+
                             }
                         }
                     }
