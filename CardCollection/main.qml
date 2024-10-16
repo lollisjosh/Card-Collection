@@ -156,7 +156,10 @@ Window {
                                     id: grassTypeButton
                                     width: 28
                                     height: 28
-                                    text: "+"
+                                    text: ""
+                                    highlighted: grassTypeButton.checked
+
+                                    flat: false
                                     checked: false
                                     checkable: true
                                     palette {
@@ -168,7 +171,9 @@ Window {
                                     id: fireTypeButton
                                     width: 28
                                     height: 28
-                                    text: "+"
+                                    text: ""
+                                    highlighted: fireTypeButton.checked
+                                    flat: false
                                     checked: false
                                     checkable: true
                                     Layout.fillWidth: false
@@ -182,7 +187,9 @@ Window {
                                     id: waterTypeButton
                                     width: 28
                                     height: 28
-                                    text: "+"
+                                    text: ""
+                                    highlighted: waterTypeButton.checked
+                                    flat: false
                                     checked: false
                                     checkable: true
                                     Layout.fillWidth: false
@@ -196,7 +203,9 @@ Window {
                                     id: lightningTypeButton
                                     width: 28
                                     height: 28
-                                    text: "+"
+                                    text: ""
+                                    highlighted: lightningTypeButton.checked
+                                    flat: false
                                     checked: false
                                     checkable: true
                                     Layout.fillWidth: false
@@ -210,7 +219,9 @@ Window {
                                     id: psychicTypeButton
                                     width: 28
                                     height: 28
-                                    text: "+"
+                                    text: ""
+                                    flat: fals
+                                    highlighted: psychicTypeButton.checkede
                                     checked: false
                                     checkable: true
                                     Layout.fillWidth: false
@@ -224,7 +235,9 @@ Window {
                                     id: fightingTypeButton
                                     width: 28
                                     height: 28
-                                    text: "+"
+                                    text: ""
+                                    highlighted: fightingTypeButton.checked
+                                    flat: false
                                     checked: false
                                     checkable: true
                                     Layout.fillWidth: false
@@ -238,7 +251,9 @@ Window {
                                     id: darknessTypeButton
                                     width: 28
                                     height: 28
-                                    text: "+"
+                                    text: ""
+                                    highlighted: darknessTypeButton.checked
+                                    flat: false
                                     checked: false
                                     checkable: true
                                     Layout.fillWidth: false
@@ -252,7 +267,9 @@ Window {
                                     id: metalTypeButton
                                     width: 28
                                     height: 28
-                                    text: "+"
+                                    text: ""
+                                    highlighted: metalTypeButton.checked
+                                    flat: false
                                     checked: false
                                     checkable: true
                                     Layout.fillWidth: false
@@ -266,7 +283,9 @@ Window {
                                     id: colorlessTypeButton
                                     width: 28
                                     height: 28
-                                    text: "+"
+                                    text: ""
+                                    highlighted: colorlessTypeButton.checked
+                                    flat: false
                                     checked: false
                                     checkable: true
                                     Layout.fillWidth: false
@@ -280,7 +299,9 @@ Window {
                                     id: fairyTypeButton
                                     width: 28
                                     height: 28
-                                    text: "+"
+                                    text: ""
+                                    highlighted: fairyTypeButton.checked
+                                    flat: false
                                     checked: false
                                     checkable: true
                                     Layout.fillWidth: false
@@ -294,7 +315,9 @@ Window {
                                     id: dragonTypeButton
                                     width: 28
                                     height: 28
-                                    text: "+"
+                                    text: ""
+                                    highlighted: dragonTypeButton.checked
+                                    flat: false
                                     checked: false
                                     checkable: true
                                     Layout.fillWidth: false
