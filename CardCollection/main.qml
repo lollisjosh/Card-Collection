@@ -6,6 +6,7 @@ Window {
     width: 480
     height: 600
     visible: true
+    property alias searchToolsLower: searchToolsLower
     title: qsTr("Card Collection")
 
     property int selectedIndex: -1
@@ -64,70 +65,215 @@ Window {
                 visible: false
 
                 ColumnLayout {
-                    id: columnLayout
+                    id: searchTabColumn
                     anchors.fill: parent
                     spacing: 0
 
-                    ToolBar {
-                        id: toolBar
-                        width: parent.width
-                        height: 48
-                        contentWidth: 200
-                        contentHeight: 48
+
+
+                    ColumnLayout {
+                        id: searchToolsColumn
+                        width: 100
+                        height: 100
                         z: 0
                         Layout.fillWidth: true
+                        Layout.fillHeight: true
 
-                        RowLayout {
-                            id: rowLayout
-                            anchors.fill: parent
-                            spacing: 5
+                        ToolBar {
+                            id: searchToolsUpper
+                            width: parent.width
+                            height: 48
+                            Layout.fillHeight: false
+                            contentWidth: 200
+                            contentHeight: 48
+                            z: 0
+                            Layout.fillWidth: true
+
+                            RowLayout {
+                                id: rowLayout
+                                anchors.fill: parent
+                                spacing: 5
+
+                                ComboBox {
+                                    id: setComboBox
+                                    Layout.fillHeight: false
+                                    Layout.fillWidth: false
 
 
+                                    Component.onCompleted: {
+                                        backendController.request_sets_retrieve()
+                                    }
 
-                            ComboBox {
-                                id: setComboBox
-                                Layout.fillHeight: false
-                                Layout.fillWidth: false
+                                }
+                                TextField {
+                                    id: txtSearchBox
+                                    width: 200
+                                    height: 40
+                                    placeholderText: qsTr("Enter card name")
+                                    Layout.fillWidth: true
+                                }
+                                Button {
+                                    id: btnSearch
+                                    width: 100
+                                    height: 40
+                                    text: qsTr("Search")
+                                    Layout.fillWidth: false
+                                    onClicked: {
+                                        // Initialize an empty array for the search parameters
+                                        var testSearchParams = [];
 
+                                        // Check if the search box is not empty
+                                        if (txtSearchBox.text.trim() !== "") {
+                                            // Create a tuple with the entered name
+                                            testSearchParams.push(['', 'name', txtSearchBox.text]);
+                                        }
 
-                                Component.onCompleted: {
-                                    backendController.request_sets_retrieve()
+                                        // Call the request_search function with the built tuples if there are any
+                                        if (testSearchParams.length > 0) {
+                                            backendController.request_search(testSearchParams);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        ToolBar {
+                            id: searchToolsLower
+                            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                            contentHeight: 29
+                            Layout.fillHeight: false
+                            Layout.fillWidth: true
+
+                            RowLayout {
+                                id: typeButtonRow
+                                anchors.verticalCenter: parent.verticalCenter
+                                anchors.verticalCenterOffset: -3
+                                anchors.horizontalCenterOffset: 0
+                                anchors.horizontalCenter: parent.horizontalCenter
+
+                                RoundButton {
+                                    id: typeButton
+                                    width: 28
+                                    height: 28
+                                    text: "+"
+                                    Layout.fillWidth: false
+                                    Layout.fillHeight: false
+                                    checked: false
+                                    checkable: true
                                 }
 
-                            }
-                            TextField {
-                                id: txtSearchBox
-                                width: 200
-                                height: 40
-                                placeholderText: qsTr("Enter card name")
-                                Layout.fillWidth: true
-                            }
-                            Button {
-                                id: btnSearch
-                                width: 100
-                                height: 40
-                                text: qsTr("Search")
-                                Layout.fillWidth: false
-                                onClicked: {
-                                    // Initialize an empty array for the search parameters
-                                            var testSearchParams = [];
+                                RoundButton {
+                                    id: typeButton1
+                                    width: 28
+                                    height: 28
+                                    text: "+"
+                                    checked: false
+                                    checkable: true
+                                    Layout.fillWidth: false
+                                    Layout.fillHeight: false
+                                }
 
-                                            // Check if the search box is not empty
-                                            if (txtSearchBox.text.trim() !== "") {
-                                                // Create a tuple with the entered name
-                                                testSearchParams.push(['', 'name', txtSearchBox.text]);
-                                            }
+                                RoundButton {
+                                    id: typeButton2
+                                    width: 28
+                                    height: 28
+                                    text: "+"
+                                    checked: false
+                                    checkable: true
+                                    Layout.fillWidth: false
+                                    Layout.fillHeight: false
+                                }
 
-                                            // Call the request_search function with the built tuples if there are any
-                                            if (testSearchParams.length > 0) {
-                                                backendController.request_search(testSearchParams);
-                                            }
-                                    }
+                                RoundButton {
+                                    id: typeButton3
+                                    width: 28
+                                    height: 28
+                                    text: "+"
+                                    checked: false
+                                    checkable: true
+                                    Layout.fillWidth: false
+                                    Layout.fillHeight: false
+                                }
+
+                                RoundButton {
+                                    id: typeButton4
+                                    width: 28
+                                    height: 28
+                                    text: "+"
+                                    checked: false
+                                    checkable: true
+                                    Layout.fillWidth: false
+                                    Layout.fillHeight: false
+                                }
+
+                                RoundButton {
+                                    id: typeButton5
+                                    width: 28
+                                    height: 28
+                                    text: "+"
+                                    checked: false
+                                    checkable: true
+                                    Layout.fillWidth: false
+                                    Layout.fillHeight: false
+                                }
+
+                                RoundButton {
+                                    id: typeButton6
+                                    width: 28
+                                    height: 28
+                                    text: "+"
+                                    checked: false
+                                    checkable: true
+                                    Layout.fillWidth: false
+                                    Layout.fillHeight: false
+                                }
+
+                                RoundButton {
+                                    id: typeButton7
+                                    width: 28
+                                    height: 28
+                                    text: "+"
+                                    checked: false
+                                    checkable: true
+                                    Layout.fillWidth: false
+                                    Layout.fillHeight: false
+                                }
+
+                                RoundButton {
+                                    id: typeButton8
+                                    width: 28
+                                    height: 28
+                                    text: "+"
+                                    checked: false
+                                    checkable: true
+                                    Layout.fillWidth: false
+                                    Layout.fillHeight: false
+                                }
+
+                                RoundButton {
+                                    id: typeButton9
+                                    width: 28
+                                    height: 28
+                                    text: "+"
+                                    checked: false
+                                    checkable: true
+                                    Layout.fillWidth: false
+                                    Layout.fillHeight: false
+                                }
+
+                                RoundButton {
+                                    id: typeButton10
+                                    width: 28
+                                    height: 28
+                                    text: "+"
+                                    checked: false
+                                    checkable: true
+                                    Layout.fillWidth: false
+                                    Layout.fillHeight: false
+                                }
                             }
                         }
                     }
-
-
                     Frame {
                         id: frame
                         width: 400
@@ -143,8 +289,8 @@ Window {
                             id: cardImage
                             anchors.fill: parent
                             source: (selectedIndex >= 0 && selectedIndex < cards.length)
-                                ? (cards[selectedIndex].imageUrl || "")  // Show the image URL or an empty string if not available
-                                : ""  // Show nothing initially if no valid card is selected
+                                    ? (cards[selectedIndex].imageUrl || "")  // Show the image URL or an empty string if not available
+                                    : ""  // Show nothing initially if no valid card is selected
                             Layout.fillHeight: false
                             Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
                             Layout.preferredHeight: 500
@@ -157,7 +303,7 @@ Window {
 
                     }
                     ToolBar {
-                        id: toolBar1
+                        id: pagingButtonsToolbar
                         position: ToolBar.Header
                         topPadding: 0
                         Layout.fillHeight: true
@@ -207,7 +353,7 @@ Window {
 
                 Connections {
                     target: backendController
-                    function onSearchResults(response) {
+                    function searchResults(response) {
                         var data = JSON.parse(response);
                         if (data.error) {
                             cards = [];
@@ -220,6 +366,8 @@ Window {
                         }
                     }
                 }
+
+
 
 
 
@@ -245,3 +393,5 @@ Window {
         }
     }
 }
+
+
