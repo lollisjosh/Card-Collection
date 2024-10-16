@@ -2,6 +2,7 @@ import QtQuick 2.7
 import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Window 2.1
+import QtQuick.Controls.Fusion 2
 
 Window {
     width: 480
@@ -220,8 +221,7 @@ Window {
                                     width: 28
                                     height: 28
                                     text: ""
-                                    flat: fals
-                                    highlighted: psychicTypeButton.checkede
+                                    highlighted: psychicTypeButton.checked
                                     checked: false
                                     checkable: true
                                     Layout.fillWidth: false
@@ -410,6 +410,22 @@ Window {
                 Connections {
                     target: backendController
                     function searchResults(response) {
+                        var data = JSON.parse(response);
+                        if (data.error) {
+                            cards = [];
+                        } else {
+                            cards = data.map(card => ({
+                                                          "name": card.name,
+                                                          "imageUrl": card.imageUrl || ""
+                                                      }));
+                            selectedIndex = 0;  // Start with the first card
+                        }
+                    }
+                }
+
+                Connections {
+                    target: backendController
+                    function discoverResults(response) {
                         var data = JSON.parse(response);
                         if (data.error) {
                             cards = [];
