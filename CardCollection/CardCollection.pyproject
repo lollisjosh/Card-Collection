@@ -1,12 +1,13 @@
 {
     "files": [
+        "backendcontroller.py",
+        "driver_backendcontroller.py",
+        "driver_main.py",
+        "inithandler.py",
         "main.py",
         "main.qml",
         "qtquickcontrols2.conf",
+        "requirements.txt",
         "resource.qrc"
-        "backend.py",
-        "inithandler.py",
-        "searchhandler.py",
-        "backendcontroller.py"
     ]
 }

@@ -7,7 +7,6 @@ from PySide6.QtQml import QQmlApplicationEngine
 from backendcontroller import BackendController
 
 
-
 if __name__ == "__main__":
     app = QGuiApplication(sys.argv)
     engine = QQmlApplicationEngine()
