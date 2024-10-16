@@ -152,7 +152,7 @@ Window {
                                 anchors.horizontalCenter: parent.horizontalCenter
 
                                 RoundButton {
-                                    id: typeButton
+                                    id: grassTypeButton
                                     width: 28
                                     height: 28
                                     text: "+"
@@ -163,7 +163,7 @@ Window {
                                 }
 
                                 RoundButton {
-                                    id: typeButton1
+                                    id: fireTypeButton
                                     width: 28
                                     height: 28
                                     text: "+"
@@ -174,7 +174,7 @@ Window {
                                 }
 
                                 RoundButton {
-                                    id: typeButton2
+                                    id: waterTypeButton
                                     width: 28
                                     height: 28
                                     text: "+"
@@ -185,7 +185,7 @@ Window {
                                 }
 
                                 RoundButton {
-                                    id: typeButton3
+                                    id: lightningTypeButton
                                     width: 28
                                     height: 28
                                     text: "+"
@@ -196,7 +196,7 @@ Window {
                                 }
 
                                 RoundButton {
-                                    id: typeButton4
+                                    id: psychicTypeButton
                                     width: 28
                                     height: 28
                                     text: "+"
@@ -207,7 +207,7 @@ Window {
                                 }
 
                                 RoundButton {
-                                    id: typeButton5
+                                    id: fightingTypeButton
                                     width: 28
                                     height: 28
                                     text: "+"
@@ -218,7 +218,7 @@ Window {
                                 }
 
                                 RoundButton {
-                                    id: typeButton6
+                                    id: darknessTypeButton
                                     width: 28
                                     height: 28
                                     text: "+"
@@ -229,7 +229,7 @@ Window {
                                 }
 
                                 RoundButton {
-                                    id: typeButton7
+                                    id: metalTypeButton
                                     width: 28
                                     height: 28
                                     text: "+"
@@ -240,7 +240,7 @@ Window {
                                 }
 
                                 RoundButton {
-                                    id: typeButton8
+                                    id: colorlessTypeButton
                                     width: 28
                                     height: 28
                                     text: "+"
@@ -251,7 +251,7 @@ Window {
                                 }
 
                                 RoundButton {
-                                    id: typeButton9
+                                    id: fairyTypeButton
                                     width: 28
                                     height: 28
                                     text: "+"
@@ -262,7 +262,7 @@ Window {
                                 }
 
                                 RoundButton {
-                                    id: typeButton10
+                                    id: dragonTypeButton
                                     width: 28
                                     height: 28
                                     text: "+"
