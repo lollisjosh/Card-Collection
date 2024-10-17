@@ -8,7 +8,7 @@ Window {
     width: 480
     height: 600
     visible: true
-    property alias searchToolsLower: searchToolsLower
+    property alias searchFilterTools: searchFilterTools
     title: qsTr("Card Collection")
 
 
@@ -83,7 +83,7 @@ Window {
                         Layout.fillHeight: true
 
                         ToolBar {
-                            id: searchToolsUpper
+                            id: searchTools
                             width: parent.width
                             height: 48
                             Layout.fillHeight: false
@@ -93,7 +93,7 @@ Window {
                             Layout.fillWidth: true
 
                             RowLayout {
-                                id: rowLayout
+                                id: searchRow
                                 anchors.fill: parent
                                 spacing: 5
                                 // ComboBox {
@@ -143,7 +143,7 @@ Window {
                         }
 
                         ToolBar {
-                            id: searchToolsLower
+                            id: searchFilterTools
                             width: 480
                             Layout.fillHeight: false
                             Layout.fillWidth: true
