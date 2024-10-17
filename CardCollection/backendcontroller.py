@@ -44,7 +44,9 @@ class BackendController(QObject):
         try:
             
             initHandler = inithandler.InitHandler()
+            
             sets = initHandler.handle_sets_retrieve()
+            
             setList = [{"name" : set.name} for set in sets]
             
             self.setsResults.emit(json.dumps(setList))
