@@ -7,6 +7,8 @@ from pokemontcgsdk import Supertype
 from pokemontcgsdk import Subtype
 from pokemontcgsdk import Rarity
 
+import json
+
 import inithandler
 import searchhandler
 
