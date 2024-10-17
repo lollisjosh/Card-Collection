@@ -83,6 +83,7 @@ Window {
                     
                     
                     
+
                     ColumnLayout {
                         id: searchToolsColumn
                         width: 100
@@ -91,78 +92,23 @@ Window {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
                         
-                        ToolBar {
-                            id: searchTools
-                            width: parent.width
-                            height: 48
-                            Layout.fillHeight: false
-                            contentWidth: 200
-                            contentHeight: 48
-                            z: 0
-                            Layout.fillWidth: true
-                            
-                            RowLayout {
-                                id: searchRow
-                                anchors.fill: parent
-                                spacing: 5
-                                // ComboBox {
-                                //     id: setComboBox
-                                //     displayText: ""
-                                //     Layout.fillHeight: false
-                                //     Layout.fillWidth: false
-                                
-                                
-                                //     Component.onCompleted: {
-                                //         backendController.request_sets_retrieve()
-                                //     }
-                                
-                                // }
-                                TextField {
-                                    id: txtSearchBox
-                                    width: 200
-                                    height: 36
-                                    Layout.preferredHeight: -1
-                                    Layout.preferredWidth: -1
-                                    placeholderText: qsTr("Enter card name")
-                                    Layout.fillWidth: true
-                                }
-                                Button {
-                                    id: btnSearch
-                                    width: 100
-                                    height: 40
-                                    text: qsTr("Search")
-                                    Layout.fillWidth: false
-                                    onClicked: {
-                                        // Initialize an empty array for the search parameters
-                                        var testSearchParams = [];
-                                        
-                                        // Check if the search box is not empty
-                                        if (txtSearchBox.text.trim() !== "") {
-                                            // Create a tuple with the entered name
-                                            testSearchParams.push(['', 'name', txtSearchBox.text]);
-                                        }
-                                        
-                                        // Call the request_search function with the built tuples if there are any
-                                        if (testSearchParams.length > 0) {
-                                            backendController.request_search(testSearchParams);
-                                        }
-                                    }
-                                }
-                            }
-                        }
                         
                         ToolBar {
                             id: searchFilterTools
                             width: 480
+                            Layout.topMargin: 6
+                            verticalPadding: 0.6
                             Layout.fillHeight: false
                             Layout.fillWidth: true
                             contentHeight: 30
                             
                             RowLayout {
                                 id: filtersRow
-                                x: -6
-                                y: 1
                                 width: 480
+                                anchors.verticalCenter: parent.verticalCenter
+                                anchors.verticalCenterOffset: -2
+                                anchors.horizontalCenterOffset: 0
+                                anchors.horizontalCenter: parent.horizontalCenter
                                 spacing: 2
                                 
                                 
@@ -226,6 +172,7 @@ Window {
                                     id: typesRow
                                     width: 300
                                     height: 30
+                                    Layout.leftMargin: 6
                                     spacing: 2
                                     Layout.preferredWidth: -1
                                     Layout.preferredHeight: -1
@@ -446,11 +393,84 @@ Window {
                                 
                             }
                         }
+                        ToolBar {
+                            id: searchTools
+                            width: parent.width
+                            height: 48
+                            Layout.fillHeight: false
+                            contentWidth: 200
+                            contentHeight: 48
+                            z: 0
+                            Layout.fillWidth: true
+
+                            RowLayout {
+                                id: searchRow
+                                anchors.fill: parent
+                                spacing: 5
+                                // ComboBox {
+                                //     id: setComboBox
+                                //     displayText: ""
+                                //     Layout.fillHeight: false
+                                //     Layout.fillWidth: false
+
+
+                                //     Component.onCompleted: {
+                                //         backendController.request_sets_retrieve()
+                                //     }
+
+                                // }
+                                TextField {
+                                    id: txtSearchBox
+                                    width: 200
+                                    height: 36
+                                    Layout.leftMargin: 6
+                                    Layout.preferredHeight: -1
+                                    Layout.preferredWidth: -1
+                                    placeholderText: qsTr("Enter card name")
+                                    Layout.fillWidth: true
+                                }
+                                Button {
+                                    id: btnSearch
+                                    width: 100
+                                    height: 40
+                                    text: qsTr("Search")
+                                    Layout.rightMargin: 6
+                                    Layout.fillWidth: false
+                                    onClicked: {
+                                        // Initialize an empty array for the search parameters
+                                        var testSearchParams = [];
+
+                                        // Check if the search box is not empty
+                                        if (txtSearchBox.text.trim() !== "") {
+                                            // Create a tuple with the entered name
+                                            testSearchParams.push(['', 'name', txtSearchBox.text]);
+                                        }
+
+                                        // Call the request_search function with the built tuples if there are any
+                                        if (testSearchParams.length > 0) {
+                                            backendController.request_search(testSearchParams);
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
+
+
                     Pane {
                         id: viewPane
                         width: 200
                         height: 200
+                        verticalPadding: 6
+                        horizontalPadding: 6
+                        contentWidth: 468
+                        contentHeight: 300
+                        bottomPadding: 9
+                        Layout.margins: 0
+                        Layout.topMargin: 0
+                        Layout.bottomMargin: 0
+                        Layout.rightMargin: 0
+                        Layout.leftMargin: 0
                         Layout.fillHeight: true
                         Layout.fillWidth: true
                         
@@ -484,26 +504,25 @@ Window {
                             
                         }
                     }
+                    
                     ToolBar {
                         id: pagingButtonsToolbar
+                        height: 37
                         position: ToolBar.Header
+                        contentWidth: 480
                         topPadding: 0
                         Layout.fillHeight: true
                         Layout.fillWidth: true
-                        Layout.preferredHeight: 32
-                        Layout.preferredWidth: 480
-                        contentWidth: -1
-                        contentHeight: -1
-                        
+                        contentHeight: 32
+
                         RowLayout {
+                            x: 130
+                            y: 11
                             height: 26
                             visible: true
-                            anchors.verticalCenter: parent.verticalCenter
                             uniformCellSizes: false
-                            anchors.horizontalCenterOffset: 0
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            spacing: 50
-                            
+                            spacing: 49
+
                             Button {
                                 text: "Previous"
                                 enabled: selectedIndex > 0
@@ -513,7 +532,7 @@ Window {
                                     }
                                 }
                             }
-                            
+
                             Button {
                                 text: "Next"
                                 enabled: selectedIndex < cards.length - 1
@@ -525,7 +544,6 @@ Window {
                             }
                         }
                     }
-                    
                 }
                 
                 ListModel {
