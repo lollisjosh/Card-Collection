@@ -30,3 +30,4 @@ class Backend:
         Returns:
             list[Set]: A list of Set objects retrieved from the API.
         """
+        return Set.all()
