@@ -1,8 +1,8 @@
-import QtQuick 2.7
+import QtQuick 2.1
 import QtQuick.Controls
 import QtQuick.Layouts
-import QtQuick.Window 2.1
-import QtQuick.Controls.Fusion 2
+import QtQuick.Window 2.15
+import QtQuick.Controls.Fusion 2.15
 
 Window {
     width: 480
@@ -96,22 +96,24 @@ Window {
                                 id: rowLayout
                                 anchors.fill: parent
                                 spacing: 5
+                                // ComboBox {
+                                //     id: setComboBox
+                                //     displayText: ""
+                                //     Layout.fillHeight: false
+                                //     Layout.fillWidth: false
 
-                                ComboBox {
-                                    id: setComboBox
-                                    Layout.fillHeight: false
-                                    Layout.fillWidth: false
 
+                                //     Component.onCompleted: {
+                                //         backendController.request_sets_retrieve()
+                                //     }
 
-                                    Component.onCompleted: {
-                                        backendController.request_sets_retrieve()
-                                    }
-
-                                }
+                                // }
                                 TextField {
                                     id: txtSearchBox
                                     width: 200
-                                    height: 40
+                                    height: 36
+                                    Layout.preferredHeight: -1
+                                    Layout.preferredWidth: -1
                                     placeholderText: qsTr("Enter card name")
                                     Layout.fillWidth: true
                                 }
@@ -142,221 +144,336 @@ Window {
 
                         ToolBar {
                             id: searchToolsLower
-                            Layout.fillHeight: true
+                            width: 480
+                            Layout.fillHeight: false
                             Layout.fillWidth: true
                             contentHeight: 30
 
                             RowLayout {
                                 id: typeButtonRow
-                                anchors.verticalCenter: parent.verticalCenter
-                                anchors.verticalCenterOffset: -3
-                                anchors.horizontalCenterOffset: 0
-                                anchors.horizontalCenter: parent.horizontalCenter
+                                x: -6
+                                y: 1
+                                width: 480
+                                spacing: 2
 
-                                RoundButton {
-                                    id: grassTypeButton
-                                    width: 28
-                                    height: 28
-                                    text: ""
-                                    highlighted: grassTypeButton.checked
 
-                                    flat: false
-                                    checked: false
-                                    checkable: true
-                                    palette {
-                                        button: "limegreen"
-                                    }
-                                }
-
-                                RoundButton {
-                                    id: fireTypeButton
-                                    width: 28
-                                    height: 28
-                                    text: ""
-                                    highlighted: fireTypeButton.checked
-                                    flat: false
-                                    checked: false
-                                    checkable: true
-                                    Layout.fillWidth: false
+                                ComboBox {
+                                    id: setComboBox
+                                    width: 124
+                                    height: 30
+                                    Layout.leftMargin: 6
+                                    Layout.preferredHeight: 24
+                                    Layout.preferredWidth: 124
                                     Layout.fillHeight: false
-                                    palette {
-                                        button: "red"
+                                    Layout.fillWidth: true
+                                    displayText: "Sets"
+
+                                    model: ListModel {
+                                        ListElement { name: "One"; selected: false }
+                                        ListElement { name: "Two"; selected: false }
+                                        ListElement { name: "Three"; selected: false }
+                                    }
+
+                                    // ComboBox closes the popup when its items (anything AbstractButton derivative) are
+                                    //  activated. Wrapping the delegate into a plain Item prevents that.
+                                    delegate: Item {
+                                        width: parent.width
+                                        height: checkDelegate.height
+
+                                        function toggle() { checkDelegate.toggle() }
+
+                                        CheckDelegate {
+                                            id: checkDelegate
+                                            anchors.fill: parent
+                                            text: model.name
+                                            highlighted: setComboBox.highlightedIndex == index
+                                            checked: model.selected
+                                            onCheckedChanged: model.selected = checked
+                                        }
+                                    }
+
+                                    // override space key handling to toggle items when the popup is visible
+                                    Keys.onSpacePressed: {
+                                        if (setComboBox.popup.visible) {
+                                            var currentItem = setComboBox.popup.contentItem.currentItem
+                                            if (currentItem) {
+                                                currentItem.toggle()
+                                                event.accepted = true
+                                            }
+                                        }
+                                    }
+
+                                    Keys.onReleased: {
+                                        if (setComboBox.popup.visible)
+                                            event.accepted = (event.key === Qt.Key_Space)
+                                    }
+
+                                    Component.onCompleted: {
+                                        backendController.request_sets_retrieve()
                                     }
                                 }
 
-                                RoundButton {
-                                    id: waterTypeButton
-                                    width: 28
-                                    height: 28
-                                    text: ""
-                                    highlighted: waterTypeButton.checked
-                                    flat: false
-                                    checked: false
-                                    checkable: true
-                                    Layout.fillWidth: false
+                                Row {
+                                    id: row
+                                    width: 300
+                                    height: 30
+                                    spacing: 2
+                                    Layout.preferredWidth: -1
+                                    Layout.preferredHeight: -1
                                     Layout.fillHeight: false
-                                    palette {
-                                        button: "blue"
+                                    Layout.fillWidth: false
+                                    Layout.rightMargin: 6
+
+                                    RoundButton {
+                                        id: grassTypeButton
+                                        width: 24
+                                        height: 24
+                                        text: ""
+                                        Layout.preferredHeight: 24
+                                        Layout.preferredWidth: 24
+                                        Layout.rowSpan: 1
+                                        Layout.fillWidth: false
+                                        highlighted: grassTypeButton.checked
+
+                                        flat: false
+                                        checked: false
+                                        checkable: true
+                                        palette {
+                                            button: "limegreen"
+                                        }
+                                    }
+
+                                    RoundButton {
+                                        id: fireTypeButton
+                                        width: 24
+                                        height: 24
+                                        text: ""
+                                        Layout.preferredHeight: 24
+                                        Layout.preferredWidth: 24
+                                        Layout.rowSpan: 1
+                                        highlighted: fireTypeButton.checked
+                                        flat: false
+                                        checked: false
+                                        checkable: true
+                                        Layout.fillWidth: false
+                                        Layout.fillHeight: false
+                                        palette {
+                                            button: "red"
+                                        }
+                                    }
+
+                                    RoundButton {
+                                        id: waterTypeButton
+                                        width: 24
+                                        height: 24
+                                        text: ""
+                                        Layout.preferredHeight: 24
+                                        Layout.preferredWidth: 24
+                                        Layout.rowSpan: 1
+                                        highlighted: waterTypeButton.checked
+                                        flat: false
+                                        checked: false
+                                        checkable: true
+                                        Layout.fillWidth: false
+                                        Layout.fillHeight: false
+                                        palette {
+                                            button: "blue"
+                                        }
+                                    }
+
+                                    RoundButton {
+                                        id: lightningTypeButton
+                                        width: 24
+                                        height: 24
+                                        text: ""
+                                        Layout.preferredHeight: 24
+                                        Layout.preferredWidth: 24
+                                        Layout.rowSpan: 1
+                                        highlighted: lightningTypeButton.checked
+                                        flat: false
+                                        checked: false
+                                        checkable: true
+                                        Layout.fillWidth: false
+                                        Layout.fillHeight: false
+                                        palette {
+                                            button: "gold"
+                                        }
+                                    }
+
+                                    RoundButton {
+                                        id: psychicTypeButton
+                                        width: 24
+                                        height: 24
+                                        text: ""
+                                        Layout.preferredHeight: 24
+                                        Layout.preferredWidth: 24
+                                        Layout.rowSpan: 1
+                                        highlighted: psychicTypeButton.checked
+                                        checked: false
+                                        checkable: true
+                                        Layout.fillWidth: false
+                                        Layout.fillHeight: false
+                                        palette {
+                                            button: "darkviolet"
+                                        }
+                                    }
+
+                                    RoundButton {
+                                        id: fightingTypeButton
+                                        width: 24
+                                        height: 24
+                                        text: ""
+                                        Layout.preferredHeight: 24
+                                        Layout.preferredWidth: 24
+                                        Layout.rowSpan: 1
+                                        highlighted: fightingTypeButton.checked
+                                        flat: false
+                                        checked: false
+                                        checkable: true
+                                        Layout.fillWidth: false
+                                        Layout.fillHeight: false
+                                        palette {
+                                            button: "saddlebrown"
+                                        }
+                                    }
+
+                                    RoundButton {
+                                        id: darknessTypeButton
+                                        width: 24
+                                        height: 24
+                                        text: ""
+                                        Layout.preferredHeight: 24
+                                        Layout.preferredWidth: 24
+                                        Layout.rowSpan: 1
+                                        highlighted: darknessTypeButton.checked
+                                        flat: false
+                                        checked: false
+                                        checkable: true
+                                        Layout.fillWidth: false
+                                        Layout.fillHeight: false
+                                        palette {
+                                            button: "darkslategrey"
+                                        }
+                                    }
+
+                                    RoundButton {
+                                        id: metalTypeButton
+                                        width: 24
+                                        height: 24
+                                        text: ""
+                                        Layout.preferredHeight: 24
+                                        Layout.preferredWidth: 24
+                                        Layout.rowSpan: 1
+                                        highlighted: metalTypeButton.checked
+                                        flat: false
+                                        checked: false
+                                        checkable: true
+                                        Layout.fillWidth: false
+                                        Layout.fillHeight: false
+                                        palette {
+                                            button: "lightgrey"
+                                        }
+                                    }
+
+                                    RoundButton {
+                                        id: colorlessTypeButton
+                                        width: 24
+                                        height: 24
+                                        text: ""
+                                        Layout.preferredHeight: 24
+                                        Layout.preferredWidth: 24
+                                        Layout.rowSpan: 1
+                                        highlighted: colorlessTypeButton.checked
+                                        flat: false
+                                        checked: false
+                                        checkable: true
+                                        Layout.fillWidth: false
+                                        Layout.fillHeight: false
+                                        palette {
+                                            button: "white"
+                                        }
+                                    }
+
+                                    RoundButton {
+                                        id: fairyTypeButton
+                                        width: 24
+                                        height: 24
+                                        text: ""
+                                        Layout.preferredHeight: 24
+                                        Layout.preferredWidth: 24
+                                        Layout.rowSpan: 1
+                                        highlighted: fairyTypeButton.checked
+                                        flat: false
+                                        checked: false
+                                        checkable: true
+                                        Layout.fillWidth: false
+                                        Layout.fillHeight: false
+                                        palette {
+                                            button: "hotpink"
+                                        }
+                                    }
+
+                                    RoundButton {
+                                        id: dragonTypeButton
+                                        width: 24
+                                        height: 24
+                                        text: ""
+                                        Layout.preferredHeight: 24
+                                        Layout.preferredWidth: 24
+                                        Layout.rowSpan: 1
+                                        highlighted: dragonTypeButton.checked
+                                        flat: false
+                                        checked: false
+                                        checkable: true
+                                        Layout.fillWidth: false
+                                        Layout.fillHeight: false
+                                        palette {
+                                            button: "goldenrod"
+                                        }
                                     }
                                 }
 
-                                RoundButton {
-                                    id: lightningTypeButton
-                                    width: 28
-                                    height: 28
-                                    text: ""
-                                    highlighted: lightningTypeButton.checked
-                                    flat: false
-                                    checked: false
-                                    checkable: true
-                                    Layout.fillWidth: false
-                                    Layout.fillHeight: false
-                                    palette {
-                                        button: "gold"
-                                    }
-                                }
 
-                                RoundButton {
-                                    id: psychicTypeButton
-                                    width: 28
-                                    height: 28
-                                    text: ""
-                                    highlighted: psychicTypeButton.checked
-                                    checked: false
-                                    checkable: true
-                                    Layout.fillWidth: false
-                                    Layout.fillHeight: false
-                                    palette {
-                                        button: "darkviolet"
-                                    }
-                                }
-
-                                RoundButton {
-                                    id: fightingTypeButton
-                                    width: 28
-                                    height: 28
-                                    text: ""
-                                    highlighted: fightingTypeButton.checked
-                                    flat: false
-                                    checked: false
-                                    checkable: true
-                                    Layout.fillWidth: false
-                                    Layout.fillHeight: false
-                                    palette {
-                                        button: "saddlebrown"
-                                    }
-                                }
-
-                                RoundButton {
-                                    id: darknessTypeButton
-                                    width: 28
-                                    height: 28
-                                    text: ""
-                                    highlighted: darknessTypeButton.checked
-                                    flat: false
-                                    checked: false
-                                    checkable: true
-                                    Layout.fillWidth: false
-                                    Layout.fillHeight: false
-                                    palette {
-                                        button: "darkslategrey"
-                                    }
-                                }
-
-                                RoundButton {
-                                    id: metalTypeButton
-                                    width: 28
-                                    height: 28
-                                    text: ""
-                                    highlighted: metalTypeButton.checked
-                                    flat: false
-                                    checked: false
-                                    checkable: true
-                                    Layout.fillWidth: false
-                                    Layout.fillHeight: false
-                                    palette {
-                                        button: "lightgrey"
-                                    }
-                                }
-
-                                RoundButton {
-                                    id: colorlessTypeButton
-                                    width: 28
-                                    height: 28
-                                    text: ""
-                                    highlighted: colorlessTypeButton.checked
-                                    flat: false
-                                    checked: false
-                                    checkable: true
-                                    Layout.fillWidth: false
-                                    Layout.fillHeight: false
-                                    palette {
-                                        button: "white"
-                                    }
-                                }
-
-                                RoundButton {
-                                    id: fairyTypeButton
-                                    width: 28
-                                    height: 28
-                                    text: ""
-                                    highlighted: fairyTypeButton.checked
-                                    flat: false
-                                    checked: false
-                                    checkable: true
-                                    Layout.fillWidth: false
-                                    Layout.fillHeight: false
-                                    palette {
-                                        button: "hotpink"
-                                    }
-                                }
-
-                                RoundButton {
-                                    id: dragonTypeButton
-                                    width: 28
-                                    height: 28
-                                    text: ""
-                                    highlighted: dragonTypeButton.checked
-                                    flat: false
-                                    checked: false
-                                    checkable: true
-                                    Layout.fillWidth: false
-                                    Layout.fillHeight: false
-                                    palette {
-                                        button: "goldenrod"
-                                    }
-                                }
 
                             }
                         }
                     }
-                    Frame {
-                        id: frame
-                        width: 400
-                        height: 472
-                        contentHeight: 472
-                        contentWidth: 400
-                        Layout.preferredHeight: 472
-                        Layout.preferredWidth: 400
+                    Pane {
+                        id: viewPane
+                        width: 200
+                        height: 200
                         Layout.fillHeight: true
                         Layout.fillWidth: true
 
-                        Image {
-                            id: cardImage
+                        Frame {
+                            id: frame
+                            x: -9
+                            y: 9
                             anchors.fill: parent
-                            source: (selectedIndex >= 0 && selectedIndex < cards.length)
-                                    ? (cards[selectedIndex].imageUrl || "")  // Show the image URL or an empty string if not available
-                                    : ""  // Show nothing initially if no valid card is selected
-                            Layout.fillHeight: false
-                            Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
-                            Layout.preferredHeight: 500
-                            Layout.preferredWidth: 480
+                            contentHeight: 472
+                            contentWidth: 400
+                            Layout.preferredHeight: 472
+                            Layout.preferredWidth: 400
+                            Layout.fillHeight: true
                             Layout.fillWidth: true
-                            scale: 0.75
-                            fillMode: Image.PreserveAspectFit
+
+                            Image {
+                                id: cardImage
+                                anchors.fill: parent
+                                source: (selectedIndex >= 0 && selectedIndex < cards.length)
+                                        ? (cards[selectedIndex].imageUrl || "")  // Show the image URL or an empty string if not available
+                                        : ""  // Show nothing initially if no valid card is selected
+                                Layout.fillHeight: false
+                                Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
+                                Layout.preferredHeight: 500
+                                Layout.preferredWidth: 480
+                                Layout.fillWidth: true
+                                scale: 0.75
+                                fillMode: Image.PreserveAspectFit
+                            }
+
+
                         }
-
-
                     }
                     ToolBar {
                         id: pagingButtonsToolbar
@@ -399,6 +516,7 @@ Window {
                             }
                         }
                     }
+
                 }
 
                 ListModel {
