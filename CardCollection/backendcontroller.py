@@ -39,6 +39,11 @@ class BackendController(QObject):
         Args:
             params none
         """
+        initHandler = inithandler.InitHandler()
+        sets = initHandler.handle_sets_retrieve()
+        setList = [{"name" : set.name} for set in sets]
+        
+        self.setsResults.emit(json.dumps(setList))
 
     @Slot(list)
     def request_search(self, params: list[tuple[str, str, str]]):
