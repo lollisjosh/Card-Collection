@@ -214,7 +214,7 @@ Window {
                                 }
 
                                 Row {
-                                    id: row
+                                    id: typesRow
                                     width: 300
                                     height: 30
                                     spacing: 2
