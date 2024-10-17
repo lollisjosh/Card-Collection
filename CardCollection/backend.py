@@ -3,11 +3,11 @@ from pokemontcgsdk import Card, Set, RestClient
 RestClient.configure('12345678-1234-1234-1234-123456789ABCD')
 
 class Backend:
-    def construct_query(self, search_parameters: list[tuple]) -> str:
+    def construct_query(self, search_parameters: list[tuple[str,str,str]]) -> str:
         """
         Constructs a query string from the given search parameters.
         Args:
-            search_parameters (list[tuple]): A list of tuples representing the search parameters.
+            search_parameters (list[tuple[str,str,str]]): A list of tuples representing the search parameters.
               
         Returns:
             str: The constructed query string.
