@@ -13,6 +13,7 @@ Window {
     
     property int selectedIndex: -1
     property var cards: []  // List of card objects
+    property int selectedTabIndex: 0
     
     // StackLayout to switch between pages
     
@@ -25,7 +26,7 @@ Window {
         TabBar {
             id: tabBar
             Layout.fillWidth: true
-            currentIndex: 1
+            currentIndex: selectedTabIndex
             width: parent.width
             Layout.preferredHeight: parent.height * 0.08
             height: 50
@@ -34,19 +35,28 @@ Window {
                 text: "Search"
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
-                onClicked: stackLayout.currentIndex = 0
+                onClicked: {
+                    selectedTabIndex = 0
+                    stackLayout.currentIndex = selectedTabIndex
+                }
             }
             TabButton {
                 text: "Discover"
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
-                onClicked: stackLayout.currentIndex = 1
+                onClicked: {
+                    selectedTabIndex = 1
+                    stackLayout.currentIndex = selectedTabIndex
+                }
             }
             TabButton {
                 text: "Collection"
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
-                onClicked: stackLayout.currentIndex = 2
+                onClicked: {
+                    selectedTabIndex = 2
+                    stackLayout.currentIndex = selectedTabIndex
+                }
             }
         }
         
@@ -55,7 +65,7 @@ Window {
             visible: true
             Layout.fillHeight: true
             Layout.fillWidth: true
-            currentIndex: 1
+            currentIndex: selectedTabIndex
             clip: false
             z: 0
             
@@ -568,407 +578,6 @@ Window {
                 id: discoverPage
                 width: parent.width
                 height: parent.height
-                
-                ColumnLayout {
-                    id: discoverTabColumn
-                    anchors.fill: parent
-                    spacing: 0
-                    ColumnLayout {
-                        id: searchToolsColumn1
-                        width: 100
-                        height: 100
-                        z: 0
-                        ToolBar {
-                            id: searchTools1
-                            width: parent.width
-                            height: 48
-                            z: 0
-                            contentWidth: 200
-                            contentHeight: 48
-                            RowLayout {
-                                id: searchRow1
-                                anchors.fill: parent
-                                spacing: 5
-                                TextField {
-                                    id: txtSearchBox1
-                                    width: 200
-                                    height: 36
-                                    placeholderText: qsTr("Enter card name")
-                                    Layout.preferredWidth: -1
-                                    Layout.preferredHeight: -1
-                                    Layout.fillWidth: true
-                                }
-                                
-                                Button {
-                                    id: btnSearch1
-                                    width: 100
-                                    height: 40
-                                    text: qsTr("Search")
-                                    onClicked: {
-                                        // Initialize an empty array for the search parameters
-                                        var testSearchParams = [];
-                                        
-                                        // Check if the search box is not empty
-                                        if (txtSearchBox1.text.trim() !== "") {
-                                            // Create a tuple with the entered name
-                                            testSearchParams.push(['', 'name', txtSearchBox1.text]);
-                                        }
-                                        
-                                        // Call the request_search function with the built tuples if there are any
-                                        if (testSearchParams.length > 0) {
-                                            backendController.request_search(testSearchParams);
-                                        }
-                                    }
-                                    Layout.fillWidth: false
-                                }
-                            }
-                            Layout.fillWidth: true
-                            Layout.fillHeight: false
-                        }
-                        
-                        ToolBar {
-                            id: searchFilterTools1
-                            width: 480
-                            contentHeight: 30
-                            RowLayout {
-                                id: filtersRow1
-                                x: -6
-                                y: 1
-                                width: 480
-                                spacing: 2
-                                ComboBox {
-                                    id: setComboBox1
-                                    width: 124
-                                    height: 30
-                                    model: ListModel {
-                                        ListElement {
-                                            name: "One"
-                                            selected: false
-                                        }
-                                        
-                                        ListElement {
-                                            name: "Two"
-                                            selected: false
-                                        }
-                                        
-                                        ListElement {
-                                            name: "Three"
-                                            selected: false
-                                        }
-                                    }
-                                    displayText: "Sets"
-                                    delegate: Item {
-                                        width: parent.width
-                                        height: checkDelegate1.height
-                                        CheckDelegate {
-                                            id: checkDelegate1
-                                            text: model.name
-                                            anchors.fill: parent
-                                            onCheckedChanged: model.selected = checked
-                                            highlighted: setComboBox1.highlightedIndex == index
-                                            checked: model.selected
-                                        }
-                                    }
-                                    Layout.preferredWidth: 124
-                                    Layout.preferredHeight: 24
-                                    Layout.leftMargin: 6
-                                    Layout.fillWidth: true
-                                    Layout.fillHeight: false
-                                    Keys.onSpacePressed: {
-                                        if (setComboBox1.popup.visible) {
-                                            var currentItem = setComboBox1.popup.contentItem.currentItem
-                                            if (currentItem) {
-                                                currentItem.toggle()
-                                                event.accepted = true
-                                            }
-                                        }
-                                    }
-                                    Keys.onReleased: {
-                                        if (setComboBox1.popup.visible)
-                                            event.accepted = (event.key === Qt.Key_Space)
-                                    }
-                                    Component.onCompleted: {
-                                        backendController.request_sets_retrieve()
-                                    }
-                                }
-                                
-                                Row {
-                                    id: typesRow1
-                                    width: 300
-                                    height: 30
-                                    spacing: 2
-                                    RoundButton {
-                                        id: grassTypeButton1
-                                        width: 24
-                                        height: 24
-                                        text: ""
-                                        palette.button: "limegreen"
-                                        highlighted: grassTypeButton1.checked
-                                        flat: false
-                                        checked: false
-                                        checkable: true
-                                        Layout.rowSpan: 1
-                                        Layout.preferredWidth: 24
-                                        Layout.preferredHeight: 24
-                                        Layout.fillWidth: false
-                                    }
-                                    
-                                    RoundButton {
-                                        id: fireTypeButton1
-                                        width: 24
-                                        height: 24
-                                        text: ""
-                                        palette.button: "red"
-                                        highlighted: fireTypeButton1.checked
-                                        flat: false
-                                        checked: false
-                                        checkable: true
-                                        Layout.rowSpan: 1
-                                        Layout.preferredWidth: 24
-                                        Layout.preferredHeight: 24
-                                        Layout.fillWidth: false
-                                        Layout.fillHeight: false
-                                    }
-                                    
-                                    RoundButton {
-                                        id: waterTypeButton1
-                                        width: 24
-                                        height: 24
-                                        text: ""
-                                        palette.button: "blue"
-                                        highlighted: waterTypeButton1.checked
-                                        flat: false
-                                        checked: false
-                                        checkable: true
-                                        Layout.rowSpan: 1
-                                        Layout.preferredWidth: 24
-                                        Layout.preferredHeight: 24
-                                        Layout.fillWidth: false
-                                        Layout.fillHeight: false
-                                    }
-                                    
-                                    RoundButton {
-                                        id: lightningTypeButton1
-                                        width: 24
-                                        height: 24
-                                        text: ""
-                                        palette.button: "gold"
-                                        highlighted: lightningTypeButton1.checked
-                                        flat: false
-                                        checked: false
-                                        checkable: true
-                                        Layout.rowSpan: 1
-                                        Layout.preferredWidth: 24
-                                        Layout.preferredHeight: 24
-                                        Layout.fillWidth: false
-                                        Layout.fillHeight: false
-                                    }
-                                    
-                                    RoundButton {
-                                        id: psychicTypeButton1
-                                        width: 24
-                                        height: 24
-                                        text: ""
-                                        palette.button: "darkviolet"
-                                        highlighted: psychicTypeButton1.checked
-                                        checked: false
-                                        checkable: true
-                                        Layout.rowSpan: 1
-                                        Layout.preferredWidth: 24
-                                        Layout.preferredHeight: 24
-                                        Layout.fillWidth: false
-                                        Layout.fillHeight: false
-                                    }
-                                    
-                                    RoundButton {
-                                        id: fightingTypeButton1
-                                        width: 24
-                                        height: 24
-                                        text: ""
-                                        palette.button: "saddlebrown"
-                                        highlighted: fightingTypeButton1.checked
-                                        flat: false
-                                        checked: false
-                                        checkable: true
-                                        Layout.rowSpan: 1
-                                        Layout.preferredWidth: 24
-                                        Layout.preferredHeight: 24
-                                        Layout.fillWidth: false
-                                        Layout.fillHeight: false
-                                    }
-                                    
-                                    RoundButton {
-                                        id: darknessTypeButton1
-                                        width: 24
-                                        height: 24
-                                        text: ""
-                                        palette.button: "darkslategrey"
-                                        highlighted: darknessTypeButton1.checked
-                                        flat: false
-                                        checked: false
-                                        checkable: true
-                                        Layout.rowSpan: 1
-                                        Layout.preferredWidth: 24
-                                        Layout.preferredHeight: 24
-                                        Layout.fillWidth: false
-                                        Layout.fillHeight: false
-                                    }
-                                    
-                                    RoundButton {
-                                        id: metalTypeButton1
-                                        width: 24
-                                        height: 24
-                                        text: ""
-                                        palette.button: "lightgrey"
-                                        highlighted: metalTypeButton1.checked
-                                        flat: false
-                                        checked: false
-                                        checkable: true
-                                        Layout.rowSpan: 1
-                                        Layout.preferredWidth: 24
-                                        Layout.preferredHeight: 24
-                                        Layout.fillWidth: false
-                                        Layout.fillHeight: false
-                                    }
-                                    
-                                    RoundButton {
-                                        id: colorlessTypeButton1
-                                        width: 24
-                                        height: 24
-                                        text: ""
-                                        palette.button: "white"
-                                        highlighted: colorlessTypeButton1.checked
-                                        flat: false
-                                        checked: false
-                                        checkable: true
-                                        Layout.rowSpan: 1
-                                        Layout.preferredWidth: 24
-                                        Layout.preferredHeight: 24
-                                        Layout.fillWidth: false
-                                        Layout.fillHeight: false
-                                    }
-                                    
-                                    RoundButton {
-                                        id: fairyTypeButton1
-                                        width: 24
-                                        height: 24
-                                        text: ""
-                                        palette.button: "hotpink"
-                                        highlighted: fairyTypeButton1.checked
-                                        flat: false
-                                        checked: false
-                                        checkable: true
-                                        Layout.rowSpan: 1
-                                        Layout.preferredWidth: 24
-                                        Layout.preferredHeight: 24
-                                        Layout.fillWidth: false
-                                        Layout.fillHeight: false
-                                    }
-                                    
-                                    RoundButton {
-                                        id: dragonTypeButton1
-                                        width: 24
-                                        height: 24
-                                        text: ""
-                                        palette.button: "goldenrod"
-                                        highlighted: dragonTypeButton1.checked
-                                        flat: false
-                                        checked: false
-                                        checkable: true
-                                        Layout.rowSpan: 1
-                                        Layout.preferredWidth: 24
-                                        Layout.preferredHeight: 24
-                                        Layout.fillWidth: false
-                                        Layout.fillHeight: false
-                                    }
-                                    Layout.rightMargin: 6
-                                    Layout.preferredWidth: -1
-                                    Layout.preferredHeight: -1
-                                    Layout.fillWidth: false
-                                    Layout.fillHeight: false
-                                }
-                            }
-                            Layout.fillWidth: true
-                            Layout.fillHeight: false
-                        }
-                        Layout.fillWidth: true
-                        Layout.fillHeight: true
-                    }
-                    
-                    Pane {
-                        id: viewPane1
-                        width: 200
-                        height: 200
-                        Frame {
-                            id: frame1
-                            x: -9
-                            y: 9
-                            anchors.fill: parent
-                            contentWidth: 400
-                            contentHeight: 472
-                            Image {
-                                id: cardImage1
-                                anchors.fill: parent
-                                source: (selectedIndex >= 0 && selectedIndex < cards.length)
-                                        ? (cards[selectedIndex].imageUrl || "")  // Show the image URL or an empty string if not available
-                                        : ""
-                                scale: 0.75
-                                fillMode: Image.PreserveAspectFit
-                                Layout.preferredWidth: 480
-                                Layout.preferredHeight: 500
-                                Layout.fillWidth: true
-                                Layout.fillHeight: false
-                                Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
-                            }
-                            Layout.preferredWidth: 400
-                            Layout.preferredHeight: 472
-                            Layout.fillWidth: true
-                            Layout.fillHeight: true
-                        }
-                        Layout.fillWidth: true
-                        Layout.fillHeight: true
-                    }
-                    
-                    ToolBar {
-                        id: pagingButtonsToolbar1
-                        position: ToolBar.Header
-                        topPadding: 0
-                        contentWidth: -1
-                        contentHeight: -1
-                        RowLayout {
-                            height: 26
-                            visible: true
-                            anchors.verticalCenter: parent.verticalCenter
-                            uniformCellSizes: false
-                            spacing: 50
-                            Button {
-                                text: "Previous"
-                                onClicked: {
-                                    if (selectedIndex > 0) {
-                                        selectedIndex--;
-                                    }
-                                }
-                                enabled: selectedIndex > 0
-                            }
-                            
-                            Button {
-                                text: "Next"
-                                onClicked: {
-                                    if (selectedIndex < cards.length - 1) {
-                                        selectedIndex++;
-                                    }
-                                }
-                                enabled: selectedIndex < cards.length - 1
-                            }
-                            anchors.horizontalCenterOffset: 0
-                            anchors.horizontalCenter: parent.horizontalCenter
-                        }
-                        Layout.preferredWidth: 480
-                        Layout.preferredHeight: 32
-                        Layout.fillWidth: true
-                        Layout.fillHeight: true
-                    }
-                }
                 // Page content for browsePage
             }
             
