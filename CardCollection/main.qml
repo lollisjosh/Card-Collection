@@ -68,7 +68,6 @@ Window {
             Layout.fillWidth: true
             currentIndex: selectedTabIndex
             clip: false
-            z: 0
             
             // Page 1: Search Page
             Item {
@@ -531,38 +530,66 @@ Window {
                         property bool isDrawerOpen: false // Start with the drawer closed
 
                         // The main Pane with no margin or padding
+                        Rectangle {
+                            visible: true
+                            color: "#00ccf2ff"
+                            radius: 0
+                            border.color: "#c80d0d"
+                            border.width: 6
+                            anchors.verticalCenter: parent.verticalCenter
+                            anchors.left: parent.left
+                            anchors.right: parent.right
+                            anchors.top: parent.top
+                            z: 3
+                        }
+
                         Pane {
                             id: viewPane
-                            anchors.fill: parent
+                            anchors.verticalCenter: parent.verticalCenter
+                            anchors.left: parent.left
+                            anchors.right: parent.right
+                            anchors.top: parent.top
+                            topPadding: 0
+                            rightPadding: 0
+                            leftPadding: 0
                             verticalPadding: 6 // Padding inside the pane
                             horizontalPadding: 6 // Padding inside the pane
                             contentWidth: 468
                             contentHeight: 300
-                            bottomPadding: 9
+                            bottomPadding: 0
                             Layout.margins: 0 // No margins for the pane
                             Layout.fillHeight: true
                             Layout.fillWidth: true
 
                             // Border Rectangle around the Pane
                             Rectangle {
+                                visible: true
                                 anchors.fill: parent
-                                color: "transparent" // Set background to transparent
-                                border.color: "#afc0c4" // Darker grey color for the border
-                                border.width: 2
+                                z: 0
+                                color: "#6c0000" // Set background to transparent
+                                border.color: "#00255864" // Darker grey color for the border
+                                border.width: 0
                                 radius: 0 // Optional: Set radius for rounded corners
                             }
 
                             // Drawer
                             Rectangle {
                                 id: customDrawer
-                                x: -customDrawer.width // Start hidden
-                                width: 381
-                                height: parent.height
-                                color: "#00000000" // Light blue drawer background
+                                x: -279
                                 y: 0
+                                width: 280
+                                height: openButton.height
+                                opacity: 0.546
+                                // Start hidden
+                                color: "#15ba1c"
+                                border.color: "#c80d0d"
+                                border.width: 6
+                                z: 0
+                                // Light blue drawer background
 
                                 // MouseArea for the drawer that does not toggle visibility
                                 MouseArea {
+                                    visible: true
                                     anchors.fill: parent
                                 }
 
@@ -592,9 +619,12 @@ Window {
                                 id: openButton
                                 width: 20 // Width of the button
                                 height: parent.height
+                                opacity: 1
                                 anchors.verticalCenter: customDrawer.verticalCenter
                                 anchors.left: customDrawer.right // Keep the button attached to the right edge of the drawer
-                                z: 3
+                                anchors.leftMargin: -1
+
+                                z: 0
                                 onClicked: {
                                     if (customDrawer.x < 0) {
                                         customDrawer.x = 0; // Slide in
@@ -609,18 +639,20 @@ Window {
                                 Rectangle {
                                     id: buttonBackground
                                     anchors.fill: parent
-                                    color: "#afb2b4" // Background color of the button
-                                    radius: 1 // Rounded corners
-                                    border.color: "lightgrey" // Darker border for a subtle effect
-                                    border.width: 1 // Thin border
+                                    color: "#c80d0d" // Background color of the button
+                                    radius: 0 // Rounded corners
+                                    border.color: "#620808" // Darker border for a subtle effect
+                                    border.width: 0 // Thin border
                                 }
 
                                 // Circle for the caret background
                                 Rectangle {
                                     width: 18
                                     height: 18
-                                    color: "#5a8492" // Circle color
-                                    radius: 9 // Make it a circle
+                                    color: "#6c0101" // Circle color
+                                    radius: 9
+                                    border.color: "#c80d0d"
+                                    border.width: 2 // Make it a circle
                                     anchors.verticalCenter: parent.verticalCenter
                                     anchors.right: parent.right
                                     anchors.rightMargin: -6 // Position the circle on the right side of the button
@@ -633,7 +665,7 @@ Window {
                                     font.pixelSize: 19
                                     font.bold: true
                                     anchors.verticalCenter: parent.verticalCenter
-                                    color: "white"
+                                    color: "#ffffff"
 
                                     // Color of the caret
                                     anchors.right: buttonBackground.right
@@ -642,6 +674,7 @@ Window {
                                 }
                             }
                         }
+
                     }
 
 
@@ -661,7 +694,7 @@ Window {
 
                         RowLayout {
                             x: 130
-                            y: 0
+                            y: 20
                             height: 26
                             visible: true
                             uniformCellSizes: false
@@ -688,6 +721,8 @@ Window {
                             }
                         }
                     }
+
+
 
                 }
 
