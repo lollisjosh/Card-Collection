@@ -519,62 +519,117 @@ Window {
                         }
                     }
 
-                    Pane {
-                        id: viewPane
+                    Item {
+                        id: _item
                         width: 200
                         height: 200
-                        verticalPadding: 6
-                        horizontalPadding: 6
-                        contentWidth: 468
-                        contentHeight: 300
-                        bottomPadding: 9
-                        Layout.margins: 0
-                        Layout.topMargin: 0
-                        Layout.bottomMargin: 0
-                        Layout.rightMargin: 0
-                        Layout.leftMargin: 0
                         Layout.fillHeight: true
                         Layout.fillWidth: true
 
-                        Rectangle {
-                            id: customDrawer
-                            width: 150
-                            height: parent.height
-                            color: "#00c0ff"
-                            x: -customDrawer.width // Start hidden
-                            y: 0
+                        // Rectangle for the margin effect
 
-                            // MouseArea for the drawer that does not toggle visibility
+                        // The main Pane with no margin or padding
+                        Pane {
+                            id: viewPane
+                            anchors.fill: parent
+                            verticalPadding: 6 // Padding inside the pane
+                            horizontalPadding: 6 // Padding inside the pane
+                            contentWidth: 468
+                            contentHeight: 300
+                            bottomPadding: 9
+                            Layout.margins: 0 // No margins for the pane
+                            Layout.fillHeight: true
+                            Layout.fillWidth: true
+
+                            // Border Rectangle around the Pane
+                            Rectangle {
+                                // Fill the pane
+                                color: "transparent" // Set background to transparent
+                                border.color: "#afc0c4" // Darker grey color for the border
+                                border.width: 2
+                                anchors.fill: parent // Set the border width as desired
+                                radius: 0 // Optional: Set radius for rounded corners
+                            }
+
+                            Rectangle {
+                                id: customDrawer
+                                x: -158
+                                width: 150
+                                height: parent.height
+                                color: "#baeeff" // Light blue drawer background
+                                // Start hidden
+                                y: 0
+
+                                // MouseArea for the drawer that does not toggle visibility
+                                MouseArea {
+                                    anchors.fill: parent
+                                    // Do not perform any action on click
+                                }
+
+                                // Frame that holds the card image
+                                Frame {
+                                    id: frame
+                                    anchors.fill: parent
+                                    // Other properties...
+                                }
+                            }
+
+                            // Trigger button to open/close drawer
                             MouseArea {
-                                anchors.fill: parent
-                                // Do not perform any action on click
-                            }
+                                id: openButton
+                                width: 20 // Increased width for full clickable area
+                                height: parent.height
+                                anchors.verticalCenter: parent.verticalCenter
+                                anchors.left: parent.left
+                                z: 3
+                                onClicked: {
+                                    if (customDrawer.x < 0) {
+                                        customDrawer.x = 0; // Slide in
+                                    } else {
+                                        customDrawer.x = -customDrawer.width-8; // Slide out
+                                    }
+                                }
 
-                            // Frame that holds the card image
-                            Frame {
-                                id: frame
-                                anchors.fill: parent
-                                // Other properties...
-                            }
-                        }
+                                Rectangle {
+                                    id: buttonBackground
+                                    anchors.fill: parent
+                                    color: "#afb2b4" // Background color of the button
+                                    radius: 1 // Rounded corners
+                                    border.color: "lightgrey" // Darker border for a subtle effect
+                                    border.width: 1 // Thin border
+                                }
 
-                        // Trigger button to open/close drawer
-                        MouseArea {
-                            id: openButton
-                            width: 50
-                            height: parent.height
-                            anchors.verticalCenter: parent.verticalCenter
-                            anchors.left: parent.left
-                            z: 3
-                            onClicked: {
-                                if (customDrawer.x < 0) {
-                                    customDrawer.x = 0; // Slide in
-                                } else {
-                                    customDrawer.x = -customDrawer.width; // Slide out
+                                // Circle for the caret background
+                                Rectangle {
+                                    x: 8
+                                    width: 18 // Slightly larger for better appearance
+                                    height: 18
+                                    color: "#5a8492" // Circle color
+                                    radius: 2 // Make it a circle
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    anchors.right: parent.right
+                                    anchors.rightMargin: -6 // Position the circle on the right side of the button
+                                }
+
+                                // Caret using text
+                                Text {
+                                    text: ">" // ASCII caret character
+                                    font.pixelSize: 19
+                                    font.bold: true
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    color: "white" // Color of the caret
+                                    anchors.right: buttonBackground.right
+                                    anchors.rightMargin: -2 // Align with the right edge of the button
+                                    x: 11
                                 }
                             }
                         }
 }
+
+
+
+
+
 
 
                     ToolBar {
