@@ -526,8 +526,6 @@ Window {
                         Layout.fillHeight: true
                         Layout.fillWidth: true
 
-                        // Rectangle for the margin effect
-
                         // The main Pane with no margin or padding
                         Pane {
                             id: viewPane
@@ -543,27 +541,25 @@ Window {
 
                             // Border Rectangle around the Pane
                             Rectangle {
-                                // Fill the pane
+                                anchors.fill: parent
                                 color: "transparent" // Set background to transparent
                                 border.color: "#afc0c4" // Darker grey color for the border
                                 border.width: 2
-                                anchors.fill: parent // Set the border width as desired
                                 radius: 0 // Optional: Set radius for rounded corners
                             }
 
+                            // Drawer
                             Rectangle {
                                 id: customDrawer
-                                x: -158
-                                width: 150
+                                x: -customDrawer.width // Start hidden
+                                width: 381
                                 height: parent.height
-                                color: "#baeeff" // Light blue drawer background
-                                // Start hidden
+                                color: "#00000000" // Light blue drawer background
                                 y: 0
 
                                 // MouseArea for the drawer that does not toggle visibility
                                 MouseArea {
                                     anchors.fill: parent
-                                    // Do not perform any action on click
                                 }
 
                                 // Frame that holds the card image
@@ -577,19 +573,20 @@ Window {
                             // Trigger button to open/close drawer
                             MouseArea {
                                 id: openButton
-                                width: 20 // Increased width for full clickable area
+                                width: 20 // Width of the button
                                 height: parent.height
-                                anchors.verticalCenter: parent.verticalCenter
-                                anchors.left: parent.left
+                                anchors.verticalCenter: customDrawer.verticalCenter
+                                anchors.left: customDrawer.right // Keep the button attached to the right edge of the drawer
                                 z: 3
                                 onClicked: {
                                     if (customDrawer.x < 0) {
                                         customDrawer.x = 0; // Slide in
                                     } else {
-                                        customDrawer.x = -customDrawer.width-8; // Slide out
+                                        customDrawer.x = -customDrawer.width; // Slide out
                                     }
                                 }
 
+                                // Background of the button
                                 Rectangle {
                                     id: buttonBackground
                                     anchors.fill: parent
@@ -601,11 +598,10 @@ Window {
 
                                 // Circle for the caret background
                                 Rectangle {
-                                    x: 8
-                                    width: 18 // Slightly larger for better appearance
+                                    width: 18
                                     height: 18
                                     color: "#5a8492" // Circle color
-                                    radius: 2 // Make it a circle
+                                    radius: 9 // Make it a circle
                                     anchors.verticalCenter: parent.verticalCenter
                                     anchors.right: parent.right
                                     anchors.rightMargin: -6 // Position the circle on the right side of the button
@@ -620,12 +616,10 @@ Window {
                                     color: "white" // Color of the caret
                                     anchors.right: buttonBackground.right
                                     anchors.rightMargin: -2 // Align with the right edge of the button
-                                    x: 11
                                 }
                             }
                         }
-}
-
+                    }
 
 
 
