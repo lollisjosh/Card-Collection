@@ -579,10 +579,10 @@ Window {
                                 y: 0
                                 width: 280
                                 height: openButton.height
-                                opacity: 0.546
+                                opacity: 1
                                 // Start hidden
                                 color: "#15ba1c"
-                                border.color: "#c80d0d"
+                                border.color: "#25fb2e"
                                 border.width: 6
                                 z: 0
                                 // Light blue drawer background
@@ -608,7 +608,7 @@ Window {
                                         Layout.preferredHeight: 500
                                         Layout.preferredWidth: 480
                                         Layout.fillWidth: true
-                                        scale: 0.75
+                                        scale: 1
                                         fillMode: Image.PreserveAspectFit
                                     }                                }
                             }
@@ -627,7 +627,8 @@ Window {
                                 z: 0
                                 onClicked: {
                                     if (customDrawer.x < 0) {
-                                        customDrawer.x = 0; // Slide in
+                                        customDrawer.x = 5
+                                        ; // Slide in
                                         _item.isDrawerOpen = true
                                     } else {
                                         customDrawer.x = -customDrawer.width; // Slide out
@@ -647,8 +648,8 @@ Window {
 
                                 // Circle for the caret background
                                 Rectangle {
-                                    width: 18
-                                    height: 18
+                                    width: 22
+                                    height: 22
                                     color: "#6c0101" // Circle color
                                     radius: 9
                                     border.color: "#c80d0d"
@@ -662,14 +663,14 @@ Window {
                                 Text {
                                     id: drawerButtonText
                                     text: { _item.isDrawerOpen ? "<" : ">" } // Proper QML binding expression
-                                    font.pixelSize: 19
+                                    font.pixelSize: 18
                                     font.bold: true
                                     anchors.verticalCenter: parent.verticalCenter
                                     color: "#ffffff"
 
                                     // Color of the caret
                                     anchors.right: buttonBackground.right
-                                    anchors.rightMargin: -2 // Align with the right edge of the button
+                                    anchors.rightMargin: 0 // Align with the right edge of the button
 
                                 }
                             }
