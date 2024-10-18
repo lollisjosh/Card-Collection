@@ -526,6 +526,10 @@ Window {
                         Layout.fillHeight: true
                         Layout.fillWidth: true
 
+
+                        // Add a boolean variable to track the drawer's state
+                        property bool isDrawerOpen: false // Start with the drawer closed
+
                         // The main Pane with no margin or padding
                         Pane {
                             id: viewPane
@@ -570,6 +574,7 @@ Window {
                                 }
                             }
 
+
                             // Trigger button to open/close drawer
                             MouseArea {
                                 id: openButton
@@ -581,8 +586,10 @@ Window {
                                 onClicked: {
                                     if (customDrawer.x < 0) {
                                         customDrawer.x = 0; // Slide in
+                                        _item.isDrawerOpen = true
                                     } else {
                                         customDrawer.x = -customDrawer.width; // Slide out
+                                        _item.isDrawerOpen = false
                                     }
                                 }
 
@@ -609,13 +616,17 @@ Window {
 
                                 // Caret using text
                                 Text {
-                                    text: ">" // ASCII caret character
+                                    id: drawerButtonText
+                                    text: { _item.isDrawerOpen ? "<" : ">" } // Proper QML binding expression
                                     font.pixelSize: 19
                                     font.bold: true
                                     anchors.verticalCenter: parent.verticalCenter
-                                    color: "white" // Color of the caret
+                                    color: "white"
+
+                                    // Color of the caret
                                     anchors.right: buttonBackground.right
                                     anchors.rightMargin: -2 // Align with the right edge of the button
+
                                 }
                             }
                         }
