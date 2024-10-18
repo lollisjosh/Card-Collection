@@ -535,35 +535,47 @@ Window {
                         Layout.leftMargin: 0
                         Layout.fillHeight: true
                         Layout.fillWidth: true
-                        
-                        Frame {
-                            id: frame
-                            x: -9
-                            y: 9
-                            anchors.fill: parent
-                            contentHeight: 472
-                            contentWidth: 400
-                            Layout.preferredHeight: 472
-                            Layout.preferredWidth: 400
-                            Layout.fillHeight: true
-                            Layout.fillWidth: true
-                            
-                            Image {
-                                id: cardImage
+
+                        Rectangle {
+                            id: customDrawer
+                            width: 150
+                            height: parent.height
+                            color: "#00c0ff"
+                            x: -customDrawer.width // Start hidden
+                            y: 0
+
+                            // MouseArea for the drawer that does not toggle visibility
+                            MouseArea {
                                 anchors.fill: parent
-                                source: (selectedIndex >= 0 && selectedIndex < cards.length)
-                                        ? (cards[selectedIndex].imageUrl || "")  // Show the image URL or an empty string if not available
-                                        : ""  // Show nothing initially if no valid card is selected
-                                Layout.fillHeight: false
-                                Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
-                                Layout.preferredHeight: 500
-                                Layout.preferredWidth: 480
-                                Layout.fillWidth: true
-                                scale: 0.75
-                                fillMode: Image.PreserveAspectFit
+                                // Do not perform any action on click
+                            }
+
+                            // Frame that holds the card image
+                            Frame {
+                                id: frame
+                                anchors.fill: parent
+                                // Other properties...
                             }
                         }
-                    }
+
+                        // Trigger button to open/close drawer
+                        MouseArea {
+                            id: openButton
+                            width: 50
+                            height: parent.height
+                            anchors.verticalCenter: parent.verticalCenter
+                            anchors.left: parent.left
+                            z: 3
+                            onClicked: {
+                                if (customDrawer.x < 0) {
+                                    customDrawer.x = 0; // Slide in
+                                } else {
+                                    customDrawer.x = -customDrawer.width; // Slide out
+                                }
+                            }
+                        }
+}
+
 
                     ToolBar {
                         id: pagingButtonsToolbar
@@ -604,6 +616,7 @@ Window {
                             }
                         }
                     }
+
                 }
 
                 ListModel {
