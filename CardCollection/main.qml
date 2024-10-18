@@ -500,13 +500,13 @@ Window {
 
                                         // Call the request_search function with the built tuples if there are any
                                         if (searchParams.length > 0) {
-                                            //console.log("Search Button Pressed...")
-                                            //console.log("Calling backendController.request_search with parameters:")
-                                            // Print each tuple as a string to the console
-                                            // for (var i = 0; i < searchParams.length; i++) {
-                                            //     var tupleString = "[" + searchParams[i][0] + ", " + searchParams[i][1] + ", " + searchParams[i][2] + "]";
-                                            //     console.log(tupleString);
-                                            // }
+                                            console.log("Search Button Pressed...")
+                                            console.log("Calling backendController.request_search with parameters:")
+                                            //Print each tuple as a string to the console
+                                            for (var i = 0; i < searchParams.length; i++) {
+                                                var tupleString = "[" + searchParams[i][0] + ", " + searchParams[i][1] + ", " + searchParams[i][2] + "]";
+                                                console.log(tupleString);
+                                            }
 
                                             backendController.request_search(searchParams);
                                         }
@@ -570,8 +570,20 @@ Window {
                                 Frame {
                                     id: frame
                                     anchors.fill: parent
-                                    // Other properties...
-                                }
+                                    Image {
+                                        id: cardImage
+                                        anchors.fill: parent
+                                        source: (selectedIndex >= 0 && selectedIndex < cards.length)
+                                                ? (cards[selectedIndex].imageUrl || "")  // Show the image URL or an empty string if not available
+                                                : ""  // Show nothing initially if no valid card is selected
+                                        Layout.fillHeight: false
+                                        Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
+                                        Layout.preferredHeight: 500
+                                        Layout.preferredWidth: 480
+                                        Layout.fillWidth: true
+                                        scale: 0.75
+                                        fillMode: Image.PreserveAspectFit
+                                    }                                }
                             }
 
 
@@ -687,7 +699,9 @@ Window {
 
             Connections {
                 target: backendController
-                function searchResults(response) {
+                function onSearchResults(response) {
+                    //console.log("searchResults called with response:", response); // Check if this logs
+
                     var data = JSON.parse(response);
                     if (data.error) {
                         cards = [];
@@ -697,6 +711,8 @@ Window {
                                                       "imageUrl": card.imageUrl || ""
                                                   }));
                         selectedIndex = 0;  // Start with the first card
+                        // Log the image URLs to the console
+                        //console.log("Loaded image URLs:", cards.map(card => card.imageUrl));
                     }
                 }
             }
