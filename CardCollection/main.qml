@@ -199,6 +199,8 @@ Window {
                                     Layout.fillWidth: false
                                     Layout.rightMargin: 6
                                     
+                                    
+
                                     RoundButton {
                                         id: grassTypeButton
                                         width: 24
@@ -209,7 +211,7 @@ Window {
                                         Layout.rowSpan: 1
                                         Layout.fillWidth: false
                                         highlighted: grassTypeButton.checked
-                                        
+
                                         flat: false
                                         checked: false
                                         checkable: true
@@ -217,7 +219,7 @@ Window {
                                             button: "limegreen"
                                         }
                                     }
-                                    
+
                                     RoundButton {
                                         id: fireTypeButton
                                         width: 24
@@ -498,13 +500,13 @@ Window {
 
                                         // Call the request_search function with the built tuples if there are any
                                         if (searchParams.length > 0) {
-                                            console.log("Search Button Pressed...")
-                                            console.log("Calling backendController.request_search with parameters:")
+                                            //console.log("Search Button Pressed...")
+                                            //console.log("Calling backendController.request_search with parameters:")
                                             // Print each tuple as a string to the console
-                                            for (var i = 0; i < searchParams.length; i++) {
-                                                var tupleString = "[" + searchParams[i][0] + ", " + searchParams[i][1] + ", " + searchParams[i][2] + "]";
-                                                console.log(tupleString);
-                                            }
+                                            // for (var i = 0; i < searchParams.length; i++) {
+                                            //     var tupleString = "[" + searchParams[i][0] + ", " + searchParams[i][1] + ", " + searchParams[i][2] + "]";
+                                            //     console.log(tupleString);
+                                            // }
 
                                             backendController.request_search(searchParams);
                                         }
