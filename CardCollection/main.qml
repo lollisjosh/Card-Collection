@@ -158,7 +158,7 @@ Window {
 
                                     Component.onCompleted: {
                                         // Request All Sets to populate combo box
-                                        console.log("Requesting sets from backend...")
+                                        //console.log("Requesting sets from backend...")
                                         backendController.request_sets_retrieve()
                                     }
 
@@ -167,30 +167,26 @@ Window {
                                         target: backendController
                                         function onSetsResults(response) {
                                             var data = JSON.parse(response);
-                                            console.log("Received sets from backend: ", data); // Debugging the received data
+                                            //console.log("Received sets from backend: ", data); // Debugging the received data
 
                                             setsModel.clear(); // Clear existing items in the model
-                                            console.log("Model cleared");
+                                            //console.log("Model cleared");
 
                                             if (data.error) {
                                                 sets = [];
-                                                console.log("Error in the data received from backend.");
+                                                //console.log("Error in the data received from backend.");
                                             } else {
                                                 // Populate the model with new data
                                                 data.forEach(function(set) {
-                                                    console.log("Appending set: ", set.name); // Debugging each appended set
+                                                    //console.log("Appending set: ", set.name); // Debugging each appended set
                                                     setsModel.append({ "name": set.name, "selected": false });
                                                 });
 
-                                                console.log("SetsModel updated with new sets: ", setsModel.count); // Check the number of elements
+                                                //console.log("SetsModel updated with new sets: ", setsModel.count); // Check the number of elements
                                             }
                                         }
                                     }
                                 }
-
-
-
-
                                 Row {
                                     id: typesRow
                                     width: 300
@@ -413,6 +409,7 @@ Window {
                                 }
                             }
                         }
+
                         ToolBar {
                             id: searchTools
                             width: parent.width
@@ -427,18 +424,7 @@ Window {
                                 id: searchRow
                                 anchors.fill: parent
                                 spacing: 5
-                                // ComboBox {
-                                //     id: setComboBox
-                                //     displayText: ""
-                                //     Layout.fillHeight: false
-                                //     Layout.fillWidth: false
 
-
-                                //     Component.onCompleted: {
-                                //         backendController.request_sets_retrieve()
-                                //     }
-
-                                // }
                                 TextField {
                                     id: txtSearchBox
                                     width: 200
@@ -458,24 +444,78 @@ Window {
                                     Layout.fillWidth: false
                                     onClicked: {
                                         // Initialize an empty array for the search parameters
-                                        var testSearchParams = [];
+                                        var searchParams = [];
 
                                         // Check if the search box is not empty
                                         if (txtSearchBox.text.trim() !== "") {
                                             // Create a tuple with the entered name
-                                            testSearchParams.push(['', 'name', txtSearchBox.text]);
+                                            searchParams.push(['', 'name', txtSearchBox.text]);
+                                        }
+
+                                        // Collecting selected items from the ComboBox
+                                        for (var i = 0; i < setsModel.count; i++) {
+                                            var item = setsModel.get(i);
+                                            if (item.selected) {
+                                                // Build the tuple for each selected set item
+                                                searchParams.push(['set', 'name', item.name]);
+                                            }
+                                        }
+
+                                        // Check the state of each Pokémon TCG type button and add to search parameters if checked
+                                        if (fireTypeButton.checked) {
+                                            searchParams.push(['types', '', 'fire']);
+                                        }
+                                        if (waterTypeButton.checked) {
+                                            searchParams.push(['types', '', 'water']);
+                                        }
+                                        if (grassTypeButton.checked) {
+                                            searchParams.push(['types', '', 'grass']);
+                                        }
+                                        if (lightningTypeButton.checked) {
+                                            searchParams.push(['types', '', 'lightning']);
+                                        }
+                                        if (psychicTypeButton.checked) {
+                                            searchParams.push(['types', '', 'psychic']);
+                                        }
+                                        if (fightingTypeButton.checked) {
+                                            searchParams.push(['types', '', 'fighting']);
+                                        }
+                                        if (darknessTypeButton.checked) {
+                                            searchParams.push(['types', '', 'darkness']);
+                                        }
+                                        if (fairyTypeButton.checked) {
+                                            searchParams.push(['types', '', 'fairy']);
+                                        }
+                                        if (dragonTypeButton.checked) {
+                                            searchParams.push(['types', '', 'dragon']);
+                                        }
+                                        if (metalTypeButton.checked) {
+                                            searchParams.push(['types', '', 'metal']);
+                                        }
+                                        if (colorlessTypeButton.checked) {
+                                            searchParams.push(['types', '', 'colorless']);
                                         }
 
                                         // Call the request_search function with the built tuples if there are any
-                                        if (testSearchParams.length > 0) {
-                                            backendController.request_search(testSearchParams);
+                                        if (searchParams.length > 0) {
+                                            console.log("Search Button Pressed...")
+                                            console.log("Calling backendController.request_search with parameters:")
+                                            // Print each tuple as a string to the console
+                                            for (var i = 0; i < searchParams.length; i++) {
+                                                var tupleString = "[" + searchParams[i][0] + ", " + searchParams[i][1] + ", " + searchParams[i][2] + "]";
+                                                console.log(tupleString);
+                                            }
+
+                                            backendController.request_search(searchParams);
                                         }
+
                                     }
                                 }
+
+
                             }
                         }
                     }
-
 
                     Pane {
                         id: viewPane
