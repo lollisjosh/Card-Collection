@@ -1,10 +1,11 @@
 import QtQuick 2.1
-import QtQuick.Controls
+import QtQuick.Controls 2.15
 import QtQuick.Layouts
 import QtQuick.Window 2.15
 import QtQuick.Controls.Fusion 2.15
 
 Window {
+    id: window
     width: 480
     height: 600
     visible: true
@@ -80,9 +81,6 @@ Window {
                     id: searchTabColumn
                     anchors.fill: parent
                     spacing: 0
-                    
-                    
-                    
 
                     ColumnLayout {
                         id: searchToolsColumn
@@ -91,7 +89,6 @@ Window {
                         z: 0
                         Layout.fillWidth: true
                         Layout.fillHeight: true
-                        
                         
                         ToolBar {
                             id: searchFilterTools
@@ -111,7 +108,6 @@ Window {
                                 anchors.horizontalCenter: parent.horizontalCenter
                                 spacing: 2
                                 
-                                
                                 ComboBox {
                                     id: setComboBox
                                     width: 124
@@ -122,21 +118,18 @@ Window {
                                     Layout.fillHeight: false
                                     Layout.fillWidth: true
                                     displayText: "Sets"
-                                    
+
+                                    // Dynamic ListModel for sets
                                     model: ListModel {
-                                        ListElement { name: "One"; selected: false }
-                                        ListElement { name: "Two"; selected: false }
-                                        ListElement { name: "Three"; selected: false }
+                                        id: setsModel
                                     }
-                                    
-                                    // ComboBox closes the popup when its items (anything AbstractButton derivative) are
-                                    //  activated. Wrapping the delegate into a plain Item prevents that.
+
                                     delegate: Item {
-                                        width: parent.width
-                                        height: checkDelegate.height
-                                        
+                                        width: parent ? parent.width : 0
+                                        height: checkDelegate ? checkDelegate.height : 30
+
                                         function toggle() { checkDelegate.toggle() }
-                                        
+
                                         CheckDelegate {
                                             id: checkDelegate
                                             anchors.fill: parent
@@ -146,7 +139,7 @@ Window {
                                             onCheckedChanged: model.selected = checked
                                         }
                                     }
-                                    
+
                                     // override space key handling to toggle items when the popup is visible
                                     Keys.onSpacePressed: {
                                         if (setComboBox.popup.visible) {
@@ -157,17 +150,47 @@ Window {
                                             }
                                         }
                                     }
-                                    
+
                                     Keys.onReleased: {
                                         if (setComboBox.popup.visible)
                                             event.accepted = (event.key === Qt.Key_Space)
                                     }
-                                    
+
                                     Component.onCompleted: {
+                                        // Request All Sets to populate combo box
+                                        console.log("Requesting sets from backend...")
                                         backendController.request_sets_retrieve()
                                     }
+
+                                    // Connection to receive setsResults from backendController
+                                    Connections {
+                                        target: backendController
+                                        function onSetsResults(response) {
+                                            var data = JSON.parse(response);
+                                            console.log("Received sets from backend: ", data); // Debugging the received data
+
+                                            setsModel.clear(); // Clear existing items in the model
+                                            console.log("Model cleared");
+
+                                            if (data.error) {
+                                                sets = [];
+                                                console.log("Error in the data received from backend.");
+                                            } else {
+                                                // Populate the model with new data
+                                                data.forEach(function(set) {
+                                                    console.log("Appending set: ", set.name); // Debugging each appended set
+                                                    setsModel.append({ "name": set.name, "selected": false });
+                                                });
+
+                                                console.log("SetsModel updated with new sets: ", setsModel.count); // Check the number of elements
+                                            }
+                                        }
+                                    }
                                 }
-                                
+
+
+
+
                                 Row {
                                     id: typesRow
                                     width: 300
@@ -388,9 +411,6 @@ Window {
                                         }
                                     }
                                 }
-                                
-                                
-                                
                             }
                         }
                         ToolBar {
@@ -500,11 +520,9 @@ Window {
                                 scale: 0.75
                                 fillMode: Image.PreserveAspectFit
                             }
-                            
-                            
                         }
                     }
-                    
+
                     ToolBar {
                         id: pagingButtonsToolbar
                         height: 37
@@ -545,70 +563,65 @@ Window {
                         }
                     }
                 }
-                
+
                 ListModel {
                     id: imageModel
                     // Initial empty list
-                    
                 }
-                
-                Connections {
-                    target: backendController
-                    function searchResults(response) {
-                        var data = JSON.parse(response);
-                        if (data.error) {
-                            cards = [];
-                        } else {
-                            cards = data.map(card => ({
-                                                          "name": card.name,
-                                                          "imageUrl": card.imageUrl || ""
-                                                      }));
-                            selectedIndex = 0;  // Start with the first card
-                        }
+            }
+
+            Connections {
+                target: backendController
+                function searchResults(response) {
+                    var data = JSON.parse(response);
+                    if (data.error) {
+                        cards = [];
+                    } else {
+                        cards = data.map(card => ({
+                                                      "name": card.name,
+                                                      "imageUrl": card.imageUrl || ""
+                                                  }));
+                        selectedIndex = 0;  // Start with the first card
                     }
                 }
-                
-                Connections {
-                    target: backendController
-                    function discoverResults(response) {
-                        var data = JSON.parse(response);
-                        if (data.error) {
-                            cards = [];
-                        } else {
-                            cards = data.map(card => ({
-                                                          "name": card.name,
-                                                          "imageUrl": card.imageUrl || ""
-                                                      }));
-                            selectedIndex = 0;  // Start with the first card
-                        }
+            }
+
+            Connections {
+                target: backendController
+                function discoverResults(response) {
+                    var data = JSON.parse(response);
+                    if (data.error) {
+                        cards = [];
+                    } else {
+                        cards = data.map(card => ({
+                                                      "name": card.name,
+                                                      "imageUrl": card.imageUrl || ""
+                                                  }));
+                        selectedIndex = 0;  // Start with the first card
                     }
                 }
-                
-                
-                
-                
-                
             }
-            
-            // Page 2: Browse Page
-            
-            Item {
-                id: discoverPage
-                width: parent.width
-                height: parent.height
-                // Page content for browsePage
-            }
-            
-            // Page 3: Collection Page
-            Item {
-                id: collectionPage
-                width: parent.width
-                height: parent.height
-                // Page content for collectionPage
-            }
-            
         }
+
+        // Page 2: Browse Page
+
+        Item {
+            id: discoverPage
+            width: parent.width
+            height: parent.height
+            // Page content for browsePage
+        }
+
+        // Page 3: Collection Page
+        Item {
+            id: collectionPage
+            width: parent.width
+            height: parent.height
+            // Page content for collectionPage
+        }
+
     }
 }
+
 
 
