@@ -575,7 +575,7 @@ Window {
 
                         RowLayout {
                             x: 130
-                            y: 11
+                            y: 0
                             height: 26
                             visible: true
                             uniformCellSizes: false
