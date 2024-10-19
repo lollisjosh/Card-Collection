@@ -993,12 +993,12 @@ Window {
                                 anchors.bottomMargin: 7
                                 layoutDirection: Qt.LeftToRight
                                 clip: true
-                                flow: Flow.TopToBottom
+                                flow: Flow.LeftToRight
                                 spacing: 6
 
                                 Rectangle {
                                     id: nameBlock
-                                    width: 200
+                                    width: 150
                                     height: 40
                                     color: "#6c0101"
                                     radius: 8
@@ -1018,8 +1018,8 @@ Window {
 
                                 Rectangle {
                                     id: setBlock
-                                    width: 108
-                                    height: 80
+                                    width: 101
+                                    height: 60
                                     color: "#6c0101"
                                     radius: 8
                                     border.width: 0
@@ -1034,6 +1034,42 @@ Window {
                                         fontSizeMode: Text.HorizontalFit
                                     }
 
+                                }
+
+                                Rectangle {
+                                    id: setSymbolBlock
+                                    x: 220
+                                    width: 50
+                                    height: 50
+                                    color: "#6c0101"
+                                    radius: 8
+                                    border.width: 0
+
+                                    Image {
+                                        id: setSymbolImage
+                                        anchors.fill: parent
+                                        source: cards[selectedIndex].setSymbol
+                                        scale: 0.8
+                                        fillMode: Image.PreserveAspectFit
+                                    }
+                                }
+
+                                Rectangle {
+                                    id: setLogoBlock
+                                    x: 220
+                                    width: 200
+                                    height: 176
+                                    color: "#6c0101"
+                                    radius: 8
+                                    border.width: 0
+
+                                    Image {
+                                        id: setLogoImage
+                                        anchors.fill: parent
+                                        source: cards[selectedIndex].setLogo
+                                        scale: 1
+                                        fillMode: Image.PreserveAspectFit
+                                    }
                                 }
 
                                 Rectangle {
@@ -1055,23 +1091,7 @@ Window {
                                     border.width: 0
                                 }
 
-                                Rectangle {
-                                    id: setSymbolBlock
-                                    x: 220
-                                    width: 150
-                                    height: 150
-                                    color: "#6c0101"
-                                    radius: 8
-                                    border.width: 0
 
-                                    Image {
-                                        id: image
-                                        anchors.fill: parent
-                                        source: cards[selectedIndex].setSymbol
-                                        scale: 0.8
-                                        fillMode: Image.PreserveAspectFit
-                                    }
-                                }
                             }
                         }
 
@@ -1102,13 +1122,13 @@ Window {
                         contentHeight: 32
 
                         RowLayout {
-                            x: 120
+                            x: 100
                             y: 20
                             height: 26
                             visible: true
                             z: 1
                             uniformCellSizes: false
-                            spacing: 80
+                            spacing: 120
 
                             Button {
                                 text: "Previous"
@@ -1188,6 +1208,9 @@ Window {
                                 // Change scale when hovered
                                 scale: hovered ? 1.05 : 1.0
                             }
+
+
+
                         }
 
                         Rectangle {
@@ -1231,6 +1254,31 @@ Window {
                             anchors.bottomMargin: 0
                             z: 0
                         }
+
+                        Rectangle {
+                            id: rectangle11
+                            x: 190
+                            y: 20
+                            width: 100
+                            height: 25
+                            color: "#00951111"
+                            radius: 3
+                            border.color: "#6c0101"
+                            border.width: 2
+                            z: 0
+
+                            Text {
+                                id: _text
+                                x: 26
+                                y: 5
+                                color: "#ffffff"
+                                text: cards.length ? (selectedIndex+1) + "/" + cards.length : "-/-"
+                                font.pixelSize: 12
+                                horizontalAlignment: Text.AlignHCenter
+                                verticalAlignment: Text.AlignVCenter
+                                font.styleName: "Bold Italic"
+                            }
+                        }
                     }
 
 
@@ -1256,7 +1304,8 @@ Window {
                                                       "name": card.name,
                                                       "imageUrl": card.imageUrl || "",
                                                       "set": card.set,
-                                                      "setSymbol": card.setSymbol
+                                                      "setSymbol": card.setSymbol,
+                                                      "setLogo": card.setLogo
                                                   }));
                         selectedIndex = 0;  // Start with the first card
                         // Log the image URLs to the console
