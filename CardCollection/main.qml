@@ -849,7 +849,7 @@ Window {
                             // Drawer
                             Rectangle {
                                 id: customDrawer
-                                x: -271
+                                x: -270
                                 width: 280
                                 height: 410
                                 opacity: 1
@@ -861,7 +861,14 @@ Window {
                                 anchors.verticalCenter: parent.verticalCenter
                                 scale: 0.95
                                 z: 1
-                                // Light blue drawer background
+
+                                // Animate the x position when it changes
+                                Behavior on x {
+                                    NumberAnimation {
+                                        duration: 500  // Adjust the duration for the desired speed
+                                        easing.type: Easing.OutQuad  // Smooth easing effect
+                                    }
+                                }
 
                                 // MouseArea for the drawer that does not toggle visibility
                                 MouseArea {
@@ -913,7 +920,7 @@ Window {
                                 anchors.left: customDrawer.right // Keep the button attached to the right edge of the drawer
                                 anchors.leftMargin: -7
 
-                                z: 0
+                                z: 1
                                 onClicked: {
                                     if (customDrawer.x < 0) {
                                         customDrawer.x = 0
@@ -987,7 +994,7 @@ Window {
                                 columnSpacing: 5
 
                                 Rectangle {
-                                    id: rectangle11
+                                    id: nameBlock
                                     width: 200
                                     height: 200
                                     color: "#6c0101"
@@ -996,7 +1003,7 @@ Window {
                                 }
 
                                 Rectangle {
-                                    id: rectangle12
+                                    id: setBlock
                                     width: 100
                                     height: 100
                                     color: "#6c0101"
@@ -1005,7 +1012,7 @@ Window {
                                 }
 
                                 Rectangle {
-                                    id: rectangle13
+                                    id: typeBlock
                                     width: 50
                                     height: 50
                                     color: "#6c0101"
