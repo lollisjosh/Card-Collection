@@ -988,12 +988,12 @@ Window {
                                 anchors.top: parent.top
                                 anchors.bottom: parent.bottom
                                 anchors.leftMargin: 36
-                                anchors.rightMargin: 7
-                                anchors.topMargin: 7
+                                anchors.rightMargin: 12
+                                anchors.topMargin: 12
                                 anchors.bottomMargin: 7
-                                layoutDirection: Qt.LeftToRight
+                                layoutDirection: Qt.RightToLeft
                                 clip: true
-                                flow: Flow.LeftToRight
+                                flow: Flow.TopToBottom
                                 spacing: 6
 
                                 Rectangle {
@@ -1257,19 +1257,27 @@ Window {
 
                         Rectangle {
                             id: rectangle11
-                            x: 190
-                            y: 20
                             width: 100
                             height: 25
                             color: "#00951111"
                             radius: 3
                             border.color: "#6c0101"
                             border.width: 2
+                            anchors.verticalCenter: rectangle.verticalCenter
+                            anchors.left: rectangle.right
+                            anchors.right: rectangle.left
+                            anchors.top: rectangle.bottom
+                            anchors.bottom: rectangle.top
+                            anchors.leftMargin: -290
+                            anchors.rightMargin: -290
+                            anchors.topMargin: -45
+                            anchors.bottomMargin: -45
+                            anchors.horizontalCenter: rectangle.horizontalCenter
                             z: 0
 
                             Text {
                                 id: _text
-                                x: 26
+                                x: 43
                                 y: 5
                                 color: "#ffffff"
                                 text: cards.length ? (selectedIndex+1) + "/" + cards.length : "-/-"

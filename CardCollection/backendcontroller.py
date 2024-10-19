@@ -69,7 +69,7 @@ class BackendController(QObject):
             searchHandler = SearchHandler()
             cards = searchHandler.handle_request_search(params)
             if cards != None:
-                card_list = [{"name": card.name, "imageUrl": card.images.large} for card in cards]
+                card_list = [{"name": card.name, "imageUrl": card.images.large, "set": card.set.name, "setSymbol": card.set.images.symbol, "setLogo": card.set.images.logo} for card in cards]
                 self.searchResults.emit(json.dumps(card_list))
 
         except Exception as e:
