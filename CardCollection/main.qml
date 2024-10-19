@@ -271,7 +271,7 @@ Window {
                                         }
                                         hoverEnabled: true
 
-                                            ToolTip.delay: 1000
+                                            ToolTip.delay: 800
                                             ToolTip.timeout: 5000
                                             ToolTip.visible: hovered
                                             ToolTip.text: qsTr("Grass")
@@ -299,7 +299,7 @@ Window {
                                         }
                                         hoverEnabled: true
 
-                                            ToolTip.delay: 1000
+                                            ToolTip.delay: 800
                                             ToolTip.timeout: 5000
                                             ToolTip.visible: hovered
                                             ToolTip.text: qsTr("Fire")
@@ -327,7 +327,7 @@ Window {
                                         }
                                         hoverEnabled: true
 
-                                            ToolTip.delay: 1000
+                                            ToolTip.delay: 800
                                             ToolTip.timeout: 5000
                                             ToolTip.visible: hovered
                                             ToolTip.text: qsTr("Water")
@@ -355,7 +355,7 @@ Window {
                                         }
                                         hoverEnabled: true
 
-                                            ToolTip.delay: 1000
+                                            ToolTip.delay: 800
                                             ToolTip.timeout: 5000
                                             ToolTip.visible: hovered
                                             ToolTip.text: qsTr("Lightning")
@@ -382,7 +382,7 @@ Window {
                                         }
                                         hoverEnabled: true
 
-                                            ToolTip.delay: 1000
+                                            ToolTip.delay: 800
                                             ToolTip.timeout: 5000
                                             ToolTip.visible: hovered
                                             ToolTip.text: qsTr("Psychic")
@@ -410,7 +410,7 @@ Window {
                                         }
                                         hoverEnabled: true
 
-                                            ToolTip.delay: 1000
+                                            ToolTip.delay: 800
                                             ToolTip.timeout: 5000
                                             ToolTip.visible: hovered
                                             ToolTip.text: qsTr("Fighting")
@@ -438,7 +438,7 @@ Window {
                                         }
                                         hoverEnabled: true
 
-                                            ToolTip.delay: 1000
+                                            ToolTip.delay: 800
                                             ToolTip.timeout: 5000
                                             ToolTip.visible: hovered
                                             ToolTip.text: qsTr("Darkness")
@@ -466,7 +466,7 @@ Window {
                                         }
                                         hoverEnabled: true
 
-                                            ToolTip.delay: 1000
+                                            ToolTip.delay: 800
                                             ToolTip.timeout: 5000
                                             ToolTip.visible: hovered
                                             ToolTip.text: qsTr("Metal")
@@ -495,7 +495,7 @@ Window {
 
                                         hoverEnabled: true
 
-                                            ToolTip.delay: 1000
+                                            ToolTip.delay: 800
                                             ToolTip.timeout: 5000
                                             ToolTip.visible: hovered
                                             ToolTip.text: qsTr("Colorless")
@@ -524,7 +524,7 @@ Window {
                                         }
                                         hoverEnabled: true
 
-                                            ToolTip.delay: 1000
+                                            ToolTip.delay: 800
                                             ToolTip.timeout: 5000
                                             ToolTip.visible: hovered
                                             ToolTip.text: qsTr("Fairy")
@@ -552,7 +552,7 @@ Window {
                                         }
                                         hoverEnabled: true
 
-                                        ToolTip.delay: 1000
+                                        ToolTip.delay: 800
                                         ToolTip.timeout: 5000
                                         ToolTip.visible: hovered
                                         ToolTip.text: qsTr("Dragon")
@@ -638,6 +638,15 @@ Window {
                                     palette {
                                         button: "#c80d0d"
                                     }
+                                    hoverEnabled: true
+
+                                        ToolTip.delay: 800
+                                        ToolTip.timeout: 5000
+                                        ToolTip.visible: hovered
+                                        ToolTip.text: qsTr("Search the database with the selected filters")
+
+                                        // Change scale when hovered
+                                            scale: hovered ? 1.05 : 1.0
                                     onClicked: {
                                         // Initialize an empty array for the search parameters
                                         var searchParams = [];
@@ -988,6 +997,16 @@ Window {
                                 palette {
                                     button: "#c80d0d"
                                 }
+                                hoverEnabled: true
+
+                                    ToolTip.delay: 800
+                                    ToolTip.timeout: 5000
+                                    ToolTip.visible: hovered
+                                    ToolTip.text: qsTr("See the previous card in the search results.")
+
+
+                                    // Change scale when hovered
+                                        scale: hovered ? 1.05 : 1.0
                             }
 
                             Button {
@@ -1004,6 +1023,15 @@ Window {
                                 palette {
                                     button: "#c80d0d"
                                 }
+                                hoverEnabled: true
+
+                                    ToolTip.delay: 800
+                                    ToolTip.timeout: 5000
+                                    ToolTip.visible: hovered
+                                    ToolTip.text: qsTr("See the next card in the search results.")
+
+                                    // Change scale when hovered
+                                        scale: hovered ? 1.05 : 1.0
                             }
                         }
 
