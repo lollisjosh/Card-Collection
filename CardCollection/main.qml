@@ -32,35 +32,79 @@ Window {
             width: parent.width
             Layout.preferredHeight: parent.height * 0.08
             height: 50
-            
+
             TabButton {
-                text: "Search"
+                opacity: 1
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
+
+                // Set button background color based on the selected index
+                palette {
+                    button: selectedTabIndex === 0 ? "#6c0101" : "#c80d0d"  // Dark red for selected, light red for unselected
+                }
+
+                // Use a Text element for the label
+                Text {
+                    text: "Search"
+                    font.pointSize: 14
+                    font.styleName: "Bold Italic"
+                    color: selectedTabIndex === 0 ? "#ffffff" : "#000000"  // White for selected, black for unselected
+                    anchors.centerIn: parent
+                }
+
                 onClicked: {
                     selectedTabIndex = 0
                     stackLayout.currentIndex = selectedTabIndex
                 }
             }
+
             TabButton {
-                text: "Discover"
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
+
+                // Set button background color based on the selected index
+                palette {
+                    button: selectedTabIndex === 1 ? "#6c0101" : "#c80d0d"  // Dark red for selected, light red for unselected
+                }
+
+                Text {
+                    text: "Discover"
+                    font.pointSize: 14
+                    font.styleName: "Bold Italic"
+                    color: selectedTabIndex === 1 ? "#ffffff" : "#000000"  // White for selected, black for unselected
+                    anchors.centerIn: parent
+                }
+
                 onClicked: {
                     selectedTabIndex = 1
                     stackLayout.currentIndex = selectedTabIndex
                 }
             }
+
             TabButton {
-                text: "Collection"
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
+
+                // Set button background color based on the selected index
+                palette {
+                    button: selectedTabIndex === 2 ? "#6c0101" : "#c80d0d"  // Dark red for selected, light red for unselected
+                }
+
+                Text {
+                    text: "Collection"
+                    font.pointSize: 14
+                    font.styleName: "Bold Italic"
+                    color: selectedTabIndex === 2 ? "#ffffff" : "#000000"  // White for selected, black for unselected
+                    anchors.centerIn: parent
+                }
+
                 onClicked: {
                     selectedTabIndex = 2
                     stackLayout.currentIndex = selectedTabIndex
                 }
             }
         }
+
         
         StackLayout {
             id: stackLayout
@@ -486,9 +530,13 @@ Window {
                                     width: 100
                                     height: 40
                                     text: qsTr("Search")
+                                    font.styleName: "Bold Italic"
                                     Layout.fillHeight: false
                                     Layout.rightMargin: 6
                                     Layout.fillWidth: false
+                                    palette {
+                                        button: "#c80d0d"
+                                    }
                                     onClicked: {
                                         // Initialize an empty array for the search parameters
                                         var searchParams = [];
