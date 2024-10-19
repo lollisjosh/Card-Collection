@@ -576,7 +576,7 @@ Window {
                                 visible: true
                                 anchors.fill: parent
                                 z: 0
-                                color: "#6c0000" // Set background to transparent
+                                color: "#951111" // Set background to transparent
                                 border.color: "#00255864" // Darker grey color for the border
                                 border.width: 0
                                 radius: 0 // Optional: Set radius for rounded corners
@@ -764,7 +764,7 @@ Window {
 
                         Rectangle {
                             id: rectangle
-                            color: "#6c0101"
+                            color: "#951111"
                             border.color: "#c80d0d"
                             border.width: 11
                             anchors.fill: parent
@@ -772,6 +772,20 @@ Window {
                             anchors.rightMargin: 0
                             anchors.topMargin: 0
                             anchors.bottomMargin: 0
+                            z: 0
+                        }
+
+                        Rectangle {
+                            id: rectangle2
+                            color: "#00951111"
+                            radius: 3
+                            border.color: "#6c0101"
+                            border.width: 2
+                            anchors.fill: parent
+                            anchors.leftMargin: 11
+                            anchors.rightMargin: 11
+                            anchors.topMargin: 11
+                            anchors.bottomMargin: 11
                             z: 0
                         }
                     }
