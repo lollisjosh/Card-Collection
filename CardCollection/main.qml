@@ -9,6 +9,7 @@ Window {
     width: 480
     height: 600
     visible: true
+    color: "#6c0101"
     title: qsTr("Card Collection")
     
     
@@ -522,6 +523,7 @@ Window {
                         id: _item
                         width: 200
                         height: 200
+                        Layout.margins: 0
                         Layout.fillHeight: true
                         Layout.fillWidth: true
 
@@ -591,6 +593,10 @@ Window {
                                 MouseArea {
                                     visible: true
                                     anchors.fill: parent
+                                    anchors.leftMargin: 1
+                                    anchors.rightMargin: -1
+                                    anchors.topMargin: 0
+                                    anchors.bottomMargin: 0
                                 }
 
                                 // Frame that holds the card image
@@ -648,6 +654,7 @@ Window {
 
                                 // Circle for the caret background
                                 Rectangle {
+                                    x: 8
                                     width: 22
                                     height: 22
                                     color: "#6c0101" // Circle color
@@ -656,21 +663,25 @@ Window {
                                     border.width: 2 // Make it a circle
                                     anchors.verticalCenter: parent.verticalCenter
                                     anchors.right: parent.right
-                                    anchors.rightMargin: -6 // Position the circle on the right side of the button
+                                    anchors.rightMargin: -10
+                                    anchors.verticalCenterOffset: 0 // Position the circle on the right side of the button
                                 }
 
                                 // Caret using text
                                 Text {
                                     id: drawerButtonText
-                                    text: { _item.isDrawerOpen ? "<" : ">" } // Proper QML binding expression
+                                    text: { _item.isDrawerOpen ? "<" : ">" }
+                                    anchors.verticalCenter: parent.verticalCenter // Proper QML binding expression
                                     font.pixelSize: 18
+                                    anchors.verticalCenterOffset: 0
+                                    anchors.horizontalCenterOffset: 12
+                                    anchors.horizontalCenter: parent.horizontalCenter
                                     font.bold: true
-                                    anchors.verticalCenter: parent.verticalCenter
                                     color: "#ffffff"
 
                                     // Color of the caret
                                     anchors.right: buttonBackground.right
-                                    anchors.rightMargin: 0 // Align with the right edge of the button
+                                    anchors.rightMargin: -12 // Align with the right edge of the button
 
                                 }
                             }
@@ -687,6 +698,13 @@ Window {
                         id: pagingButtonsToolbar
                         height: 37
                         position: ToolBar.Header
+                        Layout.bottomMargin: 0
+                        Layout.rightMargin: 0
+                        Layout.leftMargin: 0
+                        Layout.margins: 0
+                        Layout.topMargin: 0
+                        bottomPadding: 0
+                        horizontalPadding: 0
                         contentWidth: 480
                         topPadding: 0
                         Layout.fillHeight: true
@@ -694,10 +712,11 @@ Window {
                         contentHeight: 32
 
                         RowLayout {
-                            x: 130
-                            y: 20
+                            x: 136
+                            y: 19
                             height: 26
                             visible: true
+                            z: 1
                             uniformCellSizes: false
                             spacing: 49
 
@@ -720,6 +739,19 @@ Window {
                                     }
                                 }
                             }
+                        }
+
+                        Rectangle {
+                            id: rectangle
+                            color: "#6c0101"
+                            border.color: "#c80d0d"
+                            border.width: 11
+                            anchors.fill: parent
+                            anchors.leftMargin: 0
+                            anchors.rightMargin: 0
+                            anchors.topMargin: 0
+                            anchors.bottomMargin: 0
+                            z: 0
                         }
                     }
 
