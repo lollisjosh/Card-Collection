@@ -269,6 +269,15 @@ Window {
                                         palette {
                                             button: "limegreen"
                                         }
+                                        hoverEnabled: true
+
+                                            ToolTip.delay: 1000
+                                            ToolTip.timeout: 5000
+                                            ToolTip.visible: hovered
+                                            ToolTip.text: qsTr("Grass")
+
+                                            // Change scale when hovered
+                                                scale: hovered ? 1.2 : 1.0
                                     }
 
                                     RoundButton {
@@ -288,6 +297,15 @@ Window {
                                         palette {
                                             button: "red"
                                         }
+                                        hoverEnabled: true
+
+                                            ToolTip.delay: 1000
+                                            ToolTip.timeout: 5000
+                                            ToolTip.visible: hovered
+                                            ToolTip.text: qsTr("Fire")
+
+                                            // Change scale when hovered
+                                                scale: hovered ? 1.2 : 1.0
                                     }
 
                                     RoundButton {
@@ -307,6 +325,15 @@ Window {
                                         palette {
                                             button: "blue"
                                         }
+                                        hoverEnabled: true
+
+                                            ToolTip.delay: 1000
+                                            ToolTip.timeout: 5000
+                                            ToolTip.visible: hovered
+                                            ToolTip.text: qsTr("Water")
+
+                                            // Change scale when hovered
+                                                scale: hovered ? 1.2 : 1.0
                                     }
 
                                     RoundButton {
@@ -326,6 +353,15 @@ Window {
                                         palette {
                                             button: "gold"
                                         }
+                                        hoverEnabled: true
+
+                                            ToolTip.delay: 1000
+                                            ToolTip.timeout: 5000
+                                            ToolTip.visible: hovered
+                                            ToolTip.text: qsTr("Lightning")
+
+                                            // Change scale when hovered
+                                                scale: hovered ? 1.2 : 1.0
                                     }
 
                                     RoundButton {
@@ -344,6 +380,15 @@ Window {
                                         palette {
                                             button: "darkviolet"
                                         }
+                                        hoverEnabled: true
+
+                                            ToolTip.delay: 1000
+                                            ToolTip.timeout: 5000
+                                            ToolTip.visible: hovered
+                                            ToolTip.text: qsTr("Psychic")
+
+                                            // Change scale when hovered
+                                                scale: hovered ? 1.2 : 1.0
                                     }
 
                                     RoundButton {
@@ -363,6 +408,15 @@ Window {
                                         palette {
                                             button: "saddlebrown"
                                         }
+                                        hoverEnabled: true
+
+                                            ToolTip.delay: 1000
+                                            ToolTip.timeout: 5000
+                                            ToolTip.visible: hovered
+                                            ToolTip.text: qsTr("Fighting")
+
+                                            // Change scale when hovered
+                                                scale: hovered ? 1.2 : 1.0
                                     }
 
                                     RoundButton {
@@ -382,6 +436,15 @@ Window {
                                         palette {
                                             button: "darkslategrey"
                                         }
+                                        hoverEnabled: true
+
+                                            ToolTip.delay: 1000
+                                            ToolTip.timeout: 5000
+                                            ToolTip.visible: hovered
+                                            ToolTip.text: qsTr("Darkness")
+
+                                            // Change scale when hovered
+                                                scale: hovered ? 1.2 : 1.0
                                     }
 
                                     RoundButton {
@@ -401,6 +464,15 @@ Window {
                                         palette {
                                             button: "lightgrey"
                                         }
+                                        hoverEnabled: true
+
+                                            ToolTip.delay: 1000
+                                            ToolTip.timeout: 5000
+                                            ToolTip.visible: hovered
+                                            ToolTip.text: qsTr("Metal")
+
+                                            // Change scale when hovered
+                                                scale: hovered ? 1.2 : 1.0
                                     }
 
                                     RoundButton {
@@ -420,6 +492,17 @@ Window {
                                         palette {
                                             button: "white"
                                         }
+
+                                        hoverEnabled: true
+
+                                            ToolTip.delay: 1000
+                                            ToolTip.timeout: 5000
+                                            ToolTip.visible: hovered
+                                            ToolTip.text: qsTr("Colorless")
+
+                                            // Change scale when hovered
+                                                scale: hovered ? 1.2 : 1.0
+
                                     }
 
                                     RoundButton {
@@ -439,6 +522,15 @@ Window {
                                         palette {
                                             button: "hotpink"
                                         }
+                                        hoverEnabled: true
+
+                                            ToolTip.delay: 1000
+                                            ToolTip.timeout: 5000
+                                            ToolTip.visible: hovered
+                                            ToolTip.text: qsTr("Fairy")
+
+                                            // Change scale when hovered
+                                                scale: hovered ? 1.2 : 1.0
                                     }
 
                                     RoundButton {
@@ -458,6 +550,15 @@ Window {
                                         palette {
                                             button: "goldenrod"
                                         }
+                                        hoverEnabled: true
+
+                                        ToolTip.delay: 1000
+                                        ToolTip.timeout: 5000
+                                        ToolTip.visible: hovered
+                                        ToolTip.text: qsTr("Dragon")
+
+                                        // Change scale when hovered
+                                            scale: hovered ? 1.2 : 1.0
                                     }
                                 }
                             }
@@ -722,6 +823,7 @@ Window {
                                 opacity: 1
                                 // Start hidden
                                 color: "#15ba1c"
+                                radius: 4
                                 border.color: "#25fb2e"
                                 border.width: 6
                                 anchors.verticalCenter: parent.verticalCenter
