@@ -964,55 +964,48 @@ Window {
                                     anchors.verticalCenterOffset: 0 // Position the circle on the right side of the button
 
                                     // Smooth scaling animation
-                                            Behavior on scale {
-                                                NumberAnimation {
-                                                    duration: 200
-                                                    easing: Easing.InOutQuad
-                                                }
-                                            }
+                                    Behavior on scale {
+                                        NumberAnimation {
+                                            duration: 200
+                                            easing: Easing.InOutQuad
+                                        }
+                                    }
 
-                                            // MouseArea to detect hover events
-                                            MouseArea {
-                                                id: mouseArea
-                                                anchors.fill: parent
-                                                hoverEnabled: true
-                                                cursorShape: Qt.PointingHandCursor  // Change cursor to hand when hovering
+                                    // MouseArea to detect hover events
+                                    MouseArea {
+                                        id: mouseArea
+                                        anchors.fill: parent
+                                        hoverEnabled: true
+                                        cursorShape: Qt.PointingHandCursor  // Change cursor to hand when hovering
 
-                                                onEntered: {
-                                                    // Scale up on hover
-                                                    drawerCircle.scale = 1.1;
-                                                }
-                                                onExited: {
-                                                    // Scale down when not hovered
-                                                    drawerCircle.scale = 1;
-                                                }
-                                            }
+                                        onEntered: {
+                                            // Scale up on hover
+                                            drawerCircle.scale = 1.1;
+                                        }
+                                        onExited: {
+                                            // Scale down when not hovered
+                                            drawerCircle.scale = 1;
+                                        }
+                                    }
                                 }
 
                                 // Caret using text
                                 Text {
                                     id: drawerButtonText
+                                    x: 13
                                     text: { _item.isDrawerOpen ? "<" : ">" }
-                                    anchors.verticalCenter: buttonBackground.verticalCenter
-                                    anchors.left: buttonBackground.right // Proper QML binding expression
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    // Proper QML binding expression
                                     font.pixelSize: 26
                                     horizontalAlignment: Text.AlignHCenter
                                     verticalAlignment: Text.AlignVCenter
                                     font.styleName: "Condensed Bold"
                                     anchors.verticalCenterOffset: 0
-                                    anchors.horizontalCenterOffset: 7
-                                    anchors.horizontalCenter: buttonBackground.horizontalCenter
                                     font.bold: true
                                     color: "#ef0e0e"
 
                                     // Color of the caret
-                                    anchors.right: buttonBackground.right
-                                    anchors.top: buttonBackground.bottom
-                                    anchors.bottom: buttonBackground.top
-                                    anchors.leftMargin: -13
-                                    anchors.rightMargin: -7
-                                    anchors.topMargin: -218
-                                    anchors.bottomMargin: -218 // Align with the right edge of the button
+                                    // Align with the right edge of the button
 
                                 }
                             }
@@ -1031,7 +1024,7 @@ Window {
                                 layoutDirection: Qt.RightToLeft
                                 clip: true
                                 flow: Flow.TopToBottom
-                                spacing: 6
+                                spacing: 8
 
                                 Rectangle {
                                     id: nameBlock
@@ -1043,51 +1036,20 @@ Window {
 
                                     Text {
                                         id: nameText
+                                        y: 11
                                         color: "#ffffff"
-                                        text: cards[selectedIndex].name
-                                        anchors.fill: parent
+                                        // Safely access the name property
+                                        text: (selectedIndex >= 0 && selectedIndex < cards.length)
+                                              ? cards[selectedIndex].name || "No Name Available" // Fallback if name is undefined
+                                              : "Name"
+                                        anchors.left: parent.left
+                                        anchors.right: parent.right
+                                        anchors.leftMargin: 55
+                                        anchors.rightMargin: 55 // Fallback when no card is selected
                                         horizontalAlignment: Text.AlignHCenter
                                         verticalAlignment: Text.AlignVCenter
                                         wrapMode: Text.Wrap
                                         fontSizeMode: Text.HorizontalFit
-                                    }
-                                }
-
-                                Rectangle {
-                                    id: setBlock
-                                    width: 101
-                                    height: 60
-                                    color: "#6c0101"
-                                    radius: 8
-                                    border.width: 0
-                                    Text {
-                                        id: setNameText
-                                        color: "#ffffff"
-                                        text: cards[selectedIndex].set
-                                        anchors.fill: parent
-                                        horizontalAlignment: Text.AlignHCenter
-                                        verticalAlignment: Text.AlignVCenter
-                                        wrapMode: Text.Wrap
-                                        fontSizeMode: Text.HorizontalFit
-                                    }
-
-                                }
-
-                                Rectangle {
-                                    id: setSymbolBlock
-                                    x: 220
-                                    width: 50
-                                    height: 50
-                                    color: "#6c0101"
-                                    radius: 8
-                                    border.width: 0
-
-                                    Image {
-                                        id: setSymbolImage
-                                        anchors.fill: parent
-                                        source: cards[selectedIndex].setSymbol
-                                        scale: 0.8
-                                        fillMode: Image.PreserveAspectFit
                                     }
                                 }
 
@@ -1095,7 +1057,7 @@ Window {
                                     id: setLogoBlock
                                     x: 220
                                     width: 200
-                                    height: 176
+                                    height: 156
                                     color: "#6c0101"
                                     radius: 8
                                     border.width: 0
@@ -1110,6 +1072,76 @@ Window {
                                 }
 
                                 Rectangle {
+                                    id: setBlock
+                                    width: 101
+                                    height: 60
+                                    color: "#6c0101"
+                                    radius: 8
+                                    border.width: 0
+                                    Text {
+                                        id: setNameText
+                                        y: 21
+                                        color: "#ffffff"
+                                        // Safely access the name property
+                                        text: (selectedIndex >= 0 && selectedIndex < cards.length)
+                                              ? cards[selectedIndex].set || "No Name Available" // Fallback if name is undefined
+                                              : "Set Name"
+                                        anchors.left: parent.left
+                                        anchors.right: parent.right
+                                        anchors.leftMargin: 0
+                                        anchors.rightMargin: 0
+                                        // Fallback when no card is selected
+
+                                        horizontalAlignment: Text.AlignHCenter
+                                        verticalAlignment: Text.AlignVCenter
+                                        wrapMode: Text.Wrap
+                                        fontSizeMode: Text.HorizontalFit
+                                    }
+
+                                }
+
+
+                                Rectangle {
+                                    id: setSymbolBlock
+                                    x: 220
+                                    width: 56
+                                    height: 56
+                                    color: "#6c0101"
+                                    radius: 8
+                                    border.width: 0
+
+
+                                    Image {
+                                        id: setSymbolImage
+                                        anchors.fill: parent
+
+                                        source: cards[selectedIndex].setSymbol
+                                        scale: 0.8
+                                        fillMode: Image.PreserveAspectFit
+                                    }
+
+                                    Text {
+                                        id: setSymbolText
+                                        x: -382
+                                        y: 10
+                                        height: 37
+                                        color: "#ffffff"
+                                        text: (selectedIndex >= 0 && selectedIndex < cards.length)
+                                              ? "" // Fallback if name is undefined
+                                              : "Set Symbol"
+                                        anchors.left: parent.left
+                                        anchors.right: parent.right
+                                        anchors.leftMargin: 1
+                                        anchors.rightMargin: -1
+                                        horizontalAlignment: Text.AlignHCenter
+                                        verticalAlignment: Text.AlignVCenter
+                                        wrapMode: Text.Wrap
+                                        fontSizeMode: Text.HorizontalFit
+                                    }
+                                }
+
+
+                                Rectangle {
                                     id: typeBlock
                                     width: 100
                                     height: 50
@@ -1117,15 +1149,6 @@ Window {
                                     radius: 8
                                     border.width: 0
 
-                                }
-
-                                Rectangle {
-                                    id: attack1Block
-                                    width: 200
-                                    height: 100
-                                    color: "#6c0101"
-                                    radius: 8
-                                    border.width: 0
                                 }
 
 
@@ -1294,7 +1317,7 @@ Window {
 
                         Rectangle {
                             id: rectangle11
-                            width: 100
+                            y: 20
                             height: 25
                             color: "#00951111"
                             radius: 3
@@ -1302,22 +1325,20 @@ Window {
                             border.width: 2
                             anchors.verticalCenter: rectangle.verticalCenter
                             anchors.left: rectangle.right
-                            anchors.right: rectangle.left
-                            anchors.top: rectangle.bottom
-                            anchors.bottom: rectangle.top
+                            anchors.right: parent.right
                             anchors.leftMargin: -290
-                            anchors.rightMargin: -290
-                            anchors.topMargin: -45
-                            anchors.bottomMargin: -45
-                            anchors.horizontalCenter: rectangle.horizontalCenter
+                            anchors.rightMargin: 190
                             z: 0
 
                             Text {
                                 id: _text
-                                x: 43
                                 y: 5
                                 color: "#ffffff"
                                 text: cards.length ? (selectedIndex+1) + "/" + cards.length : "-/-"
+                                anchors.left: parent.left
+                                anchors.right: parent.right
+                                anchors.leftMargin: -120
+                                anchors.rightMargin: -120
                                 font.pixelSize: 12
                                 horizontalAlignment: Text.AlignHCenter
                                 verticalAlignment: Text.AlignVCenter
