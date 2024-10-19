@@ -1036,7 +1036,8 @@ Window {
 
                                     Text {
                                         id: nameText
-                                        y: 11
+                                        y: 8
+                                        height: 24
                                         color: "#ffffff"
                                         // Safely access the name property
                                         text: (selectedIndex >= 0 && selectedIndex < cards.length)
@@ -1044,11 +1045,12 @@ Window {
                                               : "Name"
                                         anchors.left: parent.left
                                         anchors.right: parent.right
-                                        anchors.leftMargin: 55
-                                        anchors.rightMargin: 55 // Fallback when no card is selected
+                                        anchors.leftMargin: 8
+                                        anchors.rightMargin: 8 // Fallback when no card is selected
                                         horizontalAlignment: Text.AlignHCenter
                                         verticalAlignment: Text.AlignVCenter
                                         wrapMode: Text.Wrap
+                                        font.styleName: "Bold Italic"
                                         fontSizeMode: Text.HorizontalFit
                                     }
                                 }
@@ -1056,16 +1058,43 @@ Window {
                                 Rectangle {
                                     id: setLogoBlock
                                     x: 220
-                                    width: 200
-                                    height: 156
+                                    width: 204
+                                    height: 148
                                     color: "#6c0101"
                                     radius: 8
                                     border.width: 0
+                                    Text {
+                                        id: setLogoText
+                                        x: -382
+                                        y: 60
+                                        height: 37
+                                        color: "#ffffff"
+                                        text: (selectedIndex >= 0 && selectedIndex < cards.length)
+                                              ? "" // Fallback if name is undefined
+                                              : "Set Logo"
+                                        anchors.left: parent.left
+                                        anchors.right: parent.right
+                                        anchors.leftMargin: 8
+                                        anchors.rightMargin: -8
+                                        horizontalAlignment: Text.AlignHCenter
+                                        verticalAlignment: Text.AlignVCenter
+                                        wrapMode: Text.Wrap
+                                        font.styleName: "Bold Italic"
+                                        font.italic: false
+                                        font.bold: false
+                                        font.pointSize: 19
+                                        fontSizeMode: Text.HorizontalFit
+                                    }
 
                                     Image {
                                         id: setLogoImage
                                         anchors.fill: parent
-                                        source: cards[selectedIndex].setLogo
+                                        anchors.leftMargin: 2
+                                        anchors.rightMargin: 2
+                                        anchors.topMargin: 2
+                                        anchors.bottomMargin: 2
+                                        source: (selectedIndex >= 0 && selectedIndex < cards.length) ? cards[selectedIndex].setLogo : ""
+
                                         scale: 1
                                         fillMode: Image.PreserveAspectFit
                                     }
@@ -1080,7 +1109,8 @@ Window {
                                     border.width: 0
                                     Text {
                                         id: setNameText
-                                        y: 21
+                                        y: 8
+                                        height: 44
                                         color: "#ffffff"
                                         // Safely access the name property
                                         text: (selectedIndex >= 0 && selectedIndex < cards.length)
@@ -1095,6 +1125,7 @@ Window {
                                         horizontalAlignment: Text.AlignHCenter
                                         verticalAlignment: Text.AlignVCenter
                                         wrapMode: Text.Wrap
+                                        font.styleName: "Bold Italic"
                                         fontSizeMode: Text.HorizontalFit
                                     }
 
@@ -1115,7 +1146,7 @@ Window {
                                         id: setSymbolImage
                                         anchors.fill: parent
 
-                                        source: cards[selectedIndex].setSymbol
+                                        source: (selectedIndex >= 0 && selectedIndex < cards.length) ? cards[selectedIndex].setSymbol : ""
                                         scale: 0.8
                                         fillMode: Image.PreserveAspectFit
                                     }
@@ -1136,6 +1167,8 @@ Window {
                                         horizontalAlignment: Text.AlignHCenter
                                         verticalAlignment: Text.AlignVCenter
                                         wrapMode: Text.Wrap
+                                        font.pointSize: 10
+                                        font.styleName: "Bold Italic"
                                         fontSizeMode: Text.HorizontalFit
                                     }
                                 }
