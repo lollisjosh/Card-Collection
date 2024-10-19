@@ -950,6 +950,7 @@ Window {
 
                                 // Circle for the caret background
                                 Rectangle {
+                                    id: drawerCircle
                                     x: 8
                                     width: 26
                                     height: 26
@@ -961,26 +962,57 @@ Window {
                                     anchors.right: parent.right
                                     anchors.rightMargin: -10
                                     anchors.verticalCenterOffset: 0 // Position the circle on the right side of the button
+
+                                    // Smooth scaling animation
+                                            Behavior on scale {
+                                                NumberAnimation {
+                                                    duration: 200
+                                                    easing: Easing.InOutQuad
+                                                }
+                                            }
+
+                                            // MouseArea to detect hover events
+                                            MouseArea {
+                                                id: mouseArea
+                                                anchors.fill: parent
+                                                hoverEnabled: true
+                                                cursorShape: Qt.PointingHandCursor  // Change cursor to hand when hovering
+
+                                                onEntered: {
+                                                    // Scale up on hover
+                                                    drawerCircle.scale = 1.1;
+                                                }
+                                                onExited: {
+                                                    // Scale down when not hovered
+                                                    drawerCircle.scale = 1;
+                                                }
+                                            }
                                 }
 
                                 // Caret using text
                                 Text {
                                     id: drawerButtonText
                                     text: { _item.isDrawerOpen ? "<" : ">" }
-                                    anchors.verticalCenter: parent.verticalCenter // Proper QML binding expression
+                                    anchors.verticalCenter: buttonBackground.verticalCenter
+                                    anchors.left: buttonBackground.right // Proper QML binding expression
                                     font.pixelSize: 26
                                     horizontalAlignment: Text.AlignHCenter
                                     verticalAlignment: Text.AlignVCenter
                                     font.styleName: "Condensed Bold"
                                     anchors.verticalCenterOffset: 0
                                     anchors.horizontalCenterOffset: 7
-                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    anchors.horizontalCenter: buttonBackground.horizontalCenter
                                     font.bold: true
                                     color: "#ef0e0e"
 
                                     // Color of the caret
                                     anchors.right: buttonBackground.right
-                                    anchors.rightMargin: -7 // Align with the right edge of the button
+                                    anchors.top: buttonBackground.bottom
+                                    anchors.bottom: buttonBackground.top
+                                    anchors.leftMargin: -13
+                                    anchors.rightMargin: -7
+                                    anchors.topMargin: -218
+                                    anchors.bottomMargin: -218 // Align with the right edge of the button
 
                                 }
                             }
