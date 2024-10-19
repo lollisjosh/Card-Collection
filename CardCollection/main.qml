@@ -43,6 +43,14 @@ Window {
                     button: selectedTabIndex === 0 ? "#6c0101" : "#c80d0d"  // Dark red for selected, light red for unselected
                 }
 
+                hoverEnabled: true
+
+                ToolTip.delay: 800
+                ToolTip.timeout: 5000
+                ToolTip.visible: hovered
+                ToolTip.text: qsTr("Search by Set, Type, and Name.")
+
+
                 // Use a Text element for the label
                 Text {
                     text: "Search"
@@ -56,6 +64,8 @@ Window {
                     selectedTabIndex = 0
                     stackLayout.currentIndex = selectedTabIndex
                 }
+
+
             }
 
             TabButton {
@@ -66,6 +76,13 @@ Window {
                 palette {
                     button: selectedTabIndex === 1 ? "#6c0101" : "#c80d0d"  // Dark red for selected, light red for unselected
                 }
+
+                hoverEnabled: true
+
+                ToolTip.delay: 800
+                ToolTip.timeout: 5000
+                ToolTip.visible: hovered
+                ToolTip.text: qsTr("Discover a random card, optionally filtered by Set and Type.")
 
                 Text {
                     text: "Discover"
@@ -90,6 +107,12 @@ Window {
                     button: selectedTabIndex === 2 ? "#6c0101" : "#c80d0d"  // Dark red for selected, light red for unselected
                 }
 
+                hoverEnabled: true
+
+                ToolTip.delay: 800
+                ToolTip.timeout: 5000
+                ToolTip.visible: hovered
+                ToolTip.text: qsTr("Collect your favorite cards found in Search and Discover.")
                 Text {
                     text: "Collection"
                     font.pointSize: 14
