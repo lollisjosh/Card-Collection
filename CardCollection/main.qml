@@ -8,6 +8,11 @@ Window {
     id: window
     width: 480
     height: 600
+    minimumWidth: 480
+    minimumHeight: 600
+    maximumWidth: 480
+    maximumHeight: 600
+
     visible: true
     color: "#6c0101"
     title: qsTr("Card Collection")
