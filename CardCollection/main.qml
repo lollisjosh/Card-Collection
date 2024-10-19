@@ -294,13 +294,13 @@ Window {
                                         }
                                         hoverEnabled: true
 
-                                            ToolTip.delay: 800
-                                            ToolTip.timeout: 5000
-                                            ToolTip.visible: hovered
-                                            ToolTip.text: qsTr("Grass")
+                                        ToolTip.delay: 800
+                                        ToolTip.timeout: 5000
+                                        ToolTip.visible: hovered
+                                        ToolTip.text: qsTr("Grass")
 
-                                            // Change scale when hovered
-                                                scale: hovered ? 1.2 : 1.0
+                                        // Change scale when hovered
+                                        scale: hovered ? 1.2 : 1.0
                                     }
 
                                     RoundButton {
@@ -322,13 +322,13 @@ Window {
                                         }
                                         hoverEnabled: true
 
-                                            ToolTip.delay: 800
-                                            ToolTip.timeout: 5000
-                                            ToolTip.visible: hovered
-                                            ToolTip.text: qsTr("Fire")
+                                        ToolTip.delay: 800
+                                        ToolTip.timeout: 5000
+                                        ToolTip.visible: hovered
+                                        ToolTip.text: qsTr("Fire")
 
-                                            // Change scale when hovered
-                                                scale: hovered ? 1.2 : 1.0
+                                        // Change scale when hovered
+                                        scale: hovered ? 1.2 : 1.0
                                     }
 
                                     RoundButton {
@@ -350,13 +350,13 @@ Window {
                                         }
                                         hoverEnabled: true
 
-                                            ToolTip.delay: 800
-                                            ToolTip.timeout: 5000
-                                            ToolTip.visible: hovered
-                                            ToolTip.text: qsTr("Water")
+                                        ToolTip.delay: 800
+                                        ToolTip.timeout: 5000
+                                        ToolTip.visible: hovered
+                                        ToolTip.text: qsTr("Water")
 
-                                            // Change scale when hovered
-                                                scale: hovered ? 1.2 : 1.0
+                                        // Change scale when hovered
+                                        scale: hovered ? 1.2 : 1.0
                                     }
 
                                     RoundButton {
@@ -378,13 +378,13 @@ Window {
                                         }
                                         hoverEnabled: true
 
-                                            ToolTip.delay: 800
-                                            ToolTip.timeout: 5000
-                                            ToolTip.visible: hovered
-                                            ToolTip.text: qsTr("Lightning")
+                                        ToolTip.delay: 800
+                                        ToolTip.timeout: 5000
+                                        ToolTip.visible: hovered
+                                        ToolTip.text: qsTr("Lightning")
 
-                                            // Change scale when hovered
-                                                scale: hovered ? 1.2 : 1.0
+                                        // Change scale when hovered
+                                        scale: hovered ? 1.2 : 1.0
                                     }
 
                                     RoundButton {
@@ -405,13 +405,13 @@ Window {
                                         }
                                         hoverEnabled: true
 
-                                            ToolTip.delay: 800
-                                            ToolTip.timeout: 5000
-                                            ToolTip.visible: hovered
-                                            ToolTip.text: qsTr("Psychic")
+                                        ToolTip.delay: 800
+                                        ToolTip.timeout: 5000
+                                        ToolTip.visible: hovered
+                                        ToolTip.text: qsTr("Psychic")
 
-                                            // Change scale when hovered
-                                                scale: hovered ? 1.2 : 1.0
+                                        // Change scale when hovered
+                                        scale: hovered ? 1.2 : 1.0
                                     }
 
                                     RoundButton {
@@ -433,13 +433,13 @@ Window {
                                         }
                                         hoverEnabled: true
 
-                                            ToolTip.delay: 800
-                                            ToolTip.timeout: 5000
-                                            ToolTip.visible: hovered
-                                            ToolTip.text: qsTr("Fighting")
+                                        ToolTip.delay: 800
+                                        ToolTip.timeout: 5000
+                                        ToolTip.visible: hovered
+                                        ToolTip.text: qsTr("Fighting")
 
-                                            // Change scale when hovered
-                                                scale: hovered ? 1.2 : 1.0
+                                        // Change scale when hovered
+                                        scale: hovered ? 1.2 : 1.0
                                     }
 
                                     RoundButton {
@@ -461,13 +461,13 @@ Window {
                                         }
                                         hoverEnabled: true
 
-                                            ToolTip.delay: 800
-                                            ToolTip.timeout: 5000
-                                            ToolTip.visible: hovered
-                                            ToolTip.text: qsTr("Darkness")
+                                        ToolTip.delay: 800
+                                        ToolTip.timeout: 5000
+                                        ToolTip.visible: hovered
+                                        ToolTip.text: qsTr("Darkness")
 
-                                            // Change scale when hovered
-                                                scale: hovered ? 1.2 : 1.0
+                                        // Change scale when hovered
+                                        scale: hovered ? 1.2 : 1.0
                                     }
 
                                     RoundButton {
@@ -489,13 +489,13 @@ Window {
                                         }
                                         hoverEnabled: true
 
-                                            ToolTip.delay: 800
-                                            ToolTip.timeout: 5000
-                                            ToolTip.visible: hovered
-                                            ToolTip.text: qsTr("Metal")
+                                        ToolTip.delay: 800
+                                        ToolTip.timeout: 5000
+                                        ToolTip.visible: hovered
+                                        ToolTip.text: qsTr("Metal")
 
-                                            // Change scale when hovered
-                                                scale: hovered ? 1.2 : 1.0
+                                        // Change scale when hovered
+                                        scale: hovered ? 1.2 : 1.0
                                     }
 
                                     RoundButton {
@@ -518,13 +518,13 @@ Window {
 
                                         hoverEnabled: true
 
-                                            ToolTip.delay: 800
-                                            ToolTip.timeout: 5000
-                                            ToolTip.visible: hovered
-                                            ToolTip.text: qsTr("Colorless")
+                                        ToolTip.delay: 800
+                                        ToolTip.timeout: 5000
+                                        ToolTip.visible: hovered
+                                        ToolTip.text: qsTr("Colorless")
 
-                                            // Change scale when hovered
-                                                scale: hovered ? 1.2 : 1.0
+                                        // Change scale when hovered
+                                        scale: hovered ? 1.2 : 1.0
 
                                     }
 
@@ -547,13 +547,13 @@ Window {
                                         }
                                         hoverEnabled: true
 
-                                            ToolTip.delay: 800
-                                            ToolTip.timeout: 5000
-                                            ToolTip.visible: hovered
-                                            ToolTip.text: qsTr("Fairy")
+                                        ToolTip.delay: 800
+                                        ToolTip.timeout: 5000
+                                        ToolTip.visible: hovered
+                                        ToolTip.text: qsTr("Fairy")
 
-                                            // Change scale when hovered
-                                                scale: hovered ? 1.2 : 1.0
+                                        // Change scale when hovered
+                                        scale: hovered ? 1.2 : 1.0
                                     }
 
                                     RoundButton {
@@ -581,7 +581,7 @@ Window {
                                         ToolTip.text: qsTr("Dragon")
 
                                         // Change scale when hovered
-                                            scale: hovered ? 1.2 : 1.0
+                                        scale: hovered ? 1.2 : 1.0
                                     }
                                 }
                             }
@@ -659,17 +659,17 @@ Window {
                                     Layout.rightMargin: 6
                                     Layout.fillWidth: false
                                     palette {
-                                        button: "#c80d0d"
+                                        button: "blue"
                                     }
                                     hoverEnabled: true
 
-                                        ToolTip.delay: 800
-                                        ToolTip.timeout: 5000
-                                        ToolTip.visible: hovered
-                                        ToolTip.text: qsTr("Search the database with the selected filters")
+                                    ToolTip.delay: 800
+                                    ToolTip.timeout: 5000
+                                    ToolTip.visible: hovered
+                                    ToolTip.text: qsTr("Search the database with the selected filters")
 
-                                        // Change scale when hovered
-                                            scale: hovered ? 1.05 : 1.0
+                                    // Change scale when hovered
+                                    scale: hovered ? 1.05 : 1.0
                                     onClicked: {
                                         // Initialize an empty array for the search parameters
                                         var searchParams = [];
@@ -860,7 +860,7 @@ Window {
                                 border.width: 6
                                 anchors.verticalCenter: parent.verticalCenter
                                 scale: 0.95
-                                z: 0
+                                z: 1
                                 // Light blue drawer background
 
                                 // MouseArea for the drawer that does not toggle visibility
@@ -971,6 +971,48 @@ Window {
 
                                 }
                             }
+
+                            GridLayout {
+                                id: gridLayout
+                                anchors.fill: parent
+                                anchors.leftMargin: 24
+                                anchors.rightMargin: 7
+                                anchors.topMargin: 7
+                                anchors.bottomMargin: 7
+                                z: 0
+                                clip: true
+                                rows: 2
+                                columns: 2
+                                flow: GridLayout.TopToBottom
+                                columnSpacing: 5
+
+                                Rectangle {
+                                    id: rectangle11
+                                    width: 200
+                                    height: 200
+                                    color: "#6c0101"
+                                    radius: 8
+                                    border.width: 0
+                                }
+
+                                Rectangle {
+                                    id: rectangle12
+                                    width: 100
+                                    height: 100
+                                    color: "#6c0101"
+                                    radius: 8
+                                    border.width: 0
+                                }
+
+                                Rectangle {
+                                    id: rectangle13
+                                    width: 50
+                                    height: 50
+                                    color: "#6c0101"
+                                    radius: 8
+                                    border.width: 0
+                                }
+                            }
                         }
 
 
@@ -1000,16 +1042,18 @@ Window {
                         contentHeight: 32
 
                         RowLayout {
-                            x: 136
-                            y: 19
+                            x: 120
+                            y: 20
                             height: 26
                             visible: true
                             z: 1
                             uniformCellSizes: false
-                            spacing: 49
+                            spacing: 80
 
                             Button {
                                 text: "Previous"
+                                highlighted: false
+                                flat: false
                                 font.styleName: "Bold Italic"
                                 enabled: selectedIndex > 0
                                 onClicked: {
@@ -1018,18 +1062,31 @@ Window {
                                     }
                                 }
                                 palette {
-                                    button: "#c80d0d"
+                                    button: "blue"
+                                }
+
+                                Rectangle {
+                                    id: rectangle9
+                                    color: "#00ffffff"
+                                    radius: 3
+                                    border.color: "#6c0101"
+                                    border.width: 2
+                                    anchors.fill: parent
+                                    anchors.leftMargin: -1
+                                    anchors.rightMargin: 0
+                                    anchors.topMargin: -1
+                                    anchors.bottomMargin: -1
                                 }
                                 hoverEnabled: true
 
-                                    ToolTip.delay: 800
-                                    ToolTip.timeout: 5000
-                                    ToolTip.visible: hovered
-                                    ToolTip.text: qsTr("See the previous card in the search results.")
+                                ToolTip.delay: 800
+                                ToolTip.timeout: 5000
+                                ToolTip.visible: hovered
+                                ToolTip.text: qsTr("See the previous card in the search results.")
 
 
-                                    // Change scale when hovered
-                                        scale: hovered ? 1.05 : 1.0
+                                // Change scale when hovered
+                                scale: hovered ? 1.05 : 1.0
                             }
 
                             Button {
@@ -1044,17 +1101,32 @@ Window {
                                     }
                                 }
                                 palette {
-                                    button: "#c80d0d"
+                                    button: "blue"
+                                }
+
+                                Rectangle {
+                                    id: rectangle10
+                                    x: -134
+                                    y: -6
+                                    color: "#00ffffff"
+                                    radius: 3
+                                    border.color: "#6c0101"
+                                    border.width: 2
+                                    anchors.fill: parent
+                                    anchors.leftMargin: -1
+                                    anchors.rightMargin: 0
+                                    anchors.topMargin: -1
+                                    anchors.bottomMargin: -1
                                 }
                                 hoverEnabled: true
 
-                                    ToolTip.delay: 800
-                                    ToolTip.timeout: 5000
-                                    ToolTip.visible: hovered
-                                    ToolTip.text: qsTr("See the next card in the search results.")
+                                ToolTip.delay: 800
+                                ToolTip.timeout: 5000
+                                ToolTip.visible: hovered
+                                ToolTip.text: qsTr("See the next card in the search results.")
 
-                                    // Change scale when hovered
-                                        scale: hovered ? 1.05 : 1.0
+                                // Change scale when hovered
+                                scale: hovered ? 1.05 : 1.0
                             }
                         }
 
