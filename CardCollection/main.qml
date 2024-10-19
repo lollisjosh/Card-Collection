@@ -1,4 +1,4 @@
-import QtQuick 2.1
+import QtQuick 2
 import QtQuick.Controls 2.15
 import QtQuick.Layouts
 import QtQuick.Window 2.15
@@ -979,27 +979,43 @@ Window {
                                 }
                             }
 
-                            GridLayout {
-                                id: gridLayout
-                                anchors.fill: parent
-                                anchors.leftMargin: 24
+                            Flow {
+                                id: dataFlow
+                                opacity: 1
+                                anchors.left: parent.left
+                                anchors.right: parent.right
+                                anchors.top: parent.top
+                                anchors.bottom: parent.bottom
+                                anchors.leftMargin: 23
                                 anchors.rightMargin: 7
                                 anchors.topMargin: 7
                                 anchors.bottomMargin: 7
-                                z: 0
+                                layoutDirection: Qt.LeftToRight
                                 clip: true
-                                rows: 2
-                                columns: 2
-                                flow: GridLayout.TopToBottom
-                                columnSpacing: 5
+                                topPadding: 4
+                                leftPadding: 14
+                                padding: 0
+                                flow: Flow.TopToBottom
+                                spacing: 6
 
                                 Rectangle {
                                     id: nameBlock
                                     width: 200
-                                    height: 200
+                                    height: 40
                                     color: "#6c0101"
                                     radius: 8
                                     border.width: 0
+
+                                    Text {
+                                        id: _text
+                                        color: "#ffffff"
+                                        text: cards[selectedIndex].name
+                                        anchors.fill: parent
+                                        horizontalAlignment: Text.AlignHCenter
+                                        verticalAlignment: Text.AlignVCenter
+                                        wrapMode: Text.Wrap
+                                        fontSizeMode: Text.HorizontalFit
+                                    }
                                 }
 
                                 Rectangle {
@@ -1015,6 +1031,24 @@ Window {
                                     id: typeBlock
                                     width: 50
                                     height: 50
+                                    color: "#6c0101"
+                                    radius: 8
+                                    border.width: 0
+                                }
+
+                                Rectangle {
+                                    id: attack1Block
+                                    width: 75
+                                    height: 24
+                                    color: "#6c0101"
+                                    radius: 8
+                                    border.width: 0
+                                }
+
+                                Rectangle {
+                                    id: attack2Block
+                                    width: 200
+                                    height: 200
                                     color: "#6c0101"
                                     radius: 8
                                     border.width: 0
