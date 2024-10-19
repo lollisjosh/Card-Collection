@@ -1,5 +1,5 @@
 from pokemontcgsdk import Set
-import backend
+from backend import Backend
 
 class InitHandler:
     """
@@ -13,3 +13,5 @@ class InitHandler:
         Args:
             params none
         """
+        back = Backend()
+        return back.all_sets()

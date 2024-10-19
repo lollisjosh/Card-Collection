@@ -10,7 +10,7 @@ from pokemontcgsdk import Rarity
 import json
 
 import inithandler
-import searchhandler
+from searchhandler import SearchHandler
 
 
 class BackendController(QObject):
@@ -41,15 +41,15 @@ class BackendController(QObject):
         Args:
             params none
         """
-        try:
-            
+        try:            
             initHandler = inithandler.InitHandler()
             
             sets = initHandler.handle_sets_retrieve()
             
-            setList = [{"name" : set.name} for set in sets]
+            if sets != None:
+                setList = [{"name" : set.name} for set in sets]
             
-            self.setsResults.emit(json.dumps(setList))
+                self.setsResults.emit(json.dumps(setList))
         
         except Exception as e:
             self.setsResults.emit(json.dump({"error": str(e)}))
@@ -64,6 +64,16 @@ class BackendController(QObject):
             params (list[tuple[str, str, str]]): 
                 List of search parameter tuples of the form (category, subcategory, target)
         """
+
+        try:
+            searchHandler = SearchHandler()
+            cards = searchHandler.handle_request_search(params)
+            if cards != None:
+                card_list = [{"name": card.name, "imageUrl": card.images.large} for card in cards]
+                self.searchResults.emit(json.dumps(card_list))
+
+        except Exception as e:
+            self.searchResults.emit(json.dump({"error": str(e)}))
 
     @Slot(list)
     def request_discover(self, params: list[tuple[str, str, str]]):
