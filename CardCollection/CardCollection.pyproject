@@ -1,12 +1,12 @@
 {
     "files": [
+        "backend.py",
+        "backendcontroller.py",
+        "inithandler.py",
         "main.py",
         "main.qml",
         "qtquickcontrols2.conf",
+        "requirements.txt",
         "resource.qrc"
-        "backend.py",
-        "inithandler.py",
-        "searchhandler.py",
-        "backendcontroller.py"
     ]
 }
