@@ -15,6 +15,7 @@ Window {
 
     visible: true
     color: "#6c0101"
+    property alias attack2NameBlock: attack2NameBlock
     title: qsTr("Card Collection")
     
     
@@ -967,7 +968,7 @@ Window {
                                     Behavior on scale {
                                         NumberAnimation {
                                             duration: 200
-                                            easing: Easing.InOutQuad
+                                            // easing: Easing.InOutQuad
                                         }
                                     }
 
@@ -1024,7 +1025,7 @@ Window {
                                 layoutDirection: Qt.RightToLeft
                                 clip: true
                                 flow: Flow.TopToBottom
-                                spacing: 8
+                                spacing: 6
 
                                 Rectangle {
                                     id: nameBlock
@@ -1056,6 +1057,31 @@ Window {
                                 }
 
                                 Rectangle {
+                                    id: typeBlock
+                                    width: 90
+                                    height: 48
+                                    color: "#6c0101"
+                                    radius: 8
+                                    border.width: 0
+                                    Text {
+                                        id: typeText
+                                        y: 2
+                                        height: 44
+                                        color: "#ffffff"
+                                        text: "Types"
+                                        anchors.left: parent.left
+                                        anchors.right: parent.right
+                                        anchors.leftMargin: 0
+                                        anchors.rightMargin: 0
+                                        horizontalAlignment: Text.AlignHCenter
+                                        verticalAlignment: Text.AlignVCenter
+                                        wrapMode: Text.Wrap
+                                        fontSizeMode: Text.HorizontalFit
+                                        font.styleName: "Bold Italic"
+                                    }
+                                }
+
+                                Rectangle {
                                     id: setLogoBlock
                                     x: 220
                                     width: 204
@@ -1066,7 +1092,7 @@ Window {
                                     Text {
                                         id: setLogoText
                                         x: -382
-                                        y: 60
+                                        y: 56
                                         height: 37
                                         color: "#ffffff"
                                         text: (selectedIndex >= 0 && selectedIndex < cards.length)
@@ -1074,8 +1100,8 @@ Window {
                                               : "Set Logo"
                                         anchors.left: parent.left
                                         anchors.right: parent.right
-                                        anchors.leftMargin: 8
-                                        anchors.rightMargin: -8
+                                        anchors.leftMargin: 0
+                                        anchors.rightMargin: 0
                                         horizontalAlignment: Text.AlignHCenter
                                         verticalAlignment: Text.AlignVCenter
                                         wrapMode: Text.Wrap
@@ -1131,7 +1157,6 @@ Window {
 
                                 }
 
-
                                 Rectangle {
                                     id: setSymbolBlock
                                     x: 220
@@ -1174,15 +1199,111 @@ Window {
                                 }
 
 
+
+
+
                                 Rectangle {
-                                    id: typeBlock
-                                    width: 100
-                                    height: 50
+                                    id: attack1NameBlock
+                                    width: 150
+                                    height: 40
+                                    color: "#6c0101"
+                                    radius: 8
+                                    border.width: 0
+                                    Text {
+                                        id: attack1NameText
+                                        y: 8
+                                        height: 24
+                                        color: "#ffffff"
+                                        text: "Attack 1"
+                                        anchors.left: parent.left
+                                        anchors.right: parent.right
+                                        anchors.leftMargin: 8
+                                        anchors.rightMargin: 8
+                                        horizontalAlignment: Text.AlignHCenter
+                                        verticalAlignment: Text.AlignVCenter
+                                        wrapMode: Text.Wrap
+                                        fontSizeMode: Text.HorizontalFit
+                                        font.styleName: "Bold Italic"
+                                    }
+                                }
+
+                                Rectangle {
+                                    id: attack1DescriptionBlock
+                                    width: 220
+                                    height: 100
+                                    color: "#6c0101"
+                                    radius: 8
+                                    border.width: 0
+                                    Text {
+                                        id: attack1DescriptionText
+                                        y: 8
+                                        height: 84
+                                        color: "#ffffff"
+                                        text: "Attack 1 Description"
+                                        anchors.left: parent.left
+                                        anchors.right: parent.right
+                                        anchors.leftMargin: 22
+                                        anchors.rightMargin: 22
+                                        horizontalAlignment: Text.AlignHCenter
+                                        verticalAlignment: Text.AlignVCenter
+                                        wrapMode: Text.Wrap
+                                        fontSizeMode: Text.HorizontalFit
+                                        font.styleName: "Bold Italic"
+                                    }
+                                }
+
+                                Rectangle {
+                                    id: attack2NameBlock
+                                    width: 150
+                                    height: 40
+                                    color: "#6c0101"
+                                    radius: 8
+                                    border.width: 0
+                                    Text {
+                                        id: attack2NameText
+                                        y: 8
+                                        height: 24
+                                        color: "#ffffff"
+                                        text: "Attack 2"
+                                        anchors.left: parent.left
+                                        anchors.right: parent.right
+                                        anchors.leftMargin: 8
+                                        anchors.rightMargin: 8
+                                        horizontalAlignment: Text.AlignHCenter
+                                        verticalAlignment: Text.AlignVCenter
+                                        wrapMode: Text.Wrap
+                                        fontSizeMode: Text.HorizontalFit
+                                        font.styleName: "Bold Italic"
+                                    }
+                                }
+
+                                Rectangle {
+                                    id: attack2DescriptionBlock
+                                    width: 220
+                                    height: 100
                                     color: "#6c0101"
                                     radius: 8
                                     border.width: 0
 
+                                    Text {
+                                        id: attack2DescriptionText1
+                                        y: 8
+                                        height: 84
+                                        color: "#ffffff"
+                                        text: "Attack 2 Description"
+                                        anchors.left: parent.left
+                                        anchors.right: parent.right
+                                        anchors.leftMargin: 39
+                                        anchors.rightMargin: 38
+                                        horizontalAlignment: Text.AlignHCenter
+                                        verticalAlignment: Text.AlignVCenter
+                                        wrapMode: Text.Wrap
+                                        fontSizeMode: Text.HorizontalFit
+                                        font.styleName: "Bold Italic"
+                                    }
                                 }
+
+
 
 
                             }
