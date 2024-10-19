@@ -97,29 +97,31 @@ Window {
                         ToolBar {
                             id: searchFilterTools
                             width: 480
+                            Layout.preferredHeight: 36
+                            verticalPadding: 0
                             bottomPadding: 0
                             horizontalPadding: 0
                             Layout.topMargin: 0
-                            verticalPadding: 0
                             Layout.fillHeight: false
                             Layout.fillWidth: true
                             contentHeight: 30
-                            
+
                             RowLayout {
                                 id: filtersRow
-                                width: 480
                                 anchors.verticalCenter: parent.verticalCenter
-                                anchors.horizontalCenterOffset: 0
-                                anchors.horizontalCenter: parent.horizontalCenter
+                                anchors.left: parent.left
+                                anchors.right: parent.right
+                                anchors.top: parent.top
+                                z: 2
                                 spacing: 2
-                                
+
                                 ComboBox {
                                     id: setComboBox
                                     width: 124
                                     height: 30
                                     Layout.leftMargin: 6
-                                    Layout.preferredHeight: 24
-                                    Layout.preferredWidth: 124
+                                    Layout.preferredHeight: -1
+                                    Layout.preferredWidth: -1
                                     Layout.fillHeight: false
                                     Layout.fillWidth: true
                                     displayText: "Sets"
@@ -203,8 +205,8 @@ Window {
                                     Layout.fillHeight: false
                                     Layout.fillWidth: false
                                     Layout.rightMargin: 6
-                                    
-                                    
+
+
 
                                     RoundButton {
                                         id: grassTypeButton
@@ -243,7 +245,7 @@ Window {
                                             button: "red"
                                         }
                                     }
-                                    
+
                                     RoundButton {
                                         id: waterTypeButton
                                         width: 24
@@ -262,7 +264,7 @@ Window {
                                             button: "blue"
                                         }
                                     }
-                                    
+
                                     RoundButton {
                                         id: lightningTypeButton
                                         width: 24
@@ -281,7 +283,7 @@ Window {
                                             button: "gold"
                                         }
                                     }
-                                    
+
                                     RoundButton {
                                         id: psychicTypeButton
                                         width: 24
@@ -299,7 +301,7 @@ Window {
                                             button: "darkviolet"
                                         }
                                     }
-                                    
+
                                     RoundButton {
                                         id: fightingTypeButton
                                         width: 24
@@ -318,7 +320,7 @@ Window {
                                             button: "saddlebrown"
                                         }
                                     }
-                                    
+
                                     RoundButton {
                                         id: darknessTypeButton
                                         width: 24
@@ -337,7 +339,7 @@ Window {
                                             button: "darkslategrey"
                                         }
                                     }
-                                    
+
                                     RoundButton {
                                         id: metalTypeButton
                                         width: 24
@@ -356,7 +358,7 @@ Window {
                                             button: "lightgrey"
                                         }
                                     }
-                                    
+
                                     RoundButton {
                                         id: colorlessTypeButton
                                         width: 24
@@ -375,7 +377,7 @@ Window {
                                             button: "white"
                                         }
                                     }
-                                    
+
                                     RoundButton {
                                         id: fairyTypeButton
                                         width: 24
@@ -394,7 +396,7 @@ Window {
                                             button: "hotpink"
                                         }
                                     }
-                                    
+
                                     RoundButton {
                                         id: dragonTypeButton
                                         width: 24
@@ -415,6 +417,23 @@ Window {
                                     }
                                 }
                             }
+
+                            Rectangle {
+                                id: rectangle4
+                                color: "#00ffffff"
+                                radius: 1
+                                border.color: "#6c0101"
+                                border.width: 2
+                                anchors.fill: parent
+                                z: 1
+                            }
+
+                            Rectangle {
+                                id: rectangle8
+                                color: "#cc1c1c"
+                                border.color: "#00000000"
+                                anchors.fill: parent
+                            }
                         }
 
                         ToolBar {
@@ -431,18 +450,36 @@ Window {
 
                             RowLayout {
                                 id: searchRow
+                                x: 6
+                                y: 6
                                 anchors.fill: parent
+                                z: 3
                                 spacing: 5
 
                                 TextField {
                                     id: txtSearchBox
                                     width: 200
                                     height: 36
+                                    z: 0
                                     Layout.leftMargin: 6
                                     Layout.preferredHeight: -1
                                     Layout.preferredWidth: -1
                                     placeholderText: qsTr("Enter card name")
                                     Layout.fillWidth: true
+
+                                    Rectangle {
+                                        id: rectangle7
+                                        color: "#00951111"
+                                        radius: 4
+                                        border.color: "#6c0101"
+                                        border.width: 2
+                                        anchors.fill: parent
+                                        anchors.leftMargin: -2
+                                        anchors.rightMargin: -2
+                                        clip: false
+                                        scale: 1
+                                        z: 0
+                                    }
                                 }
                                 Button {
                                     id: btnSearch
@@ -524,6 +561,23 @@ Window {
 
 
                             }
+
+                            Rectangle {
+                                id: rectangle5
+                                color: "#00ffffff"
+                                radius: 4
+                                border.color: "#6c0101"
+                                border.width: 2
+                                anchors.fill: parent
+                                z: 1
+                            }
+
+                            Rectangle {
+                                id: rectangle6
+                                color: "#cc1c1c"
+                                border.color: "#00000000"
+                                anchors.fill: parent
+                            }
                         }
                     }
 
@@ -541,16 +595,45 @@ Window {
 
                         // The main Pane with no margin or padding
                         Rectangle {
+                            id: _itemOuterRedMid
                             visible: true
                             color: "#00ccf2ff"
                             radius: 0
-                            border.color: "#c80d0d"
+                            border.color: "#cc1c1c"
                             border.width: 6
+                            anchors.fill: parent
+                            z: 3
+                        }
+
+                        Rectangle {
+                            id: _itemOuterRedShade
+                            height: 404
+                            visible: true
+                            color: "#00ccf2ff"
+                            radius: 4
+                            border.color: "#6c0101"
+                            border.width: 2
                             anchors.verticalCenter: parent.verticalCenter
                             anchors.left: parent.left
                             anchors.right: parent.right
                             anchors.top: parent.top
-                            z: 3
+                            anchors.rightMargin: 0
+                            anchors.topMargin: 0
+                            z: 4
+                        }
+
+                        Rectangle {
+                            id: _itemOuterRedShade1
+                            visible: true
+                            color: "#00ccf2ff"
+                            radius: 4
+                            border.color: "#6c0101"
+                            border.width: 2
+                            anchors.fill: parent
+                            anchors.rightMargin: 5
+                            anchors.topMargin: 5
+                            anchors.bottomMargin: 5
+                            z: 4
                         }
 
                         Pane {
@@ -585,8 +668,7 @@ Window {
                             // Drawer
                             Rectangle {
                                 id: customDrawer
-                                x: -273
-                                y: 0
+                                x: -271
                                 width: 280
                                 height: 410
                                 opacity: 1
@@ -594,6 +676,7 @@ Window {
                                 color: "#15ba1c"
                                 border.color: "#25fb2e"
                                 border.width: 6
+                                anchors.verticalCenter: parent.verticalCenter
                                 scale: 0.95
                                 z: 0
                                 // Light blue drawer background
@@ -627,14 +710,14 @@ Window {
                                         fillMode: Image.PreserveAspectFit
                                     }                                }
 
-                                    Rectangle {
-                                        id: rectangle1
-                                        color: "#00ffffff"
-                                        radius: 3
-                                        border.color: "#128c17"
-                                        border.width: 4
-                                        anchors.fill: parent
-                                    }
+                                Rectangle {
+                                    id: rectangle1
+                                    color: "#00ffffff"
+                                    radius: 3
+                                    border.color: "#128c17"
+                                    border.width: 4
+                                    anchors.fill: parent
+                                }
                             }
 
 
@@ -655,7 +738,7 @@ Window {
                                         ; // Slide in
                                         _item.isDrawerOpen = true
                                     } else {
-                                        customDrawer.x = -customDrawer.width+8; // Slide out
+                                        customDrawer.x = -customDrawer.width+12; // Slide out
                                         _item.isDrawerOpen = false
                                     }
                                 }
@@ -708,6 +791,8 @@ Window {
                             }
                         }
 
+
+
                     }
 
 
@@ -743,21 +828,31 @@ Window {
 
                             Button {
                                 text: "Previous"
+                                font.styleName: "Bold Italic"
                                 enabled: selectedIndex > 0
                                 onClicked: {
                                     if (selectedIndex > 0) {
                                         selectedIndex--;
                                     }
                                 }
+                                palette {
+                                    button: "#c80d0d"
+                                }
                             }
 
                             Button {
                                 text: "Next"
+                                font.styleName: "Bold Italic"
+                                font.pointSize: 11
+                                font.bold: true
                                 enabled: selectedIndex < cards.length - 1
                                 onClicked: {
                                     if (selectedIndex < cards.length - 1) {
                                         selectedIndex++;
                                     }
+                                }
+                                palette {
+                                    button: "#c80d0d"
                                 }
                             }
                         }
@@ -765,8 +860,9 @@ Window {
                         Rectangle {
                             id: rectangle
                             color: "#951111"
-                            border.color: "#c80d0d"
-                            border.width: 11
+                            radius: 4
+                            border.color: "#cc1c1c"
+                            border.width: 8
                             anchors.fill: parent
                             anchors.leftMargin: 0
                             anchors.rightMargin: 0
@@ -782,10 +878,24 @@ Window {
                             border.color: "#6c0101"
                             border.width: 2
                             anchors.fill: parent
-                            anchors.leftMargin: 11
-                            anchors.rightMargin: 11
-                            anchors.topMargin: 11
-                            anchors.bottomMargin: 11
+                            anchors.leftMargin: 8
+                            anchors.rightMargin: 8
+                            anchors.topMargin: 8
+                            anchors.bottomMargin: 8
+                            z: 0
+                        }
+
+                        Rectangle {
+                            id: rectangle3
+                            color: "#00951111"
+                            radius: 4
+                            border.color: "#6c0101"
+                            border.width: 2
+                            anchors.fill: parent
+                            anchors.leftMargin: 0
+                            anchors.rightMargin: 0
+                            anchors.topMargin: 0
+                            anchors.bottomMargin: 0
                             z: 0
                         }
                     }
