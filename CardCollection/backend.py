@@ -3,16 +3,21 @@ from pokemontcgsdk import Card, Set, RestClient
 RestClient.configure('12345678-1234-1234-1234-123456789ABCD')
 
 class Backend:
+    """
+    Summary:
+        Handles all actual API interaction from constructing queries, to querying for data.
+    """
+
     def construct_query(self, query_data: list[tuple[str, str, str]]) -> str:
         """
         Constructs a query string from the given search parameters.
         Args:
             search_parameters (list[tuple[str,str,str]]): A list of tuples representing the search parameters.
-              
+
         Returns:
             str: The constructed query string.
         """
-        
+
         # Initialize an empty dictionary to hold query parts
         query_parts = {}
 
@@ -33,14 +38,16 @@ class Backend:
             # Check if subcategory is provided
             if subcategory:
                 if category:
-                    # Create a string in the format "category.subcategory:target" and add it to the list
+                    # Create a string in the format "category.subcategory:target" 
+                    # and add it to the list
                     query_parts[category].append(f"{category}.{subcategory}:{target}")
                 else:
                     # If no category, just "subcategory:target"
                     query_parts[category].append(f"{subcategory}:{target}")
             else:
                 if category:
-                    # Create a string in the format "category:target" and add it to the list
+                    # Create a string in the format "category:target" 
+                    # and add it to the list
                     query_parts[category].append(f"{category}:{target}")
                 else:
                     # If no category or subcategory, just "target"
@@ -72,7 +79,7 @@ class Backend:
         Returns: 
             list[Card]: A list of Card objects returned by the API.
         """
-    
+
     def all_sets(self) -> list[Set]:
         """
         Retrieves all available sets from the Pokemon TCG API.
