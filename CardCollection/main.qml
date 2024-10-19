@@ -1,4 +1,4 @@
-import QtQuick 2
+import QtQuick 2.13
 import QtQuick.Controls 2.15
 import QtQuick.Layouts
 import QtQuick.Window 2.15
@@ -858,6 +858,7 @@ Window {
                                 radius: 4
                                 border.color: "#25fb2e"
                                 border.width: 6
+                                // @disable-check M9
                                 anchors.verticalCenter: parent.verticalCenter
                                 scale: 0.95
                                 z: 1
@@ -986,15 +987,12 @@ Window {
                                 anchors.right: parent.right
                                 anchors.top: parent.top
                                 anchors.bottom: parent.bottom
-                                anchors.leftMargin: 23
+                                anchors.leftMargin: 36
                                 anchors.rightMargin: 7
                                 anchors.topMargin: 7
                                 anchors.bottomMargin: 7
                                 layoutDirection: Qt.LeftToRight
                                 clip: true
-                                topPadding: 4
-                                leftPadding: 14
-                                padding: 0
                                 flow: Flow.TopToBottom
                                 spacing: 6
 
@@ -1007,7 +1005,7 @@ Window {
                                     border.width: 0
 
                                     Text {
-                                        id: _text
+                                        id: nameText
                                         color: "#ffffff"
                                         text: cards[selectedIndex].name
                                         anchors.fill: parent
@@ -1020,7 +1018,37 @@ Window {
 
                                 Rectangle {
                                     id: setBlock
+                                    width: 108
+                                    height: 80
+                                    color: "#6c0101"
+                                    radius: 8
+                                    border.width: 0
+                                    Text {
+                                        id: setNameText
+                                        color: "#ffffff"
+                                        text: cards[selectedIndex].set
+                                        anchors.fill: parent
+                                        horizontalAlignment: Text.AlignHCenter
+                                        verticalAlignment: Text.AlignVCenter
+                                        wrapMode: Text.Wrap
+                                        fontSizeMode: Text.HorizontalFit
+                                    }
+
+                                }
+
+                                Rectangle {
+                                    id: typeBlock
                                     width: 100
+                                    height: 50
+                                    color: "#6c0101"
+                                    radius: 8
+                                    border.width: 0
+
+                                }
+
+                                Rectangle {
+                                    id: attack1Block
+                                    width: 200
                                     height: 100
                                     color: "#6c0101"
                                     radius: 8
@@ -1028,30 +1056,21 @@ Window {
                                 }
 
                                 Rectangle {
-                                    id: typeBlock
-                                    width: 50
-                                    height: 50
+                                    id: setSymbolBlock
+                                    x: 220
+                                    width: 150
+                                    height: 150
                                     color: "#6c0101"
                                     radius: 8
                                     border.width: 0
-                                }
 
-                                Rectangle {
-                                    id: attack1Block
-                                    width: 75
-                                    height: 24
-                                    color: "#6c0101"
-                                    radius: 8
-                                    border.width: 0
-                                }
-
-                                Rectangle {
-                                    id: attack2Block
-                                    width: 200
-                                    height: 200
-                                    color: "#6c0101"
-                                    radius: 8
-                                    border.width: 0
+                                    Image {
+                                        id: image
+                                        anchors.fill: parent
+                                        source: cards[selectedIndex].setSymbol
+                                        scale: 0.8
+                                        fillMode: Image.PreserveAspectFit
+                                    }
                                 }
                             }
                         }
@@ -1235,7 +1254,9 @@ Window {
                     } else {
                         cards = data.map(card => ({
                                                       "name": card.name,
-                                                      "imageUrl": card.imageUrl || ""
+                                                      "imageUrl": card.imageUrl || "",
+                                                      "set": card.set,
+                                                      "setSymbol": card.setSymbol
                                                   }));
                         selectedIndex = 0;  // Start with the first card
                         // Log the image URLs to the console
