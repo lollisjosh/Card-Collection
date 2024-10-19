@@ -76,6 +76,8 @@ Window {
                 width: parent.width
                 height: parent.height
                 visible: false
+                Layout.fillHeight: true
+                Layout.fillWidth: true
                 
                 ColumnLayout {
                     id: searchTabColumn
@@ -86,6 +88,8 @@ Window {
                         id: searchToolsColumn
                         width: 100
                         height: 100
+                        spacing: 0
+                        Layout.columnSpan: 1
                         z: 0
                         Layout.fillWidth: true
                         Layout.fillHeight: true
@@ -93,8 +97,10 @@ Window {
                         ToolBar {
                             id: searchFilterTools
                             width: 480
-                            Layout.topMargin: 6
-                            verticalPadding: 0.6
+                            bottomPadding: 0
+                            horizontalPadding: 0
+                            Layout.topMargin: 0
+                            verticalPadding: 0
                             Layout.fillHeight: false
                             Layout.fillWidth: true
                             contentHeight: 30
@@ -103,7 +109,6 @@ Window {
                                 id: filtersRow
                                 width: 480
                                 anchors.verticalCenter: parent.verticalCenter
-                                anchors.verticalCenterOffset: -2
                                 anchors.horizontalCenterOffset: 0
                                 anchors.horizontalCenter: parent.horizontalCenter
                                 spacing: 2
@@ -416,6 +421,8 @@ Window {
                             id: searchTools
                             width: parent.width
                             height: 48
+                            bottomPadding: 0
+                            horizontalPadding: 0
                             Layout.fillHeight: false
                             contentWidth: 200
                             contentHeight: 48
@@ -442,6 +449,7 @@ Window {
                                     width: 100
                                     height: 40
                                     text: qsTr("Search")
+                                    Layout.fillHeight: false
                                     Layout.rightMargin: 6
                                     Layout.fillWidth: false
                                     onClicked: {
@@ -577,15 +585,16 @@ Window {
                             // Drawer
                             Rectangle {
                                 id: customDrawer
-                                x: -279
+                                x: -273
                                 y: 0
                                 width: 280
-                                height: openButton.height
+                                height: 410
                                 opacity: 1
                                 // Start hidden
                                 color: "#15ba1c"
                                 border.color: "#25fb2e"
                                 border.width: 6
+                                scale: 0.95
                                 z: 0
                                 // Light blue drawer background
 
@@ -617,6 +626,15 @@ Window {
                                         scale: 1
                                         fillMode: Image.PreserveAspectFit
                                     }                                }
+
+                                    Rectangle {
+                                        id: rectangle1
+                                        color: "#00ffffff"
+                                        radius: 3
+                                        border.color: "#128c17"
+                                        border.width: 4
+                                        anchors.fill: parent
+                                    }
                             }
 
 
@@ -628,16 +646,16 @@ Window {
                                 opacity: 1
                                 anchors.verticalCenter: customDrawer.verticalCenter
                                 anchors.left: customDrawer.right // Keep the button attached to the right edge of the drawer
-                                anchors.leftMargin: -1
+                                anchors.leftMargin: -7
 
                                 z: 0
                                 onClicked: {
                                     if (customDrawer.x < 0) {
-                                        customDrawer.x = 5
+                                        customDrawer.x = 0
                                         ; // Slide in
                                         _item.isDrawerOpen = true
                                     } else {
-                                        customDrawer.x = -customDrawer.width; // Slide out
+                                        customDrawer.x = -customDrawer.width+8; // Slide out
                                         _item.isDrawerOpen = false
                                     }
                                 }
@@ -649,14 +667,14 @@ Window {
                                     color: "#c80d0d" // Background color of the button
                                     radius: 0 // Rounded corners
                                     border.color: "#620808" // Darker border for a subtle effect
-                                    border.width: 0 // Thin border
+                                    border.width: 2 // Thin border
                                 }
 
                                 // Circle for the caret background
                                 Rectangle {
                                     x: 8
-                                    width: 22
-                                    height: 22
+                                    width: 26
+                                    height: 26
                                     color: "#6c0101" // Circle color
                                     radius: 9
                                     border.color: "#c80d0d"
@@ -672,16 +690,19 @@ Window {
                                     id: drawerButtonText
                                     text: { _item.isDrawerOpen ? "<" : ">" }
                                     anchors.verticalCenter: parent.verticalCenter // Proper QML binding expression
-                                    font.pixelSize: 18
+                                    font.pixelSize: 26
+                                    horizontalAlignment: Text.AlignHCenter
+                                    verticalAlignment: Text.AlignVCenter
+                                    font.styleName: "Condensed Bold"
                                     anchors.verticalCenterOffset: 0
-                                    anchors.horizontalCenterOffset: 12
+                                    anchors.horizontalCenterOffset: 7
                                     anchors.horizontalCenter: parent.horizontalCenter
                                     font.bold: true
-                                    color: "#ffffff"
+                                    color: "#ef0e0e"
 
                                     // Color of the caret
                                     anchors.right: buttonBackground.right
-                                    anchors.rightMargin: -12 // Align with the right edge of the button
+                                    anchors.rightMargin: -7 // Align with the right edge of the button
 
                                 }
                             }
