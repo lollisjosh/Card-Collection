@@ -868,6 +868,7 @@ Window {
                                 anchors.verticalCenter: parent.verticalCenter
                                 scale: 0.95
                                 z: 1
+                                //property bool isHoverEnabled: true
 
                                 // Animate the x position when it changes
                                 Behavior on x {
@@ -927,14 +928,29 @@ Window {
                                 anchors.left: customDrawer.right // Keep the button attached to the right edge of the drawer
                                 anchors.leftMargin: -7
 
+                                // hoverEnabled: customDrawer.isHoverEnabled
+                                // onEntered: {
+
+                                //    if(_item.isDrawerOpen === false && customDrawer.x+customDrawer.width-12 <=0) customDrawer.x = customDrawer.x += 8
+                                // }
+                                // onExited: {
+                                //     // TODO FIx logic
+                                //     if(_item.isDrawerOpen === false && customDrawer.x+customDrawer.width-12 >=0)
+                                //     customDrawer.x = customDrawer.x -= 8
+                                // }
+
                                 z: 1
                                 onClicked: {
                                     if (customDrawer.x < 0) {
                                         customDrawer.x = 0
-                                        ; // Slide in
+                                        ;
+                                        //customDrawer.isHoverEnabled = false
+                                        // Slide in
                                         _item.isDrawerOpen = true
                                     } else {
                                         customDrawer.x = -customDrawer.width+12; // Slide out
+                                        //customDrawer.isHoverEnabled = true
+
                                         _item.isDrawerOpen = false
                                     }
                                 }
@@ -981,11 +997,27 @@ Window {
 
                                         onEntered: {
                                             // Scale up on hover
-                                            drawerCircle.scale = 1.1;
+                                            drawerCircle.scale = 1.2;
                                         }
                                         onExited: {
                                             // Scale down when not hovered
                                             drawerCircle.scale = 1;
+                                        }
+
+                                        onClicked: {
+                                            if (customDrawer.x < 0) {
+                                                customDrawer.x = 0
+                                                ;
+                                                //customDrawer.isHoverEnabled = false
+
+                                                // Slide in
+                                                _item.isDrawerOpen = true
+                                            } else {
+                                                customDrawer.x = -customDrawer.width+12; // Slide out
+                                                //customDrawer.isHoverEnabled = true
+
+                                                _item.isDrawerOpen = false
+                                            }
                                         }
                                     }
                                 }
@@ -1084,15 +1116,15 @@ Window {
                                 Rectangle {
                                     id: setLogoBlock
                                     x: 220
-                                    width: 204
-                                    height: 148
+                                    width: 170
+                                    height: 130
                                     color: "#6c0101"
                                     radius: 8
                                     border.width: 0
                                     Text {
                                         id: setLogoText
                                         x: -382
-                                        y: 56
+                                        y: 47
                                         height: 37
                                         color: "#ffffff"
                                         text: (selectedIndex >= 0 && selectedIndex < cards.length)
