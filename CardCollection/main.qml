@@ -1142,8 +1142,6 @@ Window {
 
                                         Text {
                                             id: nameText
-                                            y: 8
-                                            height: 29
                                             color: "#c5002a02"
                                             // Safely access the name property
                                             text: (selectedIndex >= 0 && selectedIndex < cards.length)
@@ -1151,8 +1149,12 @@ Window {
                                                   : "Name"
                                             anchors.left: parent.left
                                             anchors.right: parent.right
+                                            anchors.top: parent.top
+                                            anchors.bottom: parent.bottom
                                             anchors.leftMargin: 0
                                             anchors.rightMargin: 0
+                                            anchors.topMargin: 4
+                                            anchors.bottomMargin: 4
                                             // Fallback when no card is selected
                                             horizontalAlignment: Text.AlignHCenter
                                             verticalAlignment: Text.AlignVCenter
@@ -1165,14 +1167,16 @@ Window {
 
                                         Text {
                                             id: nameDropText
-                                            y: 12
-                                            height: 24
                                             color: "#2a7b2d"
                                             text: nameText.text
                                             anchors.left: parent.left
                                             anchors.right: parent.right
+                                            anchors.top: parent.top
+                                            anchors.bottom: parent.bottom
                                             anchors.leftMargin: 1
                                             anchors.rightMargin: -1
+                                            anchors.topMargin: 6
+                                            anchors.bottomMargin: 2
                                             horizontalAlignment: Text.AlignHCenter
                                             verticalAlignment: Text.AlignVCenter
                                             wrapMode: Text.Wrap
@@ -1390,8 +1394,8 @@ Window {
 
                                 Rectangle {
                                     id: setSymbolBlock
-                                    x: 346
-                                    y: 180
+                                    x: 356
+                                    y: 181
                                     width: 75
                                     height: 60
                                     color: "#c80d0d"
@@ -1466,8 +1470,8 @@ Window {
 
                                 Rectangle {
                                     id: setBlock
-                                    x: 246
-                                    y: 180
+                                    x: 256
+                                    y: 181
                                     width: 98
                                     height: 60
                                     color: "#c80d0d"
@@ -1566,7 +1570,7 @@ Window {
 
                                             Text {
                                                 id: attack1Name
-                                                color: "#ffffff"
+                                                color: "#c5002a02"
                                                 text: "Attack 1"
                                                 anchors.fill: parent
                                                 anchors.leftMargin: 4
@@ -1578,7 +1582,24 @@ Window {
                                                 wrapMode: Text.Wrap
                                                 z: 1
                                                 fontSizeMode: Text.HorizontalFit
-                                                font.styleName: "Bold Italic"
+                                                font.styleName: "ExtraBold Italic"
+                                            }
+
+                                            Text {
+                                                id: attack1NameDrop
+                                                color: "#2a7b2d"
+                                                text: attack1Name.text
+                                                anchors.fill: parent
+                                                anchors.leftMargin: 5
+                                                anchors.rightMargin: 3
+                                                anchors.topMargin: 3
+                                                anchors.bottomMargin: 1
+                                                horizontalAlignment: Text.AlignHCenter
+                                                verticalAlignment: Text.AlignVCenter
+                                                wrapMode: Text.Wrap
+                                                z: 0
+                                                fontSizeMode: Text.HorizontalFit
+                                                font.styleName: "ExtraBold Italic"
                                             }
                                         }
                                     }
@@ -1635,16 +1656,16 @@ Window {
                                                 wrapMode: Text.Wrap
                                                 z: 1
                                                 fontSizeMode: Text.HorizontalFit
-                                                font.styleName: "Bold Italic"
+                                                font.styleName: "ExtraBold Italic"
                                             }
 
                                             Text {
                                                 id: attack1DescriptionText
-                                                color: "#2a7b2d"
+                                                color: "#095f0c"
                                                 text: attack1DescriptionDropText.text
                                                 anchors.fill: parent
-                                                anchors.leftMargin: 4
-                                                anchors.rightMargin: 4
+                                                anchors.leftMargin: 5
+                                                anchors.rightMargin: 3
                                                 anchors.topMargin: 6
                                                 anchors.bottomMargin: 2
                                                 horizontalAlignment: Text.AlignHCenter
@@ -1652,7 +1673,7 @@ Window {
                                                 wrapMode: Text.Wrap
                                                 z: 0
                                                 fontSizeMode: Text.HorizontalFit
-                                                font.styleName: "Bold Italic"
+                                                font.styleName: "ExtraBold Italic"
                                             }
                                         }
                                     }
@@ -2057,3 +2078,9 @@ Window {
 
 
 
+
+/*##^##
+Designer {
+    D{i:0}D{i:66}D{i:67}D{i:83;invisible:true}D{i:91}D{i:92}D{i:97}
+}
+##^##*/
