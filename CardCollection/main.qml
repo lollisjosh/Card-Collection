@@ -1189,102 +1189,12 @@ Window {
                                 }
 
 
-                                Rectangle {
-                                    id: typeBlock
-                                    x: 353
-                                    y: 64
-                                    width: 75
-                                    height: 60
-                                    color: "#c80d0d"
-                                    radius: 8
-                                    border.color: "#6c0101"
-                                    border.width: 2
-
-                                    Rectangle {
-                                        id: setLogoBezel1
-                                        x: -366
-                                        y: -40
-                                        color: "#b2b2b2"
-                                        radius: 8
-                                        border.color: "#616161"
-                                        border.width: 2
-                                        anchors.fill: parent
-                                        anchors.leftMargin: 3
-                                        anchors.rightMargin: 3
-                                        anchors.topMargin: 3
-                                        anchors.bottomMargin: 3
-                                        z: 0
-                                        state: "base state4"
-                                        Rectangle {
-                                            id: setLogoScreen1
-                                            x: 8
-                                            y: -1
-                                            visible: true
-                                            color: "#15ba1c"
-                                            radius: 6
-                                            border.color: "#095f0c"
-                                            border.width: 2
-                                            anchors.fill: parent
-                                            anchors.leftMargin: 4
-                                            anchors.rightMargin: 4
-                                            anchors.topMargin: 6
-                                            anchors.bottomMargin: 6
-                                            z: 0
-                                            Text {
-                                                id: typeText
-                                                color: "#c5002a02"
-                                                text: (selectedIndex >= 0 && selectedIndex < cards.length)
-                                                      ? "" // Fallback if name is undefined
-                                                      : "Type"
-                                                anchors.fill: parent
-                                                horizontalAlignment: Text.AlignHCenter
-                                                verticalAlignment: Text.AlignVCenter
-                                                wrapMode: Text.Wrap
-                                                z: 1
-                                                fontSizeMode: Text.HorizontalFit
-                                                font.styleName: "ExtraBold Italic"
-                                                font.pointSize: 13
-                                                font.italic: false
-                                                font.family: "Ubuntu Sans"
-                                                font.bold: false
-                                            }
-
-                                            Text {
-                                                id: typeDropText
-                                                x: 1
-                                                y: 2
-                                                color: "#2a7b2d"
-                                                text: (selectedIndex >= 0 && selectedIndex < cards.length)
-                                                      ? "" // Fallback if name is undefined
-                                                      : "Type"
-                                                anchors.fill: parent
-                                                anchors.leftMargin: 1
-                                                anchors.rightMargin: -1
-                                                anchors.topMargin: 2
-                                                anchors.bottomMargin: -2
-                                                horizontalAlignment: Text.AlignHCenter
-                                                verticalAlignment: Text.AlignVCenter
-                                                wrapMode: Text.Wrap
-                                                z: 0
-                                                fontSizeMode: Text.HorizontalFit
-                                                font.styleName: "ExtraBold Italic"
-                                                font.pointSize: 13
-                                                font.italic: false
-                                                font.family: "Ubuntu Sans"
-                                                font.bold: false
-                                            }
-
-
-                                        }
-                                    }
-                                }
-
 
 
                                 Rectangle {
                                     id: setLogoBlock
-                                    x: 256
-                                    y: 247
+                                    x: 257
+                                    y: 128
                                     width: 175
                                     height: 130
                                     color: "#c80d0d"
@@ -1343,10 +1253,10 @@ Window {
                                                 x: -12
                                                 y: -5
                                                 anchors.fill: parent
-                                                anchors.leftMargin: 3
-                                                anchors.rightMargin: 3
-                                                anchors.topMargin: 3
-                                                anchors.bottomMargin: 3
+                                                anchors.leftMargin: 4
+                                                anchors.rightMargin: 4
+                                                anchors.topMargin: 4
+                                                anchors.bottomMargin: 4
                                                 source: (selectedIndex >= 0 && selectedIndex < cards.length) ? cards[selectedIndex].setLogo : ""
                                                 z: 1
 
@@ -1394,8 +1304,8 @@ Window {
 
                                 Rectangle {
                                     id: setSymbolBlock
-                                    x: 356
-                                    y: 181
+                                    x: 357
+                                    y: 62
                                     width: 75
                                     height: 60
                                     color: "#c80d0d"
@@ -1432,11 +1342,9 @@ Window {
                                                 id: setSymbolImage
                                                 x: -14
                                                 y: -7
-                                                anchors.verticalCenter: parent.verticalCenter
-                                                anchors.bottom: parent.bottom
+                                                anchors.fill: parent
 
                                                 source: (selectedIndex >= 0 && selectedIndex < cards.length) ? cards[selectedIndex].setSymbol : ""
-                                                anchors.horizontalCenter: parent.horizontalCenter
                                                 z: 1
                                                 scale: 0.8
                                                 fillMode: Image.PreserveAspectFit
@@ -1470,8 +1378,8 @@ Window {
 
                                 Rectangle {
                                     id: setBlock
-                                    x: 256
-                                    y: 181
+                                    x: 257
+                                    y: 62
                                     width: 98
                                     height: 60
                                     color: "#c80d0d"
@@ -1522,271 +1430,405 @@ Window {
                                                 horizontalAlignment: Text.AlignHCenter
                                                 verticalAlignment: Text.AlignVCenter
                                                 wrapMode: Text.Wrap
+                                                minimumPointSize: 8
+                                                minimumPixelSize: 8
                                                 z: 1
                                                 font.styleName: "ExtraBold Italic"
-                                                fontSizeMode: Text.HorizontalFit
+                                                fontSizeMode: Text.Fit
                                             }
                                         }
                                     }
 
                                 }
 
-                                Rectangle {
-                                    id: attack1NameBlock
-                                    x: -3
+                                Flickable {
+                                    id: attackScrollView
+                                    x: 0
                                     y: 0
-                                    width: 223
-                                    height: 40
-                                    color: "#c80d0d"
-                                    radius: 8
-                                    border.color: "#6c0101"
-                                    border.width: 2
+                                    width: 240
+                                    height: 377
+                                    boundsBehavior: Flickable.DragOverBounds
+                                    boundsMovement: Flickable.FollowBoundsBehavior
+                                    flickableDirection: Flickable.VerticalFlick
+                                    // Adjust width as needed
+                                    // Set a height that fits your layout
+                                    contentWidth: parent.width
+                                    contentHeight: 300 // Set a suitable height for your content
 
-                                    Rectangle {
-                                        id: rectangle22
-                                        color: "#b2b2b2"
-                                        radius: 8
-                                        border.color: "#616161"
-                                        border.width: 2
-                                        anchors.fill: parent
-                                        anchors.leftMargin: 4
-                                        anchors.rightMargin: 4
-                                        anchors.topMargin: 3
-                                        anchors.bottomMargin: 3
+                                    // First attack
+                                    Column {
+                                        id: attackContainer
+                                        x: 0
+                                        y: 0
+                                        width: 247
+                                        height: 500
+                                        spacing: 10 // Space between attack blocks
 
                                         Rectangle {
-                                            id: rectangle23
-                                            x: 10
-                                            y: 4
-                                            color: "#15ba1c"
-                                            radius: 4
-                                            border.color: "#128c17"
+                                            id: attack1NameBlock
+                                            width: 250
+                                            height: 40
+                                            color: "#c80d0d"
+                                            radius: 8
+                                            border.color: "#6c0101"
                                             border.width: 2
-                                            anchors.fill: parent
-                                            anchors.leftMargin: 5
-                                            anchors.rightMargin: 5
-                                            anchors.topMargin: 6
-                                            anchors.bottomMargin: 6
 
-                                            Text {
-                                                id: attack1Name
-                                                color: "#c5002a02"
-                                                text: "Attack 1"
+                                            Rectangle {
+                                                id: rectangle22
+                                                color: "#b2b2b2"
+                                                radius: 8
+                                                border.color: "#616161"
+                                                border.width: 2
                                                 anchors.fill: parent
                                                 anchors.leftMargin: 4
                                                 anchors.rightMargin: 4
-                                                anchors.topMargin: 2
-                                                anchors.bottomMargin: 2
-                                                horizontalAlignment: Text.AlignHCenter
-                                                verticalAlignment: Text.AlignVCenter
-                                                wrapMode: Text.Wrap
-                                                z: 1
-                                                fontSizeMode: Text.HorizontalFit
-                                                font.styleName: "ExtraBold Italic"
-                                            }
-
-                                            Text {
-                                                id: attack1NameDrop
-                                                color: "#2a7b2d"
-                                                text: attack1Name.text
-                                                anchors.fill: parent
-                                                anchors.leftMargin: 5
-                                                anchors.rightMargin: 3
                                                 anchors.topMargin: 3
-                                                anchors.bottomMargin: 1
-                                                horizontalAlignment: Text.AlignHCenter
-                                                verticalAlignment: Text.AlignVCenter
-                                                wrapMode: Text.Wrap
-                                                z: 0
-                                                fontSizeMode: Text.HorizontalFit
-                                                font.styleName: "ExtraBold Italic"
+                                                anchors.bottomMargin: 3
+
+                                                Rectangle {
+                                                    id: rectangle23
+                                                    x: 10
+                                                    y: 4
+                                                    color: "#15ba1c"
+                                                    radius: 4
+                                                    border.color: "#128c17"
+                                                    border.width: 2
+                                                    anchors.fill: parent
+                                                    anchors.leftMargin: 5
+                                                    anchors.rightMargin: 5
+                                                    anchors.topMargin: 6
+                                                    anchors.bottomMargin: 6
+
+                                                    Text {
+                                                        id: attack1Name
+                                                        color: "#c5002a02"
+                                                        text: "Attack 1"
+                                                        anchors.fill: parent
+                                                        horizontalAlignment: Text.AlignHCenter
+                                                        verticalAlignment: Text.AlignVCenter
+                                                        wrapMode: Text.Wrap
+                                                        fontSizeMode: Text.HorizontalFit
+                                                        font.styleName: "ExtraBold Italic"
+                                                    }
+                                                }
                                             }
                                         }
-                                    }
-                                }
-
-                                Rectangle {
-                                    id: attack1Text
-                                    x: 0
-                                    y: 44
-                                    width: 222
-                                    height: 110
-                                    color: "#c80d0d"
-                                    radius: 8
-                                    border.color: "#6c0101"
-                                    border.width: 2
-
-                                    Rectangle {
-                                        id: attack1TextBezel
-                                        color: "#b2b2b2"
-                                        radius: 8
-                                        border.color: "#616161"
-                                        border.width: 2
-                                        anchors.fill: parent
-                                        anchors.leftMargin: 4
-                                        anchors.rightMargin: 4
-                                        anchors.topMargin: 4
-                                        anchors.bottomMargin: 4
 
                                         Rectangle {
-                                            id: attack1Screen
-                                            x: 10
-                                            y: 4
-                                            color: "#15ba1c"
-                                            radius: 6
-                                            border.color: "#128c17"
-                                            border.width: 2
-                                            anchors.fill: parent
-                                            anchors.leftMargin: 6
-                                            anchors.rightMargin: 6
-                                            anchors.topMargin: 6
-                                            anchors.bottomMargin: 6
+                                                                            id: attack1Text
+                                                                            x: 0
+                                                                            y: 44
+                                                                            width: 250
+                                                                            height: 120
+                                                                            color: "#c80d0d"
+                                                                            radius: 8
+                                                                            border.color: "#6c0101"
+                                                                            border.width: 2
 
-                                            Text {
-                                                id: attack1DescriptionDropText
-                                                color: "#c5002a02"
-                                                text: "Attack 1 Description"
-                                                anchors.fill: parent
-                                                anchors.leftMargin: 4
-                                                anchors.rightMargin: 4
-                                                anchors.topMargin: 4
-                                                anchors.bottomMargin: 4
-                                                horizontalAlignment: Text.AlignHCenter
-                                                verticalAlignment: Text.AlignVCenter
-                                                wrapMode: Text.Wrap
-                                                z: 1
-                                                fontSizeMode: Text.HorizontalFit
-                                                font.styleName: "ExtraBold Italic"
-                                            }
+                                                                            Rectangle {
+                                                                                id: attack1TextBezel
+                                                                                color: "#b2b2b2"
+                                                                                radius: 8
+                                                                                border.color: "#616161"
+                                                                                border.width: 2
+                                                                                anchors.fill: parent
+                                                                                anchors.leftMargin: 4
+                                                                                anchors.rightMargin: 4
+                                                                                anchors.topMargin: 4
+                                                                                anchors.bottomMargin: 4
 
-                                            Text {
-                                                id: attack1DescriptionText
-                                                color: "#095f0c"
-                                                text: attack1DescriptionDropText.text
-                                                anchors.fill: parent
-                                                anchors.leftMargin: 5
-                                                anchors.rightMargin: 3
-                                                anchors.topMargin: 6
-                                                anchors.bottomMargin: 2
-                                                horizontalAlignment: Text.AlignHCenter
-                                                verticalAlignment: Text.AlignVCenter
-                                                wrapMode: Text.Wrap
-                                                z: 0
-                                                fontSizeMode: Text.HorizontalFit
-                                                font.styleName: "ExtraBold Italic"
-                                            }
-                                        }
-                                    }
-                                }
+                                                                                Rectangle {
+                                                                                    id: attack1Screen
+                                                                                    x: 10
+                                                                                    y: 4
+                                                                                    color: "#15ba1c"
+                                                                                    radius: 6
+                                                                                    border.color: "#128c17"
+                                                                                    border.width: 2
+                                                                                    anchors.fill: parent
+                                                                                    anchors.leftMargin: 6
+                                                                                    anchors.rightMargin: 6
+                                                                                    anchors.topMargin: 6
+                                                                                    anchors.bottomMargin: 6
 
-                                Rectangle {
-                                    id: attack2NameBlock
-                                    x: -1
-                                    y: 199
-                                    width: 150
-                                    height: 40
-                                    color: "#c80d0d"
-                                    radius: 8
-                                    border.color: "#6c0101"
-                                    border.width: 2
-                                    Text {
-                                        id: attack2NameText
-                                        y: 8
-                                        height: 24
-                                        color: "#ffffff"
-                                        text: "Attack 2"
-                                        anchors.left: parent.left
-                                        anchors.right: parent.right
-                                        anchors.leftMargin: 8
-                                        anchors.rightMargin: 8
-                                        horizontalAlignment: Text.AlignHCenter
-                                        verticalAlignment: Text.AlignVCenter
-                                        wrapMode: Text.Wrap
-                                        z: 1
-                                        fontSizeMode: Text.HorizontalFit
-                                        font.styleName: "Bold Italic"
-                                    }
+                                                                                    Text {
+                                                                                        id: attack1DescriptionDropText
+                                                                                        visible: false
+                                                                                        color: "#c5002a02"
+                                                                                        text: "Attack 1 Description"
+                                                                                        anchors.fill: parent
+                                                                                        anchors.leftMargin: 4
+                                                                                        anchors.rightMargin: 4
+                                                                                        anchors.topMargin: 4
+                                                                                        anchors.bottomMargin: 4
+                                                                                        horizontalAlignment: Text.AlignHCenter
+                                                                                        verticalAlignment: Text.AlignVCenter
+                                                                                        wrapMode: Text.Wrap
+                                                                                        font.pointSize: attack1DescriptionText.font.pointSize
+                                                                                        minimumPointSize: 10
+                                                                                        minimumPixelSize: 10
+                                                                                        z: 0
+                                                                                        fontSizeMode: Text.Fit
+                                                                                        font.styleName: "ExtraBold Italic"
+                                                                                    }
 
-                                    Rectangle {
-                                        id: rectangle26
-                                        color: "#b2b2b2"
-                                        radius: 8
-                                        border.color: "#6c0101"
-                                        border.width: 2
-                                        anchors.fill: parent
-                                        anchors.leftMargin: 4
-                                        anchors.rightMargin: 4
-                                        anchors.topMargin: 3
-                                        anchors.bottomMargin: 3
-                                    }
-
-                                    Rectangle {
-                                        id: rectangle27
-                                        color: "#000000"
-                                        radius: 4
-                                        border.color: "#00000000"
-                                        border.width: 0
-                                        anchors.fill: parent
-                                        anchors.leftMargin: 14
-                                        anchors.rightMargin: 14
-                                        anchors.topMargin: 7
-                                        anchors.bottomMargin: 7
-                                    }
-                                }
-
-                                Rectangle {
-                                    id: attack2DescriptionBlock
-                                    x: 0
-                                    y: 247
-                                    width: 220
-                                    height: 100
-                                    visible: true
-                                    color: "#c80d0d"
-                                    radius: 8
-                                    border.color: "#6c0101"
-                                    border.width: 2
-
-                                    anchors.leftMargin: -433
-                                    anchors.rightMargin: 38
-                                    anchors.topMargin: 185
-                                    anchors.bottomMargin: -345
-                                    z: 0
-
-                                    Rectangle {
-                                        id: attackDescription2Bezel
-                                        visible: true
-                                        color: "#b2b2b2"
-                                        radius: 8
-                                        border.color: "#616161"
-                                        border.width: 2
-                                        anchors.fill: parent
-                                        z: 0
-
+                                                                                    Text {
+                                                                                        id: attack1DescriptionText
+                                                                                        color: "#095f0c"
+                                                                                        text: attack1DescriptionDropText.text
+                                                                                        anchors.fill: parent
+                                                                                        anchors.leftMargin: 5
+                                                                                        anchors.rightMargin: 3
+                                                                                        anchors.topMargin: 6
+                                                                                        anchors.bottomMargin: 2
+                                                                                        horizontalAlignment: Text.AlignHCenter
+                                                                                        verticalAlignment: Text.AlignVCenter
+                                                                                        wrapMode: Text.Wrap
+                                                                                        minimumPointSize: 8
+                                                                                        minimumPixelSize: 8
+                                                                                        z: 1
+                                                                                        fontSizeMode: Text.Fit
+                                                                                        font.styleName: "ExtraBold Italic"
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
 
                                         Rectangle {
-                                            id: attack2Screen
-                                            color: "#15ba1c"
-                                            radius: 6
-                                            border.color: "#128c17"
-                                            border.width: 2
-                                            anchors.fill: parent
-                                            anchors.topMargin: 6
+                                                                            id: attack2NameBlock
+                                                                            x: -3
+                                                                            y: 158
+                                                                            width: 250
+                                                                            height: 40
+                                                                            color: "#c80d0d"
+                                                                            radius: 8
+                                                                            border.color: "#6c0101"
+                                                                            border.width: 2
+                                                                            Rectangle {
+                                                                                id: attack2NameBezel
+                                                                                color: "#b2b2b2"
+                                                                                radius: 8
+                                                                                border.color: "#616161"
+                                                                                border.width: 2
+                                                                                anchors.fill: parent
+                                                                                anchors.leftMargin: 4
+                                                                                anchors.rightMargin: 4
+                                                                                anchors.topMargin: 3
+                                                                                anchors.bottomMargin: 3
+                                                                                Rectangle {
+                                                                                    id: attack2NameScreen
+                                                                                    x: 10
+                                                                                    y: 4
+                                                                                    color: "#15ba1c"
+                                                                                    radius: 4
+                                                                                    border.color: "#128c17"
+                                                                                    border.width: 2
+                                                                                    anchors.fill: parent
+                                                                                    anchors.leftMargin: 5
+                                                                                    anchors.rightMargin: 5
+                                                                                    anchors.topMargin: 6
+                                                                                    anchors.bottomMargin: 6
+                                                                                    Text {
+                                                                                        id: attack2NameText
+                                                                                        color: "#c5002a02"
+                                                                                        text: "Attack 2"
+                                                                                        anchors.fill: parent
+                                                                                        anchors.leftMargin: 4
+                                                                                        anchors.rightMargin: 4
+                                                                                        anchors.topMargin: 2
+                                                                                        anchors.bottomMargin: 2
+                                                                                        horizontalAlignment: Text.AlignHCenter
+                                                                                        verticalAlignment: Text.AlignVCenter
+                                                                                        wrapMode: Text.Wrap
+                                                                                        z: 1
+                                                                                        fontSizeMode: Text.HorizontalFit
+                                                                                        font.styleName: "ExtraBold Italic"
+                                                                                    }
 
-                                            Text {
-                                                id: attack2DescriptionText
-                                                color: "#095f0c"
-                                                text: "Attack 2 Description"
+                                                                                    Text {
+                                                                                        id: attack2NameDrop
+                                                                                        color: "#2a7b2d"
+                                                                                        text: attack2NameText.text
+                                                                                        anchors.fill: parent
+                                                                                        anchors.leftMargin: 5
+                                                                                        anchors.rightMargin: 3
+                                                                                        anchors.topMargin: 3
+                                                                                        anchors.bottomMargin: 1
+                                                                                        horizontalAlignment: Text.AlignHCenter
+                                                                                        verticalAlignment: Text.AlignVCenter
+                                                                                        wrapMode: Text.Wrap
+                                                                                        z: 0
+                                                                                        fontSizeMode: Text.HorizontalFit
+                                                                                        font.styleName: "ExtraBold Italic"
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+
+                                                                        Rectangle {
+                                                                            id: attack2DescriptionBlock
+                                                                            x: 0
+                                                                            y: 202
+                                                                            width: 250
+                                                                            height: 120
+                                                                            color: "#c80d0d"
+                                                                            radius: 8
+                                                                            border.color: "#6c0101"
+                                                                            border.width: 2
+                                                                            Rectangle {
+                                                                                id: attackDescription2Bezel
+                                                                                color: "#b2b2b2"
+                                                                                radius: 8
+                                                                                border.color: "#616161"
+                                                                                border.width: 2
+                                                                                anchors.fill: parent
+                                                                                anchors.leftMargin: 4
+                                                                                anchors.rightMargin: 4
+                                                                                anchors.topMargin: 4
+                                                                                anchors.bottomMargin: 4
+                                                                                Rectangle {
+                                                                                    id: attack2Screen
+                                                                                    x: 10
+                                                                                    y: 4
+                                                                                    color: "#15ba1c"
+                                                                                    radius: 6
+                                                                                    border.color: "#128c17"
+                                                                                    border.width: 2
+                                                                                    anchors.fill: parent
+                                                                                    anchors.leftMargin: 6
+                                                                                    anchors.rightMargin: 6
+                                                                                    anchors.topMargin: 6
+                                                                                    anchors.bottomMargin: 6
+                                                                                    Text {
+                                                                                        id: attack2DescriptionDropText
+                                                                                        visible: false
+                                                                                        color: "#c5002a02"
+                                                                                        text: attack2DescriptionText.text
+                                                                                        anchors.fill: parent
+                                                                                        anchors.leftMargin: 4
+                                                                                        anchors.rightMargin: 4
+                                                                                        anchors.topMargin: 4
+                                                                                        anchors.bottomMargin: 4
+                                                                                        horizontalAlignment: Text.AlignHCenter
+                                                                                        verticalAlignment: Text.AlignVCenter
+                                                                                        wrapMode: Text.Wrap
+                                                                                        minimumPointSize: 8
+                                                                                        minimumPixelSize: 8
+                                                                                        z: 1
+                                                                                        fontSizeMode: Text.HorizontalFit
+                                                                                        font.styleName: "ExtraBold Italic"
+                                                                                    }
+
+                                                                                    Text {
+                                                                                        id: attack2DescriptionText
+                                                                                        visible: true
+                                                                                        color: "#095f0c"
+                                                                                        text: "Attack 2 Description"
+                                                                                        anchors.fill: parent
+                                                                                        anchors.leftMargin: 4
+                                                                                        anchors.rightMargin: 4
+                                                                                        anchors.topMargin: 4
+                                                                                        anchors.bottomMargin: 4
+                                                                                        horizontalAlignment: Text.AlignHCenter
+                                                                                        verticalAlignment: Text.AlignVCenter
+                                                                                        wrapMode: Text.Wrap
+                                                                                        minimumPointSize: 8
+                                                                                        minimumPixelSize: 8
+                                                                                        z: 0
+                                                                                        fontSizeMode: Text.Fit
+                                                                                        font.styleName: "ExtraBold Italic"
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+
+                                        // Third attack
+                                        Rectangle {
+                                            id: attack3NameBlock
+                                            width: 250
+                                            height: 40
+                                            color: "#c80d0d"
+                                            radius: 8
+                                            border.color: "#6c0101"
+                                            border.width: 2
+
+                                            Rectangle {
+                                                id: attack3NameBezel
+                                                color: "#b2b2b2"
+                                                radius: 8
+                                                border.color: "#616161"
+                                                border.width: 2
                                                 anchors.fill: parent
-                                                horizontalAlignment: Text.AlignHCenter
-                                                verticalAlignment: Text.AlignVCenter
-                                                wrapMode: Text.Wrap
-                                                z: 1
-                                                fontSizeMode: Text.HorizontalFit
-                                                font.styleName: "Bold Italic"
+
+                                                Rectangle {
+                                                    id: attack3NameScreen
+                                                    x: 10
+                                                    y: 4
+                                                    color: "#15ba1c"
+                                                    radius: 4
+                                                    border.color: "#128c17"
+                                                    border.width: 2
+                                                    anchors.fill: parent
+
+                                                    Text {
+                                                        id: attack3NameText
+                                                        color: "#c5002a02"
+                                                        text: "Attack 3"
+                                                        anchors.fill: parent
+                                                        horizontalAlignment: Text.AlignHCenter
+                                                        verticalAlignment: Text.AlignVCenter
+                                                        wrapMode: Text.Wrap
+                                                        fontSizeMode: Text.HorizontalFit
+                                                        font.styleName: "ExtraBold Italic"
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                        Rectangle {
+                                            id: attack3DescriptionBlock
+                                            width: 250
+                                            height: 120
+                                            color: "#c80d0d"
+                                            radius: 8
+                                            border.color: "#6c0101"
+                                            border.width: 2
+
+                                            Rectangle {
+                                                id: attack3DescriptionBezel
+                                                color: "#b2b2b2"
+                                                radius: 8
+                                                border.color: "#616161"
+                                                border.width: 2
+                                                anchors.fill: parent
+
+                                                Rectangle {
+                                                    id: attack3Screen
+                                                    x: 10
+                                                    y: 4
+                                                    color: "#15ba1c"
+                                                    radius: 6
+                                                    border.color: "#128c17"
+                                                    border.width: 2
+                                                    anchors.fill: parent
+
+                                                    Text {
+                                                        id: attack3DescriptionDropText
+                                                        color: "#c5002a02"
+                                                        text: "Attack 3 Description"
+                                                        anchors.fill: parent
+                                                        horizontalAlignment: Text.AlignHCenter
+                                                        verticalAlignment: Text.AlignVCenter
+                                                        wrapMode: Text.Wrap
+                                                        fontSizeMode: Text.HorizontalFit
+                                                        font.styleName: "ExtraBold Italic"
+                                                    }
+                                                }
                                             }
                                         }
                                     }
                                 }
+
 
 
 
@@ -2081,6 +2123,6 @@ Window {
 
 /*##^##
 Designer {
-    D{i:0}D{i:66}D{i:67}D{i:83;invisible:true}D{i:91}D{i:92}D{i:97}
+    D{i:0}D{i:66}D{i:67}D{i:77}D{i:78;invisible:true}D{i:83}
 }
 ##^##*/
