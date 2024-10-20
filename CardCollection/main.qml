@@ -15,6 +15,7 @@ Window {
 
     visible: true
     color: "#6c0101"
+    property alias button: button
 
     title: qsTr("Card Collection")
 
@@ -23,6 +24,35 @@ Window {
     property int selectedTabIndex: 0
     
     // StackLayout to switch between pages
+
+    // Function to update attack information based on selectedIndex
+    function updateAttackInfo() {
+        // Set attack 1 info in the UI
+        if (cards[selectedIndex]) {
+            attack1Name.text = cards[selectedIndex].attack1Name || "";
+            attack1DescriptionText.text = cards[selectedIndex].attack1Desc || "No description available."; // Fallback if no description
+
+            // Set attack 2 info in the UI
+            attack2NameText.text = cards[selectedIndex].attack2Name || "";
+            attack2DescriptionText.text = cards[selectedIndex].attack2Desc || "No description available."; // Fallback if no description
+        }
+    }
+
+    // Function to handle next button click
+    function onNextCard() {
+        if (selectedIndex < cards.length - 1) {
+            selectedIndex++;
+            updateAttackInfo(); // Update UI for the new selectedIndex
+        }
+    }
+
+    // Function to handle next button click
+    function onPrevCard() {
+        if (selectedIndex >= 0) {
+            selectedIndex--;
+            updateAttackInfo(); // Update UI for the new selectedIndex
+        }
+    }
     
     ColumnLayout {
         id: columnLayout1
@@ -1241,13 +1271,7 @@ Window {
                                                 font.bold: false
                                             }
 
-                                            Image {
-                                                id: image
-                                                anchors.fill: parent
-                                                source: (cards.length === 0) ? "" : typeUrls.types[cards[selectedIndex].type[0]] || ""
-                                                z: 1
-                                                fillMode: Image.PreserveAspectFit
-                                            }
+
                                         }
                                     }
                                 }
@@ -1514,8 +1538,9 @@ Window {
                                     radius: 8
                                     border.color: "#6c0101"
                                     border.width: 2
+
                                     Text {
-                                        id: attack1NameText
+                                        id: attack1Name
                                         y: 8
                                         height: 24
                                         color: "#ffffff"
@@ -1560,7 +1585,7 @@ Window {
                                 }
 
                                 Rectangle {
-                                    id: attack1DescriptionBlock
+                                    id: attack1Text
                                     x: -3
                                     y: 63
                                     width: 222
@@ -1571,7 +1596,7 @@ Window {
                                     border.width: 2
 
                                     Rectangle {
-                                        id: rectangle24
+                                        id: attack1TextBezel
                                         color: "#b2b2b2"
                                         radius: 8
                                         border.color: "#616161"
@@ -1762,15 +1787,14 @@ Window {
                             spacing: 120
 
                             Button {
+                                id: button
                                 text: "Previous"
                                 highlighted: false
                                 flat: false
                                 font.styleName: "Bold Italic"
                                 enabled: selectedIndex > 0
                                 onClicked: {
-                                    if (selectedIndex > 0) {
-                                        selectedIndex--;
-                                    }
+                                    onPrevCard();
                                 }
                                 palette {
                                     button: "blue"
@@ -1807,9 +1831,8 @@ Window {
                                 font.bold: true
                                 enabled: selectedIndex < cards.length - 1
                                 onClicked: {
-                                    if (selectedIndex < cards.length - 1) {
-                                        selectedIndex++;
-                                    }
+                                    onNextCard();
+
                                 }
                                 palette {
                                     button: "blue"
@@ -1931,22 +1954,42 @@ Window {
             Connections {
                 target: backendController
                 function onSearchResults(response) {
-                    //console.log("searchResults called with response:", response); // Check if this logs
-
                     var data = JSON.parse(response);
+
                     if (data.error) {
                         cards = [];
                     } else {
                         cards = data.map(card => ({
-                                                      "name": card.name,
-                                                      "imageUrl": card.imageUrl || "",
-                                                      "set": card.set,
-                                                      "setSymbol": card.setSymbol,
-                                                      "setLogo": card.setLogo
-                                                  }));
+                            "name": card.name,
+                            "imageUrl": card.imageUrl || "",
+                            "set": card.set,
+                            "setSymbol": card.setSymbol,
+                            "setLogo": card.setLogo,
+                            "attack1Name": card.attack1Name,
+                            "attack1Desc": card.attack1Desc,
+                            "attack2Name": card.attack2Name,
+                            "attack2Desc": card.attack2Desc
+                        }));
 
                         selectedIndex = 0;  // Start with the first card
-                        // Log the image URLs to the console
+                        updateAttackInfo();
+                        // // Set attack 1 info in the UI
+                        // if (cards[selectedIndex].attack1Name !== "") {
+                        //     attack1Name.text = cards[selectedIndex].attack1Name;
+                        //     attack1DescriptionText.text = cards[selectedIndex].attack1Desc || "No description available."; // Fallback if no description
+                        // } else {
+                        //     attack1Name.text = "";
+                        //     attack1DescriptionText.text = "";
+                        // }
+
+                        // // Set attack 2 info in the UI
+                        // if (cards[selectedIndex].attack2Name !== "") {
+                        //     attack2NameText.text = cards[selectedIndex].attack2Name;
+                        //     attack2DescriptionText.text = cards[selectedIndex].attack2Desc || "No description available."; // Fallback if no description
+                        // } else {
+                        //     attack2NameText.text = "";
+                        //     attack2DescriptionText.text = "";
+                        // }
                     }
                 }
             }
