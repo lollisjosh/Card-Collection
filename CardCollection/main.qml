@@ -15,6 +15,7 @@ Window {
 
     visible: true
     color: "#6c0101"
+    property alias setLogoImage: setLogoImage
     property alias attack2NameBlock: attack2NameBlock
     title: qsTr("Card Collection")
     
@@ -1061,44 +1062,75 @@ Window {
 
                                 Rectangle {
                                     id: nameBlock
-                                    width: 150
+                                    width: 165
                                     height: 40
-                                    color: "#6c0101"
+                                    color: "#c80d0d"
                                     radius: 8
-                                    border.width: 0
+                                    border.color: "#6c0101"
+                                    border.width: 2
 
-                                    Text {
-                                        id: nameText
-                                        y: 8
-                                        height: 24
-                                        color: "#ffffff"
-                                        // Safely access the name property
-                                        text: (selectedIndex >= 0 && selectedIndex < cards.length)
-                                              ? cards[selectedIndex].name || "No Name Available" // Fallback if name is undefined
-                                              : "Name"
-                                        anchors.left: parent.left
-                                        anchors.right: parent.right
-                                        anchors.leftMargin: 8
-                                        anchors.rightMargin: 8 // Fallback when no card is selected
-                                        horizontalAlignment: Text.AlignHCenter
-                                        verticalAlignment: Text.AlignVCenter
-                                        wrapMode: Text.Wrap
-                                        font.styleName: "Bold Italic"
-                                        fontSizeMode: Text.HorizontalFit
+                                    Rectangle {
+                                        id: rectangle12
+                                        color: "#b2b2b2"
+                                        radius: 8
+                                        border.color: "#616161"
+                                        border.width: 2
+                                        anchors.fill: parent
+                                        anchors.leftMargin: 4
+                                        anchors.rightMargin: 4
+                                        anchors.topMargin: 3
+                                        anchors.bottomMargin: 3
+                                    }
+
+                                    Rectangle {
+                                        id: nameScreen
+                                        color: "#15ba1c"
+                                        radius: 4
+                                        border.color: "#128c17"
+                                        border.width: 2
+                                        anchors.fill: parent
+                                        anchors.leftMargin: 14
+                                        anchors.rightMargin: 14
+                                        anchors.topMargin: 7
+                                        anchors.bottomMargin: 7
+
+                                        Text {
+                                            id: nameText
+                                            y: 1
+                                            height: 24
+                                            color: "#095f0c"
+                                            // Safely access the name property
+                                            text: (selectedIndex >= 0 && selectedIndex < cards.length)
+                                                  ? cards[selectedIndex].name || "No Name Available" // Fallback if name is undefined
+                                                  : "Name"
+                                            anchors.left: parent.left
+                                            anchors.right: parent.right
+                                            anchors.leftMargin: 0
+                                            anchors.rightMargin: 0
+                                            // Fallback when no card is selected
+                                            horizontalAlignment: Text.AlignHCenter
+                                            verticalAlignment: Text.AlignVCenter
+                                            wrapMode: Text.Wrap
+                                            font.pointSize: 13
+                                            z: 1
+                                            font.styleName: "Bold Italic"
+                                            fontSizeMode: Text.HorizontalFit
+                                        }
                                     }
                                 }
 
                                 Rectangle {
                                     id: typeBlock
-                                    width: 90
-                                    height: 48
-                                    color: "#6c0101"
+                                    width: 115
+                                    height: 40
+                                    color: "#c80d0d"
                                     radius: 8
-                                    border.width: 0
+                                    border.color: "#6c0101"
+                                    border.width: 2
                                     Text {
                                         id: typeText
-                                        y: 2
-                                        height: 44
+                                        y: 1
+                                        height: 38
                                         color: "#ffffff"
                                         text: "Types"
                                         anchors.left: parent.left
@@ -1108,53 +1140,108 @@ Window {
                                         horizontalAlignment: Text.AlignHCenter
                                         verticalAlignment: Text.AlignVCenter
                                         wrapMode: Text.Wrap
+                                        z: 1
                                         fontSizeMode: Text.HorizontalFit
                                         font.styleName: "Bold Italic"
+                                    }
+
+                                    Rectangle {
+                                        id: rectangle14
+                                        color: "#b2b2b2"
+                                        radius: 8
+                                        border.color: "#6c0101"
+                                        border.width: 2
+                                        anchors.fill: parent
+                                        anchors.leftMargin: 4
+                                        anchors.rightMargin: 4
+                                        anchors.topMargin: 3
+                                        anchors.bottomMargin: 3
+                                    }
+
+                                    Rectangle {
+                                        id: rectangle15
+                                        color: "#000000"
+                                        radius: 4
+                                        border.color: "#00000000"
+                                        border.width: 0
+                                        anchors.fill: parent
+                                        anchors.leftMargin: 14
+                                        anchors.rightMargin: 14
+                                        anchors.topMargin: 7
+                                        anchors.bottomMargin: 7
                                     }
                                 }
 
                                 Rectangle {
                                     id: setLogoBlock
                                     x: 220
-                                    width: 170
+                                    width: 191
                                     height: 130
-                                    color: "#6c0101"
+                                    color: "#c80d0d"
                                     radius: 8
-                                    border.width: 0
-                                    Text {
-                                        id: setLogoText
-                                        x: -382
-                                        y: 47
-                                        height: 37
-                                        color: "#ffffff"
-                                        text: (selectedIndex >= 0 && selectedIndex < cards.length)
-                                              ? "" // Fallback if name is undefined
-                                              : "Set Logo"
-                                        anchors.left: parent.left
-                                        anchors.right: parent.right
-                                        anchors.leftMargin: 0
-                                        anchors.rightMargin: 0
-                                        horizontalAlignment: Text.AlignHCenter
-                                        verticalAlignment: Text.AlignVCenter
-                                        wrapMode: Text.Wrap
-                                        font.styleName: "Bold Italic"
-                                        font.italic: false
-                                        font.bold: false
-                                        font.pointSize: 19
-                                        fontSizeMode: Text.HorizontalFit
-                                    }
+                                    border.color: "#6c0101"
+                                    border.width: 2
 
-                                    Image {
-                                        id: setLogoImage
+                                    Rectangle {
+                                        id: setLogoBezel
+                                        color: "#b2b2b2"
+                                        radius: 8
+                                        border.color: "#616161"
+                                        border.width: 2
                                         anchors.fill: parent
-                                        anchors.leftMargin: 2
-                                        anchors.rightMargin: 2
-                                        anchors.topMargin: 2
-                                        anchors.bottomMargin: 2
-                                        source: (selectedIndex >= 0 && selectedIndex < cards.length) ? cards[selectedIndex].setLogo : ""
+                                        anchors.leftMargin: 6
+                                        anchors.rightMargin: 6
+                                        anchors.topMargin: 6
+                                        anchors.bottomMargin: 7
 
-                                        scale: 1
-                                        fillMode: Image.PreserveAspectFit
+                                        Rectangle {
+                                            id: setLogoScreen
+                                            x: 8
+                                            y: -1
+                                            color: "#15ba1c"
+                                            radius: 6
+                                            border.color: "#128c17"
+                                            border.width: 2
+                                            anchors.fill: parent
+                                            anchors.leftMargin: 14
+                                            anchors.rightMargin: 14
+                                            anchors.topMargin: 7
+                                            anchors.bottomMargin: 7
+
+                                            Text {
+                                                id: setLogoText
+                                                color: "#095f0c"
+                                                text: (selectedIndex >= 0 && selectedIndex < cards.length)
+                                                      ? "" // Fallback if name is undefined
+                                                      : "Set Logo"
+                                                anchors.fill: parent
+                                                horizontalAlignment: Text.AlignHCenter
+                                                verticalAlignment: Text.AlignVCenter
+                                                wrapMode: Text.Wrap
+                                                z: 1
+                                                font.styleName: "Bold Italic"
+                                                font.italic: false
+                                                font.bold: false
+                                                font.pointSize: 19
+                                                fontSizeMode: Text.HorizontalFit
+                                            }
+
+                                            Image {
+                                                id: setLogoImage
+                                                x: -12
+                                                y: -5
+                                                anchors.fill: parent
+                                                anchors.leftMargin: 3
+                                                anchors.rightMargin: 3
+                                                anchors.topMargin: 3
+                                                anchors.bottomMargin: 3
+                                                source: (selectedIndex >= 0 && selectedIndex < cards.length) ? cards[selectedIndex].setLogo : ""
+                                                z: 1
+
+                                                scale: 1
+                                                fillMode: Image.PreserveAspectFit
+                                            }
+                                        }
                                     }
                                 }
 
@@ -1162,29 +1249,59 @@ Window {
                                     id: setBlock
                                     width: 101
                                     height: 60
-                                    color: "#6c0101"
+                                    color: "#c80d0d"
                                     radius: 8
-                                    border.width: 0
-                                    Text {
-                                        id: setNameText
-                                        y: 8
-                                        height: 44
-                                        color: "#ffffff"
-                                        // Safely access the name property
-                                        text: (selectedIndex >= 0 && selectedIndex < cards.length)
-                                              ? cards[selectedIndex].set || "No Name Available" // Fallback if name is undefined
-                                              : "Set Name"
-                                        anchors.left: parent.left
-                                        anchors.right: parent.right
-                                        anchors.leftMargin: 0
-                                        anchors.rightMargin: 0
-                                        // Fallback when no card is selected
+                                    border.color: "#6c0101"
+                                    border.width: 2
 
-                                        horizontalAlignment: Text.AlignHCenter
-                                        verticalAlignment: Text.AlignVCenter
-                                        wrapMode: Text.Wrap
-                                        font.styleName: "Bold Italic"
-                                        fontSizeMode: Text.HorizontalFit
+                                    Rectangle {
+                                        id: setNameBezel
+                                        color: "#b2b2b2"
+                                        radius: 8
+                                        border.color: "#6c0101"
+                                        border.width: 2
+                                        anchors.fill: parent
+                                        anchors.leftMargin: 4
+                                        anchors.rightMargin: 4
+                                        anchors.topMargin: 3
+                                        anchors.bottomMargin: 3
+                                    }
+
+                                    Rectangle {
+                                        id: setNameScreen
+                                        color: "#15ba1c"
+                                        radius: 6
+                                        border.color: "#128c17"
+                                        border.width: 2
+                                        anchors.fill: parent
+                                        anchors.leftMargin: 14
+                                        anchors.rightMargin: 14
+                                        anchors.topMargin: 7
+                                        anchors.bottomMargin: 7
+
+                                        Text {
+                                            id: setNameText
+                                            x: 0
+                                            y: 1
+                                            height: 44
+                                            color: "#095f0c"
+                                            // Safely access the name property
+                                            text: (selectedIndex >= 0 && selectedIndex < cards.length)
+                                                  ? cards[selectedIndex].set || "No Name Available" // Fallback if name is undefined
+                                                  : "Set Name"
+                                            anchors.left: parent.left
+                                            anchors.right: parent.right
+                                            anchors.leftMargin: 0
+                                            anchors.rightMargin: 0
+                                            // Fallback when no card is selected
+
+                                            horizontalAlignment: Text.AlignHCenter
+                                            verticalAlignment: Text.AlignVCenter
+                                            wrapMode: Text.Wrap
+                                            z: 1
+                                            font.styleName: "Bold Italic"
+                                            fontSizeMode: Text.HorizontalFit
+                                        }
                                     }
 
                                 }
@@ -1192,41 +1309,72 @@ Window {
                                 Rectangle {
                                     id: setSymbolBlock
                                     x: 220
-                                    width: 56
+                                    width: 70
                                     height: 56
-                                    color: "#6c0101"
+                                    color: "#c80d0d"
                                     radius: 8
-                                    border.width: 0
+                                    border.color: "#6c0101"
+                                    border.width: 2
 
 
-                                    Image {
-                                        id: setSymbolImage
+                                    Rectangle {
+                                        id: setSymbolBezel
+                                        color: "#b2b2b2"
+                                        radius: 8
+                                        border.color: "#616161"
+                                        border.width: 2
                                         anchors.fill: parent
+                                        anchors.leftMargin: 4
+                                        anchors.rightMargin: 4
+                                        anchors.topMargin: 3
+                                        anchors.bottomMargin: 3
 
-                                        source: (selectedIndex >= 0 && selectedIndex < cards.length) ? cards[selectedIndex].setSymbol : ""
-                                        scale: 0.8
-                                        fillMode: Image.PreserveAspectFit
-                                    }
+                                        Rectangle {
+                                            id: setSymbolScreen
+                                            color: "#15ba1c"
+                                            radius: 6
+                                            border.color: "#128c17"
+                                            border.width: 2
+                                            anchors.fill: parent
+                                            anchors.leftMargin: 4
+                                            anchors.rightMargin: 4
+                                            anchors.topMargin: 4
+                                            anchors.bottomMargin: 4
 
-                                    Text {
-                                        id: setSymbolText
-                                        x: -382
-                                        y: 10
-                                        height: 37
-                                        color: "#ffffff"
-                                        text: (selectedIndex >= 0 && selectedIndex < cards.length)
-                                              ? "" // Fallback if name is undefined
-                                              : "Set Symbol"
-                                        anchors.left: parent.left
-                                        anchors.right: parent.right
-                                        anchors.leftMargin: 1
-                                        anchors.rightMargin: -1
-                                        horizontalAlignment: Text.AlignHCenter
-                                        verticalAlignment: Text.AlignVCenter
-                                        wrapMode: Text.Wrap
-                                        font.pointSize: 10
-                                        font.styleName: "Bold Italic"
-                                        fontSizeMode: Text.HorizontalFit
+                                            Image {
+                                                id: setSymbolImage
+                                                x: -14
+                                                y: -7
+                                                anchors.verticalCenter: parent.verticalCenter
+                                                anchors.bottom: parent.bottom
+
+                                                source: (selectedIndex >= 0 && selectedIndex < cards.length) ? cards[selectedIndex].setSymbol : ""
+                                                anchors.horizontalCenter: parent.horizontalCenter
+                                                z: 1
+                                                scale: 0.8
+                                                fillMode: Image.PreserveAspectFit
+                                            }
+
+                                            Text {
+                                                id: setSymbolText
+                                                color: "#095f0c"
+                                                text: (selectedIndex >= 0 && selectedIndex < cards.length)
+                                                      ? "" // Fallback if name is undefined
+                                                      : "Set Symbol"
+                                                anchors.fill: parent
+                                                anchors.leftMargin: 2
+                                                anchors.rightMargin: 2
+                                                anchors.topMargin: 2
+                                                anchors.bottomMargin: 2
+                                                horizontalAlignment: Text.AlignHCenter
+                                                verticalAlignment: Text.AlignVCenter
+                                                wrapMode: Text.Wrap
+                                                z: 1
+                                                font.pointSize: 8
+                                                font.styleName: "Bold Italic"
+                                                fontSizeMode: Text.HorizontalFit
+                                            }
+                                        }
                                     }
                                 }
 
@@ -1238,9 +1386,10 @@ Window {
                                     id: attack1NameBlock
                                     width: 150
                                     height: 40
-                                    color: "#6c0101"
+                                    color: "#c80d0d"
                                     radius: 8
-                                    border.width: 0
+                                    border.color: "#6c0101"
+                                    border.width: 2
                                     Text {
                                         id: attack1NameText
                                         y: 8
@@ -1254,8 +1403,35 @@ Window {
                                         horizontalAlignment: Text.AlignHCenter
                                         verticalAlignment: Text.AlignVCenter
                                         wrapMode: Text.Wrap
+                                        z: 1
                                         fontSizeMode: Text.HorizontalFit
                                         font.styleName: "Bold Italic"
+                                    }
+
+                                    Rectangle {
+                                        id: rectangle22
+                                        color: "#b2b2b2"
+                                        radius: 8
+                                        border.color: "#6c0101"
+                                        border.width: 2
+                                        anchors.fill: parent
+                                        anchors.leftMargin: 4
+                                        anchors.rightMargin: 4
+                                        anchors.topMargin: 3
+                                        anchors.bottomMargin: 3
+                                    }
+
+                                    Rectangle {
+                                        id: rectangle23
+                                        color: "#000000"
+                                        radius: 4
+                                        border.color: "#00000000"
+                                        border.width: 0
+                                        anchors.fill: parent
+                                        anchors.leftMargin: 14
+                                        anchors.rightMargin: 14
+                                        anchors.topMargin: 7
+                                        anchors.bottomMargin: 7
                                     }
                                 }
 
@@ -1263,24 +1439,54 @@ Window {
                                     id: attack1DescriptionBlock
                                     width: 220
                                     height: 100
-                                    color: "#6c0101"
+                                    color: "#c80d0d"
                                     radius: 8
-                                    border.width: 0
-                                    Text {
-                                        id: attack1DescriptionText
-                                        y: 8
-                                        height: 84
-                                        color: "#ffffff"
-                                        text: "Attack 1 Description"
-                                        anchors.left: parent.left
-                                        anchors.right: parent.right
-                                        anchors.leftMargin: 22
-                                        anchors.rightMargin: 22
-                                        horizontalAlignment: Text.AlignHCenter
-                                        verticalAlignment: Text.AlignVCenter
-                                        wrapMode: Text.Wrap
-                                        fontSizeMode: Text.HorizontalFit
-                                        font.styleName: "Bold Italic"
+                                    border.color: "#6c0101"
+                                    border.width: 2
+
+                                    Rectangle {
+                                        id: rectangle24
+                                        color: "#b2b2b2"
+                                        radius: 8
+                                        border.color: "#616161"
+                                        border.width: 2
+                                        anchors.fill: parent
+                                        anchors.leftMargin: 4
+                                        anchors.rightMargin: 4
+                                        anchors.topMargin: 3
+                                        anchors.bottomMargin: 3
+                                    }
+
+                                    Rectangle {
+                                        id: attack1Screen
+                                        color: "#15ba1c"
+                                        radius: 6
+                                        border.color: "#128c17"
+                                        border.width: 2
+                                        anchors.fill: parent
+                                        anchors.leftMargin: 14
+                                        anchors.rightMargin: 14
+                                        anchors.topMargin: 7
+                                        anchors.bottomMargin: 7
+
+                                        Text {
+                                            id: attack1DescriptionText
+                                            x: -6
+                                            y: 1
+                                            height: 84
+                                            color: "#095f0c"
+                                            text: "Attack 1 Description"
+                                            anchors.left: parent.left
+                                            anchors.right: parent.right
+                                            anchors.leftMargin: 8
+                                            anchors.rightMargin: 8
+                                            horizontalAlignment: Text.AlignHCenter
+                                            verticalAlignment: Text.AlignVCenter
+                                            wrapMode: Text.Wrap
+                                            z: 1
+                                            fontSizeMode: Text.HorizontalFit
+                                            font.styleName: "Bold Italic"
+                                        }
                                     }
                                 }
 
@@ -1288,9 +1494,10 @@ Window {
                                     id: attack2NameBlock
                                     width: 150
                                     height: 40
-                                    color: "#6c0101"
+                                    color: "#c80d0d"
                                     radius: 8
-                                    border.width: 0
+                                    border.color: "#6c0101"
+                                    border.width: 2
                                     Text {
                                         id: attack2NameText
                                         y: 8
@@ -1304,8 +1511,35 @@ Window {
                                         horizontalAlignment: Text.AlignHCenter
                                         verticalAlignment: Text.AlignVCenter
                                         wrapMode: Text.Wrap
+                                        z: 1
                                         fontSizeMode: Text.HorizontalFit
                                         font.styleName: "Bold Italic"
+                                    }
+
+                                    Rectangle {
+                                        id: rectangle26
+                                        color: "#b2b2b2"
+                                        radius: 8
+                                        border.color: "#6c0101"
+                                        border.width: 2
+                                        anchors.fill: parent
+                                        anchors.leftMargin: 4
+                                        anchors.rightMargin: 4
+                                        anchors.topMargin: 3
+                                        anchors.bottomMargin: 3
+                                    }
+
+                                    Rectangle {
+                                        id: rectangle27
+                                        color: "#000000"
+                                        radius: 4
+                                        border.color: "#00000000"
+                                        border.width: 0
+                                        anchors.fill: parent
+                                        anchors.leftMargin: 14
+                                        anchors.rightMargin: 14
+                                        anchors.topMargin: 7
+                                        anchors.bottomMargin: 7
                                     }
                                 }
 
@@ -1313,25 +1547,53 @@ Window {
                                     id: attack2DescriptionBlock
                                     width: 220
                                     height: 100
-                                    color: "#6c0101"
+                                    color: "#c80d0d"
                                     radius: 8
-                                    border.width: 0
+                                    border.color: "#6c0101"
+                                    border.width: 2
 
-                                    Text {
-                                        id: attack2DescriptionText1
-                                        y: 8
-                                        height: 84
-                                        color: "#ffffff"
-                                        text: "Attack 2 Description"
-                                        anchors.left: parent.left
-                                        anchors.right: parent.right
-                                        anchors.leftMargin: 39
-                                        anchors.rightMargin: 38
-                                        horizontalAlignment: Text.AlignHCenter
-                                        verticalAlignment: Text.AlignVCenter
-                                        wrapMode: Text.Wrap
-                                        fontSizeMode: Text.HorizontalFit
-                                        font.styleName: "Bold Italic"
+                                    Rectangle {
+                                        id: rectangle25
+                                        color: "#b2b2b2"
+                                        radius: 8
+                                        border.color: "#616161"
+                                        border.width: 2
+                                        anchors.fill: parent
+                                        anchors.leftMargin: 4
+                                        anchors.rightMargin: 4
+                                        anchors.topMargin: 3
+                                        anchors.bottomMargin: 3
+                                    }
+
+                                    Rectangle {
+                                        id: attack2Screen
+                                        color: "#15ba1c"
+                                        radius: 6
+                                        border.color: "#128c17"
+                                        border.width: 2
+                                        anchors.fill: parent
+                                        anchors.leftMargin: 14
+                                        anchors.rightMargin: 14
+                                        anchors.topMargin: 7
+                                        anchors.bottomMargin: 7
+                                        Text {
+                                            id: attack2DescriptionText
+                                            x: -6
+                                            y: 1
+                                            height: 84
+                                            color: "#095f0c"
+                                            text: "Attack 2 Description"
+                                            anchors.left: parent.left
+                                            anchors.right: parent.right
+                                            anchors.leftMargin: 8
+                                            anchors.rightMargin: 8
+                                            horizontalAlignment: Text.AlignHCenter
+                                            verticalAlignment: Text.AlignVCenter
+                                            wrapMode: Text.Wrap
+                                            z: 1
+                                            fontSizeMode: Text.HorizontalFit
+                                            font.styleName: "Bold Italic"
+                                        }
                                     }
                                 }
 
