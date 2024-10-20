@@ -15,6 +15,7 @@ Window {
 
     visible: true
     color: "#6c0101"
+    property alias attack1DescriptionDropText: attack1DescriptionDropText
     property alias button: button
 
     title: qsTr("Card Collection")
@@ -30,7 +31,7 @@ Window {
         // Set attack 1 info in the UI
         if (cards[selectedIndex]) {
             attack1Name.text = cards[selectedIndex].attack1Name || "";
-            attack1DescriptionText.text = cards[selectedIndex].attack1Desc || "No description available."; // Fallback if no description
+            attack1DescriptionDropText.text = cards[selectedIndex].attack1Desc || "No description available."; // Fallback if no description
 
             // Set attack 2 info in the UI
             attack2NameText.text = cards[selectedIndex].attack2Name || "";
@@ -1134,8 +1135,8 @@ Window {
                                         border.color: "#128c17"
                                         border.width: 2
                                         anchors.fill: parent
-                                        anchors.leftMargin: 14
-                                        anchors.rightMargin: 14
+                                        anchors.leftMargin: 11
+                                        anchors.rightMargin: 11
                                         anchors.topMargin: 7
                                         anchors.bottomMargin: 7
 
@@ -1163,13 +1164,11 @@ Window {
                                         }
 
                                         Text {
-                                            id: nameText1
-                                            y: 13
+                                            id: nameDropText
+                                            y: 12
                                             height: 24
                                             color: "#2a7b2d"
-                                            text: (selectedIndex >= 0 && selectedIndex < cards.length)
-                                                  ? cards[selectedIndex].name || "No Name Available" // Fallback if name is undefined
-                                                  : "Name"
+                                            text: nameText.text
                                             anchors.left: parent.left
                                             anchors.right: parent.right
                                             anchors.leftMargin: 1
@@ -1531,63 +1530,64 @@ Window {
                                 Rectangle {
                                     id: attack1NameBlock
                                     x: -3
-                                    y: 17
-                                    width: 150
+                                    y: 0
+                                    width: 223
                                     height: 40
                                     color: "#c80d0d"
                                     radius: 8
                                     border.color: "#6c0101"
                                     border.width: 2
 
-                                    Text {
-                                        id: attack1Name
-                                        y: 8
-                                        height: 24
-                                        color: "#ffffff"
-                                        text: "Attack 1"
-                                        anchors.left: parent.left
-                                        anchors.right: parent.right
-                                        anchors.leftMargin: 8
-                                        anchors.rightMargin: 8
-                                        horizontalAlignment: Text.AlignHCenter
-                                        verticalAlignment: Text.AlignVCenter
-                                        wrapMode: Text.Wrap
-                                        z: 1
-                                        fontSizeMode: Text.HorizontalFit
-                                        font.styleName: "Bold Italic"
-                                    }
-
                                     Rectangle {
                                         id: rectangle22
                                         color: "#b2b2b2"
                                         radius: 8
-                                        border.color: "#6c0101"
+                                        border.color: "#616161"
                                         border.width: 2
                                         anchors.fill: parent
                                         anchors.leftMargin: 4
                                         anchors.rightMargin: 4
                                         anchors.topMargin: 3
                                         anchors.bottomMargin: 3
-                                    }
 
-                                    Rectangle {
-                                        id: rectangle23
-                                        color: "#000000"
-                                        radius: 4
-                                        border.color: "#00000000"
-                                        border.width: 0
-                                        anchors.fill: parent
-                                        anchors.leftMargin: 14
-                                        anchors.rightMargin: 14
-                                        anchors.topMargin: 7
-                                        anchors.bottomMargin: 7
+                                        Rectangle {
+                                            id: rectangle23
+                                            x: 10
+                                            y: 4
+                                            color: "#15ba1c"
+                                            radius: 4
+                                            border.color: "#128c17"
+                                            border.width: 2
+                                            anchors.fill: parent
+                                            anchors.leftMargin: 5
+                                            anchors.rightMargin: 5
+                                            anchors.topMargin: 6
+                                            anchors.bottomMargin: 6
+
+                                            Text {
+                                                id: attack1Name
+                                                color: "#ffffff"
+                                                text: "Attack 1"
+                                                anchors.fill: parent
+                                                anchors.leftMargin: 4
+                                                anchors.rightMargin: 4
+                                                anchors.topMargin: 2
+                                                anchors.bottomMargin: 2
+                                                horizontalAlignment: Text.AlignHCenter
+                                                verticalAlignment: Text.AlignVCenter
+                                                wrapMode: Text.Wrap
+                                                z: 1
+                                                fontSizeMode: Text.HorizontalFit
+                                                font.styleName: "Bold Italic"
+                                            }
+                                        }
                                     }
                                 }
 
                                 Rectangle {
                                     id: attack1Text
-                                    x: -3
-                                    y: 63
+                                    x: 0
+                                    y: 44
                                     width: 222
                                     height: 110
                                     color: "#c80d0d"
@@ -1604,8 +1604,8 @@ Window {
                                         anchors.fill: parent
                                         anchors.leftMargin: 4
                                         anchors.rightMargin: 4
-                                        anchors.topMargin: 3
-                                        anchors.bottomMargin: 3
+                                        anchors.topMargin: 4
+                                        anchors.bottomMargin: 4
 
                                         Rectangle {
                                             id: attack1Screen
@@ -1616,20 +1616,41 @@ Window {
                                             border.color: "#128c17"
                                             border.width: 2
                                             anchors.fill: parent
-                                            anchors.leftMargin: 14
-                                            anchors.rightMargin: 14
-                                            anchors.topMargin: 7
-                                            anchors.bottomMargin: 7
+                                            anchors.leftMargin: 6
+                                            anchors.rightMargin: 6
+                                            anchors.topMargin: 6
+                                            anchors.bottomMargin: 6
 
                                             Text {
-                                                id: attack1DescriptionText
-                                                color: "#095f0c"
+                                                id: attack1DescriptionDropText
+                                                color: "#c5002a02"
                                                 text: "Attack 1 Description"
                                                 anchors.fill: parent
+                                                anchors.leftMargin: 4
+                                                anchors.rightMargin: 4
+                                                anchors.topMargin: 4
+                                                anchors.bottomMargin: 4
                                                 horizontalAlignment: Text.AlignHCenter
                                                 verticalAlignment: Text.AlignVCenter
                                                 wrapMode: Text.Wrap
                                                 z: 1
+                                                fontSizeMode: Text.HorizontalFit
+                                                font.styleName: "Bold Italic"
+                                            }
+
+                                            Text {
+                                                id: attack1DescriptionText
+                                                color: "#2a7b2d"
+                                                text: attack1DescriptionDropText.text
+                                                anchors.fill: parent
+                                                anchors.leftMargin: 4
+                                                anchors.rightMargin: 4
+                                                anchors.topMargin: 6
+                                                anchors.bottomMargin: 2
+                                                horizontalAlignment: Text.AlignHCenter
+                                                verticalAlignment: Text.AlignVCenter
+                                                wrapMode: Text.Wrap
+                                                z: 0
                                                 fontSizeMode: Text.HorizontalFit
                                                 font.styleName: "Bold Italic"
                                             }
@@ -1728,6 +1749,7 @@ Window {
                                             border.color: "#128c17"
                                             border.width: 2
                                             anchors.fill: parent
+                                            anchors.topMargin: 6
 
                                             Text {
                                                 id: attack2DescriptionText
@@ -1960,16 +1982,16 @@ Window {
                         cards = [];
                     } else {
                         cards = data.map(card => ({
-                            "name": card.name,
-                            "imageUrl": card.imageUrl || "",
-                            "set": card.set,
-                            "setSymbol": card.setSymbol,
-                            "setLogo": card.setLogo,
-                            "attack1Name": card.attack1Name,
-                            "attack1Desc": card.attack1Desc,
-                            "attack2Name": card.attack2Name,
-                            "attack2Desc": card.attack2Desc
-                        }));
+                                                      "name": card.name,
+                                                      "imageUrl": card.imageUrl || "",
+                                                      "set": card.set,
+                                                      "setSymbol": card.setSymbol,
+                                                      "setLogo": card.setLogo,
+                                                      "attack1Name": card.attack1Name,
+                                                      "attack1Desc": card.attack1Desc,
+                                                      "attack2Name": card.attack2Name,
+                                                      "attack2Desc": card.attack2Desc
+                                                  }));
 
                         selectedIndex = 0;  // Start with the first card
                         updateAttackInfo();
