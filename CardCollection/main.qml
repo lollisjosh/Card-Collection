@@ -15,11 +15,11 @@ Window {
     
     visible: true
     color: "#6c0101"
+    property alias attack1NameScreen: attack1NameScreen
     property alias setSymbolText: setSymbolText
     property alias ability2TypeDropText: ability2TypeDropText
     property alias attack1Name: attack1Name
     property alias attack1DropName: attack1DropName
-    property alias rectangle23: rectangle23
     property alias ability1NameText: ability1NameText
     property alias attack2NameDrop: attack2NameDrop
     
@@ -1264,6 +1264,21 @@ Window {
                                             font.styleName: "Bold Italic"
                                             font.pointSize: 30
                                         }
+
+                                        Rectangle {
+                                            id: rectangle25
+                                            x: -8
+                                            y: -4
+                                            color: "#00ffffff"
+                                            radius: 4
+                                            border.color: "#25fb2e"
+                                            border.width: 1
+                                            anchors.fill: parent
+                                            anchors.leftMargin: 3
+                                            anchors.rightMargin: 3
+                                            anchors.topMargin: 3
+                                            anchors.bottomMargin: 3
+                                        }
                                     }
                                 }
                                 
@@ -1369,6 +1384,21 @@ Window {
                                                 font.family: "Ubuntu Sans"
                                                 font.bold: false
                                             }
+
+                                            Rectangle {
+                                                id: rectangle28
+                                                x: -13
+                                                y: -9
+                                                color: "#00ffffff"
+                                                radius: 4
+                                                border.color: "#25fb2e"
+                                                border.width: 1
+                                                anchors.fill: parent
+                                                anchors.leftMargin: 3
+                                                anchors.rightMargin: 3
+                                                anchors.topMargin: 3
+                                                anchors.bottomMargin: 3
+                                            }
                                             
                                         }
                                     }
@@ -1468,6 +1498,21 @@ Window {
                                                 font.styleName: "ExtraBold Italic"
                                                 font.pointSize: 11
                                             }
+
+                                            Rectangle {
+                                                id: rectangle27
+                                                x: -5
+                                                y: -4
+                                                color: "#00ffffff"
+                                                radius: 4
+                                                border.color: "#25fb2e"
+                                                border.width: 1
+                                                anchors.fill: parent
+                                                anchors.leftMargin: 3
+                                                anchors.rightMargin: 3
+                                                anchors.topMargin: 3
+                                                anchors.bottomMargin: 3
+                                            }
                                         }
                                     }
                                 }
@@ -1556,6 +1601,21 @@ Window {
                                                 fontSizeMode: Text.Fit
                                                 font.styleName: "ExtraBold Italic"
                                             }
+
+                                            Rectangle {
+                                                id: rectangle26
+                                                x: -7
+                                                y: -4
+                                                color: "#00ffffff"
+                                                radius: 4
+                                                border.color: "#25fb2e"
+                                                border.width: 1
+                                                anchors.fill: parent
+                                                anchors.leftMargin: 3
+                                                anchors.rightMargin: 3
+                                                anchors.topMargin: 3
+                                                anchors.bottomMargin: 3
+                                            }
                                         }
                                     }
                                     
@@ -1583,14 +1643,14 @@ Window {
                                         x: 0
                                         y: 0
                                         width: 250
-                                        height: 40
+                                        height: 45
                                         color: "#c80d0d"
                                         radius: 8
                                         border.color: "#6c0101"
                                         border.width: 2
 
                                         Rectangle {
-                                            id: rectangle22
+                                            id: attack1NameBezel
                                             color: "#b2b2b2"
                                             radius: 8
                                             border.color: "#616161"
@@ -1598,11 +1658,11 @@ Window {
                                             anchors.fill: parent
                                             anchors.leftMargin: 4
                                             anchors.rightMargin: 4
-                                            anchors.topMargin: 3
-                                            anchors.bottomMargin: 3
+                                            anchors.topMargin: 4
+                                            anchors.bottomMargin: 4
 
                                             Rectangle {
-                                                id: rectangle23
+                                                id: attack1NameScreen
                                                 x: 10
                                                 y: 4
                                                 color: "#15ba1c"
@@ -1640,6 +1700,19 @@ Window {
                                                     fontSizeMode: Text.HorizontalFit
                                                     font.styleName: "ExtraBold Italic"
                                                 }
+
+                                                Rectangle {
+                                                    id: rectangle13
+                                                    color: "#00ffffff"
+                                                    radius: 4
+                                                    border.color: "#25fb2e"
+                                                    border.width: 1
+                                                    anchors.fill: parent
+                                                    anchors.leftMargin: 3
+                                                    anchors.rightMargin: 3
+                                                    anchors.topMargin: 3
+                                                    anchors.bottomMargin: 3
+                                                }
                                             }
                                         }
                                     }
@@ -1647,7 +1720,7 @@ Window {
                                     Rectangle {
                                         id: attack1DescriptionBlock
                                         x: 0
-                                        y: 42
+                                        y: 47
                                         width: 250
                                         height: 120
                                         color: "#c80d0d"
@@ -1721,6 +1794,21 @@ Window {
                                                     fontSizeMode: Text.Fit
                                                     font.styleName: "ExtraBold Italic"
                                                 }
+
+                                                Rectangle {
+                                                    id: rectangle24
+                                                    x: -7
+                                                    y: 167
+                                                    color: "#00ffffff"
+                                                    radius: 4
+                                                    border.color: "#25fb2e"
+                                                    border.width: 1
+                                                    anchors.fill: parent
+                                                    anchors.leftMargin: 3
+                                                    anchors.rightMargin: 3
+                                                    anchors.topMargin: 3
+                                                    anchors.bottomMargin: 3
+                                                }
                                             }
                                         }
                                     }
@@ -1728,9 +1816,9 @@ Window {
                                     Rectangle {
                                         id: attack2NameBlock
                                         x: 0
-                                        y: 164
+                                        y: 169
                                         width: 250
-                                        height: 40
+                                        height: 45
                                         visible: true
                                         color: "#c80d0d"
                                         radius: 8
@@ -1793,6 +1881,21 @@ Window {
                                                     fontSizeMode: Text.HorizontalFit
                                                     font.styleName: "ExtraBold Italic"
                                                 }
+
+                                                Rectangle {
+                                                    id: rectangle14
+                                                    x: -6
+                                                    y: -6
+                                                    color: "#00ffffff"
+                                                    radius: 4
+                                                    border.color: "#25fb2e"
+                                                    border.width: 1
+                                                    anchors.fill: parent
+                                                    anchors.leftMargin: 3
+                                                    anchors.rightMargin: 3
+                                                    anchors.topMargin: 3
+                                                    anchors.bottomMargin: 3
+                                                }
                                             }
                                         }
                                     }
@@ -1800,7 +1903,7 @@ Window {
                                     Rectangle {
                                         id: attack2DescriptionBlock
                                         x: 0
-                                        y: 206
+                                        y: 216
                                         width: 250
                                         height: 120
                                         visible: true
@@ -1872,6 +1975,21 @@ Window {
                                                     fontSizeMode: Text.Fit
                                                     font.styleName: "ExtraBold Italic"
                                                 }
+
+                                                Rectangle {
+                                                    id: rectangle23
+                                                    x: -3
+                                                    y: -3
+                                                    color: "#00ffffff"
+                                                    radius: 4
+                                                    border.color: "#25fb2e"
+                                                    border.width: 1
+                                                    anchors.fill: parent
+                                                    anchors.leftMargin: 3
+                                                    anchors.rightMargin: 3
+                                                    anchors.topMargin: 3
+                                                    anchors.bottomMargin: 3
+                                                }
                                             }
                                         }
                                     }
@@ -1879,9 +1997,9 @@ Window {
                                     Rectangle {
                                         id: attack3NameBlock
                                         x: 0
-                                        y: 328
+                                        y: 338
                                         width: 250
-                                        height: 40
+                                        height: 45
                                         visible: true
                                         color: "#c80d0d"
                                         radius: 8
@@ -1944,6 +2062,21 @@ Window {
                                                     fontSizeMode: Text.HorizontalFit
                                                     font.styleName: "ExtraBold Italic"
                                                 }
+
+                                                Rectangle {
+                                                    id: rectangle15
+                                                    x: -6
+                                                    y: -6
+                                                    color: "#00ffffff"
+                                                    radius: 4
+                                                    border.color: "#25fb2e"
+                                                    border.width: 1
+                                                    anchors.fill: parent
+                                                    anchors.leftMargin: 3
+                                                    anchors.rightMargin: 3
+                                                    anchors.topMargin: 3
+                                                    anchors.bottomMargin: 3
+                                                }
                                             }
                                         }
                                     }
@@ -1951,7 +2084,7 @@ Window {
                                     Rectangle {
                                         id: attack3DescriptionBlock
                                         x: 0
-                                        y: 370
+                                        y: 385
                                         width: 250
                                         height: 120
                                         color: "#c80d0d"
@@ -2022,6 +2155,21 @@ Window {
                                                     fontSizeMode: Text.Fit
                                                     font.styleName: "ExtraBold Italic"
                                                 }
+
+                                                Rectangle {
+                                                    id: rectangle22
+                                                    x: -7
+                                                    y: 8
+                                                    color: "#00ffffff"
+                                                    radius: 4
+                                                    border.color: "#25fb2e"
+                                                    border.width: 1
+                                                    anchors.fill: parent
+                                                    anchors.leftMargin: 3
+                                                    anchors.rightMargin: 3
+                                                    anchors.topMargin: 3
+                                                    anchors.bottomMargin: 3
+                                                }
                                             }
                                         }
                                     }
@@ -2029,9 +2177,9 @@ Window {
                                     Rectangle {
                                         id: ability1NameBlock
                                         x: 0
-                                        y: 492
+                                        y: 507
                                         width: 250
-                                        height: 40
+                                        height: 45
                                         color: "#c80d0d"
                                         radius: 8
                                         border.color: "#6c0101"
@@ -2085,6 +2233,21 @@ Window {
                                                     fontSizeMode: Text.HorizontalFit
                                                     font.styleName: "ExtraBold Italic"
                                                 }
+
+                                                Rectangle {
+                                                    id: rectangle16
+                                                    x: -6
+                                                    y: -6
+                                                    color: "#00ffffff"
+                                                    radius: 4
+                                                    border.color: "#25fb2e"
+                                                    border.width: 1
+                                                    anchors.fill: parent
+                                                    anchors.leftMargin: 3
+                                                    anchors.rightMargin: 3
+                                                    anchors.topMargin: 3
+                                                    anchors.bottomMargin: 3
+                                                }
                                             }
                                         }
                                     }
@@ -2092,9 +2255,9 @@ Window {
                                     Rectangle {
                                         id: ability1TypeBlock
                                         x: 0
-                                        y: 534
+                                        y: 549
                                         width: 250
-                                        height: 40
+                                        height: 45
                                         color: "#c80d0d"
                                         radius: 8
                                         border.color: "#6c0101"
@@ -2147,6 +2310,21 @@ Window {
                                                     fontSizeMode: Text.HorizontalFit
                                                     font.styleName: "ExtraBold Italic"
                                                 }
+
+                                                Rectangle {
+                                                    id: rectangle17
+                                                    x: -6
+                                                    y: -6
+                                                    color: "#00ffffff"
+                                                    radius: 4
+                                                    border.color: "#25fb2e"
+                                                    border.width: 1
+                                                    anchors.fill: parent
+                                                    anchors.leftMargin: 3
+                                                    anchors.rightMargin: 3
+                                                    anchors.topMargin: 3
+                                                    anchors.bottomMargin: 3
+                                                }
                                             }
                                         }
                                     }
@@ -2154,7 +2332,7 @@ Window {
                                     Rectangle {
                                         id: ability1DescriptionBlock
                                         x: 0
-                                        y: 576
+                                        y: 596
                                         width: 250
                                         height: 136
                                         color: "#c80d0d"
@@ -2225,6 +2403,21 @@ Window {
                                                     font.styleName: "ExtraBold Italic"
                                                     font.pointSize: ability1DescriptionDropText.font.pointSize
                                                 }
+
+                                                Rectangle {
+                                                    id: rectangle21
+                                                    x: -7
+                                                    y: 13
+                                                    color: "#00ffffff"
+                                                    radius: 4
+                                                    border.color: "#25fb2e"
+                                                    border.width: 1
+                                                    anchors.fill: parent
+                                                    anchors.leftMargin: 3
+                                                    anchors.rightMargin: 3
+                                                    anchors.topMargin: 3
+                                                    anchors.bottomMargin: 3
+                                                }
                                             }
                                         }
                                     }
@@ -2232,9 +2425,9 @@ Window {
                                     Rectangle {
                                         id: ability2NameBlock
                                         x: 0
-                                        y: 714
+                                        y: 734
                                         width: 250
-                                        height: 40
+                                        height: 45
                                         color: "#c80d0d"
                                         radius: 8
                                         border.color: "#6c0101"
@@ -2287,6 +2480,21 @@ Window {
                                                     fontSizeMode: Text.HorizontalFit
                                                     font.styleName: "ExtraBold Italic"
                                                 }
+
+                                                Rectangle {
+                                                    id: rectangle18
+                                                    x: -6
+                                                    y: -6
+                                                    color: "#00ffffff"
+                                                    radius: 4
+                                                    border.color: "#25fb2e"
+                                                    border.width: 1
+                                                    anchors.fill: parent
+                                                    anchors.leftMargin: 3
+                                                    anchors.rightMargin: 3
+                                                    anchors.topMargin: 3
+                                                    anchors.bottomMargin: 3
+                                                }
                                             }
                                         }
                                     }
@@ -2294,9 +2502,9 @@ Window {
                                     Rectangle {
                                         id: ability2TypeBlock
                                         x: 0
-                                        y: 756
+                                        y: 781
                                         width: 250
-                                        height: 40
+                                        height: 45
                                         color: "#c80d0d"
                                         radius: 8
                                         border.color: "#6c0101"
@@ -2350,6 +2558,21 @@ Window {
                                                     fontSizeMode: Text.HorizontalFit
                                                     font.styleName: "ExtraBold Italic"
                                                 }
+
+                                                Rectangle {
+                                                    id: rectangle19
+                                                    x: -6
+                                                    y: -6
+                                                    color: "#00ffffff"
+                                                    radius: 4
+                                                    border.color: "#25fb2e"
+                                                    border.width: 1
+                                                    anchors.fill: parent
+                                                    anchors.leftMargin: 3
+                                                    anchors.rightMargin: 3
+                                                    anchors.topMargin: 3
+                                                    anchors.bottomMargin: 3
+                                                }
                                             }
                                         }
                                     }
@@ -2357,7 +2580,7 @@ Window {
                                     Rectangle {
                                         id: ability2DescriptionBlock
                                         x: 0
-                                        y: 798
+                                        y: 823
                                         width: 250
                                         height: 136
                                         color: "#c80d0d"
@@ -2427,6 +2650,21 @@ Window {
                                                     fontSizeMode: Text.Fit
                                                     font.styleName: "ExtraBold Italic"
                                                     font.pointSize: ability2DescriptionDropText.font.pointSize
+                                                }
+
+                                                Rectangle {
+                                                    id: rectangle20
+                                                    x: -7
+                                                    y: 18
+                                                    color: "#00ffffff"
+                                                    radius: 4
+                                                    border.color: "#25fb2e"
+                                                    border.width: 1
+                                                    anchors.fill: parent
+                                                    anchors.leftMargin: 3
+                                                    anchors.rightMargin: 3
+                                                    anchors.topMargin: 3
+                                                    anchors.bottomMargin: 3
                                                 }
                                             }
                                         }
@@ -2726,7 +2964,8 @@ Window {
 
 /*##^##
 Designer {
-    D{i:0}D{i:78;invisible:true}D{i:79;invisible:true}D{i:84}D{i:90}D{i:120}D{i:125}D{i:135}
-D{i:140}
+    D{i:0}D{i:68}D{i:75}D{i:80;invisible:true}D{i:81;invisible:true}D{i:82}D{i:87}D{i:88}
+D{i:94}D{i:95}D{i:101}D{i:107}D{i:113}D{i:119}D{i:125}D{i:130}D{i:131}D{i:136}D{i:137}
+D{i:143}D{i:148}D{i:149}D{i:154}D{i:155}D{i:161}
 }
 ##^##*/
