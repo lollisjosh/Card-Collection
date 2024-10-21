@@ -56,24 +56,50 @@ class BackendController(QObject):
 
     @Slot(list)
     def request_search(self, params: list[tuple[str, str, str]]):
-        """
-        ## Description:
-            Provide an interface for the front end 
-            to make search requests with the given search parameters.
-        Args:
-            params (list[tuple[str, str, str]]): 
-                List of search parameter tuples of the form (category, subcategory, target)
-        """
-
         try:
             searchHandler = SearchHandler()
             cards = searchHandler.handle_request_search(params)
-            if cards != None:
-                card_list = [{"name": card.name, "imageUrl": card.images.large, "set": card.set.name, "setSymbol": card.set.images.symbol, "setLogo": card.set.images.logo} for card in cards]
+            if cards is not None:
+                card_list = []
+                for card in cards:
+                    # Initialize attack names and descriptions
+                    attack1Name = ""
+                    attack1Desc = ""
+                    attack2Name = ""
+                    attack2Desc = ""
+
+                    #print(f"Processing card: {card.name}")
+
+                    if hasattr(card, 'attacks') and card.attacks is not None:
+                        #print(f"Type of attacks: {type(card.attacks)}")
+                        if len(card.attacks) > 0:
+                            attack1Name = card.attacks[0].name
+                            attack1Desc = card.attacks[0].text if hasattr(card.attacks[0], 'text') else ""
+                        if len(card.attacks) > 1:
+                            attack2Name = card.attacks[1].name
+                            attack2Desc = card.attacks[1].text if hasattr(card.attacks[1], 'text') else ""
+
+                    card_list.append({
+                        "name": card.name,
+                        "imageUrl": card.images.large,
+                        "set": card.set.name,
+                        "setSymbol": card.set.images.symbol,
+                        "setLogo": card.set.images.logo,
+                        "attack1Name": attack1Name,
+                        "attack1Desc": attack1Desc,
+                        "attack2Name": attack2Name,
+                        "attack2Desc": attack2Desc
+                    })
+
                 self.searchResults.emit(json.dumps(card_list))
 
         except Exception as e:
-            self.searchResults.emit(json.dump({"error": str(e)}))
+            self.searchResults.emit(json.dumps({"error": str(e)}))
+
+
+
+
+
 
     @Slot(list)
     def request_discover(self, params: list[tuple[str, str, str]]):
