@@ -62,36 +62,70 @@ class BackendController(QObject):
             if cards is not None:
                 card_list = []
                 for card in cards:
+                    # Initialize ability names and descriptions
+                    ability1Name = ""
+                    ability1Desc = ""
+                    ability1Type = ""
+                    ability2Name = ""
+                    ability2Desc = ""
+                    ability2Type = ""
+
                     # Initialize attack names and descriptions
                     attack1Name = ""
                     attack1Desc = ""
                     attack2Name = ""
                     attack2Desc = ""
+                    attack3Name = ""
+                    attack3Desc = ""
 
-                    #print(f"Processing card: {card.name}")
+                    # Process abilities
+                    if hasattr(card, 'abilities') and card.abilities is not None:
+                        if len(card.abilities) > 0:
+                            ability1Name = card.abilities[0].name
+                            ability1Desc = card.abilities[0].text if hasattr(card.abilities[0], 'text') else ""
+                            ability1Type = card.abilities[0].type if hasattr(card.abilities[0], 'type') else ""
 
+                        if len(card.abilities) > 1:
+                            ability2Name = card.abilities[1].name
+                            ability2Desc = card.abilities[1].text if hasattr(card.abilities[1], 'text') else ""
+                            ability2Type = card.abilities[1].type if hasattr(card.abilities[1], 'type') else ""
+
+                    # Process attacks
                     if hasattr(card, 'attacks') and card.attacks is not None:
-                        #print(f"Type of attacks: {type(card.attacks)}")
                         if len(card.attacks) > 0:
                             attack1Name = card.attacks[0].name
                             attack1Desc = card.attacks[0].text if hasattr(card.attacks[0], 'text') else ""
                         if len(card.attacks) > 1:
                             attack2Name = card.attacks[1].name
                             attack2Desc = card.attacks[1].text if hasattr(card.attacks[1], 'text') else ""
+                        if len(card.attacks) > 2:
+                            attack3Name = card.attacks[2].name
+                            attack3Desc = card.attacks[2].text if hasattr(card.attacks[2], 'text') else ""
 
+                    # Append the card information to card_list
                     card_list.append({
                         "name": card.name,
                         "imageUrl": card.images.large,
                         "set": card.set.name,
                         "setSymbol": card.set.images.symbol,
                         "setLogo": card.set.images.logo,
+                        "ability1Name": ability1Name,
+                        "ability1Desc": ability1Desc,
+                        "ability1Type": ability1Type,
+                        "ability2Name": ability2Name,
+                        "ability2Desc": ability2Desc,
+                        "ability2Type": ability2Type,
                         "attack1Name": attack1Name,
                         "attack1Desc": attack1Desc,
                         "attack2Name": attack2Name,
-                        "attack2Desc": attack2Desc
+                        "attack2Desc": attack2Desc,
+                        "attack3Name": attack3Name,
+                        "attack3Desc": attack3Desc
                     })
 
+                # Emit the search results as JSON
                 self.searchResults.emit(json.dumps(card_list))
+
 
         except Exception as e:
             self.searchResults.emit(json.dumps({"error": str(e)}))
