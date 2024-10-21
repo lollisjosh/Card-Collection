@@ -23,23 +23,49 @@ Window {
     property int selectedTabIndex: 0
     
     // StackLayout to switch between pages
-    
+
     // Function to update attack information based on selectedIndex
     function updateAttackInfo() {
-        // Set attack 1 info in the UI
         if (cards[selectedIndex]) {
+            // Update attack text fields first
             attack1Name.text = cards[selectedIndex].attack1Name || "Attack 1";
             attack1DescriptionDropText.text = cards[selectedIndex].attack1Desc || "No description available."; // Fallback if no description
-            
-            // Set attack 2 info in the UI
+
             attack2NameText.text = cards[selectedIndex].attack2Name || "Attack 2";
             attack2DescriptionText.text = cards[selectedIndex].attack2Desc || "No description available."; // Fallback if no description
-            
-            // Set attack 2 info in the UI
+
             attack3NameText.text = cards[selectedIndex].attack3Name || "Attack 3";
             attack3DescriptionText.text = cards[selectedIndex].attack3Desc || "No description available."; // Fallback if no description
+
+            // Set visibility for each attack based on the card data
+            attack1NameBlock.visible = cards[selectedIndex].attack1Name !== "Attack 1" && cards[selectedIndex].attack1Name !== "";
+            attack1DescriptionBlock.visible = attack1NameBlock.visible;
+
+            attack2NameBlock.visible = cards[selectedIndex].attack2Name !== "Attack 2" && cards[selectedIndex].attack2Name !== "";
+            attack2DescriptionBlock.visible = attack2NameBlock.visible;
+
+            attack3NameBlock.visible = cards[selectedIndex].attack3Name !== "Attack 3" && cards[selectedIndex].attack3Name !== "";
+            attack3DescriptionBlock.visible = attack3NameBlock.visible;
+
+            // Update attackContainer visibility based on attack blocks
+            if(attack1NameBlock.visible || attack2NameBlock.visible || attack3NameBlock.visible) {
+                attackContainer.height = 500;
+            }else {
+                attackContainer.height = 0;
+            }
+
         }
     }
+
+
+
+
+
+
+
+
+
+
     
     function updateAbilityInfo() {
         if (selectedIndex >= 0 && selectedIndex < cards.length) {
@@ -49,7 +75,7 @@ Window {
             ability1NameText.text = card.ability1Name || "Ability 1";
             ability1DescriptionDropText.text = card.ability1Desc || "No description available.";
             ability1TypeText.text = card.ability1Type || "N/A";
-            console.log(card.ability1Type)
+            //console.log(card.ability1Type)
             // ability2NameText.text = card.ability2Name || "N/A";
             // ability2DescText.text = card.ability2Desc || "No description available.";
             // ability2TypeText.text = card.ability2Type || "N/A";
@@ -1548,7 +1574,7 @@ Window {
                                                 }
                                             }
                                             Rectangle {
-                                                id: attack1Text
+                                                id: attack1DescriptionBlock
                                                 x: 0
                                                 y: 44
                                                 width: 250
@@ -1778,6 +1804,7 @@ Window {
                                                 id: attack3NameBlock
                                                 width: 250
                                                 height: 40
+                                                visible: true
                                                 color: "#c80d0d"
                                                 radius: 8
                                                 border.color: "#6c0101"
@@ -1974,6 +2001,53 @@ Window {
                                             }
 
                                             Rectangle {
+                                                id: abililty1TypeBlock
+                                                width: 250
+                                                height: 40
+                                                color: "#c80d0d"
+                                                radius: 8
+                                                border.color: "#6c0101"
+                                                border.width: 2
+                                                Rectangle {
+                                                    id: abililty1TypeBezel
+                                                    color: "#b2b2b2"
+                                                    radius: 8
+                                                    border.color: "#616161"
+                                                    border.width: 2
+                                                    anchors.fill: parent
+                                                    anchors.leftMargin: 4
+                                                    anchors.rightMargin: 4
+                                                    anchors.topMargin: 3
+                                                    anchors.bottomMargin: 3
+                                                    Rectangle {
+                                                        id: abililty1TypeScreen
+                                                        x: 10
+                                                        y: 4
+                                                        color: "#15ba1c"
+                                                        radius: 4
+                                                        border.color: "#128c17"
+                                                        border.width: 2
+                                                        anchors.fill: parent
+                                                        anchors.leftMargin: 5
+                                                        anchors.rightMargin: 5
+                                                        anchors.topMargin: 6
+                                                        anchors.bottomMargin: 6
+                                                        Text {
+                                                            id: ability1TypeText
+                                                            color: "#c5002a02"
+                                                            text: "Ability 1 Type"
+                                                            anchors.fill: parent
+                                                            horizontalAlignment: Text.AlignHCenter
+                                                            verticalAlignment: Text.AlignVCenter
+                                                            wrapMode: Text.Wrap
+                                                            fontSizeMode: Text.HorizontalFit
+                                                            font.styleName: "ExtraBold Italic"
+                                                        }
+                                                    }
+                                                }
+                                            }
+
+                                            Rectangle {
                                                 id: ability1DescriptionBlock
                                                 width: 250
                                                 height: 136
@@ -2049,53 +2123,9 @@ Window {
                                                 }
                                             }
 
-                                            Rectangle {
-                                                id: abililty1TypeBlock
-                                                width: 250
-                                                height: 40
-                                                color: "#c80d0d"
-                                                radius: 8
-                                                border.color: "#6c0101"
-                                                border.width: 2
-                                                Rectangle {
-                                                    id: abililty1TypeBezel
-                                                    color: "#b2b2b2"
-                                                    radius: 8
-                                                    border.color: "#616161"
-                                                    border.width: 2
-                                                    anchors.fill: parent
-                                                    anchors.leftMargin: 4
-                                                    anchors.rightMargin: 4
-                                                    anchors.topMargin: 3
-                                                    anchors.bottomMargin: 3
-                                                    Rectangle {
-                                                        id: abililty1TypeScreen
-                                                        x: 10
-                                                        y: 4
-                                                        color: "#15ba1c"
-                                                        radius: 4
-                                                        border.color: "#128c17"
-                                                        border.width: 2
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 5
-                                                        anchors.rightMargin: 5
-                                                        anchors.topMargin: 6
-                                                        anchors.bottomMargin: 6
-                                                        Text {
-                                                            id: ability1TypeText
-                                                            color: "#c5002a02"
-                                                            text: "Ability 1 Type"
-                                                            anchors.fill: parent
-                                                            horizontalAlignment: Text.AlignHCenter
-                                                            verticalAlignment: Text.AlignVCenter
-                                                            wrapMode: Text.Wrap
-                                                            fontSizeMode: Text.HorizontalFit
-                                                            font.styleName: "ExtraBold Italic"
-                                                        }
-                                                    }
-                                                }
-                                            }
                                         }
+
+
                                     }
                                 }
                                 
