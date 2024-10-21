@@ -126,10 +126,6 @@ Window {
     ColumnLayout {
         id: columnLayout1
         anchors.fill: parent
-        anchors.leftMargin: 0
-        anchors.rightMargin: 0
-        anchors.topMargin: 10
-        anchors.bottomMargin: -10
         spacing: 0
         
         // TabBar for navigation
@@ -249,7 +245,7 @@ Window {
             Item {
                 id: searchPage
                 width: parent.width
-                height: parent.height
+                height: 542
                 visible: false
                 Layout.fillHeight: true
                 Layout.fillWidth: true
@@ -1618,7 +1614,7 @@ Window {
                                             }
                                         }
                                     }
-                                    
+
                                 }
                                 
                                 Flickable {
@@ -2964,8 +2960,7 @@ Window {
 
 /*##^##
 Designer {
-    D{i:0}D{i:68}D{i:75}D{i:80;invisible:true}D{i:81;invisible:true}D{i:82}D{i:87}D{i:88}
-D{i:94}D{i:95}D{i:101}D{i:107}D{i:113}D{i:119}D{i:125}D{i:130}D{i:131}D{i:136}D{i:137}
-D{i:143}D{i:148}D{i:149}D{i:154}D{i:155}D{i:161}
+    D{i:0}D{i:80;invisible:true}D{i:81;invisible:true}D{i:87}D{i:94}D{i:95}D{i:107}D{i:119}
+D{i:130}D{i:131}D{i:136}D{i:137}D{i:143}D{i:148}D{i:149}D{i:154}D{i:155}D{i:161}
 }
 ##^##*/
