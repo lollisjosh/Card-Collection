@@ -38,47 +38,67 @@ Window {
             attack3DescriptionText.text = cards[selectedIndex].attack3Desc || "No description available."; // Fallback if no description
 
             // Set visibility for each attack based on the card data
-            attack1NameBlock.visible = cards[selectedIndex].attack1Name !== "Attack 1" && cards[selectedIndex].attack1Name !== "";
-            attack1DescriptionBlock.visible = attack1NameBlock.visible;
+            // attack1NameBlock.visible = cards[selectedIndex].attack1Name !== "Attack 1" && cards[selectedIndex].attack1Name !== "";
+            // attack1DescriptionBlock.visible = attack1NameBlock.visible;
 
-            attack2NameBlock.visible = cards[selectedIndex].attack2Name !== "Attack 2" && cards[selectedIndex].attack2Name !== "";
-            attack2DescriptionBlock.visible = attack2NameBlock.visible;
+            // attack2NameBlock.visible = cards[selectedIndex].attack2Name !== "Attack 2" && cards[selectedIndex].attack2Name !== "";
+            // attack2DescriptionBlock.visible = attack2NameBlock.visible;
 
-            attack3NameBlock.visible = cards[selectedIndex].attack3Name !== "Attack 3" && cards[selectedIndex].attack3Name !== "";
-            attack3DescriptionBlock.visible = attack3NameBlock.visible;
+            // attack3NameBlock.visible = cards[selectedIndex].attack3Name !== "Attack 3" && cards[selectedIndex].attack3Name !== "";
+            // attack3DescriptionBlock.visible = attack3NameBlock.visible;
 
-            // Update attackContainer visibility based on attack blocks
-            if(attack1NameBlock.visible || attack2NameBlock.visible || attack3NameBlock.visible) {
-                attackContainer.height = 500;
-            }else {
-                attackContainer.height = 0;
-            }
+            // // Update attackContainer visibility based on attack blocks
+            // if(attack1NameBlock.visible || attack2NameBlock.visible || attack3NameBlock.visible) {
+            //     attackContainer.height = 500;
+            // }else {
+            //     attackContainer.height = 0;
+            // }
 
         }
     }
     
+    // Function to update ability information based on selectedIndex
     function updateAbilityInfo() {
-        if (selectedIndex >= 0 && selectedIndex < cards.length) {
-            var card = cards[selectedIndex];
-            
-            // Update UI elements for abilities
-            ability1NameText.text = card.ability1Name || "Ability 1";
-            ability1DescriptionDropText.text = card.ability1Desc || "No description available.";
-            ability1TypeText.text = card.ability1Type || "N/A";
-            //console.log(card.ability1Type)
-            ability2NameText.text = card.ability2Name || "N/A";
-            ability2DescriptionDropText.text = card.ability2Desc || "No description available.";
-            ability2TypeText.text = card.ability2Type || "N/A";
+        if (cards[selectedIndex]) {
+            // Update ability text fields first
+            ability1NameText.text = cards[selectedIndex].ability1Name || "Ability 1";
+            ability1DescriptionDropText.text = cards[selectedIndex].ability1Desc || "No description available.";
+            ability1TypeText.text = cards[selectedIndex].ability1Type || "N/A";
+
+            ability2NameText.text = cards[selectedIndex].ability2Name || "Ability 2";
+            ability2DescriptionDropText.text = cards[selectedIndex].ability2Desc || "No description available.";
+            ability2TypeText.text = cards[selectedIndex].ability2Type || "N/A";
+
+            // // Set visibility for each ability based on the card data
+            // ability1NameBlock.visible = cards[selectedIndex].ability1Name !== "Ability 1" && cards[selectedIndex].ability1Name !== "";
+            // ability1DescriptionBlock.visible = ability1NameBlock.visible;
+            // ability1TypeBlock.visible = ability1NameBlock.visible;
+
+            // ability2NameBlock.visible = cards[selectedIndex].ability2Name !== "Ability 2" && cards[selectedIndex].ability2Name !== "";
+            // ability2DescriptionBlock.visible = ability2NameBlock.visible;
+            // ability2TypeBlock.visible = ability2NameBlock.visible;
+
+            // // Update abilityContainer visibility based on ability blocks
+            // if (ability1NameBlock.visible || ability2NameBlock.visible) {
+            //     abilityContainer.height = 500;
+            // } else {
+            //     abilityContainer.height = 0;
+            // }
         }
     }
+
     
-    
+    function resetAttackScroll() {
+        attackScrollView.contentX = 0;
+        attackScrollView.contentY = 0;
+    }
     // Function to handle next button click
     function onNextCard() {
         if (selectedIndex < cards.length - 1) {
             selectedIndex++;
             updateAttackInfo(); // Update UI for the new selectedIndex
             updateAbilityInfo();
+            resetAttackScroll();
         }
     }
     
@@ -88,6 +108,7 @@ Window {
             selectedIndex--;
             updateAttackInfo(); // Update UI for the new selectedIndex
             updateAbilityInfo();
+            resetAttackScroll();
         }
     }
     
@@ -824,6 +845,8 @@ Window {
                                             }
                                             
                                             backendController.request_search(searchParams);
+                                            resetAttackScroll();
+
                                         }
                                         
                                     }
@@ -1490,27 +1513,33 @@ Window {
                                     id: attackScrollView
                                     x: 0
                                     y: 0
-                                    width: 240
-                                    height: 377
+                                    width: 250
+                                    height: 382
+                                    contentWidth: 250
+                                    clip: false
                                     boundsBehavior: Flickable.DragOverBounds
                                     boundsMovement: Flickable.FollowBoundsBehavior
                                     flickableDirection: Flickable.VerticalFlick
                                     // Adjust width as needed
                                     // Set a height that fits your layout
-                                    contentWidth: parent.width
-                                    contentHeight: 900 // Set a suitable height for your content
+                                    contentHeight: 950 // Set a suitable height for your content
                                     
                                     // First attack
 
                                     ColumnLayout {
                                         id: leftColumn
-                                        width: 100
-                                        height: 100
+                                        x: 0
+                                        y: 0
+                                        width: 247
+                                        height: 400
+                                        spacing: 5
+                                        clip: false
 
                                         Column {
                                             id: attackContainer
                                             width: 247
                                             height: 500
+                                            visible: true
                                             spacing: 4 // Space between attack blocks
 
 
@@ -1941,10 +1970,10 @@ Window {
                                             id: abilityContainer
                                             width: 247
                                             height: 500
-                                            spacing: 4
+                                            spacing: 3
 
                                             Rectangle {
-                                                id: abililty1NameBlock
+                                                id: ability1NameBlock
                                                 width: 250
                                                 height: 40
                                                 color: "#c80d0d"
@@ -1991,7 +2020,7 @@ Window {
                                             }
 
                                             Rectangle {
-                                                id: abililty1TypeBlock
+                                                id: ability1TypeBlock
                                                 width: 250
                                                 height: 40
                                                 color: "#c80d0d"
@@ -1999,7 +2028,7 @@ Window {
                                                 border.color: "#6c0101"
                                                 border.width: 2
                                                 Rectangle {
-                                                    id: abililty1TypeBezel
+                                                    id: ability1TypeBezel
                                                     color: "#b2b2b2"
                                                     radius: 8
                                                     border.color: "#616161"
@@ -2010,7 +2039,7 @@ Window {
                                                     anchors.topMargin: 3
                                                     anchors.bottomMargin: 3
                                                     Rectangle {
-                                                        id: abililty1TypeScreen
+                                                        id: ability1TypeScreen
                                                         x: 10
                                                         y: 4
                                                         color: "#15ba1c"
@@ -2046,7 +2075,7 @@ Window {
                                                 border.color: "#6c0101"
                                                 border.width: 2
                                                 Rectangle {
-                                                    id: abilityDescriptionBezel
+                                                    id: ability1DescriptionBezel
                                                     color: "#b2b2b2"
                                                     radius: 8
                                                     border.color: "#616161"
@@ -2114,7 +2143,7 @@ Window {
                                             }
 
                                             Rectangle {
-                                                id: abililty2NameBlock
+                                                id: ability2NameBlock
                                                 width: 250
                                                 height: 40
                                                 color: "#c80d0d"
@@ -2161,7 +2190,7 @@ Window {
                                             }
 
                                             Rectangle {
-                                                id: abililty2TypeBlock
+                                                id: ability2TypeBlock
                                                 width: 250
                                                 height: 40
                                                 color: "#c80d0d"
@@ -2169,7 +2198,7 @@ Window {
                                                 border.color: "#6c0101"
                                                 border.width: 2
                                                 Rectangle {
-                                                    id: abililty2TypeBezel
+                                                    id: ability2TypeBezel
                                                     color: "#b2b2b2"
                                                     radius: 8
                                                     border.color: "#616161"
@@ -2180,7 +2209,7 @@ Window {
                                                     anchors.topMargin: 3
                                                     anchors.bottomMargin: 3
                                                     Rectangle {
-                                                        id: abililty2TypeScreen
+                                                        id: ability2TypeScreen
                                                         x: 10
                                                         y: 4
                                                         color: "#15ba1c"
@@ -2208,7 +2237,7 @@ Window {
                                             }
 
                                             Rectangle {
-                                                id: abililty2DescriptionBlock
+                                                id: ability2DescriptionBlock
                                                 width: 250
                                                 height: 136
                                                 color: "#c80d0d"
@@ -2583,6 +2612,6 @@ Window {
 
 /*##^##
 Designer {
-    D{i:0}D{i:78;invisible:true}
+    D{i:0}D{i:78;invisible:true}D{i:84}D{i:85}D{i:115}
 }
 ##^##*/
