@@ -782,7 +782,7 @@ Window {
                                             //Print each tuple as a string to the console
                                             for (var i = 0; i < searchParams.length; i++) {
                                                 var tupleString = "[" + searchParams[i][0] + ", " + searchParams[i][1] + ", " + searchParams[i][2] + "]";
-                                               // console.log(tupleString);
+                                                // console.log(tupleString);
                                             }
 
                                             backendController.request_search(searchParams);
@@ -1451,7 +1451,7 @@ Window {
                                     // Adjust width as needed
                                     // Set a height that fits your layout
                                     contentWidth: parent.width
-                                    contentHeight: 300 // Set a suitable height for your content
+                                    contentHeight: 700 // Set a suitable height for your content
 
                                     // First attack
                                     Column {
@@ -1743,6 +1743,7 @@ Window {
                                         }
 
                                         // Third attack
+
                                         Rectangle {
                                             id: attack3NameBlock
                                             width: 250
@@ -1751,7 +1752,6 @@ Window {
                                             radius: 8
                                             border.color: "#6c0101"
                                             border.width: 2
-
                                             Rectangle {
                                                 id: attack3NameBezel
                                                 color: "#b2b2b2"
@@ -1759,7 +1759,10 @@ Window {
                                                 border.color: "#616161"
                                                 border.width: 2
                                                 anchors.fill: parent
-
+                                                anchors.leftMargin: 4
+                                                anchors.rightMargin: 4
+                                                anchors.topMargin: 3
+                                                anchors.bottomMargin: 3
                                                 Rectangle {
                                                     id: attack3NameScreen
                                                     x: 10
@@ -1769,15 +1772,40 @@ Window {
                                                     border.color: "#128c17"
                                                     border.width: 2
                                                     anchors.fill: parent
-
+                                                    anchors.leftMargin: 5
+                                                    anchors.rightMargin: 5
+                                                    anchors.topMargin: 6
+                                                    anchors.bottomMargin: 6
                                                     Text {
                                                         id: attack3NameText
                                                         color: "#c5002a02"
                                                         text: "Attack 3"
                                                         anchors.fill: parent
+                                                        anchors.leftMargin: 4
+                                                        anchors.rightMargin: 4
+                                                        anchors.topMargin: 2
+                                                        anchors.bottomMargin: 2
                                                         horizontalAlignment: Text.AlignHCenter
                                                         verticalAlignment: Text.AlignVCenter
                                                         wrapMode: Text.Wrap
+                                                        z: 1
+                                                        fontSizeMode: Text.HorizontalFit
+                                                        font.styleName: "ExtraBold Italic"
+                                                    }
+
+                                                    Text {
+                                                        id: attack3NameDrop
+                                                        color: "#2a7b2d"
+                                                        text: attack3NameText.text
+                                                        anchors.fill: parent
+                                                        anchors.leftMargin: 5
+                                                        anchors.rightMargin: 3
+                                                        anchors.topMargin: 3
+                                                        anchors.bottomMargin: 1
+                                                        horizontalAlignment: Text.AlignHCenter
+                                                        verticalAlignment: Text.AlignVCenter
+                                                        wrapMode: Text.Wrap
+                                                        z: 0
                                                         fontSizeMode: Text.HorizontalFit
                                                         font.styleName: "ExtraBold Italic"
                                                     }
@@ -1793,7 +1821,6 @@ Window {
                                             radius: 8
                                             border.color: "#6c0101"
                                             border.width: 2
-
                                             Rectangle {
                                                 id: attack3DescriptionBezel
                                                 color: "#b2b2b2"
@@ -1801,9 +1828,12 @@ Window {
                                                 border.color: "#616161"
                                                 border.width: 2
                                                 anchors.fill: parent
-
+                                                anchors.leftMargin: 4
+                                                anchors.rightMargin: 4
+                                                anchors.topMargin: 4
+                                                anchors.bottomMargin: 4
                                                 Rectangle {
-                                                    id: attack3Screen
+                                                    id: attack3DescriptionScreen
                                                     x: 10
                                                     y: 4
                                                     color: "#15ba1c"
@@ -1811,16 +1841,48 @@ Window {
                                                     border.color: "#128c17"
                                                     border.width: 2
                                                     anchors.fill: parent
-
+                                                    anchors.leftMargin: 6
+                                                    anchors.rightMargin: 6
+                                                    anchors.topMargin: 6
+                                                    anchors.bottomMargin: 6
                                                     Text {
                                                         id: attack3DescriptionDropText
+                                                        visible: true
                                                         color: "#c5002a02"
-                                                        text: "Attack 3 Description"
+                                                        text: attack3DescriptionText.text
                                                         anchors.fill: parent
+                                                        anchors.leftMargin: 4
+                                                        anchors.rightMargin: 4
+                                                        anchors.topMargin: 4
+                                                        anchors.bottomMargin: 4
                                                         horizontalAlignment: Text.AlignHCenter
                                                         verticalAlignment: Text.AlignVCenter
                                                         wrapMode: Text.Wrap
-                                                        fontSizeMode: Text.HorizontalFit
+                                                        z: 1
+                                                        minimumPointSize: 8
+                                                        minimumPixelSize: 8
+                                                        fontSizeMode: Text.Fit
+                                                        font.styleName: "ExtraBold Italic"
+                                                        font.pointSize: attack3DescriptionText.font.pointSize
+                                                    }
+
+                                                    Text {
+                                                        id: attack3DescriptionText
+                                                        visible: true
+                                                        color: "#095f0c"
+                                                        text: "Attack 2 Description"
+                                                        anchors.fill: parent
+                                                        anchors.leftMargin: 5
+                                                        anchors.rightMargin: 3
+                                                        anchors.topMargin: 5
+                                                        anchors.bottomMargin: 3
+                                                        horizontalAlignment: Text.AlignHCenter
+                                                        verticalAlignment: Text.AlignVCenter
+                                                        wrapMode: Text.Wrap
+                                                        z: 0
+                                                        minimumPointSize: 8
+                                                        minimumPixelSize: 8
+                                                        fontSizeMode: Text.Fit
                                                         font.styleName: "ExtraBold Italic"
                                                     }
                                                 }
@@ -2039,25 +2101,25 @@ Window {
             Connections {
                 target: backendController
                 function onSearchResults(response) {
-                  //  console.log("Received search response:", response);  // Log the raw response
+                    //  console.log("Received search response:", response);  // Log the raw response
 
                     var data = JSON.parse(response);
 
                     if (data.error) {
-                       // console.log("Error in response:", data.error);  // Log the error message
+                        // console.log("Error in response:", data.error);  // Log the error message
                         cards = [];
                     } else {
                         cards = data.map(card => ({
-                            "name": card.name,
-                            "imageUrl": card.imageUrl || "",
-                            "set": card.set,
-                            "setSymbol": card.setSymbol,
-                            "setLogo": card.setLogo,
-                            "attack1Name": card.attack1Name,
-                            "attack1Desc": card.attack1Desc,
-                            "attack2Name": card.attack2Name,
-                            "attack2Desc": card.attack2Desc
-                        }));
+                                                      "name": card.name,
+                                                      "imageUrl": card.imageUrl || "",
+                                                      "set": card.set,
+                                                      "setSymbol": card.setSymbol,
+                                                      "setLogo": card.setLogo,
+                                                      "attack1Name": card.attack1Name,
+                                                      "attack1Desc": card.attack1Desc,
+                                                      "attack2Name": card.attack2Name,
+                                                      "attack2Desc": card.attack2Desc
+                                                  }));
 
                         //console.log("Processed cards data:", cards);  // Log the processed cards array
 
@@ -2112,6 +2174,6 @@ Window {
 
 /*##^##
 Designer {
-    D{i:0}D{i:78;invisible:true}
+    D{i:0}D{i:78;invisible:true}D{i:104}D{i:109}
 }
 ##^##*/
