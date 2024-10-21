@@ -1104,7 +1104,7 @@ Window {
 
                                 Rectangle {
                                     id: nameBlock
-                                    x: 257
+                                    x: 259
                                     y: 0
                                     width: 175
                                     height: 60
@@ -1191,7 +1191,7 @@ Window {
 
                                 Rectangle {
                                     id: setLogoBlock
-                                    x: 257
+                                    x: 259
                                     y: 128
                                     width: 175
                                     height: 130
@@ -1302,7 +1302,7 @@ Window {
 
                                 Rectangle {
                                     id: setSymbolBlock
-                                    x: 357
+                                    x: 359
                                     y: 62
                                     width: 75
                                     height: 60
@@ -1376,7 +1376,7 @@ Window {
 
                                 Rectangle {
                                     id: setBlock
-                                    x: 257
+                                    x: 259
                                     y: 62
                                     width: 98
                                     height: 60
