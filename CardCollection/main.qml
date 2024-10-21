@@ -28,12 +28,16 @@ Window {
     function updateAttackInfo() {
         // Set attack 1 info in the UI
         if (cards[selectedIndex]) {
-            attack1Name.text = cards[selectedIndex].attack1Name || "";
+            attack1Name.text = cards[selectedIndex].attack1Name || "Attack 1";
             attack1DescriptionDropText.text = cards[selectedIndex].attack1Desc || "No description available."; // Fallback if no description
 
             // Set attack 2 info in the UI
-            attack2NameText.text = cards[selectedIndex].attack2Name || "";
+            attack2NameText.text = cards[selectedIndex].attack2Name || "Attack 2";
             attack2DescriptionText.text = cards[selectedIndex].attack2Desc || "No description available."; // Fallback if no description
+
+            // Set attack 2 info in the UI
+            attack3NameText.text = cards[selectedIndex].attack3Name || "Attack 3";
+            attack3DescriptionText.text = cards[selectedIndex].attack3Desc || "No description available."; // Fallback if no description
         }
     }
 
@@ -2248,7 +2252,9 @@ Window {
                                                       "attack1Name": card.attack1Name,
                                                       "attack1Desc": card.attack1Desc,
                                                       "attack2Name": card.attack2Name,
-                                                      "attack2Desc": card.attack2Desc
+                                                      "attack2Desc": card.attack2Desc,
+                                                      "attack3Name": card.attack3Name,
+                                                      "attack3Desc": card.attack3Desc
                                                   }));
 
                         //console.log("Processed cards data:", cards);  // Log the processed cards array
