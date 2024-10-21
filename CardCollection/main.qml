@@ -15,6 +15,7 @@ Window {
     
     visible: true
     color: "#6c0101"
+    property alias setSymbolText: setSymbolText
     property alias ability2TypeDropText: ability2TypeDropText
     property alias attack1Name: attack1Name
     property alias attack1DropName: attack1DropName
@@ -1235,7 +1236,7 @@ Window {
                                             wrapMode: Text.Wrap
                                             minimumPointSize: 8
                                             minimumPixelSize: 8
-                                            font.pointSize: 22
+                                            font.pointSize: 30
                                             z: 1
                                             font.styleName: "Bold Italic"
                                             fontSizeMode: Text.HorizontalFit
@@ -1251,8 +1252,8 @@ Window {
                                             anchors.bottom: parent.bottom
                                             anchors.leftMargin: 6
                                             anchors.rightMargin: 2
-                                            anchors.topMargin: 4
-                                            anchors.bottomMargin: 0
+                                            anchors.topMargin: 5
+                                            anchors.bottomMargin: -1
                                             horizontalAlignment: Text.AlignHCenter
                                             verticalAlignment: Text.AlignVCenter
                                             wrapMode: Text.Wrap
@@ -1261,7 +1262,7 @@ Window {
                                             z: 0
                                             fontSizeMode: Text.HorizontalFit
                                             font.styleName: "Bold Italic"
-                                            font.pointSize: 22
+                                            font.pointSize: 30
                                         }
                                     }
                                 }
@@ -1316,14 +1317,15 @@ Window {
                                                 anchors.fill: parent
                                                 horizontalAlignment: Text.AlignHCenter
                                                 verticalAlignment: Text.AlignVCenter
+                                                lineHeight: 0.8
                                                 wrapMode: Text.Wrap
                                                 font.family: "Ubuntu Sans"
                                                 z: 1
                                                 font.styleName: "ExtraBold Italic"
                                                 font.italic: false
                                                 font.bold: false
-                                                font.pointSize: 19
-                                                fontSizeMode: Text.HorizontalFit
+                                                font.pointSize: 32
+                                                fontSizeMode: Text.Fit
                                             }
                                             
                                             Image {
@@ -1351,17 +1353,18 @@ Window {
                                                       ? "" // Fallback if name is undefined
                                                       : "Set Logo"
                                                 anchors.fill: parent
-                                                anchors.leftMargin: 1
-                                                anchors.rightMargin: -1
-                                                anchors.topMargin: 2
-                                                anchors.bottomMargin: -2
+                                                anchors.leftMargin: 4
+                                                anchors.rightMargin: -4
+                                                anchors.topMargin: 4
+                                                anchors.bottomMargin: -4
                                                 horizontalAlignment: Text.AlignHCenter
                                                 verticalAlignment: Text.AlignVCenter
+                                                lineHeight: 0.8
                                                 wrapMode: Text.Wrap
                                                 z: 0
-                                                fontSizeMode: Text.HorizontalFit
+                                                fontSizeMode: Text.Fit
                                                 font.styleName: "ExtraBold Italic"
-                                                font.pointSize: 19
+                                                font.pointSize: 32
                                                 font.italic: false
                                                 font.family: "Ubuntu Sans"
                                                 font.bold: false
@@ -1443,9 +1446,27 @@ Window {
                                                 verticalAlignment: Text.AlignVCenter
                                                 wrapMode: Text.Wrap
                                                 z: 1
-                                                font.pointSize: 8
+                                                font.pointSize: 11
                                                 font.styleName: "ExtraBold Italic"
-                                                fontSizeMode: Text.HorizontalFit
+                                                fontSizeMode: Text.Fit
+                                            }
+
+                                            Text {
+                                                id: setSymbolDropText
+                                                color: "#095f0c"
+                                                text: setSymbolText.text
+                                                anchors.fill: parent
+                                                anchors.leftMargin: 2
+                                                anchors.rightMargin: 2
+                                                anchors.topMargin: 2
+                                                anchors.bottomMargin: 2
+                                                horizontalAlignment: Text.AlignHCenter
+                                                verticalAlignment: Text.AlignVCenter
+                                                wrapMode: Text.Wrap
+                                                z: 0
+                                                fontSizeMode: Text.Fit
+                                                font.styleName: "ExtraBold Italic"
+                                                font.pointSize: 11
                                             }
                                         }
                                     }
@@ -1493,7 +1514,7 @@ Window {
                                             
                                             Text {
                                                 id: setNameText
-                                                color: "#095f0c"
+                                                color: "#c5002a02"
                                                 // Safely access the name property
                                                 text: (selectedIndex >= 0 && selectedIndex < cards.length)
                                                       ? cards[selectedIndex].set || "No Name Available" // Fallback if name is undefined
@@ -1508,11 +1529,32 @@ Window {
                                                 horizontalAlignment: Text.AlignHCenter
                                                 verticalAlignment: Text.AlignVCenter
                                                 wrapMode: Text.Wrap
+                                                font.pointSize: 13
                                                 minimumPointSize: 6
                                                 minimumPixelSize: 6
                                                 z: 1
                                                 font.styleName: "ExtraBold Italic"
                                                 fontSizeMode: Text.Fit
+                                            }
+
+                                            Text {
+                                                id: setNameDropText
+                                                color: "#095f0c"
+                                                text: setNameText.text
+                                                anchors.fill: parent
+                                                anchors.leftMargin: 2
+                                                anchors.rightMargin: 2
+                                                anchors.topMargin: 3
+                                                anchors.bottomMargin: 1
+                                                horizontalAlignment: Text.AlignHCenter
+                                                verticalAlignment: Text.AlignVCenter
+                                                wrapMode: Text.Wrap
+                                                font.pointSize: 13
+                                                z: 0
+                                                minimumPointSize: 6
+                                                minimumPixelSize: 6
+                                                fontSizeMode: Text.Fit
+                                                font.styleName: "ExtraBold Italic"
                                             }
                                         }
                                     }
@@ -2684,6 +2726,7 @@ Window {
 
 /*##^##
 Designer {
-    D{i:0}D{i:78;invisible:true}D{i:88}D{i:118}D{i:123}D{i:133}D{i:138}
+    D{i:0}D{i:78;invisible:true}D{i:79;invisible:true}D{i:84}D{i:90}D{i:120}D{i:125}D{i:135}
+D{i:140}
 }
 ##^##*/
