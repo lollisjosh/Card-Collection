@@ -38,21 +38,25 @@ Window {
             attack3DescriptionText.text = cards[selectedIndex].attack3Desc || "No description available."; // Fallback if no description
 
             // Set visibility for each attack based on the card data
-            // attack1NameBlock.visible = cards[selectedIndex].attack1Name !== "Attack 1" && cards[selectedIndex].attack1Name !== "";
-            // attack1DescriptionBlock.visible = attack1NameBlock.visible;
+            attack1NameBlock.visible = cards[selectedIndex].attack1Name !== "Attack 1" && cards[selectedIndex].attack1Name !== "";
+            attack1DescriptionBlock.visible = attack1NameBlock.visible;
 
-            // attack2NameBlock.visible = cards[selectedIndex].attack2Name !== "Attack 2" && cards[selectedIndex].attack2Name !== "";
-            // attack2DescriptionBlock.visible = attack2NameBlock.visible;
+            attack2NameBlock.visible = cards[selectedIndex].attack2Name !== "Attack 2" && cards[selectedIndex].attack2Name !== "";
+            attack2DescriptionBlock.visible = attack2NameBlock.visible;
 
-            // attack3NameBlock.visible = cards[selectedIndex].attack3Name !== "Attack 3" && cards[selectedIndex].attack3Name !== "";
-            // attack3DescriptionBlock.visible = attack3NameBlock.visible;
+            attack3NameBlock.visible = cards[selectedIndex].attack3Name !== "Attack 3" && cards[selectedIndex].attack3Name !== "";
+            attack3DescriptionBlock.visible = attack3NameBlock.visible;
 
-            // // Update attackContainer visibility based on attack blocks
-            // if(attack1NameBlock.visible || attack2NameBlock.visible || attack3NameBlock.visible) {
-            //     attackContainer.height = 500;
-            // }else {
-            //     attackContainer.height = 0;
-            // }
+            // Update attackContainer visibility based on attack blocks
+            if(attack1NameBlock.visible || attack2NameBlock.visible || attack3NameBlock.visible) {
+                attackContainer.height = 500;
+            }else {
+                attackContainer.height = 0;
+            }
+
+            console.log("Attack 1: " +cards[selectedIndex].attack1Name)
+            console.log("Attack 2: " +cards[selectedIndex].attack2Name)
+            console.log("Attack 3: " +cards[selectedIndex].attack3Name)
 
         }
     }
@@ -69,21 +73,21 @@ Window {
             ability2DescriptionDropText.text = cards[selectedIndex].ability2Desc || "No description available.";
             ability2TypeText.text = cards[selectedIndex].ability2Type || "N/A";
 
-            // // Set visibility for each ability based on the card data
-            // ability1NameBlock.visible = cards[selectedIndex].ability1Name !== "Ability 1" && cards[selectedIndex].ability1Name !== "";
-            // ability1DescriptionBlock.visible = ability1NameBlock.visible;
-            // ability1TypeBlock.visible = ability1NameBlock.visible;
+            // Set visibility for each ability based on the card data
+            ability1NameBlock.visible = cards[selectedIndex].ability1Name !== "Ability 1" && cards[selectedIndex].ability1Name !== "";
+            ability1DescriptionBlock.visible = ability1NameBlock.visible;
+            ability1TypeBlock.visible = ability1NameBlock.visible;
 
-            // ability2NameBlock.visible = cards[selectedIndex].ability2Name !== "Ability 2" && cards[selectedIndex].ability2Name !== "";
-            // ability2DescriptionBlock.visible = ability2NameBlock.visible;
-            // ability2TypeBlock.visible = ability2NameBlock.visible;
+            ability2NameBlock.visible = cards[selectedIndex].ability2Name !== "Ability 2" && cards[selectedIndex].ability2Name !== "";
+            ability2DescriptionBlock.visible = ability2NameBlock.visible;
+            ability2TypeBlock.visible = ability2NameBlock.visible;
 
-            // // Update abilityContainer visibility based on ability blocks
-            // if (ability1NameBlock.visible || ability2NameBlock.visible) {
-            //     abilityContainer.height = 500;
-            // } else {
-            //     abilityContainer.height = 0;
-            // }
+            // Update abilityContainer visibility based on ability blocks
+            if (ability1NameBlock.visible || ability2NameBlock.visible) {
+                abilityContainer.height = 500;
+            } else {
+                abilityContainer.height = 0;
+            }
         }
     }
 
@@ -1540,6 +1544,9 @@ Window {
                                             width: 247
                                             height: 500
                                             visible: true
+                                            Layout.alignment: Qt.AlignLeft | Qt.AlignTop
+                                            Layout.fillHeight: false
+                                            Layout.fillWidth: false
                                             spacing: 4 // Space between attack blocks
 
 
@@ -1970,6 +1977,9 @@ Window {
                                             id: abilityContainer
                                             width: 247
                                             height: 500
+                                            Layout.alignment: Qt.AlignLeft | Qt.AlignTop
+                                            Layout.fillHeight: false
+                                            Layout.fillWidth: false
                                             spacing: 3
 
                                             Rectangle {
