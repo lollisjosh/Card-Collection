@@ -1149,15 +1149,17 @@ Window {
                                             anchors.right: parent.right
                                             anchors.top: parent.top
                                             anchors.bottom: parent.bottom
-                                            anchors.leftMargin: 0
-                                            anchors.rightMargin: 0
-                                            anchors.topMargin: 4
-                                            anchors.bottomMargin: 4
+                                            anchors.leftMargin: 4
+                                            anchors.rightMargin: 4
+                                            anchors.topMargin: 2
+                                            anchors.bottomMargin: 2
                                             // Fallback when no card is selected
                                             horizontalAlignment: Text.AlignHCenter
                                             verticalAlignment: Text.AlignVCenter
                                             wrapMode: Text.Wrap
-                                            font.pointSize: 13
+                                            minimumPointSize: 8
+                                            minimumPixelSize: 8
+                                            font.pointSize: 22
                                             z: 1
                                             font.styleName: "Bold Italic"
                                             fontSizeMode: Text.HorizontalFit
@@ -1171,17 +1173,19 @@ Window {
                                             anchors.right: parent.right
                                             anchors.top: parent.top
                                             anchors.bottom: parent.bottom
-                                            anchors.leftMargin: 1
-                                            anchors.rightMargin: -1
-                                            anchors.topMargin: 6
+                                            anchors.leftMargin: 4
+                                            anchors.rightMargin: 4
+                                            anchors.topMargin: 2
                                             anchors.bottomMargin: 2
                                             horizontalAlignment: Text.AlignHCenter
                                             verticalAlignment: Text.AlignVCenter
                                             wrapMode: Text.Wrap
+                                            minimumPointSize: 8
+                                            minimumPixelSize: 8
                                             z: 0
                                             fontSizeMode: Text.HorizontalFit
                                             font.styleName: "Bold Italic"
-                                            font.pointSize: 13
+                                            font.pointSize: 22
                                         }
                                     }
                                 }
