@@ -2000,7 +2000,7 @@ Window {
                                                         id: attack3DescriptionText
                                                         visible: true
                                                         color: "#095f0c"
-                                                        text: "Attack 2 Description"
+                                                        text: "Attack 3 Description"
                                                         anchors.fill: parent
                                                         anchors.leftMargin: 5
                                                         anchors.rightMargin: 3
