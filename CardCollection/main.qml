@@ -56,16 +56,6 @@ Window {
 
         }
     }
-
-
-
-
-
-
-
-
-
-
     
     function updateAbilityInfo() {
         if (selectedIndex >= 0 && selectedIndex < cards.length) {
@@ -76,9 +66,9 @@ Window {
             ability1DescriptionDropText.text = card.ability1Desc || "No description available.";
             ability1TypeText.text = card.ability1Type || "N/A";
             //console.log(card.ability1Type)
-            // ability2NameText.text = card.ability2Name || "N/A";
-            // ability2DescText.text = card.ability2Desc || "No description available.";
-            // ability2TypeText.text = card.ability2Type || "N/A";
+            ability2NameText.text = card.ability2Name || "N/A";
+            ability2DescriptionDropText.text = card.ability2Desc || "No description available.";
+            ability2TypeText.text = card.ability2Type || "N/A";
         }
     }
     
@@ -1508,7 +1498,7 @@ Window {
                                     // Adjust width as needed
                                     // Set a height that fits your layout
                                     contentWidth: parent.width
-                                    contentHeight: 700 // Set a suitable height for your content
+                                    contentHeight: 900 // Set a suitable height for your content
                                     
                                     // First attack
 
@@ -2122,6 +2112,177 @@ Window {
                                                     }
                                                 }
                                             }
+
+                                            Rectangle {
+                                                id: abililty2NameBlock
+                                                width: 250
+                                                height: 40
+                                                color: "#c80d0d"
+                                                radius: 8
+                                                border.color: "#6c0101"
+                                                border.width: 2
+                                                Rectangle {
+                                                    id: ability2NameBezel
+                                                    color: "#b2b2b2"
+                                                    radius: 8
+                                                    border.color: "#616161"
+                                                    border.width: 2
+                                                    anchors.fill: parent
+                                                    anchors.leftMargin: 4
+                                                    anchors.rightMargin: 4
+                                                    anchors.topMargin: 3
+                                                    anchors.bottomMargin: 3
+                                                    Rectangle {
+                                                        id: ability2NameScreen
+                                                        x: 10
+                                                        y: 4
+                                                        color: "#15ba1c"
+                                                        radius: 4
+                                                        border.color: "#128c17"
+                                                        border.width: 2
+                                                        anchors.fill: parent
+                                                        anchors.leftMargin: 5
+                                                        anchors.rightMargin: 5
+                                                        anchors.topMargin: 6
+                                                        anchors.bottomMargin: 6
+                                                        Text {
+                                                            id: ability2NameText
+                                                            color: "#c5002a02"
+                                                            text: "Ability 2"
+                                                            anchors.fill: parent
+                                                            horizontalAlignment: Text.AlignHCenter
+                                                            verticalAlignment: Text.AlignVCenter
+                                                            wrapMode: Text.Wrap
+                                                            fontSizeMode: Text.HorizontalFit
+                                                            font.styleName: "ExtraBold Italic"
+                                                        }
+                                                    }
+                                                }
+                                            }
+
+                                            Rectangle {
+                                                id: abililty2TypeBlock
+                                                width: 250
+                                                height: 40
+                                                color: "#c80d0d"
+                                                radius: 8
+                                                border.color: "#6c0101"
+                                                border.width: 2
+                                                Rectangle {
+                                                    id: abililty2TypeBezel
+                                                    color: "#b2b2b2"
+                                                    radius: 8
+                                                    border.color: "#616161"
+                                                    border.width: 2
+                                                    anchors.fill: parent
+                                                    anchors.leftMargin: 4
+                                                    anchors.rightMargin: 4
+                                                    anchors.topMargin: 3
+                                                    anchors.bottomMargin: 3
+                                                    Rectangle {
+                                                        id: abililty2TypeScreen
+                                                        x: 10
+                                                        y: 4
+                                                        color: "#15ba1c"
+                                                        radius: 4
+                                                        border.color: "#128c17"
+                                                        border.width: 2
+                                                        anchors.fill: parent
+                                                        anchors.leftMargin: 5
+                                                        anchors.rightMargin: 5
+                                                        anchors.topMargin: 6
+                                                        anchors.bottomMargin: 6
+                                                        Text {
+                                                            id: ability2TypeText
+                                                            color: "#c5002a02"
+                                                            text: "Ability 2 Type"
+                                                            anchors.fill: parent
+                                                            horizontalAlignment: Text.AlignHCenter
+                                                            verticalAlignment: Text.AlignVCenter
+                                                            wrapMode: Text.Wrap
+                                                            fontSizeMode: Text.HorizontalFit
+                                                            font.styleName: "ExtraBold Italic"
+                                                        }
+                                                    }
+                                                }
+                                            }
+
+                                            Rectangle {
+                                                id: abililty2DescriptionBlock
+                                                width: 250
+                                                height: 136
+                                                color: "#c80d0d"
+                                                radius: 8
+                                                border.color: "#6c0101"
+                                                border.width: 2
+                                                Rectangle {
+                                                    id: ability2DescriptionBezel
+                                                    color: "#b2b2b2"
+                                                    radius: 8
+                                                    border.color: "#616161"
+                                                    border.width: 2
+                                                    anchors.fill: parent
+                                                    anchors.leftMargin: 4
+                                                    anchors.rightMargin: 4
+                                                    anchors.topMargin: 4
+                                                    anchors.bottomMargin: 4
+                                                    Rectangle {
+                                                        id: ability2DescriptionScreen
+                                                        x: 10
+                                                        y: 4
+                                                        color: "#15ba1c"
+                                                        radius: 6
+                                                        border.color: "#128c17"
+                                                        border.width: 2
+                                                        anchors.fill: parent
+                                                        anchors.leftMargin: 6
+                                                        anchors.rightMargin: 6
+                                                        anchors.topMargin: 6
+                                                        anchors.bottomMargin: 6
+                                                        Text {
+                                                            id: ability2DescriptionDropText
+                                                            visible: true
+                                                            color: "#c5002a02"
+                                                            text: "Ability 2 Description"
+                                                            anchors.fill: parent
+                                                            anchors.leftMargin: 4
+                                                            anchors.rightMargin: 4
+                                                            anchors.topMargin: 4
+                                                            anchors.bottomMargin: 4
+                                                            horizontalAlignment: Text.AlignHCenter
+                                                            verticalAlignment: Text.AlignVCenter
+                                                            wrapMode: Text.Wrap
+                                                            z: 0
+                                                            minimumPointSize: 6
+                                                            minimumPixelSize: 6
+                                                            fontSizeMode: Text.Fit
+                                                            font.styleName: "ExtraBold Italic"
+                                                            font.pointSize: ability2DescriptionText.font.pointSize
+                                                        }
+
+                                                        Text {
+                                                            id: ability2DescriptionText
+                                                            color: "#095f0c"
+                                                            text: ability2DescriptionDropText.text
+                                                            anchors.fill: parent
+                                                            anchors.leftMargin: 5
+                                                            anchors.rightMargin: 3
+                                                            anchors.topMargin: 5
+                                                            anchors.bottomMargin: 3
+                                                            horizontalAlignment: Text.AlignHCenter
+                                                            verticalAlignment: Text.AlignVCenter
+                                                            wrapMode: Text.Wrap
+                                                            z: 1
+                                                            minimumPointSize: 6
+                                                            minimumPixelSize: 6
+                                                            fontSizeMode: Text.Fit
+                                                            font.styleName: "ExtraBold Italic"
+                                                            font.pointSize: ability2DescriptionDropText.font.pointSize
+                                                        }
+                                                    }
+                                                }
+                                            }
+
 
                                         }
 
