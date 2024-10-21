@@ -870,6 +870,7 @@ Window {
                             anchors.topMargin: 5
                             anchors.bottomMargin: 5
                             z: 4
+
                         }
 
                         Pane {
@@ -941,12 +942,16 @@ Window {
                                 Frame {
                                     id: frame
                                     anchors.fill: parent
+
                                     Image {
                                         id: cardImage
                                         anchors.fill: parent
+
+                                        // Initially try the high-res image URL
                                         source: (selectedIndex >= 0 && selectedIndex < cards.length)
-                                                ? (cards[selectedIndex].imageUrl || "")  // Show the image URL or an empty string if not available
-                                                : ""  // Show nothing initially if no valid card is selected
+                                                ? cards[selectedIndex].imageUrl // Try to load the card image
+                                                : ""
+
                                         Layout.fillHeight: false
                                         Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
                                         Layout.preferredHeight: 500
@@ -954,7 +959,8 @@ Window {
                                         Layout.fillWidth: true
                                         scale: 1
                                         fillMode: Image.PreserveAspectFit
-                                    }                                }
+                                    }
+                                }
 
                                 Rectangle {
                                     id: rectangle1
@@ -965,7 +971,6 @@ Window {
                                     anchors.fill: parent
                                 }
                             }
-
 
                             // Trigger button to open/close drawer
                             MouseArea {
@@ -2257,7 +2262,7 @@ Window {
                                                       "attack3Desc": card.attack3Desc
                                                   }));
 
-                        //console.log("Processed cards data:", cards);  // Log the processed cards array
+//                        console.log("Processed cards data:", cards);  // Log the processed cards array
 
                         selectedIndex = 0;  // Start with the first card
                         updateAttackInfo();
