@@ -16,15 +16,15 @@ Window {
     
     visible: true
     color: "#6c0101"
+    property alias attack2NameDrop: attack2NameDrop
+    property alias attack1Name: attack1Name
     property alias nameDropText: nameDropText
     property alias rightSideScrollVIew: rightSideScrollVIew
     property alias attack1NameScreen: attack1NameScreen
     property alias setSymbolText: setSymbolText
     property alias ability2TypeDropText: ability2TypeDropText
-    property alias attack1Name: attack1Name
     property alias attack1DropName: attack1DropName
     property alias ability1NameText: ability1NameText
-    property alias attack2NameDrop: attack2NameDrop
     
     title: qsTr("Card Collection")
     
@@ -1890,6 +1890,8 @@ Window {
                                                         horizontalAlignment: Text.AlignHCenter
                                                         verticalAlignment: Text.AlignVCenter
                                                         wrapMode: Text.Wrap
+                                                        minimumPointSize: 10
+                                                        minimumPixelSize: 10
                                                         z: 1
                                                         fontSizeMode: Text.HorizontalFit
                                                         font.styleName: "ExtraBold Italic"
@@ -2051,6 +2053,8 @@ Window {
                                                         horizontalAlignment: Text.AlignHCenter
                                                         verticalAlignment: Text.AlignVCenter
                                                         wrapMode: Text.Wrap
+                                                        minimumPointSize: 10
+                                                        minimumPixelSize: 10
                                                         z: 1
                                                         fontSizeMode: Text.HorizontalFit
                                                         font.styleName: "ExtraBold Italic"
@@ -2068,6 +2072,8 @@ Window {
                                                         horizontalAlignment: Text.AlignHCenter
                                                         verticalAlignment: Text.AlignVCenter
                                                         wrapMode: Text.Wrap
+                                                        minimumPointSize: 10
+                                                        minimumPixelSize: 10
                                                         z: 0
                                                         fontSizeMode: Text.HorizontalFit
                                                         font.styleName: "ExtraBold Italic"
@@ -2229,6 +2235,8 @@ Window {
                                                         horizontalAlignment: Text.AlignHCenter
                                                         verticalAlignment: Text.AlignVCenter
                                                         wrapMode: Text.Wrap
+                                                        minimumPointSize: 10
+                                                        minimumPixelSize: 10
                                                         z: 1
                                                         fontSizeMode: Text.HorizontalFit
                                                         font.styleName: "ExtraBold Italic"
@@ -2246,6 +2254,8 @@ Window {
                                                         horizontalAlignment: Text.AlignHCenter
                                                         verticalAlignment: Text.AlignVCenter
                                                         wrapMode: Text.Wrap
+                                                        minimumPointSize: 10
+                                                        minimumPixelSize: 10
                                                         z: 0
                                                         fontSizeMode: Text.HorizontalFit
                                                         font.styleName: "ExtraBold Italic"
@@ -2401,6 +2411,8 @@ Window {
                                                         horizontalAlignment: Text.AlignHCenter
                                                         verticalAlignment: Text.AlignVCenter
                                                         wrapMode: Text.Wrap
+                                                        minimumPointSize: 10
+                                                        minimumPixelSize: 10
                                                         z: 1
                                                         fontSizeMode: Text.HorizontalFit
                                                         font.styleName: "ExtraBold Italic"
@@ -2414,6 +2426,8 @@ Window {
                                                         horizontalAlignment: Text.AlignHCenter
                                                         verticalAlignment: Text.AlignVCenter
                                                         wrapMode: Text.Wrap
+                                                        minimumPointSize: 10
+                                                        minimumPixelSize: 10
                                                         z: 0
                                                         fontSizeMode: Text.HorizontalFit
                                                         font.styleName: "ExtraBold Italic"
@@ -2645,6 +2659,8 @@ Window {
                                                         horizontalAlignment: Text.AlignHCenter
                                                         verticalAlignment: Text.AlignVCenter
                                                         wrapMode: Text.Wrap
+                                                        minimumPointSize: 10
+                                                        minimumPixelSize: 10
                                                         z: 1
                                                         fontSizeMode: Text.HorizontalFit
                                                         font.styleName: "ExtraBold Italic"
@@ -2658,6 +2674,8 @@ Window {
                                                         horizontalAlignment: Text.AlignHCenter
                                                         verticalAlignment: Text.AlignVCenter
                                                         wrapMode: Text.Wrap
+                                                        minimumPointSize: 10
+                                                        minimumPixelSize: 10
                                                         fontSizeMode: Text.HorizontalFit
                                                         font.styleName: "ExtraBold Italic"
                                                     }
