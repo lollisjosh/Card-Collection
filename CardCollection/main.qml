@@ -39,28 +39,27 @@ Window {
         if (cards[selectedIndex]) {
             // Update attack text fields first
             attack1Name.text = cards[selectedIndex].attack1Name || "Attack 1";
-            attack1DescriptionDropText.text = cards[selectedIndex].attack1Desc || "No description available"; // Fallback if no description
+            attack1DescriptionDropText.text = cards[selectedIndex].attack1Desc || "No description available."; // Fallback if no description
 
             attack2NameText.text = cards[selectedIndex].attack2Name || "Attack 2";
-            attack2DescriptionText.text = cards[selectedIndex].attack2Desc || "No description available"; // Fallback if no description
+            attack2DescriptionText.text = cards[selectedIndex].attack2Desc || "No description available."; // Fallback if no description
 
             attack3NameText.text = cards[selectedIndex].attack3Name || "Attack 3";
-            attack3DescriptionText.text = cards[selectedIndex].attack3Desc || "No description available"; // Fallback if no description
+            attack3DescriptionText.text = cards[selectedIndex].attack3Desc || "No description available."; // Fallback if no description
 
             // Set visibility for each attack based on the card data
             attack1NameBlock.visible = cards[selectedIndex].attack1Name !== "Attack 1" && cards[selectedIndex].attack1Name !== "";
             attack1DescriptionBlock.visible = attack1NameBlock.visible;
-            attack1DescriptionBlock.height = attack1DescriptionBlock.visible && attack1DescriptionDropText.text === "No description available" ? 50 : 120;
-            console.log("Visible:", attack1DescriptionBlock.visible);
-            console.log("Description Text:", attack1DescriptionDropText.text);
+            attack1DescriptionBlock.height = attack1DescriptionBlock.visible && attack1DescriptionDropText.text === "No description available." ? 75 : 120;
+
 
             attack2NameBlock.visible = cards[selectedIndex].attack2Name !== "Attack 2" && cards[selectedIndex].attack2Name !== "";
             attack2DescriptionBlock.visible = attack2NameBlock.visible;
-            attack2DescriptionBlock.height = attack2DescriptionBlock.visible && attack2DescriptionText.text === "No description available" ? 50 : 120;
+            attack2DescriptionBlock.height = attack2DescriptionBlock.visible && attack2DescriptionText.text === "No description available." ? 75 : 120;
 
             attack3NameBlock.visible = cards[selectedIndex].attack3Name !== "Attack 3" && cards[selectedIndex].attack3Name !== "";
             attack3DescriptionBlock.visible = attack3NameBlock.visible;
-            attack3DescriptionBlock.height = attack3DescriptionBlock.visible && attack3DescriptionText.text === "No description available" ? 50 : 120;
+            attack3DescriptionBlock.height = attack3DescriptionBlock.visible && attack3DescriptionText.text === "No description available." ? 75 : 120;
 
 
             // Update attackContainer visibility based on attack blocks
@@ -94,10 +93,14 @@ Window {
             ability1NameBlock.visible = cards[selectedIndex].ability1Name !== "Ability 1" && cards[selectedIndex].ability1Name !== "";
             ability1DescriptionBlock.visible = ability1NameBlock.visible;
             ability1TypeBlock.visible = ability1NameBlock.visible;
+            ability1DescriptionBlock.height = ability1DescriptionBlock.visible && ability1DescriptionDropText.text === "No description available." ? 75 : 136;
+
 
             ability2NameBlock.visible = cards[selectedIndex].ability2Name !== "Ability 2" && cards[selectedIndex].ability2Name !== "";
             ability2DescriptionBlock.visible = ability2NameBlock.visible;
             ability2TypeBlock.visible = ability2NameBlock.visible;
+            ability2DescriptionBlock.height = ability2DescriptionBlock.visible && ability2DescriptionDropText.text === "No description available." ? 75 : 136;
+
 
             // Update abilityContainer visibility based on ability blocks
             // if (ability1NameBlock.visible || ability2NameBlock.visible) {
@@ -1804,12 +1807,13 @@ Window {
 
                                         Rectangle {
                                             id: attack1NameBlock
-                                            width: 250
+                                            width: 200
                                             height: 45
                                             color: "#c80d0d"
                                             radius: 8
                                             border.color: "#6c0101"
                                             border.width: 2
+                                            anchors.horizontalCenter: parent.horizontalCenter
 
                                             Rectangle {
                                                 id: attack1NameBezel
@@ -1975,13 +1979,14 @@ Window {
 
                                         Rectangle {
                                             id: attack2NameBlock
-                                            width: 250
+                                            width: 200
                                             height: 45
                                             visible: true
                                             color: "#c80d0d"
                                             radius: 8
                                             border.color: "#6c0101"
                                             border.width: 2
+                                            anchors.horizontalCenter: parent.horizontalCenter
                                             Rectangle {
                                                 id: attack2NameBezel
                                                 color: "#b2b2b2"
@@ -2152,13 +2157,14 @@ Window {
 
                                         Rectangle {
                                             id: attack3NameBlock
-                                            width: 250
+                                            width: 200
                                             height: 45
                                             visible: true
                                             color: "#c80d0d"
                                             radius: 8
                                             border.color: "#6c0101"
                                             border.width: 2
+                                            anchors.horizontalCenter: parent.horizontalCenter
                                             Rectangle {
                                                 id: attack3NameBezel
                                                 color: "#b2b2b2"
@@ -2328,12 +2334,13 @@ Window {
 
                                         Rectangle {
                                             id: ability1NameBlock
-                                            width: 250
+                                            width: 200
                                             height: 45
                                             color: "#c80d0d"
                                             radius: 8
                                             border.color: "#6c0101"
                                             border.width: 2
+                                            anchors.horizontalCenter: parent.horizontalCenter
                                             Rectangle {
                                                 id: ability1NameBezel
                                                 color: "#b2b2b2"
@@ -2404,12 +2411,13 @@ Window {
 
                                         Rectangle {
                                             id: ability1TypeBlock
-                                            width: 250
+                                            width: 175
                                             height: 45
                                             color: "#c80d0d"
                                             radius: 8
                                             border.color: "#6c0101"
                                             border.width: 2
+                                            anchors.horizontalCenter: parent.horizontalCenter
                                             Rectangle {
                                                 id: ability1TypeBezel
                                                 color: "#b2b2b2"
@@ -2570,12 +2578,13 @@ Window {
 
                                         Rectangle {
                                             id: ability2NameBlock
-                                            width: 250
+                                            width: 200
                                             height: 45
                                             color: "#c80d0d"
                                             radius: 8
                                             border.color: "#6c0101"
                                             border.width: 2
+                                            anchors.horizontalCenter: parent.horizontalCenter
                                             Rectangle {
                                                 id: ability2NameBezel
                                                 color: "#b2b2b2"
@@ -2645,12 +2654,13 @@ Window {
 
                                         Rectangle {
                                             id: ability2TypeBlock
-                                            width: 250
+                                            width: 175
                                             height: 45
                                             color: "#c80d0d"
                                             radius: 8
                                             border.color: "#6c0101"
                                             border.width: 2
+                                            anchors.horizontalCenter: parent.horizontalCenter
                                             Rectangle {
                                                 id: ability2TypeBezel
                                                 color: "#b2b2b2"
