@@ -1070,20 +1070,39 @@ Window {
                                 //     if(_item.isDrawerOpen === false && customDrawer.x+customDrawer.width-12 >=0)
                                 //     customDrawer.x = customDrawer.x -= 8
                                 // }
-                                
+                                cursorShape: Qt.PointingHandCursor  // Change cursor to hand when hovering
+
                                 z: 1
+                                hoverEnabled: true;
+                                onEntered: {
+                                    // Scale up on hover
+                                    ballButton.scale = 0.7;
+                                }
+                                onExited: {
+                                    // Scale down when not hovered
+                                    ballButton.scale = 0.6;
+                                }
                                 onClicked: {
                                     if (customDrawer.x < 0) {
                                         customDrawer.x = 0
                                         ;
                                         //customDrawer.isHoverEnabled = false
                                         // Slide in
-                                        _item.isDrawerOpen = true
+                                        _item.isDrawerOpen = true;
+                                        // Animate rotation on drawer open
+                                        rotateAnimation.from = ballButton.rotation;
+                                        rotateAnimation.to = 270;  // Rotate by 90 degrees
+                                        rotateAnimation.start();
                                     } else {
                                         customDrawer.x = -customDrawer.width+12; // Slide out
                                         //customDrawer.isHoverEnabled = true
                                         
-                                        _item.isDrawerOpen = false
+                                        _item.isDrawerOpen = false;
+                                        // Animate rotation on drawer close
+                                        rotateAnimation.from = ballButton.rotation;
+                                        rotateAnimation.to = 90;  // Reset to 0 degrees rotation
+                                        rotateAnimation.start();
+
                                     }
                                 }
                                 
@@ -1143,14 +1162,23 @@ Window {
                                                 //customDrawer.isHoverEnabled = false
                                                 
                                                 // Slide in
-                                                _item.isDrawerOpen = true
+                                                _item.isDrawerOpen = true;
+                                                // Animate rotation on drawer open
+                                                rotateAnimation.from = ballButton.rotation;
+                                                rotateAnimation.to = 270;  // Rotate by 90 degrees
+                                                rotateAnimation.start();
                                             } else {
                                                 customDrawer.x = -customDrawer.width+12; // Slide out
                                                 //customDrawer.isHoverEnabled = true
                                                 
-                                                _item.isDrawerOpen = false
+                                                _item.isDrawerOpen = false;
+                                                // Animate rotation on drawer close
+                                                rotateAnimation.from = ballButton.rotation;
+                                                rotateAnimation.to = 90;  // Reset to 0 degrees rotation
+                                                rotateAnimation.start();
                                             }
-                                        }
+                                            }
+
                                     }
                                 }
                                 
