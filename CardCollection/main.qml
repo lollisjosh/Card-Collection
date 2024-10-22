@@ -16,6 +16,7 @@ Window {
     
     visible: true
     color: "#6c0101"
+    property alias rectangle7: rectangle7
     property alias attack2NameDrop: attack2NameDrop
     property alias attack1Name: attack1Name
     property alias nameDropText: nameDropText
@@ -149,7 +150,7 @@ Window {
             currentIndex: selectedTabIndex
             width: parent.width
             Layout.preferredHeight: parent.height * 0.08
-            height: 50
+            height: 40
             
             TabButton {
                 opacity: 1
@@ -282,6 +283,7 @@ Window {
                         ToolBar {
                             id: searchFilterTools
                             width: 480
+                            height: 40
                             Layout.preferredHeight: 36
                             verticalPadding: 0
                             bottomPadding: 0
@@ -722,6 +724,19 @@ Window {
                                 color: "#cc1c1c"
                                 border.color: "#00000000"
                                 anchors.fill: parent
+
+                                Rectangle {
+                                    id: rectangle32
+                                    color: "#00ffffff"
+                                    radius: 4
+                                    border.color: "#ee0000"
+                                    border.width: 2
+                                    anchors.fill: parent
+                                    anchors.leftMargin: 3
+                                    anchors.rightMargin: 3
+                                    anchors.topMargin: 3
+                                    anchors.bottomMargin: 3
+                                }
                             }
                         }
                         
@@ -884,6 +899,19 @@ Window {
                                 border.width: 2
                                 anchors.fill: parent
                                 z: 1
+
+                                Rectangle {
+                                    id: rectangle30
+                                    color: "#00ffffff"
+                                    radius: 4
+                                    border.color: "#ee0000"
+                                    border.width: 2
+                                    anchors.fill: parent
+                                    anchors.leftMargin: 2
+                                    anchors.rightMargin: 2
+                                    anchors.topMargin: 4
+                                    anchors.bottomMargin: 4
+                                }
                             }
                             
                             Rectangle {
@@ -1113,7 +1141,20 @@ Window {
                                     color: "#c80d0d" // Background color of the button
                                     radius: 0 // Rounded corners
                                     border.color: "#620808" // Darker border for a subtle effect
-                                    border.width: 2 // Thin border
+                                    border.width: 2
+
+                                    Rectangle {
+                                        id: rectangle29
+                                        color: "#00ffffff"
+                                        radius: 3
+                                        border.color: "#ee0000"
+                                        border.width: 2
+                                        anchors.fill: parent
+                                        anchors.leftMargin: 5
+                                        anchors.rightMargin: 5
+                                        anchors.topMargin: 10
+                                        anchors.bottomMargin: 10
+                                    } // Thin border
                                 }
                                 
                                 // Circle for the caret background
@@ -1122,6 +1163,7 @@ Window {
                                     x: 8
                                     width: 26
                                     height: 26
+                                    visible: false
                                     color: "#6c0101" // Circle color
                                     radius: 9
                                     border.color: "#c80d0d"
@@ -1177,7 +1219,7 @@ Window {
                                                 rotateAnimation.to = 90;  // Reset to 0 degrees rotation
                                                 rotateAnimation.start();
                                             }
-                                            }
+                                        }
 
                                     }
                                 }
@@ -1312,6 +1354,7 @@ Window {
                                             radius: 8
                                             border.color: "#6c0101"
                                             border.width: 2
+                                            anchors.horizontalCenter: parent.horizontalCenter
 
                                             Rectangle {
                                                 id: rectangle12
@@ -1426,6 +1469,7 @@ Window {
                                             radius: 8
                                             border.color: "#6c0101"
                                             border.width: 2
+                                            anchors.horizontalCenter: parent.horizontalCenter
 
                                             Rectangle {
                                                 id: setLogoBezel
@@ -1565,6 +1609,7 @@ Window {
                                             id: row
                                             width: 176
                                             height: 66
+                                            anchors.horizontalCenter: parent.horizontalCenter
                                             spacing: 3
 
                                             Rectangle {
@@ -2990,6 +3035,19 @@ Window {
                             anchors.topMargin: 0
                             anchors.bottomMargin: 0
                             z: 0
+
+                            Rectangle {
+                                id: rectangle31
+                                color: "#00ffffff"
+                                radius: 3
+                                border.color: "#ee0000"
+                                border.width: 2
+                                anchors.fill: parent
+                                anchors.leftMargin: 4
+                                anchors.rightMargin: 4
+                                anchors.topMargin: 4
+                                anchors.bottomMargin: 4
+                            }
                         }
                         
                         Rectangle {
