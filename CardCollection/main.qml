@@ -29,7 +29,7 @@ Window {
 
     // Function to update attack information based on selectedIndex
     function updateAttackInfo() {
-        console.log("updateAttackInfo called...");
+        //console.log("updateAttackInfo called...");
         if (cards[selectedIndex]) {
             // Update attack text fields first
             attack1Name.text = cards[selectedIndex].attack1Name || "Attack 1";
@@ -80,7 +80,7 @@ Window {
     
     // Function to update ability information based on selectedIndex
     function updateAbilityInfo() {
-                console.log("updateAbilityInfo called...");
+               // console.log("updateAbilityInfo called...");
         if (cards[selectedIndex]) {
             // Update ability text fields first
             ability1NameText.text = cards[selectedIndex].ability1Name || "Ability 1";
@@ -879,7 +879,7 @@ Window {
                                             //Print each tuple as a string to the console
                                             for (var i = 0; i < searchParams.length; i++) {
                                                 var tupleString = "[" + searchParams[i][0] + ", " + searchParams[i][1] + ", " + searchParams[i][2] + "]";
-                                                // console.log(tupleString);
+                                                console.log(tupleString);
                                             }
                                             console.log("search button is calling request_search");
                                             backendController.request_search(searchParams);
