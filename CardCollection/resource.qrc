@@ -1,5 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>qtquickcontrols2.conf</file>
+        <file>ball.png</file>
+        <file>ballsmall.png</file>
     </qresource>
 </RCC>
