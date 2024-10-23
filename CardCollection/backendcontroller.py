@@ -64,6 +64,12 @@ class BackendController(QObject):
             params (list[tuple[str, str, str]]): 
                 List of search parameter tuples of the form (category, subcategory, target)
         """
+        try: 
+            searchHandler = SearchHandler()
+            cards = searchHandler.handle_request_search(params)
+
+        except Exception as e:
+            self.searchResults.emit(json.dumps({"error": str(e)}))
 
     @Slot(list)
     def request_discover(self, params: list[tuple[str, str, str]]):
