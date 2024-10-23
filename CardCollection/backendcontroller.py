@@ -74,7 +74,7 @@ class BackendController(QObject):
                 card_list = []
                 
                 for card in cards:
-                    
+
                     # Initialize ability names and descriptions
                     ability1Name = ""
                     ability1Desc = ""
@@ -92,6 +92,19 @@ class BackendController(QObject):
                     attack3Desc = ""
                     attack4Name = ""
                     attack4Desc = ""
+
+                    # Process abilities
+                    if hasattr(card, 'abilities') and card.abilities is not None:
+                        if len(card.abilities) > 0:
+                            ability1Name = card.abilities[0].name
+                            ability1Desc = card.abilities[0].text if hasattr(card.abilities[0], 'text') else ""
+                            ability1Type = card.abilities[0].type if hasattr(card.abilities[0], 'type') else ""
+
+                        if len(card.abilities) > 1:
+                            ability2Name = card.abilities[1].name
+                            ability2Desc = card.abilities[1].text if hasattr(card.abilities[1], 'text') else ""
+                            ability2Type = card.abilities[1].type if hasattr(card.abilities[1], 'type') else ""
+
 
         except RequestException as e:  # Catching HTTP request-related exceptions
                 self.searchResults.emit(json.dumps({"error": "Request error: " + str(e)}))
