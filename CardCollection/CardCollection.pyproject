@@ -2,6 +2,8 @@
     "files": [
         "backend.py",
         "backendcontroller.py",
+        "ball.png",
+        "ballsmall.png",
         "consrtructQuery.py",
         "driver_backendcontroller.py",
         "driver_main.py",
