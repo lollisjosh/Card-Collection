@@ -2,6 +2,7 @@
     "files": [
         "backend.py",
         "backendcontroller.py",
+        "cardprocessor.py",
         "ball.png",
         "ballsmall.png",
         "consrtructQuery.py",
