@@ -67,7 +67,7 @@ class BackendController(QObject):
                 List of search parameter tuples of the form (category, subcategory, target)
         """
         try: 
-            searchHandler = SearchHandler()
+            searchHandler = searchhandler.SearchHandler()
             cards = searchHandler.handle_request_search(params)
 
         except RequestException as e:  # Catching HTTP request-related exceptions
