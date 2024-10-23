@@ -1020,12 +1020,18 @@ Window {
                                 radius: 4
                                 border.color: "#25fb2e"
                                 border.width: 6
+                                clip: true
                                 // @disable-check M9
                                 anchors.verticalCenter: parent.verticalCenter
                                 scale: 0.95
                                 z: 1
                                 //property bool isHoverEnabled: true
-                                
+
+
+                                // This will print to the console whenever the x position changes
+                                onXChanged: {
+                                    //  console.log("x position changed to:", x);
+                                }
                                 // Animate the x position when it changes
                                 Behavior on x {
                                     NumberAnimation {
@@ -1066,6 +1072,17 @@ Window {
                                         scale: 1
                                         fillMode: Image.PreserveAspectFit
                                     }
+                                    // Apply a DropShadow effect to the image
+                                    DropShadow {
+                                        anchors.fill: cardImage
+                                        source: cardImage  // The image to which we are applying the shadow
+                                        horizontalOffset: 5    // Adjust X-axis shadow offset
+                                        verticalOffset: 5      // Adjust Y-axis shadow offset
+                                        radius: 3.8             // Blur effect, adjust for smoothness
+                                        samples: 16            // Higher value for smoother shadows
+                                        color: "#095f0c"         // Color of the shadow
+                                        opacity: 0.8           // Transparency of the shadow
+                                    }
                                 }
                                 
                                 Rectangle {
@@ -1088,17 +1105,9 @@ Window {
                                 anchors.left: customDrawer.right // Keep the button attached to the right edge of the drawer
                                 anchors.leftMargin: -7
                                 
-                                // hoverEnabled: customDrawer.isHoverEnabled
-                                // onEntered: {
-                                
-                                //    if(_item.isDrawerOpen === false && customDrawer.x+customDrawer.width-12 <=0) customDrawer.x = customDrawer.x += 8
-                                // }
-                                // onExited: {
-                                //     // TODO FIx logic
-                                //     if(_item.isDrawerOpen === false && customDrawer.x+customDrawer.width-12 >=0)
-                                //     customDrawer.x = customDrawer.x -= 8
-                                // }
+
                                 cursorShape: Qt.PointingHandCursor  // Change cursor to hand when hovering
+
 
                                 z: 1
                                 hoverEnabled: true;
@@ -1112,25 +1121,24 @@ Window {
                                 }
                                 onClicked: {
                                     if (customDrawer.x < 0) {
-                                        customDrawer.x = 0
-                                        ;
-                                        //customDrawer.isHoverEnabled = false
-                                        // Slide in
-                                        _item.isDrawerOpen = true;
-                                        // Animate rotation on drawer open
+
+                                        customDrawer.x = 0;
+                                         _item.isDrawerOpen = true;
+
+                                        // Animate ball button rotation on drawer open
                                         rotateAnimation.from = ballButton.rotation;
                                         rotateAnimation.to = 270;  // Rotate by 90 degrees
                                         rotateAnimation.start();
+
                                     } else {
-                                        customDrawer.x = -customDrawer.width+12; // Slide out
-                                        //customDrawer.isHoverEnabled = true
-                                        
+
+                                        customDrawer.x = -customDrawer.width+12; // hide drawer
                                         _item.isDrawerOpen = false;
+
                                         // Animate rotation on drawer close
                                         rotateAnimation.from = ballButton.rotation;
                                         rotateAnimation.to = 90;  // Reset to 0 degrees rotation
                                         rotateAnimation.start();
-
                                     }
                                 }
                                 
@@ -1307,6 +1315,53 @@ Window {
                                 }
 
                             }
+
+                            // MouseArea {
+                            //     id: drawerPeekArea
+                            //     width: 20
+                            //     height: 399
+                            //     anchors.verticalCenter: customDrawer.verticalCenter
+                            //     anchors.left: customDrawer.right
+                            //     anchors.right: customDrawer.left
+                            //     anchors.top: customDrawer.bottom
+                            //     anchors.bottom: customDrawer.top
+                            //     anchors.leftMargin: 0
+                            //     anchors.rightMargin: -286
+                            //     anchors.topMargin: -392
+                            //     anchors.bottomMargin: -397
+                            //     cursorShape: Qt.CrossCursor
+                            //     anchors.horizontalCenter: customDrawer.horizontalCenter
+                            //     anchors.verticalCenterOffset: 3
+                            //     enabled: !_item.isDrawerOpen
+                            //     hoverEnabled: true
+                            //     z: 1
+
+                            //     onEntered: {
+                            //         // Animate to -260 when hovered
+                            //         drawerAnimation.to = -260;
+                            //         drawerAnimation.start();
+                            //     }
+                            //     onExited: {
+                            //         // Animate back to -270 when not hovered
+                            //         drawerAnimation.to = -270;
+                            //         drawerAnimation.start();
+                            //     }
+
+                            //     onClicked: {
+                            //         openButton.clicked(null)
+                            //     }
+                            // }
+
+
+
+                            //     // Define the animation
+                            //     PropertyAnimation {
+                            //         id: drawerAnimation
+                            //         target: customDrawer
+                            //         property: "x"
+                            //         duration: 200  // Duration of the animation in milliseconds
+                            //         easing.type: Easing.InOutQuad  // Easing function for smoothness
+                            //     }
                             
                             Rectangle {
                                 id: dataFlow
