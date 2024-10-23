@@ -80,7 +80,7 @@ Window {
     
     // Function to update ability information based on selectedIndex
     function updateAbilityInfo() {
-               // console.log("updateAbilityInfo called...");
+        // console.log("updateAbilityInfo called...");
         if (cards[selectedIndex]) {
             // Update ability text fields first
             ability1NameText.text = cards[selectedIndex].ability1Name || "Ability 1";
@@ -818,7 +818,7 @@ Window {
                                     // Change scale when hovered
                                     scale: hovered ? 1.05 : 1.0
                                     onClicked: {
-                                       // console.log("Search Button clicked...");
+                                        // console.log("Search Button clicked...");
                                         // Initialize an empty array for the search parameters
                                         var searchParams = [];
                                         
@@ -882,9 +882,9 @@ Window {
 
                                                 //console.log(tupleString);
                                             }
-                                          //  console.log("search button is calling request_search");
+                                            //  console.log("search button is calling request_search");
                                             backendController.request_search(searchParams);
-                                          //  console.log("Search button regains control after request search");
+                                            //  console.log("Search button regains control after request search");
                                             resetAttackScroll();
 
                                         }
@@ -1127,7 +1127,7 @@ Window {
                                     if (customDrawer.x < 0) {
 
                                         customDrawer.x = 0;
-                                         _item.isDrawerOpen = true;
+                                        _item.isDrawerOpen = true;
 
                                         // Animate ball button rotation on drawer open
                                         rotateAnimation.from = ballButton.rotation;
@@ -2239,13 +2239,16 @@ Window {
                                                         visible: true
                                                         color: "#c5002a02"
                                                         text: attack2DescriptionText.text
-                                                        anchors.verticalCenter: attack2DescriptionText.verticalCenter
-                                                        anchors.top: attack2DescriptionText.bottom
+                                                        anchors.right: parent.right
+                                                        anchors.bottom: parent.bottom
                                                         anchors.fill: parent
+                                                        anchors.leftMargin: 4
+                                                        anchors.rightMargin: 4
+                                                        anchors.topMargin: 4
+                                                        anchors.bottomMargin: 4
                                                         horizontalAlignment: Text.AlignHCenter
                                                         verticalAlignment: Text.AlignVCenter
                                                         wrapMode: Text.Wrap
-                                                        anchors.horizontalCenter: attack2DescriptionText.horizontalCenter
                                                         font.pointSize: attack2DescriptionText.font.pointSize
                                                         minimumPixelSize: 6
                                                         fontSizeMode: Text.Fit
@@ -2338,10 +2341,10 @@ Window {
                                                         horizontalAlignment: Text.AlignHCenter
                                                         verticalAlignment: Text.AlignVCenter
                                                         wrapMode: Text.Wrap
-                                                        minimumPointSize: 10
-                                                        minimumPixelSize: 10
+                                                        minimumPointSize: 6
+                                                        minimumPixelSize: 6
                                                         z: 1
-                                                        fontSizeMode: Text.HorizontalFit
+                                                        fontSizeMode: Text.Fit
                                                         font.styleName: "ExtraBold Italic"
                                                     }
 
@@ -2357,10 +2360,10 @@ Window {
                                                         horizontalAlignment: Text.AlignHCenter
                                                         verticalAlignment: Text.AlignVCenter
                                                         wrapMode: Text.Wrap
-                                                        minimumPointSize: 10
-                                                        minimumPixelSize: 10
+                                                        minimumPointSize: 6
+                                                        minimumPixelSize: 6
                                                         z: 0
-                                                        fontSizeMode: Text.HorizontalFit
+                                                        fontSizeMode: Text.Fit
                                                         font.styleName: "ExtraBold Italic"
                                                     }
 
@@ -2519,9 +2522,9 @@ Window {
                                                         verticalAlignment: Text.AlignVCenter
                                                         wrapMode: Text.Wrap
                                                         z: 1
-                                                        minimumPointSize: 10
-                                                        minimumPixelSize: 10
-                                                        fontSizeMode: Text.HorizontalFit
+                                                        minimumPointSize: 6
+                                                        minimumPixelSize: 6
+                                                        fontSizeMode: Text.Fit
                                                         font.styleName: "ExtraBold Italic"
                                                     }
 
@@ -2538,9 +2541,9 @@ Window {
                                                         verticalAlignment: Text.AlignVCenter
                                                         wrapMode: Text.Wrap
                                                         z: 0
-                                                        minimumPointSize: 10
-                                                        minimumPixelSize: 10
-                                                        fontSizeMode: Text.HorizontalFit
+                                                        minimumPointSize: 6
+                                                        minimumPixelSize: 6
+                                                        fontSizeMode: Text.Fit
                                                         font.styleName: "ExtraBold Italic"
                                                     }
 
@@ -3362,7 +3365,7 @@ Window {
             Connections {
                 target: backendController
                 function onSearchResults(response) {
-                    // console.log("Received search response:", response);  // Log the raw response
+                    console.log("Raw backend response:", response);  // Log the raw response for debugging
 
                     var data = JSON.parse(response);
 
@@ -3376,30 +3379,45 @@ Window {
                                                       "set": card.set,
                                                       "setSymbol": card.setSymbol,
                                                       "setLogo": card.setLogo,
+
+                                                      // Abilities
                                                       "ability1Name": card.ability1Name || "",
                                                       "ability1Text": card.ability1Text || "",
                                                       "ability1Type": card.ability1Type || "",
                                                       "ability2Name": card.ability2Name || "",
                                                       "ability2Text": card.ability2Text || "",
                                                       "ability2Type": card.ability2Type || "",
+
+                                                      // Attacks
                                                       "attack1Name": card.attack1Name || "",
                                                       "attack1Text": card.attack1Text || "",
+                                                      "attack1Damage": card.attack1Damage || "",
+                                                      "attack1ConvertedEnergyCost": card.attack1ConvertedEnergyCost || 0,
                                                       "attack2Name": card.attack2Name || "",
                                                       "attack2Text": card.attack2Text || "",
+                                                      "attack2Damage": card.attack2Damage || "",
+                                                      "attack2ConvertedEnergyCost": card.attack2ConvertedEnergyCost || 0,
                                                       "attack3Name": card.attack3Name || "",
                                                       "attack3Text": card.attack3Text || "",
+                                                      "attack3Damage": card.attack3Damage || "",
+                                                      "attack3ConvertedEnergyCost": card.attack3ConvertedEnergyCost || 0,
                                                       "attack4Name": card.attack4Name || "",
-                                                      "attack4Text": card.attack4Text || ""
-                                                  }));
+                                                      "attack4Text": card.attack4Text || "",
+                                                      "attack4Damage": card.attack4Damage || "",
+                                                      "attack4ConvertedEnergyCost": card.attack4ConvertedEnergyCost || 0,
 
-                        //console.log("Processed cards data:", cards);  // Log the processed cards array
+                                                      // Subtypes
+                                                      "subtype1": card.subtype1 || "",
+                                                      "subtype2": card.subtype2 || ""
+                                                  }));
 
                         selectedIndex = 0;  // Start with the first card
                         updateAttackInfo();
-                        updateAbilityInfo();  // Call a new function to update ability information
+                        updateAbilityInfo();  // Call a function to update ability information
                     }
                 }
             }
+
 
             
             
