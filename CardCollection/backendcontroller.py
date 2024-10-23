@@ -66,11 +66,6 @@ class BackendController(QObject):
             params (list[tuple[str, str, str]]): 
                 List of search parameter tuples of the form (category, subcategory, target)
         """
-       # for param in params:
-            #print("request_search called with params:")
-            #print(param[0])
-            #print(param[1])
-            #print(param[2])
 
         try:
             search_handler = searchhandler.SearchHandler()            
