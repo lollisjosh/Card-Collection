@@ -17,12 +17,4 @@ class InitHandler:
         # call backend's all_sets function to retrieve sets
         sets = backend.Backend.all_sets(self)
 
-        # check if sets is empty
-        # if empty, print none, if not empty, print each set name in sets.
-        if sets:
-            # named set_ to not redefine set
-            for set_ in sets:
-                print(set_.name())
-        else:
-            print("No sets found.")
         return sets
