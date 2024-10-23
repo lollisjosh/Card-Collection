@@ -76,34 +76,81 @@ class BackendController(QObject):
                 for card in cards:
 
                     # Initialize ability names and descriptions
-                    ability1Name = ""
-                    ability1Desc = ""
-                    ability1Type = ""
-                    ability2Name = ""
-                    ability2Desc = ""
-                    ability2Type = ""
+                    ability_1_Name = ""
+                    ability_1_Desc = ""
+                    ability_1_Type = ""
+
+                    ability_2_Name = ""
+                    ability_2_Desc = ""
+                    ability_2_Type = ""
 
                     # Initialize attack names and descriptions
-                    attack1Name = ""
-                    attack1Desc = ""
-                    attack2Name = ""
-                    attack2Desc = ""
-                    attack3Name = ""
-                    attack3Desc = ""
-                    attack4Name = ""
-                    attack4Desc = ""
+                    attack_1_Cost = ""
+                    attack_1_Name = ""
+                    attack_1_Text = ""                    
+                    attack_1_Damg = ""
+                    attack_1_Conv = ""
+
+                    attack_2_Cost = ""
+                    attack_2_Name = ""
+                    attack_2_Text = ""                    
+                    attack_2_Damg = ""
+                    attack_2_Conv = ""
+
+                    attack_3_Cost = ""
+                    attack_3_Name = ""
+                    attack_3_Text = ""                    
+                    attack_3_Damg = ""
+                    attack_3_Conv = ""
+
+                    attack_4_Cost = ""
+                    attack_4_Name = ""
+                    attack_4_Text = ""                    
+                    attack_4_Damg = ""
+                    attack_4_Conv = ""
+
 
                     # Process abilities
                     if hasattr(card, 'abilities') and card.abilities is not None:
                         if len(card.abilities) > 0:
-                            ability1Name = card.abilities[0].name
-                            ability1Desc = card.abilities[0].text if hasattr(card.abilities[0], 'text') else ""
-                            ability1Type = card.abilities[0].type if hasattr(card.abilities[0], 'type') else ""
-
+                            ability_1_Name = card.abilities[0].name
+                            ability_1_Desc = card.abilities[0].text if hasattr(card.abilities[0], 'text') else ""
+                            ability_1_Type = card.abilities[0].type if hasattr(card.abilities[0], 'type') else ""
                         if len(card.abilities) > 1:
-                            ability2Name = card.abilities[1].name
-                            ability2Desc = card.abilities[1].text if hasattr(card.abilities[1], 'text') else ""
-                            ability2Type = card.abilities[1].type if hasattr(card.abilities[1], 'type') else ""
+                            ability_2_Name = card.abilities[1].name
+                            ability_2_Desc = card.abilities[1].text if hasattr(card.abilities[1], 'text') else ""
+                            ability_2_Type = card.abilities[1].type if hasattr(card.abilities[1], 'type') else ""
+
+                    # Process attacks
+                    if hasattr(card, 'attacks') and card.attacks is not None:
+                        if len(card.attacks) > 0:
+                            attack_1_Cost = card.attacks[0].cost if hasattr(card.attacks[0], 'cost') else []
+                            attack_1_Name = card.attacks[0].name
+                            attack_1_Text = card.attacks[0].text if hasattr(card.attacks[0], 'text') else ""
+                            attack_1_Damg = card.attacks[0].damage if hasattr(card.attacks[0], 'damage') else ""
+                            attack_1_Conv = card.attacks[0].convertedEnergyCost if hasattr(card.attacks[0], 'convertedEnergyCost') else 0
+
+                        if len(card.attacks) > 1:
+                            attack_2_Cost = card.attacks[1].cost if hasattr(card.attacks[1], 'cost') else []
+                            attack_2_Name = card.attacks[1].name
+                            attack_2_Text = card.attacks[1].text if hasattr(card.attacks[1], 'text') else ""
+                            attack_2_Damg = card.attacks[1].damage if hasattr(card.attacks[1], 'damage') else ""
+                            attack_2_Conv = card.attacks[1].convertedEnergyCost if hasattr(card.attacks[1], 'convertedEnergyCost') else 0
+
+                        if len(card.attacks) > 2:
+                            attack_3_Cost = card.attacks[2].cost if hasattr(card.attacks[2], 'cost') else []
+                            attack_3_Name = card.attacks[2].name
+                            attack_3_Text = card.attacks[2].text if hasattr(card.attacks[2], 'text') else ""
+                            attack_3_Damg = card.attacks[2].damage if hasattr(card.attacks[2], 'damage') else ""
+                            attack_3_Conv = card.attacks[2].convertedEnergyCost if hasattr(card.attacks[2], 'convertedEnergyCost') else 0
+
+                        if len(card.attacks) > 3:
+                            attack_4_Cost = card.attacks[3].cost if hasattr(card.attacks[3], 'cost') else []
+                            attack_4_Name = card.attacks[3].name
+                            attack_4_Text = card.attacks[3].text if hasattr(card.attacks[3], 'text') else ""
+                            attack_4_Damg = card.attacks[3].damage if hasattr(card.attacks[3], 'damage') else ""
+                            attack_4_Conv = card.attacks[3].convertedEnergyCost if hasattr(card.attacks[3], 'convertedEnergyCost') else 0
+
 
 
         except RequestException as e:  # Catching HTTP request-related exceptions
