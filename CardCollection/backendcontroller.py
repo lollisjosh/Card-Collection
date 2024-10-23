@@ -67,8 +67,31 @@ class BackendController(QObject):
                 List of search parameter tuples of the form (category, subcategory, target)
         """
         try: 
-            searchHandler = searchhandler.SearchHandler()
-            cards = searchHandler.handle_request_search(params)
+            search_handler = searchhandler.SearchHandler()
+            cards = search_handler.handle_request_search(params)
+
+            if cards is not None:
+                card_list = []
+                
+                for card in cards:
+                    
+                    # Initialize ability names and descriptions
+                    ability1Name = ""
+                    ability1Desc = ""
+                    ability1Type = ""
+                    ability2Name = ""
+                    ability2Desc = ""
+                    ability2Type = ""
+
+                    # Initialize attack names and descriptions
+                    attack1Name = ""
+                    attack1Desc = ""
+                    attack2Name = ""
+                    attack2Desc = ""
+                    attack3Name = ""
+                    attack3Desc = ""
+                    attack4Name = ""
+                    attack4Desc = ""
 
         except RequestException as e:  # Catching HTTP request-related exceptions
                 self.searchResults.emit(json.dumps({"error": "Request error: " + str(e)}))
