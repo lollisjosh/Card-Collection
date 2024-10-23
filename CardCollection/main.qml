@@ -818,7 +818,7 @@ Window {
                                     // Change scale when hovered
                                     scale: hovered ? 1.05 : 1.0
                                     onClicked: {
-                                        console.log("Search Button clicked...");
+                                       // console.log("Search Button clicked...");
                                         // Initialize an empty array for the search parameters
                                         var searchParams = [];
                                         
@@ -879,11 +879,12 @@ Window {
                                             //Print each tuple as a string to the console
                                             for (var i = 0; i < searchParams.length; i++) {
                                                 var tupleString = "[" + searchParams[i][0] + ", " + searchParams[i][1] + ", " + searchParams[i][2] + "]";
-                                                console.log(tupleString);
+
+                                                //console.log(tupleString);
                                             }
-                                            console.log("search button is calling request_search");
+                                          //  console.log("search button is calling request_search");
                                             backendController.request_search(searchParams);
-                                            console.log("Search button regains control after request search");
+                                          //  console.log("Search button regains control after request search");
                                             resetAttackScroll();
 
                                         }
