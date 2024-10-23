@@ -9,6 +9,8 @@ from pokemontcgsdk import Rarity
 
 import json
 
+from requests.exceptions import RequestException
+
 import inithandler
 import searchhandler
 
@@ -68,7 +70,16 @@ class BackendController(QObject):
             searchHandler = SearchHandler()
             cards = searchHandler.handle_request_search(params)
 
-        except Exception as e:
+        except RequestException as e:  # Catching HTTP request-related exceptions
+                self.searchResults.emit(json.dumps({"error": "Request error: " + str(e)}))
+        except ValueError as e:  # Catching JSON parsing or value-related issues
+            self.searchResults.emit(json.dumps({"error": "Value error: " + str(e)}))
+        except KeyError as e:  # Catching dictionary key access issues
+            self.searchResults.emit(json.dumps({"error": "Key error: " + str(e)}))
+        except TypeError as e:  # Catching type mismatch errors
+            self.searchResults.emit(json.dumps({"error": "Type error: " + str(e)}))
+        except Exception as e:  # Fallback for any other unexpected errors
+            self.searchResults.emit(json.dumps({"error": "Unexpected error: " + str(e)}))            
             self.searchResults.emit(json.dumps({"error": str(e)}))
 
     @Slot(list)
