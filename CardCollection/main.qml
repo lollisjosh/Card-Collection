@@ -16,16 +16,8 @@ Window {
     
     visible: true
     color: "#6c0101"
-    property alias rectangle7: rectangle7
-    property alias attack2NameDrop: attack2NameDrop
-    property alias attack1Name: attack1Name
-    property alias nameDropText: nameDropText
-    property alias rightSideScrollVIew: rightSideScrollVIew
-    property alias attack1NameScreen: attack1NameScreen
-    property alias setSymbolText: setSymbolText
-    property alias ability2TypeDropText: ability2TypeDropText
-    property alias attack1DropName: attack1DropName
-    property alias ability1NameText: ability1NameText
+    property alias attack4NameDrop: attack4NameDrop
+    property alias attack2DescriptionDropText: attack2DescriptionDropText
     
     title: qsTr("Card Collection")
     
@@ -37,16 +29,20 @@ Window {
 
     // Function to update attack information based on selectedIndex
     function updateAttackInfo() {
+        console.log("updateAttackInfo called...");
         if (cards[selectedIndex]) {
             // Update attack text fields first
             attack1Name.text = cards[selectedIndex].attack1Name || "Attack 1";
-            attack1DescriptionDropText.text = cards[selectedIndex].attack1Desc || "No description available."; // Fallback if no description
+            attack1DescriptionDropText.text = cards[selectedIndex].attack1Text || "No description available."; // Fallback if no description
 
             attack2NameText.text = cards[selectedIndex].attack2Name || "Attack 2";
-            attack2DescriptionText.text = cards[selectedIndex].attack2Desc || "No description available."; // Fallback if no description
+            attack2DescriptionText.text = cards[selectedIndex].attack2Text || "No description available."; // Fallback if no description
 
             attack3NameText.text = cards[selectedIndex].attack3Name || "Attack 3";
-            attack3DescriptionText.text = cards[selectedIndex].attack3Desc || "No description available."; // Fallback if no description
+            attack3DescriptionText.text = cards[selectedIndex].attack3Text || "No description available."; // Fallback if no description
+
+            attack4NameText.text = cards[selectedIndex].attack4Name || "Attack 4";
+            attack4DescriptionText.text = cards[selectedIndex].attack4Text || "No description available."; // Fallback if no description
 
             // Set visibility for each attack based on the card data
             attack1NameBlock.visible = cards[selectedIndex].attack1Name !== "Attack 1" && cards[selectedIndex].attack1Name !== "";
@@ -61,6 +57,10 @@ Window {
             attack3NameBlock.visible = cards[selectedIndex].attack3Name !== "Attack 3" && cards[selectedIndex].attack3Name !== "";
             attack3DescriptionBlock.visible = attack3NameBlock.visible;
             attack3DescriptionBlock.height = attack3DescriptionBlock.visible && attack3DescriptionText.text === "No description available." ? 75 : 120;
+
+            attack4NameBlock.visible = cards[selectedIndex].attack4Name !== "Attack 4" && cards[selectedIndex].attack4Name !== "";
+            attack4DescriptionBlock.visible = attack4NameBlock.visible;
+            attack4DescriptionBlock.height = attack4DescriptionBlock.visible && attack4DescriptionText.text === "No description available." ? 75 : 120;
 
 
             // Update attackContainer visibility based on attack blocks
@@ -80,14 +80,15 @@ Window {
     
     // Function to update ability information based on selectedIndex
     function updateAbilityInfo() {
+                console.log("updateAbilityInfo called...");
         if (cards[selectedIndex]) {
             // Update ability text fields first
             ability1NameText.text = cards[selectedIndex].ability1Name || "Ability 1";
-            ability1DescriptionDropText.text = cards[selectedIndex].ability1Desc || "No description available.";
+            ability1DescriptionDropText.text = cards[selectedIndex].ability1Text || "No description available.";
             ability1TypeText.text = cards[selectedIndex].ability1Type || "N/A";
 
             ability2NameText.text = cards[selectedIndex].ability2Name || "Ability 2";
-            ability2DescriptionDropText.text = cards[selectedIndex].ability2Desc || "No description available.";
+            ability2DescriptionDropText.text = cards[selectedIndex].ability2Text || "No description available.";
             ability2TypeText.text = cards[selectedIndex].ability2Type || "N/A";
 
             // Set visibility for each ability based on the card data
@@ -368,7 +369,7 @@ Window {
                                             
                                             if (data.error) {
                                                 sets = [];
-                                                //console.log("Error in the data received from backend.");
+                                                console.log("Error in the data received from backend.");
                                             } else {
                                                 // Populate the model with new data
                                                 data.forEach(function(set) {
@@ -817,6 +818,7 @@ Window {
                                     // Change scale when hovered
                                     scale: hovered ? 1.05 : 1.0
                                     onClicked: {
+                                        console.log("Search Button clicked...");
                                         // Initialize an empty array for the search parameters
                                         var searchParams = [];
                                         
@@ -879,8 +881,9 @@ Window {
                                                 var tupleString = "[" + searchParams[i][0] + ", " + searchParams[i][1] + ", " + searchParams[i][2] + "]";
                                                 // console.log(tupleString);
                                             }
-                                            
+                                            console.log("search button is calling request_search");
                                             backendController.request_search(searchParams);
+                                            console.log("Search button regains control after request search");
                                             resetAttackScroll();
 
                                         }
@@ -1924,7 +1927,7 @@ Window {
                                     flickableDirection: Flickable.VerticalFlick
                                     // Adjust width as needed
                                     // Set a height that fits your layout
-                                    contentHeight: 980 // Set a suitable height for your content
+                                    contentHeight: 1170 // Set a suitable height for your content
 
                                     // First attack
 
@@ -2207,7 +2210,7 @@ Window {
                                             border.color: "#6c0101"
                                             border.width: 2
                                             Rectangle {
-                                                id: attackDescription2Bezel
+                                                id: attack2DescriptionBezel
                                                 color: "#b2b2b2"
                                                 radius: 8
                                                 border.color: "#616161"
@@ -2235,14 +2238,13 @@ Window {
                                                         visible: true
                                                         color: "#c5002a02"
                                                         text: attack2DescriptionText.text
+                                                        anchors.verticalCenter: attack2DescriptionText.verticalCenter
+                                                        anchors.top: attack2DescriptionText.bottom
                                                         anchors.fill: parent
-                                                        anchors.leftMargin: 4
-                                                        anchors.rightMargin: 4
-                                                        anchors.topMargin: 4
-                                                        anchors.bottomMargin: 4
                                                         horizontalAlignment: Text.AlignHCenter
                                                         verticalAlignment: Text.AlignVCenter
                                                         wrapMode: Text.Wrap
+                                                        anchors.horizontalCenter: attack2DescriptionText.horizontalCenter
                                                         font.pointSize: attack2DescriptionText.font.pointSize
                                                         minimumPixelSize: 6
                                                         fontSizeMode: Text.Fit
@@ -2454,6 +2456,187 @@ Window {
 
                                                     Rectangle {
                                                         id: rectangle22
+                                                        x: -7
+                                                        y: 8
+                                                        color: "#00ffffff"
+                                                        radius: 4
+                                                        border.color: "#25fb2e"
+                                                        border.width: 1
+                                                        anchors.fill: parent
+                                                        anchors.leftMargin: 3
+                                                        anchors.rightMargin: 3
+                                                        anchors.topMargin: 3
+                                                        anchors.bottomMargin: 3
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                        Rectangle {
+                                            id: attack4NameBlock
+                                            width: 200
+                                            height: 45
+                                            visible: true
+                                            color: "#c80d0d"
+                                            radius: 8
+                                            border.color: "#6c0101"
+                                            border.width: 2
+                                            Rectangle {
+                                                id: attack4NameBezel
+                                                color: "#b2b2b2"
+                                                radius: 8
+                                                border.color: "#616161"
+                                                border.width: 2
+                                                anchors.fill: parent
+                                                anchors.leftMargin: 4
+                                                anchors.rightMargin: 4
+                                                anchors.topMargin: 3
+                                                anchors.bottomMargin: 3
+                                                Rectangle {
+                                                    id: attack4NameScreen
+                                                    x: 10
+                                                    y: 4
+                                                    color: "#15ba1c"
+                                                    radius: 4
+                                                    border.color: "#128c17"
+                                                    border.width: 2
+                                                    anchors.fill: parent
+                                                    anchors.leftMargin: 5
+                                                    anchors.rightMargin: 5
+                                                    anchors.topMargin: 6
+                                                    anchors.bottomMargin: 6
+                                                    Text {
+                                                        id: attack4NameText
+                                                        color: "#c5002a02"
+                                                        text: "Attack 4"
+                                                        anchors.fill: parent
+                                                        anchors.leftMargin: 4
+                                                        anchors.rightMargin: 4
+                                                        anchors.topMargin: 2
+                                                        anchors.bottomMargin: 2
+                                                        horizontalAlignment: Text.AlignHCenter
+                                                        verticalAlignment: Text.AlignVCenter
+                                                        wrapMode: Text.Wrap
+                                                        z: 1
+                                                        minimumPointSize: 10
+                                                        minimumPixelSize: 10
+                                                        fontSizeMode: Text.HorizontalFit
+                                                        font.styleName: "ExtraBold Italic"
+                                                    }
+
+                                                    Text {
+                                                        id: attack4NameDrop
+                                                        color: "#2a7b2d"
+                                                        text: attack4NameText.text
+                                                        anchors.fill: parent
+                                                        anchors.leftMargin: 4
+                                                        anchors.rightMargin: 4
+                                                        anchors.topMargin: 2
+                                                        anchors.bottomMargin: 2
+                                                        horizontalAlignment: Text.AlignHCenter
+                                                        verticalAlignment: Text.AlignVCenter
+                                                        wrapMode: Text.Wrap
+                                                        z: 0
+                                                        minimumPointSize: 10
+                                                        minimumPixelSize: 10
+                                                        fontSizeMode: Text.HorizontalFit
+                                                        font.styleName: "ExtraBold Italic"
+                                                    }
+
+                                                    Rectangle {
+                                                        id: rectangle33
+                                                        x: -6
+                                                        y: -6
+                                                        color: "#00ffffff"
+                                                        radius: 4
+                                                        border.color: "#25fb2e"
+                                                        border.width: 1
+                                                        anchors.fill: parent
+                                                        anchors.leftMargin: 3
+                                                        anchors.rightMargin: 3
+                                                        anchors.topMargin: 3
+                                                        anchors.bottomMargin: 3
+                                                    }
+                                                }
+                                            }
+                                            anchors.horizontalCenter: parent.horizontalCenter
+                                        }
+
+                                        Rectangle {
+                                            id: attack4DescriptionBlock
+                                            width: 250
+                                            height: 120
+                                            color: "#c80d0d"
+                                            radius: 8
+                                            border.color: "#6c0101"
+                                            border.width: 2
+                                            Rectangle {
+                                                id: attack4DescriptionBezel
+                                                color: "#b2b2b2"
+                                                radius: 8
+                                                border.color: "#616161"
+                                                border.width: 2
+                                                anchors.fill: parent
+                                                anchors.leftMargin: 4
+                                                anchors.rightMargin: 4
+                                                anchors.topMargin: 4
+                                                anchors.bottomMargin: 4
+                                                Rectangle {
+                                                    id: attack4DescriptionScreen
+                                                    x: 10
+                                                    y: 4
+                                                    color: "#15ba1c"
+                                                    radius: 6
+                                                    border.color: "#128c17"
+                                                    border.width: 2
+                                                    anchors.fill: parent
+                                                    anchors.leftMargin: 6
+                                                    anchors.rightMargin: 6
+                                                    anchors.topMargin: 6
+                                                    anchors.bottomMargin: 6
+                                                    Text {
+                                                        id: attack4DescriptionDropText
+                                                        visible: true
+                                                        color: "#c5002a02"
+                                                        text: attack4DescriptionText.text
+                                                        anchors.fill: parent
+                                                        anchors.leftMargin: 4
+                                                        anchors.rightMargin: 4
+                                                        anchors.topMargin: 4
+                                                        anchors.bottomMargin: 4
+                                                        horizontalAlignment: Text.AlignHCenter
+                                                        verticalAlignment: Text.AlignVCenter
+                                                        wrapMode: Text.Wrap
+                                                        z: 1
+                                                        minimumPointSize: 6
+                                                        minimumPixelSize: 6
+                                                        fontSizeMode: Text.Fit
+                                                        font.styleName: "ExtraBold Italic"
+                                                        font.pointSize: attack4DescriptionText.font.pointSize
+                                                    }
+
+                                                    Text {
+                                                        id: attack4DescriptionText
+                                                        visible: true
+                                                        color: "#095f0c"
+                                                        text: "Attack 4 Description"
+                                                        anchors.fill: parent
+                                                        anchors.leftMargin: 4
+                                                        anchors.rightMargin: 4
+                                                        anchors.topMargin: 4
+                                                        anchors.bottomMargin: 4
+                                                        horizontalAlignment: Text.AlignHCenter
+                                                        verticalAlignment: Text.AlignVCenter
+                                                        wrapMode: Text.Wrap
+                                                        z: 0
+                                                        minimumPointSize: 6
+                                                        minimumPixelSize: 6
+                                                        fontSizeMode: Text.Fit
+                                                        font.styleName: "ExtraBold Italic"
+                                                    }
+
+                                                    Rectangle {
+                                                        id: rectangle34
                                                         x: -7
                                                         y: 8
                                                         color: "#00ffffff"
@@ -2965,6 +3148,8 @@ Window {
                                                 }
                                             }
                                         }
+
+
                                     }
                                 }
                             }
@@ -3176,12 +3361,12 @@ Window {
             Connections {
                 target: backendController
                 function onSearchResults(response) {
-                    //  console.log("Received search response:", response);  // Log the raw response
-                    
+                    // console.log("Received search response:", response);  // Log the raw response
+
                     var data = JSON.parse(response);
-                    
+
                     if (data.error) {
-                        // console.log("Error in response:", data.error);  // Log the error message
+                        console.log("Error in response:", data.error);  // Log the error message
                         cards = [];
                     } else {
                         cards = data.map(card => ({
@@ -3191,27 +3376,30 @@ Window {
                                                       "setSymbol": card.setSymbol,
                                                       "setLogo": card.setLogo,
                                                       "ability1Name": card.ability1Name || "",
-                                                      "ability1Desc": card.ability1Desc || "",
+                                                      "ability1Text": card.ability1Text || "",
                                                       "ability1Type": card.ability1Type || "",
                                                       "ability2Name": card.ability2Name || "",
-                                                      "ability2Desc": card.ability2Desc || "",
+                                                      "ability2Text": card.ability2Text || "",
                                                       "ability2Type": card.ability2Type || "",
                                                       "attack1Name": card.attack1Name || "",
-                                                      "attack1Desc": card.attack1Desc || "",
+                                                      "attack1Text": card.attack1Text || "",
                                                       "attack2Name": card.attack2Name || "",
-                                                      "attack2Desc": card.attack2Desc || "",
+                                                      "attack2Text": card.attack2Text || "",
                                                       "attack3Name": card.attack3Name || "",
-                                                      "attack3Desc": card.attack3Desc || ""
+                                                      "attack3Text": card.attack3Text || "",
+                                                      "attack4Name": card.attack4Name || "",
+                                                      "attack4Text": card.attack4Text || ""
                                                   }));
-                        
-                        // console.log("Processed cards data:", cards);  // Log the processed cards array
-                        
+
+                        //console.log("Processed cards data:", cards);  // Log the processed cards array
+
                         selectedIndex = 0;  // Start with the first card
                         updateAttackInfo();
                         updateAbilityInfo();  // Call a new function to update ability information
                     }
                 }
             }
+
             
             
             
