@@ -15,6 +15,6 @@ class InitHandler:
         """
 
         # call backend's all_sets function to retrieve sets
-        sets = backend.Backend.all_sets(self)
+        return backend.Backend.all_sets(self)
 
-        return sets
+       
