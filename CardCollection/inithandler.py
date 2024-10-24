@@ -8,10 +8,12 @@ class InitHandler:
 
     def handle_sets_retrieve(self) -> list[Set]:
         """
-        ## Description:
+        Description:
             Provide an interface for the front end to retrieve all available sets.
         Args:
             params none
+        Returns:
+            list[Set]
         """
 
         # call backend's all_sets function to retrieve sets
