@@ -88,21 +88,19 @@ Window {
                     || "Ability 1"
             ability1DescriptionDropText.text = cards[selectedIndex].ability1Text
                     || "No description available."
-            ability1TypeText.text = cards[selectedIndex].ability1Type || "N/A"
+            ability1TypeText.text = cards[selectedIndex].ability1Type || "Ability 1 Type"
 
             ability2NameText.text = cards[selectedIndex].ability2Name
                     || "Ability 2"
             ability2DescriptionDropText.text = cards[selectedIndex].ability2Text
                     || "No description available."
-            ability2TypeText.text = cards[selectedIndex].ability2Type || "N/A"
+            ability2TypeText.text = cards[selectedIndex].ability2Type || "Ability 2 Type"
 
             // Set visibility for each ability based on the card data
-            ability1NameBlock.visible = cards[selectedIndex].ability1Name !== "Ability 1"
-                    && cards[selectedIndex].ability1Name !== ""
+            ability1NameBlock.visible = cards[selectedIndex].ability1Name !== "Ability 1" && cards[selectedIndex].ability1Name !== ""
             ability1DescriptionBlock.visible = ability1NameBlock.visible
             ability1TypeBlock.visible = ability1NameBlock.visible
-            ability1DescriptionBlock.height = ability1DescriptionBlock.visible
-                    && ability1DescriptionDropText.text === "No description available." ? 75 : 136
+            //ability1TypeBlock.visible = ability1NameBlock.visible && ability1DescriptionDropText.text === "No description available." ? 75 : 136
 
             ability2NameBlock.visible = cards[selectedIndex].ability2Name !== "Ability 2"
                     && cards[selectedIndex].ability2Name !== ""
@@ -123,6 +121,11 @@ Window {
             subtype2Text.text = cards[selectedIndex].subtype2
                     || "Sub Type 2"
         }
+
+        // Set visibility for each ability based on the card data
+        subtype1Bezel.visible = cards[selectedIndex].subtype1 !== "Sub Type 1" && cards[selectedIndex].subtype1 !== ""
+        subtype2Bezel.visible = cards[selectedIndex].subtype2 !== "Sub Type 1" && cards[selectedIndex].subtype2 !== ""
+
     }
 
     function resetAttackScroll() {
@@ -1526,7 +1529,7 @@ Window {
 
                                         Rectangle {
                                             id: subtypeBlock
-                                            width: 170
+                                            width: 175
                                             height: 72
                                             color: "#c80d0d"
                                             radius: 8
@@ -1536,6 +1539,10 @@ Window {
                                             RowLayout {
                                                 id: rowLayout
                                                 anchors.fill: parent
+                                                anchors.leftMargin: 4
+                                                anchors.rightMargin: 4
+                                                anchors.topMargin: 4
+                                                anchors.bottomMargin: 4
                                                 spacing: 2
 
                                                 Rectangle {
