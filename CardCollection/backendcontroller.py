@@ -66,7 +66,7 @@ class BackendController(QObject):
             if cards is not None:
                 # Process all cards at once
                 processed_cards = cardprocessor.CardProcessor.process_cards(cards)
-                print(processed_cards)
+                #print(processed_cards)
                 # Emit the result as JSON
                 self.searchResults.emit(json.dumps(processed_cards))
 
