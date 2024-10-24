@@ -3825,6 +3825,7 @@ Window {
                     } else {
                         cards = data.map(card => ({
                                                       "name": card.name,
+                                                      "supertype": card.supertype,
 
                                                       "imageUrl": card.imageUrl
                                                                   || "",
