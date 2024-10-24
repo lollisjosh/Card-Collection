@@ -128,15 +128,28 @@ Window {
                     || "Sub Type 3"
         }
 
+        if(cards[selectedIndex]) {
+            subtype4Text.text = cards[selectedIndex].subtype4
+                    || "Sub Type 4"
+        }
+
+
+        // console.log("Sub1: " + cards[selectedIndex].subtype1)
+        // console.log("Sub2: " + cards[selectedIndex].subtype2)
+        // console.log("Sub3: " + cards[selectedIndex].subtype3)
+        // console.log("Sub4: " + cards[selectedIndex].subtype4)
+
         //console.log("Sub1: " + subtype1Text.text)
         //console.log("Sub2: " + subtype2Text.text)
         // Set visibility for each ability based on the card data
         subtype1Bezel.visible = cards[selectedIndex].subtype1 !== "Sub Type 1" && cards[selectedIndex].subtype1 !== ""
         subtype2Bezel.visible = cards[selectedIndex].subtype2 !== "Sub Type 2" && cards[selectedIndex].subtype2 !== ""
         subtype3Bezel.visible = cards[selectedIndex].subtype3 !== "Sub Type 3" && cards[selectedIndex].subtype3 !== ""
+        subtype4Bezel.visible = cards[selectedIndex].subtype4 !== "Sub Type 4" && cards[selectedIndex].subtype4 !== ""
 
-        subtype1Bezel.width = subtype3Bezel.visible ? 80 : parent.width
-        subtype1Bezel.height =  subtype3Bezel.visible || subtype2Bezel.visible ? 54 : 115
+
+        subtype1Bezel.width = subtype4Bezel.visible ? 80 : 165
+        subtype2Bezel.width = subtype3Bezel.visible ? 80 : 165
     }
 
     function resetAttackScroll() {
@@ -1573,7 +1586,7 @@ Window {
 
                                                 Rectangle {
                                                     id: subtype1Bezel
-                                                    width: 165
+                                                    width: 80
                                                     height: 54
                                                     color: "#b2b2b2"
                                                     radius: 8
@@ -1823,7 +1836,7 @@ Window {
                                                         }
 
                                                         Text {
-                                                            id: subtypeDropText
+                                                            id: subtype3DropText
                                                             visible: false
                                                             color: "#2a7b2d"
                                                             text: "Sub Type 3"
@@ -1845,6 +1858,104 @@ Window {
 
                                                         Rectangle {
                                                             id: subtype3BlockHighlight
+                                                            x: -8
+                                                            y: -4
+                                                            color: "#00ffffff"
+                                                            radius: 4
+                                                            border.color: "#25fb2e"
+                                                            border.width: 1
+                                                            anchors.fill: parent
+                                                            anchors.leftMargin: 3
+                                                            anchors.rightMargin: 3
+                                                            anchors.topMargin: 3
+                                                            anchors.bottomMargin: 3
+                                                        }
+                                                        clip: true
+                                                    }
+                                                    Layout.preferredWidth: 60
+                                                    Layout.preferredHeight: 60
+                                                    Layout.fillWidth: true
+                                                    Layout.fillHeight: true
+                                                }
+
+                                                Rectangle {
+                                                    id: subtype4Bezel
+                                                    width: 80
+                                                    height: 54
+                                                    color: "#b2b2b2"
+                                                    radius: 8
+                                                    border.color: "#616161"
+                                                    border.width: 2
+                                                    Rectangle {
+                                                        id: subtype4Screen
+                                                        x: 7
+                                                        y: 4
+                                                        color: "#15ba1c"
+                                                        radius: 4
+                                                        border.color: "#128c17"
+                                                        border.width: 2
+                                                        anchors.fill: parent
+                                                        anchors.leftMargin: 6
+                                                        anchors.rightMargin: 6
+                                                        anchors.topMargin: 6
+                                                        anchors.bottomMargin: 6
+                                                        Text {
+                                                            id: subtype4Text
+                                                            color: "#c5002a02"
+                                                            text: "Sub Type 4"
+                                                            anchors.verticalCenter: subtype4DropShadow.verticalCenter
+                                                            anchors.right: subtype4DropShadow.left
+                                                            anchors.fill: parent
+                                                            anchors.leftMargin: 4
+                                                            anchors.rightMargin: 4
+                                                            anchors.topMargin: 4
+                                                            anchors.bottomMargin: 4
+                                                            horizontalAlignment: Text.AlignHCenter
+                                                            verticalAlignment: Text.AlignVCenter
+                                                            wrapMode: Text.Wrap
+                                                            z: 1
+                                                            minimumPointSize: 6
+                                                            minimumPixelSize: 6
+                                                            fontSizeMode: Text.Fit
+                                                            font.styleName: "Bold Italic"
+                                                            font.pointSize: 30
+                                                        }
+
+                                                        DropShadow {
+                                                            id: subtype4DropShadow
+                                                            opacity: 0.8
+                                                            color: "#095f0c"
+                                                            radius: 3.8
+                                                            anchors.fill: subtype4Text
+                                                            source: subtype4Text
+                                                            verticalOffset: 3
+                                                            samples: 16
+                                                            horizontalOffset: 3
+                                                        }
+
+                                                        Text {
+                                                            id: subtype4DropText
+                                                            visible: false
+                                                            color: "#2a7b2d"
+                                                            text: "Sub Type 3"
+                                                            anchors.fill: parent
+                                                            anchors.leftMargin: 4
+                                                            anchors.rightMargin: 4
+                                                            anchors.topMargin: 4
+                                                            anchors.bottomMargin: 4
+                                                            horizontalAlignment: Text.AlignHCenter
+                                                            verticalAlignment: Text.AlignVCenter
+                                                            wrapMode: Text.Wrap
+                                                            z: 0
+                                                            minimumPointSize: 6
+                                                            minimumPixelSize: 6
+                                                            fontSizeMode: Text.Fit
+                                                            font.styleName: "Bold Italic"
+                                                            font.pointSize: 30
+                                                        }
+
+                                                        Rectangle {
+                                                            id: subtype4BlockHighlight
                                                             x: -8
                                                             y: -4
                                                             color: "#00ffffff"
@@ -3755,8 +3866,11 @@ Window {
                                                       // Subtypes
                                                       "subtype1" : card.subtype1 || "",
                                                       "subtype2": card.subtype2 || "",
-                                                      "subtype3": card.subtype3 || ""
+                                                      "subtype3": card.subtype3 || "",
+                                                      "subtype4": card.subtype4 || ""
                                                   }))
+
+
 
                         selectedIndex = 0; // Start with the first card
                         updateAttackInfo();
