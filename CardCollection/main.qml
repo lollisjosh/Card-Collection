@@ -16,10 +16,7 @@ Window {
 
 
     visible: true
-    color: "#6c0101"
-    property alias setNameDropText: setNameDropText
-    property alias attack4NameDrop: attack4NameDrop
-    property alias attack2DescriptionDropText: attack2DescriptionDropText
+    color: "#611b1b"
 
     title: qsTr("Card Collection")
 
@@ -1903,7 +1900,6 @@ Window {
                                                             id: subtype4Text
                                                             color: "#c5002a02"
                                                             text: "Sub Type 4"
-                                                            anchors.verticalCenter: subtype4DropShadow.verticalCenter
                                                             anchors.right: subtype4DropShadow.left
                                                             anchors.fill: parent
                                                             anchors.leftMargin: 4
