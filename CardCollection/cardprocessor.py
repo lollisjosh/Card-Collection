@@ -8,6 +8,7 @@ class CardProcessor:
                 **CardProcessor.process_attacks(card),
                 **CardProcessor.process_subtypes(card),
                 "name": card.name,
+                "supertype": card.supertype,
                 "imageUrl": card.images.large,
                 "set": card.set.name,
                 "setSymbol": card.set.images.symbol,
