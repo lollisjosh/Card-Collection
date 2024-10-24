@@ -93,11 +93,16 @@ class CardProcessor:
     def process_subtypes(card):
         subtypes = {
             "subtype1": "",
-            "subtype2": ""
+            "subtype2": "",
+            "subtype3": "",
+            "subtype4": ""
         }
 
         if hasattr(card, 'subtypes') and card.subtypes:  # Check if subtypes exists
             subtypes["subtype1"] = card.subtypes[0] if len(card.subtypes) > 0 else ""
             subtypes["subtype2"] = card.subtypes[1] if len(card.subtypes) > 1 else ""
+            subtypes["subtype3"] = card.subtypes[2] if len(card.subtypes) > 2 else ""
+            subtypes["subtype4"] = card.subtypes[3] if len(card.subtypes) > 3 else ""
+
 
         return subtypes
