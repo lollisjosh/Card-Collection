@@ -17,6 +17,7 @@ Window {
 
     visible: true
     color: "#611b1b"
+    property alias _itemOuterRedMid: _itemOuterRedMid
 
     title: qsTr("Card Collection")
 
@@ -368,7 +369,11 @@ Window {
                                             text: model.name
                                             highlighted: setComboBox.highlightedIndex == index
                                             checked: model.selected
-                                            onCheckedChanged: model.selected = checked
+                                            onCheckedChanged: {
+                                                if (model.selected !== checked) {
+                                                    model.selected = checked;
+                                                }
+                                            }
                                         }
                                     }
 
@@ -1070,7 +1075,7 @@ Window {
                                 visible: true
                                 anchors.fill: parent
                                 z: 0
-                                color: "#951111" // Set background to transparent
+                                color: dataFlow.color // Set background to transparent
                                 border.color: "#00255864" // Darker grey color for the border
                                 border.width: 0
                                 radius: 0 // Optional: Set radius for rounded corners
@@ -1401,7 +1406,9 @@ Window {
                             Rectangle {
                                 id: dataFlow
                                 opacity: 1
-                                color: "#951111"
+                                visible: true
+                                color: "#541515"
+                                border.width: 0
                                 anchors.left: parent.left
                                 anchors.right: parent.right
                                 anchors.top: parent.top
@@ -1461,7 +1468,7 @@ Window {
 
                                             Rectangle {
                                                 id: nameScreen
-                                                color: "#15ba1c"
+                                                color: attack1NameScreen.color
                                                 radius: 4
                                                 border.color: "#128c17"
                                                 border.width: 2
@@ -1598,7 +1605,7 @@ Window {
                                                         id: subtype1Screen
                                                         x: 7
                                                         y: 4
-                                                        color: "#15ba1c"
+                                                        color: attack1NameScreen.color
                                                         radius: 4
                                                         border.color: "#128c17"
                                                         border.width: 2
@@ -1695,7 +1702,7 @@ Window {
                                                         id: subtype2Screen
                                                         x: 7
                                                         y: 4
-                                                        color: "#15ba1c"
+                                                        color: attack1NameScreen.color
                                                         radius: 4
                                                         border.color: "#128c17"
                                                         border.width: 2
@@ -1789,7 +1796,7 @@ Window {
                                                         id: subtype3Screen
                                                         x: 7
                                                         y: 4
-                                                        color: "#15ba1c"
+                                                        color: attack1NameScreen.color
                                                         radius: 4
                                                         border.color: "#128c17"
                                                         border.width: 2
@@ -1887,7 +1894,7 @@ Window {
                                                         id: subtype4Screen
                                                         x: 7
                                                         y: 4
-                                                        color: "#15ba1c"
+                                                        color: attack1NameScreen.color
                                                         radius: 4
                                                         border.color: "#128c17"
                                                         border.width: 2
@@ -2001,7 +2008,7 @@ Window {
                                                     id: setLogoScreen
                                                     x: 8
                                                     y: -1
-                                                    color: "#15ba1c"
+                                                    color: attack1NameScreen.color
                                                     radius: 6
                                                     border.color: "#095f0c"
                                                     border.width: 2
@@ -2147,7 +2154,7 @@ Window {
 
                                                     Rectangle {
                                                         id: setSymbolScreen
-                                                        color: "#15ba1c"
+                                                        color: attack1NameScreen.color
                                                         radius: 6
                                                         border.color: "#128c17"
                                                         border.width: 2
@@ -2280,7 +2287,7 @@ Window {
                                                         id: setNameScreen
                                                         x: 10
                                                         y: 4
-                                                        color: "#15ba1c"
+                                                        color: attack1NameScreen.color
                                                         radius: 6
                                                         border.color: "#128c17"
                                                         border.width: 2
@@ -2416,7 +2423,7 @@ Window {
                                                     id: attack1NameScreen
                                                     x: 10
                                                     y: 4
-                                                    color: "#15ba1c"
+                                                    color: "#02d20b"
                                                     radius: 4
                                                     border.color: "#128c17"
                                                     border.width: 2
@@ -2495,7 +2502,7 @@ Window {
                                                     id: attack1Screen
                                                     x: 10
                                                     y: 4
-                                                    color: "#15ba1c"
+                                                    color: attack1NameScreen.color
                                                     radius: 6
                                                     border.color: "#128c17"
                                                     border.width: 2
@@ -2589,7 +2596,7 @@ Window {
                                                     id: attack2NameScreen
                                                     x: 10
                                                     y: 4
-                                                    color: "#15ba1c"
+                                                    color: attack1NameScreen.color
                                                     radius: 4
                                                     border.color: "#128c17"
                                                     border.width: 2
@@ -2678,7 +2685,7 @@ Window {
                                                     id: attack2Screen
                                                     x: 10
                                                     y: 4
-                                                    color: "#15ba1c"
+                                                    color: attack1NameScreen.color
                                                     radius: 6
                                                     border.color: "#128c17"
                                                     border.width: 2
@@ -2773,7 +2780,7 @@ Window {
                                                     id: attack3NameScreen
                                                     x: 10
                                                     y: 4
-                                                    color: "#15ba1c"
+                                                    color: attack1NameScreen.color
                                                     radius: 4
                                                     border.color: "#128c17"
                                                     border.width: 2
@@ -2861,7 +2868,7 @@ Window {
                                                     id: attack3DescriptionScreen
                                                     x: 10
                                                     y: 4
-                                                    color: "#15ba1c"
+                                                    color: attack1NameScreen.color
                                                     radius: 6
                                                     border.color: "#128c17"
                                                     border.width: 2
@@ -2953,7 +2960,7 @@ Window {
                                                     id: attack4NameScreen
                                                     x: 10
                                                     y: 4
-                                                    color: "#15ba1c"
+                                                    color: attack1NameScreen.color
                                                     radius: 4
                                                     border.color: "#128c17"
                                                     border.width: 2
@@ -3042,7 +3049,7 @@ Window {
                                                     id: attack4DescriptionScreen
                                                     x: 10
                                                     y: 4
-                                                    color: "#15ba1c"
+                                                    color: attack1NameScreen.color
                                                     radius: 6
                                                     border.color: "#128c17"
                                                     border.width: 2
@@ -3134,7 +3141,7 @@ Window {
                                                     id: ability1NameScreen
                                                     x: 10
                                                     y: 4
-                                                    color: "#15ba1c"
+                                                    color: attack1NameScreen.color
                                                     radius: 4
                                                     border.color: "#128c17"
                                                     border.width: 2
@@ -3215,7 +3222,7 @@ Window {
                                                     id: ability1TypeScreen
                                                     x: 10
                                                     y: 4
-                                                    color: "#15ba1c"
+                                                    color: attack1NameScreen.color
                                                     radius: 4
                                                     border.color: "#128c17"
                                                     border.width: 2
@@ -3290,7 +3297,7 @@ Window {
                                                     id: ability1DescriptionScreen
                                                     x: 10
                                                     y: 4
-                                                    color: "#15ba1c"
+                                                    color: attack1NameScreen.color
                                                     radius: 6
                                                     border.color: "#128c17"
                                                     border.width: 2
@@ -3382,7 +3389,7 @@ Window {
                                                     id: ability2NameScreen
                                                     x: 10
                                                     y: 4
-                                                    color: "#15ba1c"
+                                                    color: attack1NameScreen.color
                                                     radius: 4
                                                     border.color: "#128c17"
                                                     border.width: 2
@@ -3462,7 +3469,7 @@ Window {
                                                     id: ability2TypeScreen
                                                     x: 10
                                                     y: 4
-                                                    color: "#15ba1c"
+                                                    color: attack1NameScreen.color
                                                     radius: 4
                                                     border.color: "#128c17"
                                                     border.width: 2
@@ -3538,7 +3545,7 @@ Window {
                                                     id: ability2DescriptionScreen
                                                     x: 10
                                                     y: 4
-                                                    color: "#15ba1c"
+                                                    color: attack1NameScreen.color
                                                     radius: 6
                                                     border.color: "#128c17"
                                                     border.width: 2
