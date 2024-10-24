@@ -1205,7 +1205,7 @@ Window {
                                 Rectangle {
                                     id: buttonBackground
                                     anchors.fill: parent
-                                    color: "#c80d0d" // Background color of the button
+                                    color: "#ee1414" // Background color of the button
                                     radius: 0 // Rounded corners
                                     border.color: "#620808" // Darker border for a subtle effect
                                     border.width: 2
