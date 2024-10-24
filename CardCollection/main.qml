@@ -122,9 +122,11 @@ Window {
                     || "Sub Type 2"
         }
 
+        //console.log("Sub1: " + subtype1Text.text)
+        //console.log("Sub2: " + subtype2Text.text)
         // Set visibility for each ability based on the card data
         subtype1Bezel.visible = cards[selectedIndex].subtype1 !== "Sub Type 1" && cards[selectedIndex].subtype1 !== ""
-        subtype2Bezel.visible = cards[selectedIndex].subtype2 !== "Sub Type 1" && cards[selectedIndex].subtype2 !== ""
+        subtype2Bezel.visible = cards[selectedIndex].subtype2 !== "Sub Type 2" && cards[selectedIndex].subtype2 !== ""
 
     }
 
@@ -138,6 +140,7 @@ Window {
             selectedIndex++
             updateAttackInfo() // Update UI for the new selectedIndex
             updateAbilityInfo()
+            updateSubTypeInfo()
             resetAttackScroll()
         }
     }
@@ -148,6 +151,7 @@ Window {
             selectedIndex--
             updateAttackInfo() // Update UI for the new selectedIndex
             updateAbilityInfo()
+            updateSubTypeInfo()
             resetAttackScroll()
         }
     }
@@ -368,8 +372,7 @@ Window {
                                     Component.onCompleted: {
                                         // Request All Sets to populate combo box
                                         //console.log("Requesting sets from backend...")
-                                        backendController.request_sets_retrieve(
-                                                    )
+                                        backendController.request_sets_retrieve()
                                     }
 
                                     Connections {
