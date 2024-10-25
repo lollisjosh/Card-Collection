@@ -1,7 +1,7 @@
 from pokemonttcgsdk import Card
 
 class CardProcessor:
-    """Processes Pokémon TCG cards for easier handling and presentation.
+    """A utility class that processes Pokémon TCG card types into a python type.
 
     This class provides static methods to process various attributes of Pokémon cards,
     including abilities, attacks, and subtypes, transforming them into a structured format
