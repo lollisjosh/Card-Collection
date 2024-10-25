@@ -58,7 +58,8 @@ class BackendController(QObject):
     @Slot(list)
     def request_search(self, params: list[tuple[str, str, str]]):
         """
-        Provide an interface for the front end to make search requests with the given search parameters.
+        Description:
+            Provide an interface for the front end to make search requests with the given search parameters.
         Args:
             params (list[tuple[str, str, str]]): 
                 List of search parameter tuples of the form (category, subcategory, target).
