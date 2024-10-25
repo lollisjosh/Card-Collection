@@ -9,6 +9,8 @@
         "main.qml",
         "qtquickcontrols2.conf",
         "requirements.txt",
-        "resource.qrc"
+        "resource.qrc",
+        "ball.png",
+        "ballsmall.png"
     ]
 }
