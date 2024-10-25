@@ -27,7 +27,11 @@ Window {
     property var cards: [] // List of card objects
     property int selectedTabIndex: 0
 
-    // StackLayout to switch between pages
+
+    function updateAttackCost() {
+        attack1Cost1Text.text = cards[selectedIndex].attack1Cost1 || "Cost 1"
+
+    }
 
     // Function to update attack information based on selectedIndex
     function updateAttackInfo() {
@@ -80,6 +84,8 @@ Window {
             attack4DescriptionBlock.visible = attack4NameBlock.visible
             attack4DescriptionBlock.height = attack4DescriptionBlock.visible
                     && attack4DescriptionText.text === "No description available." ? 75 : 120
+
+            updateAttackCost();
         }
     }
 
@@ -335,7 +341,7 @@ Window {
                     ColumnLayout {
                         id: searchToolsColumn
                         width: 100
-                        height: 100
+                        height: 85
                         spacing: 0
                         Layout.columnSpan: 1
                         z: 0
@@ -351,6 +357,8 @@ Window {
                             bottomPadding: 0
                             contentHeight: 30
                             height: 40
+                            fairyChecked: false
+                            dragonChecked: false
                             horizontalPadding: 0
                             verticalPadding: 0
                             width: 480
@@ -368,7 +376,7 @@ Window {
                             bottomPadding: 0
                             contentHeight: 48
                             contentWidth: 200
-                            height: 48
+                            height: 45
                             horizontalPadding: 0
                             width: parent.width
                             z: 0
@@ -828,6 +836,115 @@ Window {
 
 
                                         Rectangle {
+                                            id: supertypeBlock
+                                            width: 155
+                                            height: 45
+                                            color: "#c80d0d"
+                                            radius: 8
+                                            border.color: "#6c0101"
+                                            border.width: 2
+                                            Rectangle {
+                                                id: rectangle30
+                                                color: "#b2b2b2"
+                                                radius: 8
+                                                border.color: "#616161"
+                                                border.width: 2
+                                                anchors.fill: parent
+                                                anchors.leftMargin: 4
+                                                anchors.rightMargin: 4
+                                                anchors.topMargin: 3
+                                                anchors.bottomMargin: 3
+                                            }
+
+                                            Rectangle {
+                                                id: supertypeScreen
+                                                color: attack1NameScreen.color
+                                                radius: 4
+                                                border.color: "#128c17"
+                                                border.width: 2
+                                                anchors.fill: parent
+                                                anchors.leftMargin: 11
+                                                anchors.rightMargin: 11
+                                                anchors.topMargin: 7
+                                                anchors.bottomMargin: 7
+                                                Text {
+                                                    id: supertypeText
+                                                    color: "#c5002a02"
+                                                    text: "Super Type"
+                                                    anchors.left: parent.left
+                                                    anchors.right: parent.right
+                                                    anchors.top: parent.top
+                                                    anchors.bottom: parent.bottom
+                                                    anchors.leftMargin: 4
+                                                    anchors.rightMargin: 4
+                                                    anchors.topMargin: 4
+                                                    anchors.bottomMargin: 4
+                                                    horizontalAlignment: Text.AlignHCenter
+                                                    verticalAlignment: Text.AlignVCenter
+                                                    wrapMode: Text.Wrap
+                                                    z: 1
+                                                    minimumPointSize: 8
+                                                    minimumPixelSize: 8
+                                                    fontSizeMode: Text.Fit
+                                                    font.styleName: "Bold Italic"
+                                                    font.pointSize: 30
+                                                }
+
+                                                DropShadow {
+                                                    opacity: 0.8
+                                                    color: "#095f0c"
+                                                    radius: 3.8
+                                                    anchors.fill: supertypeText
+                                                    source: supertypeText
+                                                    verticalOffset: 3
+                                                    samples: 16
+                                                    horizontalOffset: 3
+                                                }
+
+                                                Text {
+                                                    id: supertypeDropText
+                                                    visible: false
+                                                    color: "#2a7b2d"
+                                                    text: supertypeText.text
+                                                    anchors.left: parent.left
+                                                    anchors.right: parent.right
+                                                    anchors.top: parent.top
+                                                    anchors.bottom: parent.bottom
+                                                    anchors.leftMargin: 6
+                                                    anchors.rightMargin: 2
+                                                    anchors.topMargin: 7
+                                                    anchors.bottomMargin: 1
+                                                    horizontalAlignment: Text.AlignHCenter
+                                                    verticalAlignment: Text.AlignVCenter
+                                                    wrapMode: Text.Wrap
+                                                    z: 0
+                                                    minimumPointSize: 8
+                                                    minimumPixelSize: 8
+                                                    fontSizeMode: Text.Fit
+                                                    font.styleName: "Bold Italic"
+                                                    font.pointSize: 30
+                                                }
+
+                                                Rectangle {
+                                                    id: rectangle31
+                                                    x: -8
+                                                    y: -4
+                                                    color: "#00ffffff"
+                                                    radius: 4
+                                                    border.color: "#25fb2e"
+                                                    border.width: 1
+                                                    anchors.fill: parent
+                                                    anchors.leftMargin: 3
+                                                    anchors.rightMargin: 3
+                                                    anchors.topMargin: 3
+                                                    anchors.bottomMargin: 3
+                                                }
+                                                clip: true
+                                            }
+                                            anchors.horizontalCenter: parent.horizontalCenter
+                                        }
+
+                                        Rectangle {
                                             id: nameBlock
                                             width: 180
                                             height: 70
@@ -943,114 +1060,6 @@ Window {
                                         }
 
 
-                                        Rectangle {
-                                            id: supertypeBlock
-                                            width: 175
-                                            height: 45
-                                            color: "#c80d0d"
-                                            radius: 8
-                                            border.color: "#6c0101"
-                                            border.width: 2
-                                            Rectangle {
-                                                id: rectangle30
-                                                color: "#b2b2b2"
-                                                radius: 8
-                                                border.color: "#616161"
-                                                border.width: 2
-                                                anchors.fill: parent
-                                                anchors.leftMargin: 4
-                                                anchors.rightMargin: 4
-                                                anchors.topMargin: 3
-                                                anchors.bottomMargin: 3
-                                            }
-
-                                            Rectangle {
-                                                id: supertypeScreen
-                                                color: attack1NameScreen.color
-                                                radius: 4
-                                                border.color: "#128c17"
-                                                border.width: 2
-                                                anchors.fill: parent
-                                                anchors.leftMargin: 11
-                                                anchors.rightMargin: 11
-                                                anchors.topMargin: 7
-                                                anchors.bottomMargin: 7
-                                                Text {
-                                                    id: supertypeText
-                                                    color: "#c5002a02"
-                                                    text: "Super Type"
-                                                    anchors.left: parent.left
-                                                    anchors.right: parent.right
-                                                    anchors.top: parent.top
-                                                    anchors.bottom: parent.bottom
-                                                    anchors.leftMargin: 4
-                                                    anchors.rightMargin: 4
-                                                    anchors.topMargin: 4
-                                                    anchors.bottomMargin: 4
-                                                    horizontalAlignment: Text.AlignHCenter
-                                                    verticalAlignment: Text.AlignVCenter
-                                                    wrapMode: Text.Wrap
-                                                    z: 1
-                                                    minimumPointSize: 8
-                                                    minimumPixelSize: 8
-                                                    fontSizeMode: Text.Fit
-                                                    font.styleName: "Bold Italic"
-                                                    font.pointSize: 30
-                                                }
-
-                                                DropShadow {
-                                                    opacity: 0.8
-                                                    color: "#095f0c"
-                                                    radius: 3.8
-                                                    anchors.fill: supertypeText
-                                                    source: supertypeText
-                                                    verticalOffset: 3
-                                                    samples: 16
-                                                    horizontalOffset: 3
-                                                }
-
-                                                Text {
-                                                    id: supertypeDropText
-                                                    visible: false
-                                                    color: "#2a7b2d"
-                                                    text: supertypeText.text
-                                                    anchors.left: parent.left
-                                                    anchors.right: parent.right
-                                                    anchors.top: parent.top
-                                                    anchors.bottom: parent.bottom
-                                                    anchors.leftMargin: 6
-                                                    anchors.rightMargin: 2
-                                                    anchors.topMargin: 7
-                                                    anchors.bottomMargin: 1
-                                                    horizontalAlignment: Text.AlignHCenter
-                                                    verticalAlignment: Text.AlignVCenter
-                                                    wrapMode: Text.Wrap
-                                                    z: 0
-                                                    minimumPointSize: 8
-                                                    minimumPixelSize: 8
-                                                    fontSizeMode: Text.Fit
-                                                    font.styleName: "Bold Italic"
-                                                    font.pointSize: 30
-                                                }
-
-                                                Rectangle {
-                                                    id: rectangle31
-                                                    x: -8
-                                                    y: -4
-                                                    color: "#00ffffff"
-                                                    radius: 4
-                                                    border.color: "#25fb2e"
-                                                    border.width: 1
-                                                    anchors.fill: parent
-                                                    anchors.leftMargin: 3
-                                                    anchors.rightMargin: 3
-                                                    anchors.topMargin: 3
-                                                    anchors.bottomMargin: 3
-                                                }
-                                                clip: true
-                                            }
-                                            anchors.horizontalCenter: parent.horizontalCenter
-                                        }
 
                                         Rectangle {
                                             id: subtypeBlock
@@ -1941,6 +1950,8 @@ Window {
                                         id: column
                                         spacing: 3
 
+
+
                                         Rectangle {
                                             id: attack1NameBlock
                                             width: 200
@@ -2019,6 +2030,116 @@ Window {
                                                     }
                                                 }
                                             }
+                                        }
+
+
+                                        Rectangle {
+                                            id: attack1Cost1Block
+                                            width: 122
+                                            height: 45
+                                            color: "#c80d0d"
+                                            radius: 8
+                                            border.color: "#6c0101"
+                                            border.width: 2
+                                            Rectangle {
+                                                id: rectangle32
+                                                color: "#b2b2b2"
+                                                radius: 8
+                                                border.color: "#616161"
+                                                border.width: 2
+                                                anchors.fill: parent
+                                                anchors.leftMargin: 4
+                                                anchors.rightMargin: 4
+                                                anchors.topMargin: 3
+                                                anchors.bottomMargin: 3
+                                            }
+
+                                            Rectangle {
+                                                id: attack1Cost1Screen
+                                                color: attack1NameScreen.color
+                                                radius: 4
+                                                border.color: "#128c17"
+                                                border.width: 2
+                                                anchors.fill: parent
+                                                anchors.leftMargin: 11
+                                                anchors.rightMargin: 11
+                                                anchors.topMargin: 7
+                                                anchors.bottomMargin: 7
+                                                Text {
+                                                    id: attack1Cost1Text
+                                                    color: "#c5002a02"
+                                                    text: "Cost 1"
+                                                    anchors.left: parent.left
+                                                    anchors.right: parent.right
+                                                    anchors.top: parent.top
+                                                    anchors.bottom: parent.bottom
+                                                    anchors.leftMargin: 4
+                                                    anchors.rightMargin: 4
+                                                    anchors.topMargin: 4
+                                                    anchors.bottomMargin: 4
+                                                    horizontalAlignment: Text.AlignHCenter
+                                                    verticalAlignment: Text.AlignVCenter
+                                                    wrapMode: Text.Wrap
+                                                    z: 1
+                                                    minimumPointSize: 8
+                                                    minimumPixelSize: 8
+                                                    fontSizeMode: Text.Fit
+                                                    font.styleName: "Bold Italic"
+                                                    font.pointSize: 30
+                                                }
+
+                                                DropShadow {
+                                                    opacity: 0.8
+                                                    color: "#095f0c"
+                                                    radius: 3.8
+                                                    anchors.fill: attack1Cost1Text
+                                                    source: attack1Cost1Text
+                                                    verticalOffset: 3
+                                                    samples: 16
+                                                    horizontalOffset: 3
+                                                }
+
+                                                Text {
+                                                    id: attack1Cost1DropText
+                                                    visible: false
+                                                    color: "#2a7b2d"
+                                                    text: attack1Cost1Text.text
+                                                    anchors.left: parent.left
+                                                    anchors.right: parent.right
+                                                    anchors.top: parent.top
+                                                    anchors.bottom: parent.bottom
+                                                    anchors.leftMargin: 6
+                                                    anchors.rightMargin: 2
+                                                    anchors.topMargin: 7
+                                                    anchors.bottomMargin: 1
+                                                    horizontalAlignment: Text.AlignHCenter
+                                                    verticalAlignment: Text.AlignVCenter
+                                                    wrapMode: Text.Wrap
+                                                    z: 0
+                                                    minimumPointSize: 8
+                                                    minimumPixelSize: 8
+                                                    fontSizeMode: Text.Fit
+                                                    font.styleName: "Bold Italic"
+                                                    font.pointSize: 30
+                                                }
+
+                                                Rectangle {
+                                                    id: rectangle35
+                                                    x: -8
+                                                    y: -4
+                                                    color: "#00ffffff"
+                                                    radius: 4
+                                                    border.color: "#25fb2e"
+                                                    border.width: 1
+                                                    anchors.fill: parent
+                                                    anchors.leftMargin: 3
+                                                    anchors.rightMargin: 3
+                                                    anchors.topMargin: 3
+                                                    anchors.bottomMargin: 3
+                                                }
+                                                clip: true
+                                            }
+                                            anchors.horizontalCenter: parent.horizontalCenter
                                         }
 
                                         Rectangle {
@@ -2115,6 +2236,7 @@ Window {
                                             }
                                         }
 
+
                                         Rectangle {
                                             id: attack2NameBlock
                                             width: 200
@@ -2204,6 +2326,7 @@ Window {
                                                 }
                                             }
                                         }
+
 
                                         Rectangle {
                                             id: attack2DescriptionBlock
@@ -2299,6 +2422,7 @@ Window {
                                             }
                                         }
 
+
                                         Rectangle {
                                             id: attack3NameBlock
                                             width: 200
@@ -2388,6 +2512,7 @@ Window {
                                                 }
                                             }
                                         }
+
 
                                         Rectangle {
                                             id: attack3DescriptionBlock
@@ -2480,6 +2605,7 @@ Window {
                                             }
                                         }
 
+
                                         Rectangle {
                                             id: attack4NameBlock
                                             width: 200
@@ -2569,6 +2695,7 @@ Window {
                                             }
                                             anchors.horizontalCenter: parent.horizontalCenter
                                         }
+
 
                                         Rectangle {
                                             id: attack4DescriptionBlock
@@ -2661,6 +2788,7 @@ Window {
                                             }
                                         }
 
+
                                         Rectangle {
                                             id: ability1NameBlock
                                             width: 200
@@ -2742,6 +2870,7 @@ Window {
                                             }
                                         }
 
+
                                         Rectangle {
                                             id: ability1TypeBlock
                                             width: 175
@@ -2817,6 +2946,7 @@ Window {
                                                 }
                                             }
                                         }
+
 
                                         Rectangle {
                                             id: ability1DescriptionBlock
@@ -2909,6 +3039,7 @@ Window {
                                             }
                                         }
 
+
                                         Rectangle {
                                             id: ability2NameBlock
                                             width: 200
@@ -2989,6 +3120,7 @@ Window {
                                             }
                                         }
 
+
                                         Rectangle {
                                             id: ability2TypeBlock
                                             width: 175
@@ -3065,6 +3197,7 @@ Window {
                                                 }
                                             }
                                         }
+
 
                                         Rectangle {
                                             id: ability2DescriptionBlock
@@ -3156,6 +3289,7 @@ Window {
                                                 }
                                             }
                                         }
+
                                     }
                                 }
                             }
@@ -3376,21 +3510,41 @@ Window {
                                                       "attack1Text": card.attack1Text || "",
                                                       "attack1Damage": card.attack1Damage || "",
                                                       "attack1ConvertedEnergyCost": card.attack1ConvertedEnergyCost || 0,
+                                                      "attack1Cost1": card.attack1Cost1 || "",
+                                                      "attack1Cost2": card.attack1Cost2 || "",
+                                                      "attack1Cost3": card.attack1Cost3 || "",
+                                                      "attack1Cost4": card.attack1Cost4 || "",
+                                                      "attack1Cost5": card.attack1Cost5 || "",
 
                                                       "attack2Name": card.attack2Name || "",
                                                       "attack2Text": card.attack2Text || "",
                                                       "attack2Damage": card.attack2Damage || "",
                                                       "attack2ConvertedEnergyCost": card.attack2ConvertedEnergyCost || 0,
+                                                      "attack2Cost1": card.attack2Cost1 || "",
+                                                      "attack2Cost2": card.attack2Cost2 || "",
+                                                      "attack2Cost3": card.attack2Cost3 || "",
+                                                      "attack2Cost4": card.attack2Cost4 || "",
+                                                      "attack2Cost5": card.attack2Cost5 || "",
 
                                                       "attack3Name": card.attack3Name || "",
                                                       "attack3Text": card.attack3Text || "",
                                                       "attack3Damage": card.attack3Damage || "",
                                                       "attack3ConvertedEnergyCost": card.attack3ConvertedEnergyCost || 0,
+                                                      "attack3Cost1": card.attack3Cost1 || "",
+                                                      "attack3Cost2": card.attack3Cost2 || "",
+                                                      "attack3Cost3": card.attack3Cost3 || "",
+                                                      "attack3Cost4": card.attack3Cost4 || "",
+                                                      "attack3Cost5": card.attack3Cost5 || "",
 
                                                       "attack4Name": card.attack4Name || "",
                                                       "attack4Text": card.attack4Text || "",
                                                       "attack4Damage": card.attack4Damage || "",
                                                       "attack4ConvertedEnergyCost": card.attack4ConvertedEnergyCost || 0,
+                                                      "attack4Cost1": card.attack4Cost1 || "",
+                                                      "attack4Cost2": card.attack4Cost2 || "",
+                                                      "attack4Cost3": card.attack4Cost3 || "",
+                                                      "attack4Cost4": card.attack4Cost4 || "",
+                                                      "attack4Cost5": card.attack4Cost5 || "",
 
                                                       // Subtypes
                                                       "subtype1" : card.subtype1 || "",
@@ -3403,6 +3557,7 @@ Window {
 
                         selectedIndex = 0; // Start with the first card
                         updateAttackInfo();
+                        updateAttackCost();
                         updateAbilityInfo();
                         updateSubTypeInfo();
                         updateSuperTypeInfo();
