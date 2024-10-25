@@ -45,11 +45,11 @@ class BackendController(QObject):
         try:
 
             initHandler = inithandler.InitHandler()
-
+            
             sets = initHandler.handle_sets_retrieve()
-
+            
             setList = [{"name" : set.name} for set in sets]
-
+            
             self.setsResults.emit(json.dumps(setList))
         
         except Exception as e:
@@ -58,18 +58,16 @@ class BackendController(QObject):
     @Slot(list)
     def request_search(self, params: list[tuple[str, str, str]]):
         """
-        Provide an interface for the front end 
-        to make search requests with the given search parameters.
+        Provide an interface for the front end to make search requests with the given search parameters.
         Args:
             params (list[tuple[str, str, str]]): 
                 List of search parameter tuples of the form (category, subcategory, target).
         """
         try:
-            search_handler = searchhandler.SearchHandler()
-            cards = search_handler.handle_request_search(params)
+            cards = searchhandler.SearchHandler.handle_request_search(params)
 
             if cards:
-                card_list = CardProcessor.process_cards(cards)
+                card_list = cardprocessor.CardProcessor.process_cards(cards)
                 self.search_results.emit(json.dumps(card_list))
             else:
                 self.search_results.emit(json.dumps({"error": "No results found."}))
@@ -77,9 +75,6 @@ class BackendController(QObject):
         except Exception as e:
             error_msg = f"Error processing search: {str(e)}"
             self.search_results.emit(json.dumps({"error": error_msg}))
-
-
-
 
     @Slot(list)
     def request_discover(self, params: list[tuple[str, str, str]]):
