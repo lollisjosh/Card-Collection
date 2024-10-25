@@ -1,3 +1,5 @@
+import json
+
 from PySide6.QtCore import QObject, Slot, Signal
 
 from pokemontcgsdk import Card
@@ -6,10 +8,6 @@ from pokemontcgsdk import Type
 from pokemontcgsdk import Supertype
 from pokemontcgsdk import Subtype
 from pokemontcgsdk import Rarity
-
-import json
-
-#from requests.exceptions import RequestException
 
 import inithandler
 import searchhandler
@@ -45,13 +43,13 @@ class BackendController(QObject):
             params none
         """
         try:
-            
+
             initHandler = inithandler.InitHandler()
-            
+
             sets = initHandler.handle_sets_retrieve()
-            
+
             setList = [{"name" : set.name} for set in sets]
-            
+
             self.setsResults.emit(json.dumps(setList))
         
         except Exception as e:
@@ -60,7 +58,8 @@ class BackendController(QObject):
     @Slot(list)
     def request_search(self, params: list[tuple[str, str, str]]):
         """
-        Provide an interface for the front end to make search requests with the given search parameters.
+        Provide an interface for the front end 
+        to make search requests with the given search parameters.
         Args:
             params (list[tuple[str, str, str]]): 
                 List of search parameter tuples of the form (category, subcategory, target).
@@ -116,4 +115,3 @@ class BackendController(QObject):
             params (list[tuple[str, str, str]]): 
                 List of tuples of the form (category, subcategory, target)
         """
-
