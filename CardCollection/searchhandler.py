@@ -1,3 +1,4 @@
+from pokemontcgsdk import Card
 from backend import Backend
 
 class SearchHandler:
@@ -21,6 +22,5 @@ class SearchHandler:
         Returns:
             list[Card]: A list of Card objects as search results.
         """
-        query = construct_query(tupleList)
-        
-        return queryApi(query)
+
+        return Backend.construct_query(tupleList)
