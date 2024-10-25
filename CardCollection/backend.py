@@ -79,6 +79,7 @@ class Backend:
         Returns: 
             list[Card]: A list of Card objects returned by the API.
         """
+        return Card.where(q=query)
 
     def all_sets(self) -> list[Set]:
         """
