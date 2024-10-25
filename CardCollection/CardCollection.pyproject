@@ -3,6 +3,7 @@
         "backend.py",
         "backendcontroller.py",
         "inithandler.py",
+        "searchhandler.py",
         "main.py",
         "main.qml",
         "qtquickcontrols2.conf",
