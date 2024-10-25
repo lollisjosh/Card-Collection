@@ -1,8 +1,8 @@
 {
     "files": [
+        "backend.py",
+        "searchhandler.py",
         "backendcontroller.py",
-        "driver_backendcontroller.py",
-        "driver_main.py",
         "inithandler.py",
         "main.py",
         "main.qml",
