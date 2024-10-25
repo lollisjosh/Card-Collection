@@ -17,6 +17,9 @@ Window {
 
     visible: true
     color: "#611b1b"
+    property alias attack1Cost2Text: attack1Cost2Text
+    property alias attack1Cost2DropText: attack1Cost2DropText
+    property alias attack1Cost1Text: attack1Cost1Text
     property alias _text: _text
     property alias leftScrollView: leftScrollView
     property alias _itemOuterRedMid: _itemOuterRedMid
@@ -30,6 +33,9 @@ Window {
 
     function updateAttackCost() {
         attack1Cost1Text.text = cards[selectedIndex].attack1Cost1 || "Cost 1"
+        attack1Cost2Text.text = cards[selectedIndex].attack1Cost2 || "Cost 2"
+        attack1Cost3Text.text = cards[selectedIndex].attack1Cost3 || "Cost 3"
+        attack1Cost4Text.text = cards[selectedIndex].attack1Cost4 || "Cost 4"
 
     }
 
@@ -1955,7 +1961,7 @@ Window {
                                         Rectangle {
                                             id: attack1NameBlock
                                             width: 200
-                                            height: 45
+                                            height: 50
                                             color: "#c80d0d"
                                             radius: 8
                                             border.color: "#6c0101"
@@ -2034,112 +2040,445 @@ Window {
 
 
                                         Rectangle {
-                                            id: attack1Cost1Block
-                                            width: 122
-                                            height: 45
-                                            color: "#c80d0d"
-                                            radius: 8
-                                            border.color: "#6c0101"
-                                            border.width: 2
-                                            Rectangle {
-                                                id: rectangle32
-                                                color: "#b2b2b2"
-                                                radius: 8
-                                                border.color: "#616161"
-                                                border.width: 2
+                                            id: attack1CostBlock
+                                            width: 245
+                                            height: 40
+                                            color: "#00c80d0d"
+                                            radius: 6
+                                            border.color: "#006c0101"
+                                            border.width: 0
+                                            anchors.horizontalCenter: parent.horizontalCenter
+
+                                            Flow {
+                                                id: attack1CostFlow
                                                 anchors.fill: parent
-                                                anchors.leftMargin: 4
-                                                anchors.rightMargin: 4
-                                                anchors.topMargin: 3
-                                                anchors.bottomMargin: 3
-                                            }
+                                                layoutDirection: Qt.LeftToRight
+                                                spacing: 3
+                                                flow: Flow.LeftToRight
 
-                                            Rectangle {
-                                                id: attack1Cost1Screen
-                                                color: attack1NameScreen.color
-                                                radius: 4
-                                                border.color: "#128c17"
-                                                border.width: 2
-                                                anchors.fill: parent
-                                                anchors.leftMargin: 11
-                                                anchors.rightMargin: 11
-                                                anchors.topMargin: 7
-                                                anchors.bottomMargin: 7
-                                                Text {
-                                                    id: attack1Cost1Text
-                                                    color: "#c5002a02"
-                                                    text: "Cost 1"
-                                                    anchors.left: parent.left
-                                                    anchors.right: parent.right
-                                                    anchors.top: parent.top
-                                                    anchors.bottom: parent.bottom
-                                                    anchors.leftMargin: 4
-                                                    anchors.rightMargin: 4
-                                                    anchors.topMargin: 4
-                                                    anchors.bottomMargin: 4
-                                                    horizontalAlignment: Text.AlignHCenter
-                                                    verticalAlignment: Text.AlignVCenter
-                                                    wrapMode: Text.Wrap
-                                                    z: 1
-                                                    minimumPointSize: 8
-                                                    minimumPixelSize: 8
-                                                    fontSizeMode: Text.Fit
-                                                    font.styleName: "Bold Italic"
-                                                    font.pointSize: 30
-                                                }
+                                                Rectangle {
+                                                    id: attack1Cost1Block
+                                                    width: 59
+                                                    height: 40
+                                                    visible: true
+                                                    color: "#c80d0d"
+                                                    radius: 6
+                                                    border.color: "#6c0101"
+                                                    border.width: 2
 
-                                                DropShadow {
-                                                    opacity: 0.8
-                                                    color: "#095f0c"
-                                                    radius: 3.8
-                                                    anchors.fill: attack1Cost1Text
-                                                    source: attack1Cost1Text
-                                                    verticalOffset: 3
-                                                    samples: 16
-                                                    horizontalOffset: 3
-                                                }
+                                                    Rectangle {
+                                                        id: attack1Cost1Bezel
+                                                        visible: true
+                                                        color: "#b2b2b2"
+                                                        radius: 8
+                                                        border.color: "#616161"
+                                                        border.width: 2
+                                                        anchors.fill: parent
+                                                        anchors.leftMargin: 4
+                                                        anchors.rightMargin: 4
+                                                        anchors.topMargin: 4
+                                                        anchors.bottomMargin: 4
+                                                        Layout.preferredHeight: 60
+                                                        Layout.preferredWidth: 60
+                                                        Layout.fillHeight: true
+                                                        Layout.fillWidth: true
 
-                                                Text {
-                                                    id: attack1Cost1DropText
-                                                    visible: false
-                                                    color: "#2a7b2d"
-                                                    text: attack1Cost1Text.text
-                                                    anchors.left: parent.left
-                                                    anchors.right: parent.right
-                                                    anchors.top: parent.top
-                                                    anchors.bottom: parent.bottom
-                                                    anchors.leftMargin: 6
-                                                    anchors.rightMargin: 2
-                                                    anchors.topMargin: 7
-                                                    anchors.bottomMargin: 1
-                                                    horizontalAlignment: Text.AlignHCenter
-                                                    verticalAlignment: Text.AlignVCenter
-                                                    wrapMode: Text.Wrap
-                                                    z: 0
-                                                    minimumPointSize: 8
-                                                    minimumPixelSize: 8
-                                                    fontSizeMode: Text.Fit
-                                                    font.styleName: "Bold Italic"
-                                                    font.pointSize: 30
+                                                        Rectangle {
+                                                            id: attack1Cost1Screen
+                                                            x: 7
+                                                            y: 4
+                                                            color: attack1NameScreen.color
+                                                            radius: 4
+                                                            border.color: "#128c17"
+                                                            border.width: 2
+                                                            anchors.fill: parent
+                                                            anchors.leftMargin: 6
+                                                            anchors.rightMargin: 6
+                                                            anchors.topMargin: 6
+                                                            anchors.bottomMargin: 6
+                                                            Text {
+                                                                id: attack1Cost1Text
+                                                                color: "#c5002a02"
+                                                                text: "Cost"
+                                                                anchors.fill: parent
+                                                                horizontalAlignment: Text.AlignHCenter
+                                                                verticalAlignment: Text.AlignVCenter
+                                                                wrapMode: Text.Wrap
+                                                                state: "base state4"
+                                                                z: 1
+                                                                minimumPointSize: 4
+                                                                minimumPixelSize: 4
+                                                                fontSizeMode: Text.Fit
+                                                                font.styleName: "Bold Italic"
+                                                                font.pointSize: 30
+                                                            }
+
+                                                            DropShadow {
+                                                                id: attack1Cost1DropShadow
+                                                                opacity: 0.8
+                                                                color: "#095f0c"
+                                                                radius: 3.8
+                                                                anchors.fill: attack1Cost1Text
+                                                                source: attack1Cost1Text
+                                                                verticalOffset: 3
+                                                                samples: 16
+                                                                horizontalOffset: 3
+                                                            }
+
+                                                            Text {
+                                                                id: attack1Cost1DropText
+                                                                visible: false
+                                                                color: "#2a7b2d"
+                                                                text: attack1Cost1Text.text
+                                                                anchors.fill: parent
+                                                                horizontalAlignment: Text.AlignHCenter
+                                                                verticalAlignment: Text.AlignVCenter
+                                                                wrapMode: Text.Wrap
+                                                                z: 0
+                                                                minimumPointSize: 4
+                                                                minimumPixelSize: 4
+                                                                fontSizeMode: Text.Fit
+                                                                font.styleName: "Bold Italic"
+                                                                font.pointSize: 30
+                                                            }
+
+                                                            Rectangle {
+                                                                id: attack1Cost1BlockHighlight
+                                                                x: -8
+                                                                y: -4
+                                                                color: "#00ffffff"
+                                                                radius: 4
+                                                                border.color: "#25fb2e"
+                                                                border.width: 1
+                                                                anchors.fill: parent
+                                                                anchors.leftMargin: 3
+                                                                anchors.rightMargin: 3
+                                                                anchors.topMargin: 3
+                                                                anchors.bottomMargin: 3
+                                                            }
+                                                            clip: true
+                                                        }
+                                                    }
+
                                                 }
 
                                                 Rectangle {
-                                                    id: rectangle35
-                                                    x: -8
-                                                    y: -4
-                                                    color: "#00ffffff"
-                                                    radius: 4
-                                                    border.color: "#25fb2e"
-                                                    border.width: 1
-                                                    anchors.fill: parent
-                                                    anchors.leftMargin: 3
-                                                    anchors.rightMargin: 3
-                                                    anchors.topMargin: 3
-                                                    anchors.bottomMargin: 3
+                                                    id: attack1Cost2Block
+                                                    width: 59
+                                                    height: 40
+                                                    visible: true
+                                                    color: "#c80d0d"
+                                                    radius: 6
+                                                    border.color: "#6c0101"
+                                                    border.width: 2
+                                                    Rectangle {
+                                                        id: attack1Cost2Bezel
+                                                        color: "#b2b2b2"
+                                                        radius: 8
+                                                        border.color: "#616161"
+                                                        border.width: 2
+                                                        anchors.fill: parent
+                                                        anchors.leftMargin: 4
+                                                        anchors.rightMargin: 4
+                                                        anchors.topMargin: 4
+                                                        anchors.bottomMargin: 4
+                                                        Layout.preferredWidth: 60
+                                                        Layout.preferredHeight: 60
+                                                        Layout.fillHeight: true
+                                                        Layout.fillWidth: true
+                                                        Rectangle {
+                                                            id: attack1Cost2Screen
+                                                            x: 7
+                                                            y: 4
+                                                            color: attack1NameScreen.color
+                                                            radius: 4
+                                                            border.color: "#128c17"
+                                                            border.width: 2
+                                                            anchors.fill: parent
+                                                            anchors.leftMargin: 6
+                                                            anchors.rightMargin: 6
+                                                            anchors.topMargin: 6
+                                                            anchors.bottomMargin: 6
+                                                            Text {
+                                                                id: attack1Cost2Text
+                                                                color: "#c5002a02"
+                                                                text: "Cost"
+                                                                anchors.fill: parent
+                                                                horizontalAlignment: Text.AlignHCenter
+                                                                verticalAlignment: Text.AlignVCenter
+                                                                wrapMode: Text.Wrap
+                                                                z: 1
+                                                                minimumPointSize: 4
+                                                                minimumPixelSize: 4
+                                                                fontSizeMode: Text.Fit
+                                                                font.styleName: "Bold Italic"
+                                                                font.pointSize: 30
+                                                            }
+
+                                                            DropShadow {
+                                                                id: attack1Cost2DropShadow
+                                                                opacity: 0.8
+                                                                color: "#095f0c"
+                                                                radius: 3.8
+                                                                anchors.fill: attack1Cost2Text
+                                                                source: attack1Cost2Text
+                                                                verticalOffset: 3
+                                                                samples: 16
+                                                                horizontalOffset: 3
+                                                            }
+
+                                                            Text {
+                                                                id: attack1Cost2DropText
+                                                                visible: false
+                                                                color: "#2a7b2d"
+                                                                text: attack1Cost2Text.text
+                                                                anchors.fill: parent
+                                                                anchors.leftMargin: 4
+                                                                anchors.rightMargin: 4
+                                                                anchors.topMargin: 4
+                                                                anchors.bottomMargin: 4
+                                                                horizontalAlignment: Text.AlignHCenter
+                                                                verticalAlignment: Text.AlignVCenter
+                                                                wrapMode: Text.Wrap
+                                                                z: 0
+                                                                minimumPointSize: 4
+                                                                minimumPixelSize: 4
+                                                                fontSizeMode: Text.Fit
+                                                                font.styleName: "Bold Italic"
+                                                                font.pointSize: 30
+                                                            }
+
+                                                            Rectangle {
+                                                                id: attack1Cost2BlockHighlight
+                                                                x: -8
+                                                                y: -4
+                                                                color: "#00ffffff"
+                                                                radius: 4
+                                                                border.color: "#25fb2e"
+                                                                border.width: 1
+                                                                anchors.fill: parent
+                                                                anchors.leftMargin: 3
+                                                                anchors.rightMargin: 3
+                                                                anchors.topMargin: 3
+                                                                anchors.bottomMargin: 3
+                                                            }
+                                                            clip: true
+                                                        }
+                                                    }
                                                 }
-                                                clip: true
+
+                                                Rectangle {
+                                                    id: attack1Cost3Block
+                                                    width: 59
+                                                    height: 40
+                                                    visible: true
+                                                    color: "#c80d0d"
+                                                    radius: 6
+                                                    border.color: "#6c0101"
+                                                    border.width: 2
+                                                    Rectangle {
+                                                        id: attack1Cost3Bezel
+                                                        color: "#b2b2b2"
+                                                        radius: 8
+                                                        border.color: "#616161"
+                                                        border.width: 2
+                                                        anchors.fill: parent
+                                                        anchors.leftMargin: 4
+                                                        anchors.rightMargin: 4
+                                                        anchors.topMargin: 4
+                                                        anchors.bottomMargin: 4
+                                                        Rectangle {
+                                                            id: attack1Cost3Screen
+                                                            x: 7
+                                                            y: 4
+                                                            color: attack1NameScreen.color
+                                                            radius: 4
+                                                            border.color: "#128c17"
+                                                            border.width: 2
+                                                            anchors.fill: parent
+                                                            anchors.leftMargin: 6
+                                                            anchors.rightMargin: 6
+                                                            anchors.topMargin: 6
+                                                            anchors.bottomMargin: 6
+                                                            Text {
+                                                                id: attack1Cost3Text
+                                                                color: "#c5002a02"
+                                                                text: "Cost"
+                                                                anchors.fill: parent
+                                                                horizontalAlignment: Text.AlignHCenter
+                                                                verticalAlignment: Text.AlignVCenter
+                                                                wrapMode: Text.Wrap
+                                                                z: 1
+                                                                minimumPointSize: 4
+                                                                minimumPixelSize: 4
+                                                                fontSizeMode: Text.Fit
+                                                                font.styleName: "Bold Italic"
+                                                                font.pointSize: 30
+                                                            }
+
+                                                            DropShadow {
+                                                                id: attack1Cost3DropShadow
+                                                                opacity: 0.8
+                                                                color: "#095f0c"
+                                                                radius: 3.8
+                                                                anchors.fill: attack1Cost3Text
+                                                                source: attack1Cost3Text
+                                                                verticalOffset: 3
+                                                                samples: 16
+                                                                horizontalOffset: 3
+                                                            }
+
+                                                            Text {
+                                                                id: attack1Cost3DropText
+                                                                visible: false
+                                                                color: "#2a7b2d"
+                                                                text: attack1Cost3Text.text
+                                                                anchors.fill: parent
+                                                                anchors.leftMargin: 4
+                                                                anchors.rightMargin: 4
+                                                                anchors.topMargin: 4
+                                                                anchors.bottomMargin: 4
+                                                                horizontalAlignment: Text.AlignHCenter
+                                                                verticalAlignment: Text.AlignVCenter
+                                                                wrapMode: Text.Wrap
+                                                                z: 0
+                                                                minimumPointSize: 6
+                                                                minimumPixelSize: 6
+                                                                fontSizeMode: Text.Fit
+                                                                font.styleName: "Bold Italic"
+                                                                font.pointSize: 30
+                                                            }
+
+                                                            Rectangle {
+                                                                id: attack1Cost3BlockHighlight
+                                                                x: -8
+                                                                y: -4
+                                                                color: "#00ffffff"
+                                                                radius: 4
+                                                                border.color: "#25fb2e"
+                                                                border.width: 1
+                                                                anchors.fill: parent
+                                                                anchors.leftMargin: 3
+                                                                anchors.rightMargin: 3
+                                                                anchors.topMargin: 3
+                                                                anchors.bottomMargin: 3
+                                                            }
+                                                            clip: true
+                                                        }
+                                                        Layout.preferredWidth: 60
+                                                        Layout.preferredHeight: 60
+                                                        Layout.fillWidth: true
+                                                        Layout.fillHeight: true
+                                                    }
+                                                }
+
+                                                Rectangle {
+                                                    id: attack1Cost4Block
+                                                    width: 59
+                                                    height: 40
+                                                    visible: true
+                                                    color: "#c80d0d"
+                                                    radius: 6
+                                                    border.color: "#6c0101"
+                                                    border.width: 2
+
+                                                    Rectangle {
+                                                        id: attack1Cost4Bezel
+                                                        color: "#b2b2b2"
+                                                        radius: 8
+                                                        border.color: "#616161"
+                                                        border.width: 2
+                                                        anchors.fill: parent
+                                                        anchors.leftMargin: 4
+                                                        anchors.rightMargin: 4
+                                                        anchors.topMargin: 4
+                                                        anchors.bottomMargin: 4
+                                                        Rectangle {
+                                                            id: attack1Cost4Screen
+                                                            x: 7
+                                                            y: 4
+                                                            color: attack1NameScreen.color
+                                                            radius: 4
+                                                            border.color: "#128c17"
+                                                            border.width: 2
+                                                            anchors.fill: parent
+                                                            anchors.leftMargin: 6
+                                                            anchors.rightMargin: 6
+                                                            anchors.topMargin: 6
+                                                            anchors.bottomMargin: 6
+                                                            Text {
+                                                                id: attack1Cost4Text
+                                                                color: "#c5002a02"
+                                                                text: "Cost"
+                                                                anchors.fill: parent
+                                                                horizontalAlignment: Text.AlignHCenter
+                                                                verticalAlignment: Text.AlignVCenter
+                                                                wrapMode: Text.Wrap
+                                                                z: 1
+                                                                minimumPointSize: 4
+                                                                minimumPixelSize: 4
+                                                                fontSizeMode: Text.Fit
+                                                                font.styleName: "Bold Italic"
+                                                                font.pointSize: 30
+                                                            }
+
+                                                            DropShadow {
+                                                                id: attack1Cost4DropShadow
+                                                                opacity: 0.8
+                                                                color: "#095f0c"
+                                                                radius: 3.8
+                                                                anchors.fill: attack1Cost4Text
+                                                                source: attack1Cost4Text
+                                                                verticalOffset: 3
+                                                                samples: 16
+                                                                horizontalOffset: 3
+                                                            }
+
+                                                            Text {
+                                                                id: attack1Cost4DropText
+                                                                visible: false
+                                                                color: "#2a7b2d"
+                                                                text: attack1Cost4Text.text
+                                                                anchors.fill: parent
+                                                                anchors.leftMargin: 4
+                                                                anchors.rightMargin: 4
+                                                                anchors.topMargin: 4
+                                                                anchors.bottomMargin: 4
+                                                                horizontalAlignment: Text.AlignHCenter
+                                                                verticalAlignment: Text.AlignVCenter
+                                                                wrapMode: Text.Wrap
+                                                                z: 0
+                                                                minimumPointSize: 6
+                                                                minimumPixelSize: 6
+                                                                fontSizeMode: Text.Fit
+                                                                font.styleName: "Bold Italic"
+                                                                font.pointSize: 30
+                                                            }
+
+                                                            Rectangle {
+                                                                id: attack1Cost4BlockHighlight
+                                                                x: -8
+                                                                y: -4
+                                                                color: "#00ffffff"
+                                                                radius: 4
+                                                                border.color: "#25fb2e"
+                                                                border.width: 1
+                                                                anchors.fill: parent
+                                                                anchors.leftMargin: 3
+                                                                anchors.rightMargin: 3
+                                                                anchors.topMargin: 3
+                                                                anchors.bottomMargin: 3
+                                                            }
+                                                            clip: true
+                                                        }
+                                                        Layout.preferredWidth: 60
+                                                        Layout.preferredHeight: 60
+                                                        Layout.fillWidth: true
+                                                        Layout.fillHeight: true
+                                                    }
+
+                                                }
                                             }
-                                            anchors.horizontalCenter: parent.horizontalCenter
                                         }
 
                                         Rectangle {

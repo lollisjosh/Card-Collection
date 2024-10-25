@@ -143,36 +143,25 @@ ToolBar {
             Layout.fillWidth: false
             Layout.rightMargin: 6
 
-            ListModel {
-                id: typeArtModel
-            }
-
             RoundButton {
                 id: grassTypeButton
-                width: 24
-                height: 24
-                text: ""
+                Layout.fillWidth: false
                 Layout.preferredHeight: 24
                 Layout.preferredWidth: 24
                 Layout.rowSpan: 1
-                Layout.fillWidth: false
-                highlighted: grassTypeButton.checked
-
-                flat: false
-                checked: false
-                checkable: true
-                palette {
-                    button: "limegreen"
-                }
-                hoverEnabled: true
-
                 ToolTip.delay: 800
                 ToolTip.timeout: 5000
                 ToolTip.visible: hovered
-                ToolTip.text: qsTr("Grass")
-
-                // Change scale when hovered
-                scale: hovered ? 1.2 : 1.0
+                checkable: true
+                checked: false
+                flat: false
+                height: 24
+                highlighted: grassTypeButton.checked
+                hoverEnabled: true
+                palette {
+                    button: "green"
+                }
+                width: 24
             }
 
             RoundButton {
@@ -371,35 +360,6 @@ ToolBar {
             }
 
             RoundButton {
-                id: colorlessTypeButton
-                width: 24
-                height: 24
-                text: ""
-                Layout.preferredHeight: 24
-                Layout.preferredWidth: 24
-                Layout.rowSpan: 1
-                highlighted: colorlessTypeButton.checked
-                flat: false
-                checked: false
-                checkable: true
-                Layout.fillWidth: false
-                Layout.fillHeight: false
-                palette {
-                    button: "white"
-                }
-
-                hoverEnabled: true
-
-                ToolTip.delay: 800
-                ToolTip.timeout: 5000
-                ToolTip.visible: hovered
-                ToolTip.text: qsTr("Colorless")
-
-                // Change scale when hovered
-                scale: hovered ? 1.2 : 1.0
-            }
-
-            RoundButton {
                 id: fairyTypeButton
                 width: 24
                 height: 24
@@ -450,6 +410,35 @@ ToolBar {
                 ToolTip.timeout: 5000
                 ToolTip.visible: hovered
                 ToolTip.text: qsTr("Dragon")
+
+                // Change scale when hovered
+                scale: hovered ? 1.2 : 1.0
+            }
+
+            RoundButton {
+                id: colorlessTypeButton
+                width: 24
+                height: 24
+                text: ""
+                Layout.preferredHeight: 24
+                Layout.preferredWidth: 24
+                Layout.rowSpan: 1
+                highlighted: colorlessTypeButton.checked
+                flat: false
+                checked: false
+                checkable: true
+                Layout.fillWidth: false
+                Layout.fillHeight: false
+                palette {
+                    button: "white"
+                }
+
+                hoverEnabled: true
+
+                ToolTip.delay: 800
+                ToolTip.timeout: 5000
+                ToolTip.visible: hovered
+                ToolTip.text: qsTr("Colorless")
 
                 // Change scale when hovered
                 scale: hovered ? 1.2 : 1.0

@@ -155,7 +155,7 @@ ToolBar {
                                             backendController.request_search(
                                                         searchParams)
                                             //  console.log("Search button regains control after request search");
-                                            resetAttackScroll()
+                                            resetLeftColumnScroll()
                                         }
                                     }
                                 }
