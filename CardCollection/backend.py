@@ -3,31 +3,21 @@ from pokemontcgsdk import Card, Set, RestClient
 RestClient.configure('12345678-1234-1234-1234-123456789ABCD')
 
 class Backend:
-<<<<<<< HEAD
-    def construct_query(self, search_parameters: list[tuple[str,str,str]]) -> str:
-=======
     """
     Summary:
         Handles all actual API interaction from constructing queries, to querying for data.
     """
 
     def construct_query(self, query_data: list[tuple[str, str, str]]) -> str:
->>>>>>> 6c1dc2e83491a1bf92c978a508f3b6fd280b115c
         """
         Constructs a query string from the given search parameters.
         Args:
             search_parameters (list[tuple[str,str,str]]): A list of tuples representing the search parameters.
-<<<<<<< HEAD
-              
-=======
 
->>>>>>> 6c1dc2e83491a1bf92c978a508f3b6fd280b115c
         Returns:
             str: The constructed query string.
         """
 
-<<<<<<< HEAD
-=======
         # Initialize an empty dictionary to hold query parts
         query_parts = {}
 
@@ -80,7 +70,6 @@ class Backend:
         final_query = " AND ".join(final_query_parts)
         return final_query
 
->>>>>>> 6c1dc2e83491a1bf92c978a508f3b6fd280b115c
     def query_api(self, query: str) -> list[Card]:
         """
         Queries the Pokemon TCG API using the constructed query string.
@@ -90,12 +79,8 @@ class Backend:
         Returns: 
             list[Card]: A list of Card objects returned by the API.
         """
-<<<<<<< HEAD
-    
-=======
         return Card.where(q=query)
 
->>>>>>> 6c1dc2e83491a1bf92c978a508f3b6fd280b115c
     def all_sets(self) -> list[Set]:
         """
         Retrieves all available sets from the Pokemon TCG API.
