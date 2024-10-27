@@ -4,6 +4,8 @@ import QtQuick.Layouts
 import QtQuick.Window 2.15
 import QtQuick.Controls.Fusion 2.15
 import Qt5Compat.GraphicalEffects
+import QtQuick3D
+
 
 Window {
     id: window
@@ -34,12 +36,40 @@ Window {
 
 
     function updateAttackCost() {
-        attack1Cost1Text.text = cards[selectedIndex].attack1Cost1 || "Cost 1"
-        attack1Cost2Text.text = cards[selectedIndex].attack1Cost2 || "Cost 2"
-        attack1Cost3Text.text = cards[selectedIndex].attack1Cost3 || "Cost 3"
-        attack1Cost4Text.text = cards[selectedIndex].attack1Cost4 || "Cost 4"
+        // Default cost values
+        const defaultCost1 = "Cost 1";
+        const defaultCost2 = "Cost 2";
+        const defaultCost3 = "Cost 3";
+        const defaultCost4 = "Cost 4";
 
+        // Assign text to each block's child text element and set block visibility
+        attack1Cost1Text.text = cards[selectedIndex].attack1Cost1 || defaultCost1;
+        attack1Cost1Block.visible = attack1Cost1Text.text !== defaultCost1;
+
+        attack1Cost2Text.text = cards[selectedIndex].attack1Cost2 || defaultCost2;
+        attack1Cost2Block.visible = attack1Cost2Text.text !== defaultCost2;
+
+        attack1Cost3Text.text = cards[selectedIndex].attack1Cost3 || defaultCost3;
+        attack1Cost3Block.visible = attack1Cost3Text.text !== defaultCost3;
+
+        attack1Cost4Text.text = cards[selectedIndex].attack1Cost4 || defaultCost4;
+        attack1Cost4Block.visible = attack1Cost4Text.text !== defaultCost4;
+
+        // Calculate proportional width for visible blocks
+        const baseWidth = 59;
+        const visibleBlocks = [attack1Cost1Block, attack1Cost2Block, attack1Cost3Block, attack1Cost4Block].filter(block => block.visible);
+        const totalVisible = visibleBlocks.length;
+
+        // Set width proportionally for each visible block
+        if (totalVisible > 0) {
+            const newWidth = baseWidth * (4 / totalVisible);
+            for (let block of visibleBlocks) {
+                block.width = newWidth;
+            }
+        }
     }
+
+
 
     // Function to update attack information based on selectedIndex
     function updateAttackInfo() {
@@ -94,6 +124,7 @@ Window {
                     && attack4DescriptionText.text === "No description available." ? 75 : 120
 
             updateAttackCost();
+//        console.log(cards[selectedIndex].imageUrl)
         }
     }
 
@@ -204,6 +235,9 @@ Window {
 
     }
 
+    function resetCardRotation() {
+           cube.rotationY = 0
+    }
     function resetLeftColumnScroll() {
         leftScrollView.contentX = 0;
         leftScrollView.contentY = 0;
@@ -663,6 +697,28 @@ Window {
                         // Add a boolean variable to track the drawer's state
                         property bool isDrawerOpen: false // Start with the drawer closed
 
+
+                        function toggleDrawer() {
+                            if (customDrawer.x < 0) {
+                                customDrawer.x = 0
+                                _item.isDrawerOpen = true
+
+                                // Animate rotation on drawer open
+                                rotateAnimation.from = ballButton.rotation
+                                rotateAnimation.to = 270 // Rotate by 90 degrees
+                                rotateAnimation.start()
+                            } else {
+                                customDrawer.x = -customDrawer.width + 12
+                                _item.isDrawerOpen = false
+
+                                // Animate rotation on drawer close
+                                rotateAnimation.from = ballButton.rotation
+                                rotateAnimation.to
+                                        = 90 // Reset to 0 degrees rotation
+                                rotateAnimation.start()
+                            }
+                        }
+
                         // The main Pane with no margin or padding
                         Rectangle {
                             id: _itemOuterRedMid
@@ -740,26 +796,19 @@ Window {
                                 id: customDrawer
                                 x: -270
                                 width: 280
-                                height: 410
+                                height: 426
                                 opacity: 1
                                 // Start hidden
                                 color: attack1Screen.color
                                 radius: 4
                                 border.color: "#25fb2e"
                                 border.width: 6
-                                clip: true
-                                // @disable-check M9
                                 anchors.verticalCenter: parent.verticalCenter
+                                clip: true
                                 scale: 0.95
                                 z: 1
 
                                 // Animate the x position when it changes
-                                Behavior on x {
-                                    NumberAnimation {
-                                        duration: 500 // Adjust the duration for the desired speed
-                                        easing.type: Easing.OutQuad // Smooth easing effect
-                                    }
-                                }
 
                                 // MouseArea for the drawer that does not toggle visibility
                                 MouseArea {
@@ -771,40 +820,162 @@ Window {
                                     anchors.bottomMargin: 0
                                 }
 
-                                // Frame that holds the card image
+                                // Frame that holds the card images on both sides
                                 Frame {
                                     id: frame
                                     anchors.fill: parent
 
-                                    Image {
-                                        id: cardImage
+                                    View3D {
+                                        id: view
                                         anchors.fill: parent
+                                        z: 3
 
-                                        // Initially try the high-res image URL
-                                        source: (selectedIndex >= 0
-                                                 && selectedIndex < cards.length) ? cards[selectedIndex].imageUrl // Try to load the card image
-                                                                                  : ""
+                                        PerspectiveCamera {
+                                            y: 0
+                                            position: Qt.vector3d(0, 200, 300)
+                                            frustumCullingEnabled: false
+                                            z: 161
+                                            eulerRotation.x: 0
+                                        }
 
-                                        Layout.fillHeight: false
-                                        Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
-                                        Layout.preferredHeight: 500
-                                        Layout.preferredWidth: 480
-                                        Layout.fillWidth: true
-                                        scale: 1
-                                        fillMode: Image.PreserveAspectFit
+                                        DirectionalLight {
+                                            eulerRotation.x: -30
+                                        }
 
+                                        Node {
+                                            id: cardNode
+                                            x: 0
+                                            y: 200
+                                            z: -25
+                                            scale.y: 3
+                                            scale.x: 2
+
+                                            // Front side of the card
+                                            Model {
+                                                id: frontCard
+                                                source: "#Rectangle"
+                                                receivesShadows: false
+                                                castsShadows: false
+                                                scale: Qt.vector3d(1, 1, 1) // Adjust dimensions for card thickness
+                                                eulerRotation.y: 0
+
+                                                materials: [
+                                                    DefaultMaterial {
+                                                        diffuseMap: Texture {
+                                                            sourceItem: Image {
+                                                                anchors.centerIn: parent
+                                                                width: 413
+                                                                height: 577
+                                                                source: (selectedIndex >= 0 && selectedIndex < cards.length) ? cards[selectedIndex].imageUrl : ""
+                                                                sourceSize: Qt.size(width, height)
+                                                                cache: false
+                                                            }
+                                                        }
+                                                    }
+                                                ]
+                                            }
+
+                                            // Back side of the card, rotated 180 degrees
+                                            Model {
+                                                id: backCard
+                                                source: "#Rectangle"
+                                                scale: Qt.vector3d(1, 1, 1)
+                                                eulerRotation.y: 180 // Rotated to face the opposite direction
+
+                                                materials: [
+                                                    DefaultMaterial {
+                                                        diffuseColor: "#ffffff"
+                                                        diffuseMap: Texture {
+                                                            sourceItem: Image {
+                                                                anchors.centerIn: parent
+                                                                width: 413
+                                                                height: 577
+                                                                source: "cardback.png" // URL for the back image
+                                                                sourceSize: Qt.size(width, height)
+                                                                cache: false
+                                                            }
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+
+                                        MouseArea {
+                                            id: dragArea
+                                            anchors.fill: parent
+                                            anchors.leftMargin: 0
+                                            anchors.rightMargin: 0
+                                            anchors.topMargin: 0
+                                            anchors.bottomMargin: 0
+                                            property real previousX: 0
+                                            property real velocityY: 0
+                                            property real dragSensitivity: 0.2
+                                            property real momentumDecay: 0.98 // Controls how quickly momentum fades
+
+                                            onPressed: {
+                                                previousX = mouse.x
+                                                velocityY = 0
+                                                momentumTimer.stop()
+                                            }
+
+                                            onPositionChanged: {
+                                                var deltaX = mouse.x - previousX
+                                                velocityY = deltaX * dragSensitivity
+                                                cardNode.eulerRotation.y += velocityY
+                                                previousX = mouse.x
+                                            }
+
+                                            onReleased: {
+                                                momentumTimer.start()
+                                            }
+                                        }
+
+                                        // Timer for applying momentum after drag release
+                                        Timer {
+                                            id: momentumTimer
+                                            interval: 16 // About 60 FPS
+                                            repeat: true
+                                            onTriggered: {
+                                                if (Math.abs(dragArea.velocityY) < 0.1) {
+                                                    momentumTimer.stop()
+                                                } else {
+                                                    cardNode.eulerRotation.y += dragArea.velocityY
+                                                    dragArea.velocityY *= dragArea.momentumDecay
+                                                }
+                                            }
+                                        }
                                     }
-                                    // Apply a DropShadow effect to the image
-                                    DropShadow {
-                                        anchors.fill: cardImage
-                                        source: cardImage // The image to which we are applying the shadow
-                                        horizontalOffset: 5 // Adjust X-axis shadow offset
-                                        verticalOffset: 5 // Adjust Y-axis shadow offset
-                                        radius: 3.8 // Blur effect, adjust for smoothness
-                                        samples: 16 // Higher value for smoother shadows
-                                        color: "#095f0c" // Color of the shadow
-                                        opacity: 0.8 // Transparency of the shadow
-                                    }
+
+
+                                    // Image {
+                                    //     id: cardImage
+                                    //     anchors.fill: parent
+
+                                    //     // Initially try the high-res image URL
+                                    //     source: (selectedIndex >= 0
+                                    //              && selectedIndex < cards.length) ? cards[selectedIndex].imageUrl // Try to load the card image
+                                    //                                               : ""
+
+                                    //     Layout.fillHeight: false
+                                    //     Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
+                                    //     Layout.preferredHeight: 500
+                                    //     Layout.preferredWidth: 480
+                                    //     Layout.fillWidth: true
+                                    //     scale: 1
+                                    //     fillMode: Image.PreserveAspectFit
+
+                                    // }
+                                    // // Apply a DropShadow effect to the image
+                                    // DropShadow {
+                                    //     anchors.fill: cardImage
+                                    //     source: cardImage // The image to which we are applying the shadow
+                                    //     horizontalOffset: 5 // Adjust X-axis shadow offset
+                                    //     verticalOffset: 5 // Adjust Y-axis shadow offset
+                                    //     radius: 3.8 // Blur effect, adjust for smoothness
+                                    //     samples: 16 // Higher value for smoother shadows
+                                    //     color: "#095f0c" // Color of the shadow
+                                    //     opacity: 0.8 // Transparency of the shadow
+                                    // }
                                 }
 
                                 Rectangle {
@@ -813,7 +984,16 @@ Window {
                                     radius: 3
                                     border.color: "#128c17"
                                     border.width: 4
-                                    anchors.fill: parent
+                                    anchors.verticalCenter: frame.verticalCenter
+                                    anchors.left: parent.left
+                                    anchors.right: parent.right
+                                    anchors.top: frame.bottom
+                                    anchors.bottom: parent.bottom
+                                    anchors.leftMargin: -280
+                                    anchors.rightMargin: -280
+                                    anchors.topMargin: -426
+                                    anchors.bottomMargin: -426
+                                    anchors.horizontalCenter: frame.horizontalCenter
                                 }
                             }
 
@@ -840,25 +1020,26 @@ Window {
                                     ballButton.scale = 0.6
                                 }
                                 onClicked: {
-                                    if (customDrawer.x < 0) {
+                                    // if (customDrawer.x < 0) {
 
-                                        customDrawer.x = 0
-                                        _item.isDrawerOpen = true
+                                    //     customDrawer.x = 0
+                                    //     _item.isDrawerOpen = true
 
-                                        // Animate ball button rotation on drawer open
-                                        rotateAnimation.from = ballButton.rotation
-                                        rotateAnimation.to = 270 // Rotate by 90 degrees
-                                        rotateAnimation.start()
-                                    } else {
+                                    //     // Animate ball button rotation on drawer open
+                                    //     rotateAnimation.from = ballButton.rotation
+                                    //     rotateAnimation.to = 270 // Rotate by 90 degrees
+                                    //     rotateAnimation.start()
+                                    // } else {
 
-                                        customDrawer.x = -customDrawer.width + 12 // hide drawer
-                                        _item.isDrawerOpen = false
+                                    //     customDrawer.x = -customDrawer.width + 12 // hide drawer
+                                    //     _item.isDrawerOpen = false
 
-                                        // Animate rotation on drawer close
-                                        rotateAnimation.from = ballButton.rotation
-                                        rotateAnimation.to = 90 // Reset to 0 degrees rotation
-                                        rotateAnimation.start()
-                                    }
+                                    //     // Animate rotation on drawer close
+                                    //     rotateAnimation.from = ballButton.rotation
+                                    //     rotateAnimation.to = 90 // Reset to 0 degrees rotation
+                                    //     rotateAnimation.start()
+                                    // }
+                                    _item.toggleDrawer();
                                 }
 
                                 // Background of the button
@@ -925,31 +1106,33 @@ Window {
                                         }
 
                                         onClicked: {
-                                            if (customDrawer.x < 0) {
-                                                customDrawer.x = 0
-                                                //customDrawer.isHoverEnabled = false
+                                            // if (customDrawer.x < 0) {
+                                            //     customDrawer.x = 0
+                                            //     //customDrawer.isHoverEnabled = false
 
-                                                // Slide in
-                                                _item.isDrawerOpen = true
-                                                // Animate rotation on drawer open
-                                                rotateAnimation.from = ballButton.rotation
-                                                rotateAnimation.to = 270 // Rotate by 90 degrees
-                                                rotateAnimation.start()
-                                            } else {
-                                                customDrawer.x = -customDrawer.width
-                                                        + 12 // Slide out
+                                            //     // Slide in
+                                            //     _item.isDrawerOpen = true
+                                            //     // Animate rotation on drawer open
+                                            //     rotateAnimation.from = ballButton.rotation
+                                            //     rotateAnimation.to = 270 // Rotate by 90 degrees
+                                            //     rotateAnimation.start()
+                                            // } else {
+                                            //     customDrawer.x = -customDrawer.width
+                                            //             + 12 // Slide out
 
-                                                //customDrawer.isHoverEnabled = true
-                                                _item.isDrawerOpen = false
-                                                // Animate rotation on drawer close
-                                                rotateAnimation.from = ballButton.rotation
-                                                rotateAnimation.to
-                                                        = 90 // Reset to 0 degrees rotation
-                                                rotateAnimation.start()
-                                            }
+                                            //     //customDrawer.isHoverEnabled = true
+                                            //     _item.isDrawerOpen = false
+                                            //     // Animate rotation on drawer close
+                                            //     rotateAnimation.from = ballButton.rotation
+                                            //     rotateAnimation.to
+                                            //             = 90 // Reset to 0 degrees rotation
+                                            //     rotateAnimation.start()
+                                            // }
+                                            _item.toggleDrawer();
                                         }
                                     }
                                 }
+
 
                                 Image {
                                     id: ballButton
@@ -992,24 +1175,25 @@ Window {
                                         }
 
                                         onClicked: {
-                                            if (customDrawer.x < 0) {
-                                                customDrawer.x = 0
-                                                _item.isDrawerOpen = true
+                                            // if (customDrawer.x < 0) {
+                                            //     customDrawer.x = 0
+                                            //     _item.isDrawerOpen = true
 
-                                                // Animate rotation on drawer open
-                                                rotateAnimation.from = ballButton.rotation
-                                                rotateAnimation.to = 270 // Rotate by 90 degrees
-                                                rotateAnimation.start()
-                                            } else {
-                                                customDrawer.x = -customDrawer.width + 12
-                                                _item.isDrawerOpen = false
+                                            //     // Animate rotation on drawer open
+                                            //     rotateAnimation.from = ballButton.rotation
+                                            //     rotateAnimation.to = 270 // Rotate by 90 degrees
+                                            //     rotateAnimation.start()
+                                            // } else {
+                                            //     customDrawer.x = -customDrawer.width + 12
+                                            //     _item.isDrawerOpen = false
 
-                                                // Animate rotation on drawer close
-                                                rotateAnimation.from = ballButton.rotation
-                                                rotateAnimation.to
-                                                        = 90 // Reset to 0 degrees rotation
-                                                rotateAnimation.start()
-                                            }
+                                            //     // Animate rotation on drawer close
+                                            //     rotateAnimation.from = ballButton.rotation
+                                            //     rotateAnimation.to
+                                            //             = 90 // Reset to 0 degrees rotation
+                                            //     rotateAnimation.start()
+                                            // }
+                                            _item.toggleDrawer();
                                         }
                                     }
                                 }
@@ -4610,3 +4794,9 @@ Window {
         // Page 3: Collection Page
     }
 }
+
+/*##^##
+Designer {
+    D{i:0}D{i:32;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}
+}
+##^##*/
