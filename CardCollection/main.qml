@@ -9,11 +9,11 @@ import QtQuick3D
 
 Window {
     id: window
-    width: 500
+    width: 600
     height: 600
-    minimumWidth: 500
+    minimumWidth: 600
     minimumHeight: 600
-    maximumWidth: 500
+    maximumWidth: 600
     maximumHeight: 600
 
     visible: true
@@ -239,7 +239,7 @@ Window {
         }
     }
 
-    ColumnLayout {
+    Column {
         id: columnLayout1
         anchors.fill: parent
         spacing: 0
@@ -350,6 +350,7 @@ Window {
 
         StackLayout {
             id: stackLayout
+            width: 600
             visible: true
             Layout.fillHeight: true
             Layout.fillWidth: true
@@ -359,7 +360,7 @@ Window {
             // Page 1: Search Page
             Item {
                 id: searchPage
-                width: parent.width
+                width: 600
                 height: 600
                 visible: false
                 Layout.fillHeight: true
@@ -374,13 +375,13 @@ Window {
                         id: searchToolsColumn
                         width: 500
                         height: 80
-                        Layout.preferredWidth: 500
+                        Layout.preferredWidth: 600
                         Layout.preferredHeight: 80
                         spacing: 0
                         Layout.columnSpan: 1
                         z: 0
                         Layout.fillWidth: true
-                        Layout.fillHeight: false
+                        Layout.fillHeight: true
 
                         MySearchFilterTools {
                             id: searchFilterTools
@@ -408,20 +409,26 @@ Window {
                             id: searchTools
                             width: 500
                             height: 40
-                            anchors.verticalCenter: searchFilterTools.verticalCenter
-                            anchors.left: searchFilterTools.right
-                            anchors.right: searchFilterTools.left
-                            anchors.top: searchFilterTools.bottom
-                            anchors.bottom: searchFilterTools.top
-                            anchors.leftMargin: -500
-                            anchors.rightMargin: -500
+                            Layout.preferredHeight: 40
+                            Layout.preferredWidth: 600
+                            Layout.fillHeight: false
+                            Layout.fillWidth: true
+                            // anchors.verticalCenter: searchFilterTools.verticalCenter
+                            // anchors.left: parent.left
+                           // anchors.right: parent.right
+                           // anchors.top: parent.top
+                           // anchors.bottom: _item
+                           // anchors.leftMargin: 0
+                           // anchors.rightMargin: 0
+                           // anchors.topMargin: 0
+                           // anchors.bottomMargin: 0
+                           // Layout.preferredHeight: 40
+                           // Layout.preferredWidth: 500
+                           // Layout.fillHeight: true
+                           // Layout.fillWidth: true
                             RowLayout {
                                 id: searchRow
                                 anchors.fill: parent
-                                anchors.leftMargin: 0
-                                anchors.rightMargin: 0
-                                anchors.topMargin: 0
-                                anchors.bottomMargin: 0
                                 z: 1
                                 spacing: 5
 
@@ -441,8 +448,8 @@ Window {
                                     //anchors.bottom: parent.bottom
                                     z: 1
                                     Layout.leftMargin: 6
-                                    Layout.preferredHeight: -1
-                                    Layout.preferredWidth: -1
+                                    Layout.preferredHeight: 25
+                                    Layout.preferredWidth: 200
                                     placeholderText: qsTr("Enter card name")
                                     Layout.fillWidth: true
 
@@ -453,10 +460,6 @@ Window {
                                         border.color: "#6c0101"
                                         border.width: 2
                                         anchors.fill: parent
-                                        anchors.leftMargin: 0
-                                        anchors.rightMargin: 0
-                                        anchors.topMargin: 0
-                                        anchors.bottomMargin: 0
                                         Layout.fillHeight: true
                                         Layout.fillWidth: true
                                         clip: false
@@ -580,30 +583,30 @@ Window {
                                 border.color: "#6c0101"
                                 border.width: 2
                                 anchors.fill: parent
+                                anchors.leftMargin: -6
+                                anchors.rightMargin: -6
                                 z: 1
 
                                 Rectangle {
                                     id: highlightBorder
+                                    width: 600
+                                    height: 40
                                     color: "#00ffffff"
                                     radius: 4
                                     border.color: "#ee0000"
                                     border.width: 1
-                                    anchors.fill: parent
-                                    anchors.leftMargin: 4
-                                    anchors.rightMargin: 4
-                                    anchors.topMargin: 4
-                                    anchors.bottomMargin: 4
                                     z: 1
                                 }
                             }
 
                             Rectangle {
                                 id: bgRect
+                                x: -6
+                                y: 0
+                                width: 600
+                                height: 40
                                 color: "#cc1c1c"
                                 border.color: "#00000000"
-                                anchors.fill: parent
-                                anchors.leftMargin: 0
-                                anchors.rightMargin: 0
                             }
                         }
                     }
@@ -612,6 +615,8 @@ Window {
                         id: _item
                         width: 200
                         height: 200
+                        Layout.preferredWidth: 200
+                        Layout.preferredHeight: 200
                         Layout.margins: 0
                         Layout.fillHeight: true
                         Layout.fillWidth: true
@@ -2695,7 +2700,7 @@ Window {
                                             dropTextColor: window.dropTextColor
                                             borderColor: window.borderColor
                                             dropBorderColor: window.dropBorderColor
-                                            anchors.horizontalCenter: parent.horizontalCenter
+                                            //anchors.horizontalCenter: parent.anchors.horizontalCenter
                                         }
 
                                         AttackInfoBlock {
@@ -2710,7 +2715,7 @@ Window {
                                             dropTextColor: window.dropTextColor
                                             borderColor: window.borderColor
                                             dropBorderColor: window.dropBorderColor
-                                            anchors.horizontalCenter: parent.horizontalCenter
+                                            //anchors.horizontalCenter: parent.horizontalCenter
                                         }
 
                                         AttackInfoBlock {
@@ -2725,7 +2730,7 @@ Window {
                                             dropTextColor: window.dropTextColor
                                             borderColor: window.borderColor
                                             dropBorderColor: window.dropBorderColor
-                                            anchors.horizontalCenter: parent.horizontalCenter
+                                            //anchors.horizontalCenter: parent.horizontalCenter
                                         }
 
                                         AttackInfoBlock {
@@ -2740,7 +2745,7 @@ Window {
                                             dropTextColor: window.dropTextColor
                                             borderColor: window.borderColor
                                             dropBorderColor: window.dropBorderColor
-                                            anchors.horizontalCenter: parent.horizontalCenter
+                                            //anchors.horizontalCenter: parent.horizontalCenter
                                         }
 
                                         Rectangle {
@@ -3385,10 +3390,6 @@ Window {
                             border.color: "#6c0101"
                             border.width: 2
                             anchors.fill: parent
-                            anchors.leftMargin: -6
-                            anchors.rightMargin: -6
-                            anchors.topMargin: 0
-                            anchors.bottomMargin: 0
                             z: 0
                         }
 
@@ -3570,6 +3571,6 @@ Window {
 
 /*##^##
 Designer {
-    D{i:0}D{i:34;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}
+    D{i:0}D{i:16}D{i:18}D{i:20}D{i:34;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}
 }
 ##^##*/
