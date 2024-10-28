@@ -10,11 +10,11 @@ import QtQuick3D
 Window {
     id: window
     width: 600
-    height: 600
+    height: 650
     minimumWidth: 600
-    minimumHeight: 600
+    minimumHeight: 650
     maximumWidth: 600
-    maximumHeight: 600
+    maximumHeight: 650
 
     visible: true
     color: "#611b1b"
@@ -251,7 +251,7 @@ Window {
             currentIndex: selectedTabIndex
             width: parent.width
             Layout.preferredHeight: parent.height * 0.08
-            height: 40
+            height: 50
 
             TabButton {
                 opacity: 1
@@ -351,6 +351,7 @@ Window {
         StackLayout {
             id: stackLayout
             width: 600
+            height: 600
             visible: true
             Layout.fillHeight: true
             Layout.fillWidth: true
@@ -363,25 +364,27 @@ Window {
                 width: 600
                 height: 600
                 visible: false
-                Layout.fillHeight: true
-                Layout.fillWidth: true
+                Layout.preferredHeight: 560
+                Layout.preferredWidth: 600
+                Layout.fillHeight: false
+                Layout.fillWidth: false
 
-                ColumnLayout {
+                Column {
                     id: searchTabColumn
                     anchors.fill: parent
                     spacing: 0
 
-                    ColumnLayout {
+                    Column {
                         id: searchToolsColumn
-                        width: 500
-                        height: 80
+                        width: 600
+                        height: 100
                         Layout.preferredWidth: 600
                         Layout.preferredHeight: 80
                         spacing: 0
                         Layout.columnSpan: 1
                         z: 0
                         Layout.fillWidth: true
-                        Layout.fillHeight: true
+                        Layout.fillHeight: false
 
                         MySearchFilterTools {
                             id: searchFilterTools
@@ -391,13 +394,13 @@ Window {
                             Layout.topMargin: 0
                             bottomPadding: 0
                             contentHeight: 30
-                            height: 40
+                            height: 60
                             Layout.preferredWidth: 500
                             fairyChecked: false
                             dragonChecked: false
                             horizontalPadding: 0
                             verticalPadding: 0
-                            width: 500
+                            width: 600
 
                             // Dynamic ListModel for sets
                             setsModel: ListModel {
@@ -407,7 +410,7 @@ Window {
 
                         ToolBar {
                             id: searchTools
-                            width: 500
+                            width: 600
                             height: 40
                             Layout.preferredHeight: 40
                             Layout.preferredWidth: 600
@@ -426,15 +429,18 @@ Window {
                            // Layout.preferredWidth: 500
                            // Layout.fillHeight: true
                            // Layout.fillWidth: true
-                            RowLayout {
+                            Row {
                                 id: searchRow
-                                anchors.fill: parent
+                                x: 0
+                                anchors.verticalCenter: parent.verticalCenter
                                 z: 1
                                 spacing: 5
 
                                 TextField {
                                     id: txtSearchBox
-                                    width: 250
+                                    width: 480
+                                    height: 25
+                                    anchors.verticalCenter: parent.verticalCenter
                                     Layout.fillHeight: false
                                     //anchors.verticalCenter: btnSearch.verticalCenter
                                     //anchors.left: parent.left
@@ -471,8 +477,9 @@ Window {
                                 Button {
                                     id: btnSearch
                                     width: 100
-                                    height: 40
+                                    height: 25
                                     text: qsTr("Search")
+                                    anchors.verticalCenter: parent.verticalCenter
                                     z: 1
                                     font.styleName: "Bold Italic"
                                     Layout.fillHeight: false
@@ -601,24 +608,23 @@ Window {
 
                             Rectangle {
                                 id: bgRect
-                                x: -6
-                                y: 0
-                                width: 600
-                                height: 40
                                 color: "#cc1c1c"
                                 border.color: "#00000000"
+                                anchors.fill: parent
+                                anchors.leftMargin: -6
+                                anchors.rightMargin: -6
                             }
                         }
                     }
 
                     Item {
                         id: _item
-                        width: 200
-                        height: 200
+                        width: 600
+                        height: 450
                         Layout.preferredWidth: 200
-                        Layout.preferredHeight: 200
+                        Layout.preferredHeight: 470
                         Layout.margins: 0
-                        Layout.fillHeight: true
+                        Layout.fillHeight: false
                         Layout.fillWidth: true
 
                         // Add a boolean variable to track the drawer's state
@@ -3257,7 +3263,10 @@ Window {
 
                     ToolBar {
                         id: pagingButtonsToolbar
-                        Layout.fillHeight: true
+                        width: 600
+                        height: 50
+                        Layout.preferredHeight: 50
+                        Layout.fillHeight: false
                         Layout.fillWidth: true
                         RowLayout {
                             height: 26
@@ -3569,8 +3578,10 @@ Window {
     }
 }
 
+
+
 /*##^##
 Designer {
-    D{i:0}D{i:16}D{i:18}D{i:20}D{i:34;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}
+    D{i:0}D{i:16}D{i:18}D{i:22}D{i:34;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}
 }
 ##^##*/
