@@ -16,115 +16,84 @@ Window {
     maximumWidth: 500
     maximumHeight: 600
 
-
     visible: true
     color: "#611b1b"
-    property alias searchRow: searchRow
-    property alias searchToolsColumn: searchToolsColumn
-    property alias attack1Cost2Text: attack1Cost2Text
-    property alias attack1Cost2DropText: attack1Cost2DropText
-    property alias attack1Cost1Text: attack1Cost1Text
-    property alias _text: _text
-    property alias leftScrollView: leftScrollView
-    property alias _itemOuterRedMid: _itemOuterRedMid
 
     title: qsTr("Card Collection")
 
+    //JUMP-TO Window-Level Properties
     property int selectedIndex: -1
     property var cards: [] // List of card objects
     property int selectedTabIndex: 0
 
-
-    function updateAttackCost() {
-        // Default cost values
-        const defaultCost1 = "Cost 1";
-        const defaultCost2 = "Cost 2";
-        const defaultCost3 = "Cost 3";
-        const defaultCost4 = "Cost 4";
-
-        // Assign text to each block's child text element and set block visibility
-        attack1Cost1Text.text = cards[selectedIndex].attack1Cost1 || defaultCost1;
-        attack1Cost1Block.visible = attack1Cost1Text.text !== defaultCost1;
-
-        attack1Cost2Text.text = cards[selectedIndex].attack1Cost2 || defaultCost2;
-        attack1Cost2Block.visible = attack1Cost2Text.text !== defaultCost2;
-
-        attack1Cost3Text.text = cards[selectedIndex].attack1Cost3 || defaultCost3;
-        attack1Cost3Block.visible = attack1Cost3Text.text !== defaultCost3;
-
-        attack1Cost4Text.text = cards[selectedIndex].attack1Cost4 || defaultCost4;
-        attack1Cost4Block.visible = attack1Cost4Text.text !== defaultCost4;
-
-        // Calculate proportional width for visible blocks
-        const baseWidth = 59;
-        const visibleBlocks = [attack1Cost1Block, attack1Cost2Block, attack1Cost3Block, attack1Cost4Block].filter(block => block.visible);
-        const totalVisible = visibleBlocks.length;
-
-        // Set width proportionally for each visible block
-        if (totalVisible > 0) {
-            const newWidth = baseWidth * (4 / totalVisible);
-            for (let block of visibleBlocks) {
-                block.width = newWidth;
-            }
-        }
-    }
+    // Define color scheme properties
+    property color primaryColor: "#c80d0d"
+    property color bezelColor: "#b2b2b2"
+    property color bezelBorderColor: "#616161"
+    property color screenColor: "#02d20b"
+    property color screenShadeColor: "#128c17"
+    property color screenHighlightColor: "#25fb2e"
+    property color textColor: "#095f0c"
+    property color dropTextColor: "#c5002a02"
+    property color borderColor: "#6c0101"
+    property color dropBorderColor: "#25fb2e"
 
 
-
+    //JUMP-TO Attack Update Functions
     // Function to update attack information based on selectedIndex
     function updateAttackInfo() {
-
-
-
-        //console.log("updateAttackInfo called...");
         if (cards[selectedIndex]) {
-            // Update attack text fields first
-            attack1Name.text = cards[selectedIndex].attack1Name || "Attack 1"
-            attack1DescriptionDropText.text = cards[selectedIndex].attack1Text
-                    || "No description available." // Fallback if no description
 
-            attack2NameText.text = cards[selectedIndex].attack2Name
-                    || "Attack 2"
-            attack2DescriptionText.text = cards[selectedIndex].attack2Text
-                    || "No description available." // Fallback if no description
+            const defaultCost1 = "Cost 1";
+            const defaultCost2 = "Cost 2";
+            const defaultCost3 = "Cost 3";
+            const defaultCost4 = "Cost 4";
+            const defaultCost5 = "Cost 5";
 
-            attack3NameText.text = cards[selectedIndex].attack3Name
-                    || "Attack 3"
-            attack3DescriptionText.text = cards[selectedIndex].attack3Text
-                    || "No description available." // Fallback if no description
 
-            attack4NameText.text = cards[selectedIndex].attack4Name
-                    || "Attack 4"
-            attack4DescriptionText.text = cards[selectedIndex].attack4Text
-                    || "No description available." // Fallback if no description
 
-            // Set visibility for each attack based on the card data
-            attack1NameBlock.visible = cards[selectedIndex].attack1Name !== "Attack 1"
-                    && cards[selectedIndex].attack1Name !== ""
-            attack1DescriptionBlock.visible = attack1NameBlock.visible
-            attack1DescriptionBlock.height = attack1DescriptionBlock.visible
-                    && attack1DescriptionDropText.text === "No description available." ? 75 : 120
+            // Create costs objects from the selected card for each attack
+            const attack1Costs = {
+                cost1: cards[selectedIndex].attack1Cost1 || defaultCost1,
+                cost2: cards[selectedIndex].attack1Cost2 || defaultCost2,
+                cost3: cards[selectedIndex].attack1Cost3 || defaultCost3,
+                cost4: cards[selectedIndex].attack1Cost4 || defaultCost4,
+                cost5: cards[selectedIndex].attack1Cost5 || defaultCost5
+            };
 
-            attack2NameBlock.visible = cards[selectedIndex].attack2Name !== "Attack 2"
-                    && cards[selectedIndex].attack2Name !== ""
-            attack2DescriptionBlock.visible = attack2NameBlock.visible
-            attack2DescriptionBlock.height = attack2DescriptionBlock.visible
-                    && attack2DescriptionText.text === "No description available." ? 75 : 120
+            const attack2Costs = {
+                cost1: cards[selectedIndex].attack2Cost1 || defaultCost1,
+                cost2: cards[selectedIndex].attack2Cost2 || defaultCost2,
+                cost3: cards[selectedIndex].attack2Cost3 || defaultCost3,
+                cost4: cards[selectedIndex].attack2Cost4 || defaultCost4,
+                cost5: cards[selectedIndex].attack2Cost5 || defaultCost5
 
-            attack3NameBlock.visible = cards[selectedIndex].attack3Name !== "Attack 3"
-                    && cards[selectedIndex].attack3Name !== ""
-            attack3DescriptionBlock.visible = attack3NameBlock.visible
-            attack3DescriptionBlock.height = attack3DescriptionBlock.visible
-                    && attack3DescriptionText.text === "No description available." ? 75 : 120
+            };
 
-            attack4NameBlock.visible = cards[selectedIndex].attack4Name !== "Attack 4"
-                    && cards[selectedIndex].attack4Name !== ""
-            attack4DescriptionBlock.visible = attack4NameBlock.visible
-            attack4DescriptionBlock.height = attack4DescriptionBlock.visible
-                    && attack4DescriptionText.text === "No description available." ? 75 : 120
+            const attack3Costs = {
+                cost1: cards[selectedIndex].attack3Cost1 || defaultCost1,
+                cost2: cards[selectedIndex].attack3Cost2 || defaultCost2,
+                cost3: cards[selectedIndex].attack3Cost3 || defaultCost3,
+                cost4: cards[selectedIndex].attack3Cost4 || defaultCost4,
+                cost5: cards[selectedIndex].attack3Cost5 || defaultCost5
 
-            updateAttackCost();
-//        console.log(cards[selectedIndex].imageUrl)
+            };
+
+            const attack4Costs = {
+                cost1: cards[selectedIndex].attack4Cost1 || defaultCost1,
+                cost2: cards[selectedIndex].attack4Cost2 || defaultCost2,
+                cost3: cards[selectedIndex].attack4Cost3 || defaultCost3,
+                cost4: cards[selectedIndex].attack4Cost4 || defaultCost4,
+                cost5: cards[selectedIndex].attack4Cost5 || defaultCost5
+
+            };
+
+            // Update attack blocks
+            attack1Block.updateAttack(cards[selectedIndex].attack1Name, cards[selectedIndex].attack1Text, 0, attack1Costs);
+            attack2Block.updateAttack(cards[selectedIndex].attack2Name, cards[selectedIndex].attack2Text, 1, attack2Costs);
+            attack3Block.updateAttack(cards[selectedIndex].attack3Name, cards[selectedIndex].attack3Text, 2, attack3Costs);
+            attack4Block.updateAttack(cards[selectedIndex].attack4Name, cards[selectedIndex].attack4Text, 3, attack4Costs);
+
         }
     }
 
@@ -181,29 +150,20 @@ Window {
                     || "Sub Type 4"
         }
 
-
-        // console.log("Sub1: " + cards[selectedIndex].subtype1)
-        // console.log("Sub2: " + cards[selectedIndex].subtype2)
-        // console.log("Sub3: " + cards[selectedIndex].subtype3)
-        // console.log("Sub4: " + cards[selectedIndex].subtype4)
-
-        //console.log("Sub1: " + subtype1Text.text)
-        //console.log("Sub2: " + subtype2Text.text)
         // Set visibility for each ability based on the card data
         subtype1Block.visible = cards[selectedIndex].subtype1 !== "Sub Type 1" && cards[selectedIndex].subtype1 !== ""
         subtype2Block.visible = cards[selectedIndex].subtype2 !== "Sub Type 2" && cards[selectedIndex].subtype2 !== ""
         subtype3Block.visible = cards[selectedIndex].subtype3 !== "Sub Type 3" && cards[selectedIndex].subtype3 !== ""
         subtype4Block.visible = cards[selectedIndex].subtype4 !== "Sub Type 4" && cards[selectedIndex].subtype4 !== ""
 
-
         if (subtype1Block.visible && !subtype2Block.visible && !subtype3Block.visible && !subtype4Block.visible ||
                 subtype1Block.visible && subtype2Block.visible && subtype3Block.visible && !subtype4Block.visible) {
-                subtype1Block.width = 175;
-            } else if (subtype1Block.visible && subtype2Block.visible && !subtype3Block.visible && !subtype4Block.visible) {
-                subtype1Block.width = 85;
-            } else {
-                subtype1Block.width = 85; // Set a fallback width if needed
-            }        //subtype2Block.width = subtype3Block.visible ? 85 : 175
+            subtype1Block.width = 175;
+        } else if (subtype1Block.visible && subtype2Block.visible && !subtype3Block.visible && !subtype4Block.visible) {
+            subtype1Block.width = 85;
+        } else {
+            subtype1Block.width = 85; // Set a fallback width if needed
+        }        //subtype2Block.width = subtype3Block.visible ? 85 : 175
 
         subtypeBlock.height = subtype3Block.visible ? subtype1Block.height * 2 : subtype1Block.height
     }
@@ -214,7 +174,7 @@ Window {
                     || "Super Type"
         }
 
-     }
+    }
 
     function updateTypeInfo() {
         if(cards[selectedIndex]) {
@@ -225,7 +185,7 @@ Window {
         if(cards[selectedIndex]) {
             type2Text.text = cards[selectedIndex].type2
                     || "Type 2"
-}
+        }
 
         // Set visibility for each ability based on the card data
         type1Block.visible = type1Text.text !== "Type 1" && cards[selectedIndex].type1 !== ""
@@ -236,7 +196,8 @@ Window {
     }
 
     function resetCardRotation() {
-           cube.rotationY = 0
+        momentumTimer.stop()
+        cardNode.eulerRotation.y = 0;
     }
     function resetLeftColumnScroll() {
         leftScrollView.contentX = 0;
@@ -259,6 +220,7 @@ Window {
             updateTypeInfo();
             resetLeftColumnScroll();
             resetRightColumnScroll();
+            resetCardRotation();
         }
     }
 
@@ -273,6 +235,7 @@ Window {
             updateTypeInfo();
             resetLeftColumnScroll();
             resetRightColumnScroll();
+            resetCardRotation();
         }
     }
 
@@ -441,50 +404,17 @@ Window {
                             }
                         }
 
-                        // MySearchTools {
-                        //     id: searchTools
-                        //     //Layout.fillHeight: false
-                        //     //Layout.fillWidth: true
-                        //     bottomPadding: 0
-                        //     contentHeight: 48
-                        //     contentWidth: parent.width
-                        //     width: parent.width
-                        //     height: 48
-                        //     anchors.verticalCenter: searchFilterTools.verticalCenter
-                        //     //anchors.left: searchFilterTools.right
-                        //     //anchors.right: searchFilterTools.left
-                        //     anchors.top: searchFilterTools.bottom
-                        //     //anchors.bottom: searchFilterTools.top
-                        //     //anchors.leftMargin: -500
-                        //     //anchors.rightMargin: -500
-                        //     //anchors.topMargin: 0
-                        //     //anchors.bottomMargin: -84
-                        //     //anchors.horizontalCenter: searchFilterTools.horizontalCenter
-                        //     //Layout.fillHeight: false
-                        //     //Layout.fillWidth: false
-                        //     //toolbarWidth: parent.width
-                        //     toolbarHeight: 48
-                        //     horizontalPadding: 0
-
-                        //     z: 0
-                        // }
-
                         ToolBar {
                             id: searchTools
                             width: 500
                             height: 40
-                            horizontalPadding: 0
-                            bottomPadding: 0
-                            z: 0
-                            Layout.preferredWidth: 500
-                            Layout.preferredHeight: 40
-                            Layout.fillHeight: false
-                            Layout.fillWidth: true
-                            // property int toolbarWidth: 400
-                            // property int toolbarHeight: 64
-
-                           // width: toolbarWidth
-                            //height: toolbarHeight
+                            anchors.verticalCenter: searchFilterTools.verticalCenter
+                            anchors.left: searchFilterTools.right
+                            anchors.right: searchFilterTools.left
+                            anchors.top: searchFilterTools.bottom
+                            anchors.bottom: searchFilterTools.top
+                            anchors.leftMargin: -500
+                            anchors.rightMargin: -500
                             RowLayout {
                                 id: searchRow
                                 anchors.fill: parent
@@ -560,7 +490,6 @@ Window {
 
 
                                     onClicked: {
-                                        // console.log("Search Button clicked...");
                                         // Initialize an empty array for the search parameters
                                         var searchParams = []
 
@@ -629,26 +558,19 @@ Window {
 
                                         // Call the request_search function with the built tuples if there are any
                                         if (searchParams.length > 0) {
-                                            //console.log("Search Button Pressed...")
-                                            //console.log("Calling backendController.request_search with parameters:")
                                             //Print each tuple as a string to the console
                                             for (var i = 0; i < searchParams.length; i++) {
                                                 var tupleString = "[" + searchParams[i][0] + ", "
                                                         + searchParams[i][1] + ", "
                                                         + searchParams[i][2] + "]"
 
-                                                //console.log(tupleString);
                                             }
-                                            //  console.log("search button is calling request_search");
                                             backendController.request_search(
                                                         searchParams)
-                                            //  console.log("Search button regains control after request search");
                                             resetLeftColumnScroll()
                                         }
                                     }
                                 }
-
-
                             }
 
                             Rectangle {
@@ -698,26 +620,26 @@ Window {
                         property bool isDrawerOpen: false // Start with the drawer closed
 
 
-                        function toggleDrawer() {
-                            if (customDrawer.x < 0) {
-                                customDrawer.x = 0
-                                _item.isDrawerOpen = true
+                        // function toggleDrawer() {
+                        //     if (customDrawer.x < 0) {
+                        //         customDrawer.x = 0
+                        //         _item.isDrawerOpen = true
 
-                                // Animate rotation on drawer open
-                                rotateAnimation.from = ballButton.rotation
-                                rotateAnimation.to = 270 // Rotate by 90 degrees
-                                rotateAnimation.start()
-                            } else {
-                                customDrawer.x = -customDrawer.width + 12
-                                _item.isDrawerOpen = false
+                        //         // Animate rotation on drawer open
+                        //         rotateAnimation.from = ballButton.rotation
+                        //         rotateAnimation.to = 270 // Rotate by 90 degrees
+                        //         rotateAnimation.start()
+                        //     } else {
+                        //         customDrawer.x = -customDrawer.width + 12
+                        //         _item.isDrawerOpen = false
 
-                                // Animate rotation on drawer close
-                                rotateAnimation.from = ballButton.rotation
-                                rotateAnimation.to
-                                        = 90 // Reset to 0 degrees rotation
-                                rotateAnimation.start()
-                            }
-                        }
+                        //         // Animate rotation on drawer close
+                        //         rotateAnimation.from = ballButton.rotation
+                        //         rotateAnimation.to
+                        //                 = 90 // Reset to 0 degrees rotation
+                        //         rotateAnimation.start()
+                        //     }
+                        // }
 
                         // The main Pane with no margin or padding
                         Rectangle {
@@ -799,7 +721,7 @@ Window {
                                 height: 426
                                 opacity: 1
                                 // Start hidden
-                                color: attack1Screen.color
+                                color: screenColor
                                 radius: 4
                                 border.color: "#25fb2e"
                                 border.width: 6
@@ -809,8 +731,13 @@ Window {
                                 z: 1
 
                                 // Animate the x position when it changes
+                                Behavior on x {
+                                    NumberAnimation {
+                                        duration: 500 // Adjust the duration for the desired speed
+                                        easing.type: Easing.OutQuad // Smooth easing effect
+                                    }
+                                }
 
-                                // MouseArea for the drawer that does not toggle visibility
                                 MouseArea {
                                     visible: true
                                     anchors.fill: parent
@@ -829,6 +756,7 @@ Window {
                                         id: view
                                         anchors.fill: parent
                                         z: 3
+                                        visible: false
 
                                         PerspectiveCamera {
                                             y: 0
@@ -945,55 +873,20 @@ Window {
                                             }
                                         }
                                     }
-
-
-                                    // Image {
-                                    //     id: cardImage
-                                    //     anchors.fill: parent
-
-                                    //     // Initially try the high-res image URL
-                                    //     source: (selectedIndex >= 0
-                                    //              && selectedIndex < cards.length) ? cards[selectedIndex].imageUrl // Try to load the card image
-                                    //                                               : ""
-
-                                    //     Layout.fillHeight: false
-                                    //     Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
-                                    //     Layout.preferredHeight: 500
-                                    //     Layout.preferredWidth: 480
-                                    //     Layout.fillWidth: true
-                                    //     scale: 1
-                                    //     fillMode: Image.PreserveAspectFit
-
-                                    // }
-                                    // // Apply a DropShadow effect to the image
-                                    // DropShadow {
-                                    //     anchors.fill: cardImage
-                                    //     source: cardImage // The image to which we are applying the shadow
-                                    //     horizontalOffset: 5 // Adjust X-axis shadow offset
-                                    //     verticalOffset: 5 // Adjust Y-axis shadow offset
-                                    //     radius: 3.8 // Blur effect, adjust for smoothness
-                                    //     samples: 16 // Higher value for smoother shadows
-                                    //     color: "#095f0c" // Color of the shadow
-                                    //     opacity: 0.8 // Transparency of the shadow
-                                    // }
                                 }
 
                                 Rectangle {
                                     id: rectangle1
+                                    width: 280
+                                    height: 426
+                                    visible: true
                                     color: "#00ffffff"
                                     radius: 3
                                     border.color: "#128c17"
                                     border.width: 4
-                                    anchors.verticalCenter: frame.verticalCenter
-                                    anchors.left: parent.left
+                                    anchors.verticalCenter: parent.verticalCenter
                                     anchors.right: parent.right
-                                    anchors.top: frame.bottom
-                                    anchors.bottom: parent.bottom
-                                    anchors.leftMargin: -280
-                                    anchors.rightMargin: -280
-                                    anchors.topMargin: -426
-                                    anchors.bottomMargin: -426
-                                    anchors.horizontalCenter: frame.horizontalCenter
+                                    anchors.horizontalCenter: parent.horizontalCenter
                                 }
                             }
 
@@ -1020,26 +913,25 @@ Window {
                                     ballButton.scale = 0.6
                                 }
                                 onClicked: {
-                                    // if (customDrawer.x < 0) {
+                                    if (customDrawer.x < 0) {
 
-                                    //     customDrawer.x = 0
-                                    //     _item.isDrawerOpen = true
+                                        customDrawer.x = 0
+                                        _item.isDrawerOpen = true
 
-                                    //     // Animate ball button rotation on drawer open
-                                    //     rotateAnimation.from = ballButton.rotation
-                                    //     rotateAnimation.to = 270 // Rotate by 90 degrees
-                                    //     rotateAnimation.start()
-                                    // } else {
+                                        // Animate ball button rotation on drawer open
+                                        rotateAnimation.from = ballButton.rotation
+                                        rotateAnimation.to = 270 // Rotate by 90 degrees
+                                        rotateAnimation.start()
+                                    } else {
 
-                                    //     customDrawer.x = -customDrawer.width + 12 // hide drawer
-                                    //     _item.isDrawerOpen = false
+                                        customDrawer.x = -customDrawer.width + 12 // hide drawer
+                                        _item.isDrawerOpen = false
 
-                                    //     // Animate rotation on drawer close
-                                    //     rotateAnimation.from = ballButton.rotation
-                                    //     rotateAnimation.to = 90 // Reset to 0 degrees rotation
-                                    //     rotateAnimation.start()
-                                    // }
-                                    _item.toggleDrawer();
+                                        // Animate rotation on drawer close
+                                        rotateAnimation.from = ballButton.rotation
+                                        rotateAnimation.to = 90 // Reset to 0 degrees rotation
+                                        rotateAnimation.start()
+                                    }
                                 }
 
                                 // Background of the button
@@ -1050,6 +942,29 @@ Window {
                                     radius: 0 // Rounded corners
                                     border.color: "#620808" // Darker border for a subtle effect
                                     border.width: 2
+                                    MouseArea {
+                                        onClicked: {
+                                            if (customDrawer.x < 0) {
+                                                customDrawer.x = 0
+                                                _item.isDrawerOpen = true
+
+                                                // Animate rotation on drawer open
+                                                rotateAnimation.from = ballButton.rotation
+                                                rotateAnimation.to = 270 // Rotate by 90 degrees
+                                                rotateAnimation.start()
+                                            } else {
+                                                customDrawer.x = -customDrawer.width + 12
+                                                _item.isDrawerOpen = false
+
+                                                // Animate rotation on drawer close
+                                                rotateAnimation.from = ballButton.rotation
+                                                rotateAnimation.to
+                                                        = 90 // Reset to 0 degrees rotation
+                                                rotateAnimation.start()
+                                            }
+                                        }
+                                    }
+
 
                                     Rectangle {
                                         id: rectangle29
@@ -1106,29 +1021,28 @@ Window {
                                         }
 
                                         onClicked: {
-                                            // if (customDrawer.x < 0) {
-                                            //     customDrawer.x = 0
-                                            //     //customDrawer.isHoverEnabled = false
+                                            if (customDrawer.x < 0) {
+                                                customDrawer.x = 0
+                                                //customDrawer.isHoverEnabled = false
 
-                                            //     // Slide in
-                                            //     _item.isDrawerOpen = true
-                                            //     // Animate rotation on drawer open
-                                            //     rotateAnimation.from = ballButton.rotation
-                                            //     rotateAnimation.to = 270 // Rotate by 90 degrees
-                                            //     rotateAnimation.start()
-                                            // } else {
-                                            //     customDrawer.x = -customDrawer.width
-                                            //             + 12 // Slide out
+                                                // Slide in
+                                                _item.isDrawerOpen = true
+                                                // Animate rotation on drawer open
+                                                rotateAnimation.from = ballButton.rotation
+                                                rotateAnimation.to = 270 // Rotate by 90 degrees
+                                                rotateAnimation.start()
+                                            } else {
+                                                customDrawer.x = -customDrawer.width
+                                                        + 12 // Slide out
 
-                                            //     //customDrawer.isHoverEnabled = true
-                                            //     _item.isDrawerOpen = false
-                                            //     // Animate rotation on drawer close
-                                            //     rotateAnimation.from = ballButton.rotation
-                                            //     rotateAnimation.to
-                                            //             = 90 // Reset to 0 degrees rotation
-                                            //     rotateAnimation.start()
-                                            // }
-                                            _item.toggleDrawer();
+                                                //customDrawer.isHoverEnabled = true
+                                                _item.isDrawerOpen = false
+                                                // Animate rotation on drawer close
+                                                rotateAnimation.from = ballButton.rotation
+                                                rotateAnimation.to
+                                                        = 90 // Reset to 0 degrees rotation
+                                                rotateAnimation.start()
+                                            }
                                         }
                                     }
                                 }
@@ -1175,74 +1089,42 @@ Window {
                                         }
 
                                         onClicked: {
-                                            // if (customDrawer.x < 0) {
-                                            //     customDrawer.x = 0
-                                            //     _item.isDrawerOpen = true
+                                            if (customDrawer.x < 0) {
+                                                customDrawer.x = 0
+                                                //customDrawer.isHoverEnabled = false
 
-                                            //     // Animate rotation on drawer open
-                                            //     rotateAnimation.from = ballButton.rotation
-                                            //     rotateAnimation.to = 270 // Rotate by 90 degrees
-                                            //     rotateAnimation.start()
-                                            // } else {
-                                            //     customDrawer.x = -customDrawer.width + 12
-                                            //     _item.isDrawerOpen = false
+                                                // Slide in
+                                                _item.isDrawerOpen = true
+                                                // Animate rotation on drawer open
+                                                rotateAnimation.from = ballButton.rotation
+                                                rotateAnimation.to = 270 // Rotate by 90 degrees
+                                                rotateAnimation.start()
+                                            } else {
+                                                customDrawer.x = -customDrawer.width
+                                                        + 12 // Slide out
 
-                                            //     // Animate rotation on drawer close
-                                            //     rotateAnimation.from = ballButton.rotation
-                                            //     rotateAnimation.to
-                                            //             = 90 // Reset to 0 degrees rotation
-                                            //     rotateAnimation.start()
-                                            // }
-                                            _item.toggleDrawer();
+                                                //customDrawer.isHoverEnabled = true
+                                                _item.isDrawerOpen = false
+                                                // Animate rotation on drawer close
+                                                rotateAnimation.from = ballButton.rotation
+                                                rotateAnimation.to
+                                                        = 90 // Reset to 0 degrees rotation
+                                                rotateAnimation.start()
+                                            }
                                         }
                                     }
                                 }
                             }
 
-                            // MouseArea {
-                            //     id: drawerPeekArea
-                            //     width: 20
-                            //     height: 399
-                            //     anchors.verticalCenter: customDrawer.verticalCenter
-                            //     anchors.left: customDrawer.right
-                            //     anchors.right: customDrawer.left
-                            //     anchors.top: customDrawer.bottom
-                            //     anchors.bottom: customDrawer.top
-                            //     anchors.leftMargin: 0
-                            //     anchors.rightMargin: -286
-                            //     anchors.topMargin: -392
-                            //     anchors.bottomMargin: -397
-                            //     cursorShape: Qt.CrossCursor
-                            //     anchors.horizontalCenter: customDrawer.horizontalCenter
-                            //     anchors.verticalCenterOffset: 3
-                            //     enabled: !_item.isDrawerOpen
-                            //     hoverEnabled: true
-                            //     z: 1
+                            // Define the animation
+                            PropertyAnimation {
+                                id: drawerAnimation
+                                target: customDrawer
+                                property: "x"
+                                duration: 200  // Duration of the animation in milliseconds
+                                easing.type: Easing.InOutQuad  // Easing function for smoothness
+                            }
 
-                            //     onEntered: {
-                            //         // Animate to -260 when hovered
-                            //         drawerAnimation.to = -260;
-                            //         drawerAnimation.start();
-                            //     }
-                            //     onExited: {
-                            //         // Animate back to -270 when not hovered
-                            //         drawerAnimation.to = -270;
-                            //         drawerAnimation.start();
-                            //     }
-
-                            //     onClicked: {
-                            //         openButton.clicked(null)
-                            //     }
-                            // }
-
-                            //     // Define the animation
-                            //     PropertyAnimation {
-                            //         id: drawerAnimation
-                            //         target: customDrawer
-                            //         property: "x"
-                            //         duration: 200  // Duration of the animation in milliseconds
-                            //         easing.type: Easing.InOutQuad  // Easing function for smoothness
-                            //     }
                             Rectangle {
                                 id: dataFlow
                                 opacity: 1
@@ -1258,16 +1140,15 @@ Window {
 
                                 Flickable {
                                     id: rightScrollView
+                                    height: 399
                                     anchors.left: leftScrollView.right
                                     anchors.right: parent.right
                                     anchors.top: parent.top
-                                    anchors.bottom: parent.bottom
                                     anchors.leftMargin: 4
-                                    anchors.rightMargin: 0
-                                    anchors.topMargin: 0
-                                    anchors.bottomMargin: 0
+                                    anchors.rightMargin: 4
+                                    anchors.topMargin: 4
                                     contentX: 0
-                                    contentWidth: 100
+                                    contentWidth: 250
                                     flickableDirection: Flickable.VerticalFlick
                                     clip: false
                                     boundsBehavior: Flickable.DragOverBounds
@@ -1278,12 +1159,10 @@ Window {
 
                                     Column {
                                         id: rightSideColumn
-                                        width: 200
+                                        x: 0
+                                        y: 0
+                                        width: 186
                                         height: 400
-                                        anchors.top: parent.top
-                                        anchors.topMargin: 4
-                                        anchors.horizontalCenterOffset: 55
-                                        anchors.horizontalCenter: parent.horizontalCenter
 
                                         spacing: 3
 
@@ -1313,7 +1192,7 @@ Window {
 
                                             Rectangle {
                                                 id: nameScreen
-                                                color: attack1NameScreen.color
+                                                color: screenColor
                                                 radius: 4
                                                 border.color: "#128c17"
                                                 border.width: 2
@@ -1454,7 +1333,7 @@ Window {
                                                             id: subtype1Screen
                                                             x: 7
                                                             y: 4
-                                                            color: attack1NameScreen.color
+                                                            color: screenColor
                                                             radius: 4
                                                             border.color: "#128c17"
                                                             border.width: 2
@@ -1565,7 +1444,7 @@ Window {
                                                             id: subtype2Screen
                                                             x: 7
                                                             y: 4
-                                                            color: attack1NameScreen.color
+                                                            color: screenColor
                                                             radius: 4
                                                             border.color: "#128c17"
                                                             border.width: 2
@@ -1672,7 +1551,7 @@ Window {
                                                             id: subtype3Screen
                                                             x: 7
                                                             y: 4
-                                                            color: attack1NameScreen.color
+                                                            color: screenColor
                                                             radius: 4
                                                             border.color: "#128c17"
                                                             border.width: 2
@@ -1784,7 +1663,7 @@ Window {
                                                             id: subtype4Screen
                                                             x: 7
                                                             y: 4
-                                                            color: attack1NameScreen.color
+                                                            color: screenColor
                                                             radius: 4
                                                             border.color: "#128c17"
                                                             border.width: 2
@@ -1922,7 +1801,7 @@ Window {
                                                             id: type1Screen
                                                             x: 7
                                                             y: 4
-                                                            color: attack1NameScreen.color
+                                                            color: screenColor
                                                             radius: 4
                                                             border.color: "#128c17"
                                                             border.width: 2
@@ -2033,7 +1912,7 @@ Window {
                                                             id: type2Screen
                                                             x: 7
                                                             y: 4
-                                                            color: attack1NameScreen.color
+                                                            color: screenColor
                                                             radius: 4
                                                             border.color: "#128c17"
                                                             border.width: 2
@@ -2146,7 +2025,7 @@ Window {
 
                                             Rectangle {
                                                 id: supertypeScreen
-                                                color: attack1NameScreen.color
+                                                color: screenColor
                                                 radius: 4
                                                 border.color: "#128c17"
                                                 border.width: 2
@@ -2261,7 +2140,7 @@ Window {
                                                     id: setLogoScreen
                                                     x: 8
                                                     y: -1
-                                                    color: attack1NameScreen.color
+                                                    color: screenColor
                                                     radius: 6
                                                     border.color: "#095f0c"
                                                     border.width: 2
@@ -2405,7 +2284,7 @@ Window {
                                         //             id: setLogoScreen
                                         //             x: 8
                                         //             y: -1
-                                        //             color: attack1NameScreen.color
+                                        //             color: screenColor
                                         //             radius: 6
                                         //             border.color: "#095f0c"
                                         //             border.width: 2
@@ -2552,7 +2431,7 @@ Window {
 
                                                     Rectangle {
                                                         id: setSymbolScreen
-                                                        color: attack1NameScreen.color
+                                                        color: screenColor
                                                         radius: 6
                                                         border.color: "#128c17"
                                                         border.width: 2
@@ -2685,7 +2564,7 @@ Window {
                                                         id: setNameScreen
                                                         x: 10
                                                         y: 4
-                                                        color: attack1NameScreen.color
+                                                        color: screenColor
                                                         radius: 6
                                                         border.color: "#128c17"
                                                         border.width: 2
@@ -2782,7 +2661,7 @@ Window {
                                     anchors.left: parent.left
                                     anchors.top: parent.top
                                     anchors.bottom: parent.bottom
-                                    anchors.leftMargin: 0
+                                    anchors.leftMargin: 15
                                     anchors.topMargin: 4
                                     anchors.bottomMargin: 4
                                     contentWidth: 250
@@ -2797,1179 +2676,72 @@ Window {
                                     // First attack
                                     Column {
                                         id: column
-                                        spacing: 3
+                                        x: 0
+                                        width: 250
+                                        height: 1132
+                                        anchors.top: parent.top
+                                        anchors.topMargin: 4
+                                        spacing: 8
 
-
-
-                                        Rectangle {
-                                            id: attack1NameBlock
-                                            width: 200
-                                            height: 50
-                                            color: "#c80d0d"
-                                            radius: 8
-                                            border.color: "#6c0101"
-                                            border.width: 2
-                                            anchors.horizontalCenter: parent.horizontalCenter
-
-                                            Rectangle {
-                                                id: attack1NameBezel
-                                                color: "#b2b2b2"
-                                                radius: 8
-                                                border.color: "#616161"
-                                                border.width: 2
-                                                anchors.fill: parent
-                                                anchors.leftMargin: 4
-                                                anchors.rightMargin: 4
-                                                anchors.topMargin: 4
-                                                anchors.bottomMargin: 4
-
-                                                Rectangle {
-                                                    id: attack1NameScreen
-                                                    x: 10
-                                                    y: 4
-                                                    color: "#02d20b"
-                                                    radius: 4
-                                                    border.color: "#128c17"
-                                                    border.width: 2
-                                                    anchors.fill: parent
-                                                    anchors.leftMargin: 5
-                                                    anchors.rightMargin: 5
-                                                    anchors.topMargin: 6
-                                                    anchors.bottomMargin: 6
-
-                                                    Text {
-                                                        id: attack1Name
-                                                        color: "#095f0c"
-                                                        text: "Attack 1"
-                                                        anchors.fill: parent
-                                                        horizontalAlignment: Text.AlignHCenter
-                                                        verticalAlignment: Text.AlignVCenter
-                                                        wrapMode: Text.Wrap
-                                                        z: 0
-                                                        fontSizeMode: Text.HorizontalFit
-                                                        font.styleName: "ExtraBold Italic"
-                                                    }
-
-                                                    Text {
-                                                        id: attack1DropName
-                                                        color: "#c5002a02"
-                                                        text: attack1Name.text
-                                                        anchors.fill: parent
-                                                        horizontalAlignment: Text.AlignHCenter
-                                                        verticalAlignment: Text.AlignVCenter
-                                                        wrapMode: Text.Wrap
-                                                        minimumPointSize: 10
-                                                        minimumPixelSize: 10
-                                                        z: 1
-                                                        fontSizeMode: Text.HorizontalFit
-                                                        font.styleName: "ExtraBold Italic"
-                                                    }
-
-                                                    Rectangle {
-                                                        id: rectangle13
-                                                        color: "#00ffffff"
-                                                        radius: 4
-                                                        border.color: "#25fb2e"
-                                                        border.width: 1
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 3
-                                                        anchors.rightMargin: 3
-                                                        anchors.topMargin: 3
-                                                        anchors.bottomMargin: 3
-                                                    }
-                                                }
-                                            }
-                                        }
-
-
-                                        Rectangle {
-                                            id: attack1CostBlock
-                                            width: 245
-                                            height: 40
-                                            color: "#00c80d0d"
-                                            radius: 6
-                                            border.color: "#006c0101"
-                                            border.width: 0
-                                            anchors.horizontalCenter: parent.horizontalCenter
-
-                                            Flow {
-                                                id: attack1CostFlow
-                                                anchors.fill: parent
-                                                layoutDirection: Qt.LeftToRight
-                                                spacing: 3
-                                                flow: Flow.LeftToRight
-
-                                                Rectangle {
-                                                    id: attack1Cost1Block
-                                                    width: 59
-                                                    height: 40
-                                                    visible: true
-                                                    color: "#c80d0d"
-                                                    radius: 6
-                                                    border.color: "#6c0101"
-                                                    border.width: 2
-
-                                                    Rectangle {
-                                                        id: attack1Cost1Bezel
-                                                        visible: true
-                                                        color: "#b2b2b2"
-                                                        radius: 8
-                                                        border.color: "#616161"
-                                                        border.width: 2
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 4
-                                                        anchors.rightMargin: 4
-                                                        anchors.topMargin: 4
-                                                        anchors.bottomMargin: 4
-                                                        Layout.preferredHeight: 60
-                                                        Layout.preferredWidth: 60
-                                                        Layout.fillHeight: true
-                                                        Layout.fillWidth: true
-
-                                                        Rectangle {
-                                                            id: attack1Cost1Screen
-                                                            x: 7
-                                                            y: 4
-                                                            color: attack1NameScreen.color
-                                                            radius: 4
-                                                            border.color: "#128c17"
-                                                            border.width: 2
-                                                            anchors.fill: parent
-                                                            anchors.leftMargin: 6
-                                                            anchors.rightMargin: 6
-                                                            anchors.topMargin: 6
-                                                            anchors.bottomMargin: 6
-                                                            Text {
-                                                                id: attack1Cost1Text
-                                                                color: "#c5002a02"
-                                                                text: "Cost"
-                                                                anchors.fill: parent
-                                                                horizontalAlignment: Text.AlignHCenter
-                                                                verticalAlignment: Text.AlignVCenter
-                                                                wrapMode: Text.Wrap
-                                                                state: "base state4"
-                                                                z: 1
-                                                                minimumPointSize: 4
-                                                                minimumPixelSize: 4
-                                                                fontSizeMode: Text.Fit
-                                                                font.styleName: "Bold Italic"
-                                                                font.pointSize: 30
-                                                            }
-
-                                                            DropShadow {
-                                                                id: attack1Cost1DropShadow
-                                                                opacity: 0.8
-                                                                color: "#095f0c"
-                                                                radius: 3.8
-                                                                anchors.fill: attack1Cost1Text
-                                                                source: attack1Cost1Text
-                                                                verticalOffset: 3
-                                                                samples: 16
-                                                                horizontalOffset: 3
-                                                            }
-
-                                                            Text {
-                                                                id: attack1Cost1DropText
-                                                                visible: false
-                                                                color: "#2a7b2d"
-                                                                text: attack1Cost1Text.text
-                                                                anchors.fill: parent
-                                                                horizontalAlignment: Text.AlignHCenter
-                                                                verticalAlignment: Text.AlignVCenter
-                                                                wrapMode: Text.Wrap
-                                                                z: 0
-                                                                minimumPointSize: 4
-                                                                minimumPixelSize: 4
-                                                                fontSizeMode: Text.Fit
-                                                                font.styleName: "Bold Italic"
-                                                                font.pointSize: 30
-                                                            }
-
-                                                            Rectangle {
-                                                                id: attack1Cost1BlockHighlight
-                                                                x: -8
-                                                                y: -4
-                                                                color: "#00ffffff"
-                                                                radius: 4
-                                                                border.color: "#25fb2e"
-                                                                border.width: 1
-                                                                anchors.fill: parent
-                                                                anchors.leftMargin: 3
-                                                                anchors.rightMargin: 3
-                                                                anchors.topMargin: 3
-                                                                anchors.bottomMargin: 3
-                                                            }
-                                                            clip: true
-                                                        }
-                                                    }
-
-                                                }
-
-                                                Rectangle {
-                                                    id: attack1Cost2Block
-                                                    width: 59
-                                                    height: 40
-                                                    visible: true
-                                                    color: "#c80d0d"
-                                                    radius: 6
-                                                    border.color: "#6c0101"
-                                                    border.width: 2
-                                                    Rectangle {
-                                                        id: attack1Cost2Bezel
-                                                        color: "#b2b2b2"
-                                                        radius: 8
-                                                        border.color: "#616161"
-                                                        border.width: 2
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 4
-                                                        anchors.rightMargin: 4
-                                                        anchors.topMargin: 4
-                                                        anchors.bottomMargin: 4
-                                                        Layout.preferredWidth: 60
-                                                        Layout.preferredHeight: 60
-                                                        Layout.fillHeight: true
-                                                        Layout.fillWidth: true
-                                                        Rectangle {
-                                                            id: attack1Cost2Screen
-                                                            x: 7
-                                                            y: 4
-                                                            color: attack1NameScreen.color
-                                                            radius: 4
-                                                            border.color: "#128c17"
-                                                            border.width: 2
-                                                            anchors.fill: parent
-                                                            anchors.leftMargin: 6
-                                                            anchors.rightMargin: 6
-                                                            anchors.topMargin: 6
-                                                            anchors.bottomMargin: 6
-                                                            Text {
-                                                                id: attack1Cost2Text
-                                                                color: "#c5002a02"
-                                                                text: "Cost"
-                                                                anchors.fill: parent
-                                                                horizontalAlignment: Text.AlignHCenter
-                                                                verticalAlignment: Text.AlignVCenter
-                                                                wrapMode: Text.Wrap
-                                                                z: 1
-                                                                minimumPointSize: 4
-                                                                minimumPixelSize: 4
-                                                                fontSizeMode: Text.Fit
-                                                                font.styleName: "Bold Italic"
-                                                                font.pointSize: 30
-                                                            }
-
-                                                            DropShadow {
-                                                                id: attack1Cost2DropShadow
-                                                                opacity: 0.8
-                                                                color: "#095f0c"
-                                                                radius: 3.8
-                                                                anchors.fill: attack1Cost2Text
-                                                                source: attack1Cost2Text
-                                                                verticalOffset: 3
-                                                                samples: 16
-                                                                horizontalOffset: 3
-                                                            }
-
-                                                            Text {
-                                                                id: attack1Cost2DropText
-                                                                visible: false
-                                                                color: "#2a7b2d"
-                                                                text: attack1Cost2Text.text
-                                                                anchors.fill: parent
-                                                                anchors.leftMargin: 4
-                                                                anchors.rightMargin: 4
-                                                                anchors.topMargin: 4
-                                                                anchors.bottomMargin: 4
-                                                                horizontalAlignment: Text.AlignHCenter
-                                                                verticalAlignment: Text.AlignVCenter
-                                                                wrapMode: Text.Wrap
-                                                                z: 0
-                                                                minimumPointSize: 4
-                                                                minimumPixelSize: 4
-                                                                fontSizeMode: Text.Fit
-                                                                font.styleName: "Bold Italic"
-                                                                font.pointSize: 30
-                                                            }
-
-                                                            Rectangle {
-                                                                id: attack1Cost2BlockHighlight
-                                                                x: -8
-                                                                y: -4
-                                                                color: "#00ffffff"
-                                                                radius: 4
-                                                                border.color: "#25fb2e"
-                                                                border.width: 1
-                                                                anchors.fill: parent
-                                                                anchors.leftMargin: 3
-                                                                anchors.rightMargin: 3
-                                                                anchors.topMargin: 3
-                                                                anchors.bottomMargin: 3
-                                                            }
-                                                            clip: true
-                                                        }
-                                                    }
-                                                }
-
-                                                Rectangle {
-                                                    id: attack1Cost3Block
-                                                    width: 59
-                                                    height: 40
-                                                    visible: true
-                                                    color: "#c80d0d"
-                                                    radius: 6
-                                                    border.color: "#6c0101"
-                                                    border.width: 2
-                                                    Rectangle {
-                                                        id: attack1Cost3Bezel
-                                                        color: "#b2b2b2"
-                                                        radius: 8
-                                                        border.color: "#616161"
-                                                        border.width: 2
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 4
-                                                        anchors.rightMargin: 4
-                                                        anchors.topMargin: 4
-                                                        anchors.bottomMargin: 4
-                                                        Rectangle {
-                                                            id: attack1Cost3Screen
-                                                            x: 7
-                                                            y: 4
-                                                            color: attack1NameScreen.color
-                                                            radius: 4
-                                                            border.color: "#128c17"
-                                                            border.width: 2
-                                                            anchors.fill: parent
-                                                            anchors.leftMargin: 6
-                                                            anchors.rightMargin: 6
-                                                            anchors.topMargin: 6
-                                                            anchors.bottomMargin: 6
-                                                            Text {
-                                                                id: attack1Cost3Text
-                                                                color: "#c5002a02"
-                                                                text: "Cost"
-                                                                anchors.fill: parent
-                                                                horizontalAlignment: Text.AlignHCenter
-                                                                verticalAlignment: Text.AlignVCenter
-                                                                wrapMode: Text.Wrap
-                                                                z: 1
-                                                                minimumPointSize: 4
-                                                                minimumPixelSize: 4
-                                                                fontSizeMode: Text.Fit
-                                                                font.styleName: "Bold Italic"
-                                                                font.pointSize: 30
-                                                            }
-
-                                                            DropShadow {
-                                                                id: attack1Cost3DropShadow
-                                                                opacity: 0.8
-                                                                color: "#095f0c"
-                                                                radius: 3.8
-                                                                anchors.fill: attack1Cost3Text
-                                                                source: attack1Cost3Text
-                                                                verticalOffset: 3
-                                                                samples: 16
-                                                                horizontalOffset: 3
-                                                            }
-
-                                                            Text {
-                                                                id: attack1Cost3DropText
-                                                                visible: false
-                                                                color: "#2a7b2d"
-                                                                text: attack1Cost3Text.text
-                                                                anchors.fill: parent
-                                                                anchors.leftMargin: 4
-                                                                anchors.rightMargin: 4
-                                                                anchors.topMargin: 4
-                                                                anchors.bottomMargin: 4
-                                                                horizontalAlignment: Text.AlignHCenter
-                                                                verticalAlignment: Text.AlignVCenter
-                                                                wrapMode: Text.Wrap
-                                                                z: 0
-                                                                minimumPointSize: 6
-                                                                minimumPixelSize: 6
-                                                                fontSizeMode: Text.Fit
-                                                                font.styleName: "Bold Italic"
-                                                                font.pointSize: 30
-                                                            }
-
-                                                            Rectangle {
-                                                                id: attack1Cost3BlockHighlight
-                                                                x: -8
-                                                                y: -4
-                                                                color: "#00ffffff"
-                                                                radius: 4
-                                                                border.color: "#25fb2e"
-                                                                border.width: 1
-                                                                anchors.fill: parent
-                                                                anchors.leftMargin: 3
-                                                                anchors.rightMargin: 3
-                                                                anchors.topMargin: 3
-                                                                anchors.bottomMargin: 3
-                                                            }
-                                                            clip: true
-                                                        }
-                                                        Layout.preferredWidth: 60
-                                                        Layout.preferredHeight: 60
-                                                        Layout.fillWidth: true
-                                                        Layout.fillHeight: true
-                                                    }
-                                                }
-
-                                                Rectangle {
-                                                    id: attack1Cost4Block
-                                                    width: 59
-                                                    height: 40
-                                                    visible: true
-                                                    color: "#c80d0d"
-                                                    radius: 6
-                                                    border.color: "#6c0101"
-                                                    border.width: 2
-
-                                                    Rectangle {
-                                                        id: attack1Cost4Bezel
-                                                        color: "#b2b2b2"
-                                                        radius: 8
-                                                        border.color: "#616161"
-                                                        border.width: 2
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 4
-                                                        anchors.rightMargin: 4
-                                                        anchors.topMargin: 4
-                                                        anchors.bottomMargin: 4
-                                                        Rectangle {
-                                                            id: attack1Cost4Screen
-                                                            x: 7
-                                                            y: 4
-                                                            color: attack1NameScreen.color
-                                                            radius: 4
-                                                            border.color: "#128c17"
-                                                            border.width: 2
-                                                            anchors.fill: parent
-                                                            anchors.leftMargin: 6
-                                                            anchors.rightMargin: 6
-                                                            anchors.topMargin: 6
-                                                            anchors.bottomMargin: 6
-                                                            Text {
-                                                                id: attack1Cost4Text
-                                                                color: "#c5002a02"
-                                                                text: "Cost"
-                                                                anchors.fill: parent
-                                                                horizontalAlignment: Text.AlignHCenter
-                                                                verticalAlignment: Text.AlignVCenter
-                                                                wrapMode: Text.Wrap
-                                                                z: 1
-                                                                minimumPointSize: 4
-                                                                minimumPixelSize: 4
-                                                                fontSizeMode: Text.Fit
-                                                                font.styleName: "Bold Italic"
-                                                                font.pointSize: 30
-                                                            }
-
-                                                            DropShadow {
-                                                                id: attack1Cost4DropShadow
-                                                                opacity: 0.8
-                                                                color: "#095f0c"
-                                                                radius: 3.8
-                                                                anchors.fill: attack1Cost4Text
-                                                                source: attack1Cost4Text
-                                                                verticalOffset: 3
-                                                                samples: 16
-                                                                horizontalOffset: 3
-                                                            }
-
-                                                            Text {
-                                                                id: attack1Cost4DropText
-                                                                visible: false
-                                                                color: "#2a7b2d"
-                                                                text: attack1Cost4Text.text
-                                                                anchors.fill: parent
-                                                                anchors.leftMargin: 4
-                                                                anchors.rightMargin: 4
-                                                                anchors.topMargin: 4
-                                                                anchors.bottomMargin: 4
-                                                                horizontalAlignment: Text.AlignHCenter
-                                                                verticalAlignment: Text.AlignVCenter
-                                                                wrapMode: Text.Wrap
-                                                                z: 0
-                                                                minimumPointSize: 6
-                                                                minimumPixelSize: 6
-                                                                fontSizeMode: Text.Fit
-                                                                font.styleName: "Bold Italic"
-                                                                font.pointSize: 30
-                                                            }
-
-                                                            Rectangle {
-                                                                id: attack1Cost4BlockHighlight
-                                                                x: -8
-                                                                y: -4
-                                                                color: "#00ffffff"
-                                                                radius: 4
-                                                                border.color: "#25fb2e"
-                                                                border.width: 1
-                                                                anchors.fill: parent
-                                                                anchors.leftMargin: 3
-                                                                anchors.rightMargin: 3
-                                                                anchors.topMargin: 3
-                                                                anchors.bottomMargin: 3
-                                                            }
-                                                            clip: true
-                                                        }
-                                                        Layout.preferredWidth: 60
-                                                        Layout.preferredHeight: 60
-                                                        Layout.fillWidth: true
-                                                        Layout.fillHeight: true
-                                                    }
-
-                                                }
-                                            }
-                                        }
-
-                                        Rectangle {
-                                            id: attack1DescriptionBlock
+                                        AttackInfoBlock {
+                                            id: attack1Block
                                             width: 250
-                                            height: 120
-                                            color: "#c80d0d"
-                                            radius: 8
-                                            border.color: "#6c0101"
-                                            border.width: 2
-
-                                            Rectangle {
-                                                id: attack1TextBezel
-                                                color: "#b2b2b2"
-                                                radius: 8
-                                                border.color: "#616161"
-                                                border.width: 2
-                                                anchors.fill: parent
-                                                anchors.leftMargin: 4
-                                                anchors.rightMargin: 4
-                                                anchors.topMargin: 4
-                                                anchors.bottomMargin: 4
-
-                                                Rectangle {
-                                                    id: attack1Screen
-                                                    x: 10
-                                                    y: 4
-                                                    color: attack1NameScreen.color
-                                                    radius: 6
-                                                    border.color: "#128c17"
-                                                    border.width: 2
-                                                    anchors.fill: parent
-                                                    anchors.leftMargin: 6
-                                                    anchors.rightMargin: 6
-                                                    anchors.topMargin: 6
-                                                    anchors.bottomMargin: 6
-
-                                                    Text {
-                                                        id: attack1DescriptionDropText
-                                                        visible: true
-                                                        color: "#c5002a02"
-                                                        text: "Attack 1 Description"
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 4
-                                                        anchors.rightMargin: 4
-                                                        anchors.topMargin: 4
-                                                        anchors.bottomMargin: 4
-                                                        horizontalAlignment: Text.AlignHCenter
-                                                        verticalAlignment: Text.AlignVCenter
-                                                        wrapMode: Text.Wrap
-                                                        font.pointSize: attack1DescriptionText.font.pointSize
-                                                        minimumPointSize: 6
-                                                        minimumPixelSize: 6
-                                                        z: 1
-                                                        fontSizeMode: Text.Fit
-                                                        font.styleName: "ExtraBold Italic"
-                                                    }
-
-                                                    Text {
-                                                        id: attack1DescriptionText
-                                                        color: "#095f0c"
-                                                        text: attack1DescriptionDropText.text
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 4
-                                                        anchors.rightMargin: 4
-                                                        anchors.topMargin: 4
-                                                        anchors.bottomMargin: 4
-                                                        horizontalAlignment: Text.AlignHCenter
-                                                        verticalAlignment: Text.AlignVCenter
-                                                        wrapMode: Text.Wrap
-                                                        font.pointSize: attack1DescriptionDropText.font.pointSize
-                                                        minimumPointSize: 6
-                                                        minimumPixelSize: 6
-                                                        z: 0
-                                                        fontSizeMode: Text.Fit
-                                                        font.styleName: "ExtraBold Italic"
-                                                    }
-
-                                                    Rectangle {
-                                                        id: rectangle24
-                                                        x: -7
-                                                        y: 167
-                                                        color: "#00ffffff"
-                                                        radius: 4
-                                                        border.color: "#25fb2e"
-                                                        border.width: 1
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 3
-                                                        anchors.rightMargin: 3
-                                                        anchors.topMargin: 3
-                                                        anchors.bottomMargin: 3
-                                                    }
-                                                }
-                                            }
-                                        }
-
-
-                                        Rectangle {
-                                            id: attack2NameBlock
-                                            width: 200
-                                            height: 45
-                                            visible: true
-                                            color: "#c80d0d"
-                                            radius: 8
-                                            border.color: "#6c0101"
-                                            border.width: 2
-                                            anchors.horizontalCenter: parent.horizontalCenter
-                                            Rectangle {
-                                                id: attack2NameBezel
-                                                color: "#b2b2b2"
-                                                radius: 8
-                                                border.color: "#616161"
-                                                border.width: 2
-                                                anchors.fill: parent
-                                                anchors.leftMargin: 4
-                                                anchors.rightMargin: 4
-                                                anchors.topMargin: 3
-                                                anchors.bottomMargin: 3
-                                                Rectangle {
-                                                    id: attack2NameScreen
-                                                    x: 10
-                                                    y: 4
-                                                    color: attack1NameScreen.color
-                                                    radius: 4
-                                                    border.color: "#128c17"
-                                                    border.width: 2
-                                                    anchors.fill: parent
-                                                    anchors.leftMargin: 5
-                                                    anchors.rightMargin: 5
-                                                    anchors.topMargin: 6
-                                                    anchors.bottomMargin: 6
-                                                    Text {
-                                                        id: attack2NameText
-                                                        color: "#c5002a02"
-                                                        text: "Attack 2"
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 4
-                                                        anchors.rightMargin: 4
-                                                        anchors.topMargin: 2
-                                                        anchors.bottomMargin: 2
-                                                        horizontalAlignment: Text.AlignHCenter
-                                                        verticalAlignment: Text.AlignVCenter
-                                                        wrapMode: Text.Wrap
-                                                        minimumPointSize: 10
-                                                        minimumPixelSize: 10
-                                                        z: 1
-                                                        fontSizeMode: Text.HorizontalFit
-                                                        font.styleName: "ExtraBold Italic"
-                                                    }
-
-                                                    Text {
-                                                        id: attack2NameDrop
-                                                        color: "#2a7b2d"
-                                                        text: attack2NameText.text
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 4
-                                                        anchors.rightMargin: 4
-                                                        anchors.topMargin: 2
-                                                        anchors.bottomMargin: 2
-                                                        horizontalAlignment: Text.AlignHCenter
-                                                        verticalAlignment: Text.AlignVCenter
-                                                        wrapMode: Text.Wrap
-                                                        minimumPointSize: 10
-                                                        minimumPixelSize: 10
-                                                        z: 0
-                                                        fontSizeMode: Text.HorizontalFit
-                                                        font.styleName: "ExtraBold Italic"
-                                                    }
-
-                                                    Rectangle {
-                                                        id: rectangle14
-                                                        x: -6
-                                                        y: -6
-                                                        color: "#00ffffff"
-                                                        radius: 4
-                                                        border.color: "#25fb2e"
-                                                        border.width: 1
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 3
-                                                        anchors.rightMargin: 3
-                                                        anchors.topMargin: 3
-                                                        anchors.bottomMargin: 3
-                                                    }
-                                                }
-                                            }
-                                        }
-
-
-                                        Rectangle {
-                                            id: attack2DescriptionBlock
-                                            width: 250
-                                            height: 120
-                                            visible: true
-                                            color: "#c80d0d"
-                                            radius: 8
-                                            border.color: "#6c0101"
-                                            border.width: 2
-                                            Rectangle {
-                                                id: attack2DescriptionBezel
-                                                color: "#b2b2b2"
-                                                radius: 8
-                                                border.color: "#616161"
-                                                border.width: 2
-                                                anchors.fill: parent
-                                                anchors.leftMargin: 4
-                                                anchors.rightMargin: 4
-                                                anchors.topMargin: 4
-                                                anchors.bottomMargin: 4
-                                                Rectangle {
-                                                    id: attack2Screen
-                                                    x: 10
-                                                    y: 4
-                                                    color: attack1NameScreen.color
-                                                    radius: 6
-                                                    border.color: "#128c17"
-                                                    border.width: 2
-                                                    anchors.fill: parent
-                                                    anchors.leftMargin: 6
-                                                    anchors.rightMargin: 6
-                                                    anchors.topMargin: 6
-                                                    anchors.bottomMargin: 6
-                                                    Text {
-                                                        id: attack2DescriptionDropText
-                                                        visible: true
-                                                        color: "#c5002a02"
-                                                        text: attack2DescriptionText.text
-                                                        anchors.right: parent.right
-                                                        anchors.bottom: parent.bottom
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 4
-                                                        anchors.rightMargin: 4
-                                                        anchors.topMargin: 4
-                                                        anchors.bottomMargin: 4
-                                                        horizontalAlignment: Text.AlignHCenter
-                                                        verticalAlignment: Text.AlignVCenter
-                                                        wrapMode: Text.Wrap
-                                                        font.pointSize: attack2DescriptionText.font.pointSize
-                                                        minimumPixelSize: 6
-                                                        fontSizeMode: Text.Fit
-                                                        minimumPointSize: 6
-                                                        z: 1
-                                                        font.styleName: "ExtraBold Italic"
-                                                    }
-
-                                                    Text {
-                                                        id: attack2DescriptionText
-                                                        visible: true
-                                                        color: "#095f0c"
-                                                        text: "Attack 2 Description"
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 4
-                                                        anchors.rightMargin: 4
-                                                        anchors.topMargin: 4
-                                                        anchors.bottomMargin: 4
-                                                        horizontalAlignment: Text.AlignHCenter
-                                                        verticalAlignment: Text.AlignVCenter
-                                                        wrapMode: Text.Wrap
-                                                        minimumPointSize: 6
-                                                        minimumPixelSize: 6
-                                                        z: 0
-                                                        fontSizeMode: Text.Fit
-                                                        font.styleName: "ExtraBold Italic"
-                                                    }
-
-                                                    Rectangle {
-                                                        id: rectangle23
-                                                        x: -3
-                                                        y: -3
-                                                        color: "#00ffffff"
-                                                        radius: 4
-                                                        border.color: "#25fb2e"
-                                                        border.width: 1
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 3
-                                                        anchors.rightMargin: 3
-                                                        anchors.topMargin: 3
-                                                        anchors.bottomMargin: 3
-                                                    }
-                                                }
-                                            }
-                                        }
-
-
-                                        Rectangle {
-                                            id: attack3NameBlock
-                                            width: 200
-                                            height: 45
-                                            visible: true
-                                            color: "#c80d0d"
-                                            radius: 8
-                                            border.color: "#6c0101"
-                                            border.width: 2
-                                            anchors.horizontalCenter: parent.horizontalCenter
-                                            Rectangle {
-                                                id: attack3NameBezel
-                                                color: "#b2b2b2"
-                                                radius: 8
-                                                border.color: "#616161"
-                                                border.width: 2
-                                                anchors.fill: parent
-                                                anchors.leftMargin: 4
-                                                anchors.rightMargin: 4
-                                                anchors.topMargin: 3
-                                                anchors.bottomMargin: 3
-                                                Rectangle {
-                                                    id: attack3NameScreen
-                                                    x: 10
-                                                    y: 4
-                                                    color: attack1NameScreen.color
-                                                    radius: 4
-                                                    border.color: "#128c17"
-                                                    border.width: 2
-                                                    anchors.fill: parent
-                                                    anchors.leftMargin: 5
-                                                    anchors.rightMargin: 5
-                                                    anchors.topMargin: 6
-                                                    anchors.bottomMargin: 6
-                                                    Text {
-                                                        id: attack3NameText
-                                                        color: "#c5002a02"
-                                                        text: "Attack 3"
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 4
-                                                        anchors.rightMargin: 4
-                                                        anchors.topMargin: 2
-                                                        anchors.bottomMargin: 2
-                                                        horizontalAlignment: Text.AlignHCenter
-                                                        verticalAlignment: Text.AlignVCenter
-                                                        wrapMode: Text.Wrap
-                                                        minimumPointSize: 6
-                                                        minimumPixelSize: 6
-                                                        z: 1
-                                                        fontSizeMode: Text.Fit
-                                                        font.styleName: "ExtraBold Italic"
-                                                    }
-
-                                                    Text {
-                                                        id: attack3NameDrop
-                                                        color: "#2a7b2d"
-                                                        text: attack3NameText.text
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 4
-                                                        anchors.rightMargin: 4
-                                                        anchors.topMargin: 2
-                                                        anchors.bottomMargin: 2
-                                                        horizontalAlignment: Text.AlignHCenter
-                                                        verticalAlignment: Text.AlignVCenter
-                                                        wrapMode: Text.Wrap
-                                                        minimumPointSize: 6
-                                                        minimumPixelSize: 6
-                                                        z: 0
-                                                        fontSizeMode: Text.Fit
-                                                        font.styleName: "ExtraBold Italic"
-                                                    }
-
-                                                    Rectangle {
-                                                        id: rectangle15
-                                                        x: -6
-                                                        y: -6
-                                                        color: "#00ffffff"
-                                                        radius: 4
-                                                        border.color: "#25fb2e"
-                                                        border.width: 1
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 3
-                                                        anchors.rightMargin: 3
-                                                        anchors.topMargin: 3
-                                                        anchors.bottomMargin: 3
-                                                    }
-                                                }
-                                            }
-                                        }
-
-
-                                        Rectangle {
-                                            id: attack3DescriptionBlock
-                                            width: 250
-                                            height: 120
-                                            color: "#c80d0d"
-                                            radius: 8
-                                            border.color: "#6c0101"
-                                            border.width: 2
-                                            Rectangle {
-                                                id: attack3DescriptionBezel
-                                                color: "#b2b2b2"
-                                                radius: 8
-                                                border.color: "#616161"
-                                                border.width: 2
-                                                anchors.fill: parent
-                                                anchors.leftMargin: 4
-                                                anchors.rightMargin: 4
-                                                anchors.topMargin: 4
-                                                anchors.bottomMargin: 4
-                                                Rectangle {
-                                                    id: attack3DescriptionScreen
-                                                    x: 10
-                                                    y: 4
-                                                    color: attack1NameScreen.color
-                                                    radius: 6
-                                                    border.color: "#128c17"
-                                                    border.width: 2
-                                                    anchors.fill: parent
-                                                    anchors.leftMargin: 6
-                                                    anchors.rightMargin: 6
-                                                    anchors.topMargin: 6
-                                                    anchors.bottomMargin: 6
-                                                    Text {
-                                                        id: attack3DescriptionDropText
-                                                        visible: true
-                                                        color: "#c5002a02"
-                                                        text: attack3DescriptionText.text
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 4
-                                                        anchors.rightMargin: 4
-                                                        anchors.topMargin: 4
-                                                        anchors.bottomMargin: 4
-                                                        horizontalAlignment: Text.AlignHCenter
-                                                        verticalAlignment: Text.AlignVCenter
-                                                        wrapMode: Text.Wrap
-                                                        z: 1
-                                                        minimumPointSize: 6
-                                                        minimumPixelSize: 6
-                                                        fontSizeMode: Text.Fit
-                                                        font.styleName: "ExtraBold Italic"
-                                                        font.pointSize: attack3DescriptionText.font.pointSize
-                                                    }
-
-                                                    Text {
-                                                        id: attack3DescriptionText
-                                                        visible: true
-                                                        color: "#095f0c"
-                                                        text: "Attack 3 Description"
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 4
-                                                        anchors.rightMargin: 4
-                                                        anchors.topMargin: 4
-                                                        anchors.bottomMargin: 4
-                                                        horizontalAlignment: Text.AlignHCenter
-                                                        verticalAlignment: Text.AlignVCenter
-                                                        wrapMode: Text.Wrap
-                                                        z: 0
-                                                        minimumPointSize: 6
-                                                        minimumPixelSize: 6
-                                                        fontSizeMode: Text.Fit
-                                                        font.styleName: "ExtraBold Italic"
-                                                    }
-
-                                                    Rectangle {
-                                                        id: rectangle22
-                                                        x: -7
-                                                        y: 8
-                                                        color: "#00ffffff"
-                                                        radius: 4
-                                                        border.color: "#25fb2e"
-                                                        border.width: 1
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 3
-                                                        anchors.rightMargin: 3
-                                                        anchors.topMargin: 3
-                                                        anchors.bottomMargin: 3
-                                                    }
-                                                }
-                                            }
-                                        }
-
-
-                                        Rectangle {
-                                            id: attack4NameBlock
-                                            width: 200
-                                            height: 45
-                                            visible: true
-                                            color: "#c80d0d"
-                                            radius: 8
-                                            border.color: "#6c0101"
-                                            border.width: 2
-                                            Rectangle {
-                                                id: attack4NameBezel
-                                                color: "#b2b2b2"
-                                                radius: 8
-                                                border.color: "#616161"
-                                                border.width: 2
-                                                anchors.fill: parent
-                                                anchors.leftMargin: 4
-                                                anchors.rightMargin: 4
-                                                anchors.topMargin: 3
-                                                anchors.bottomMargin: 3
-                                                Rectangle {
-                                                    id: attack4NameScreen
-                                                    x: 10
-                                                    y: 4
-                                                    color: attack1NameScreen.color
-                                                    radius: 4
-                                                    border.color: "#128c17"
-                                                    border.width: 2
-                                                    anchors.fill: parent
-                                                    anchors.leftMargin: 5
-                                                    anchors.rightMargin: 5
-                                                    anchors.topMargin: 6
-                                                    anchors.bottomMargin: 6
-                                                    Text {
-                                                        id: attack4NameText
-                                                        color: "#c5002a02"
-                                                        text: "Attack 4"
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 4
-                                                        anchors.rightMargin: 4
-                                                        anchors.topMargin: 2
-                                                        anchors.bottomMargin: 2
-                                                        horizontalAlignment: Text.AlignHCenter
-                                                        verticalAlignment: Text.AlignVCenter
-                                                        wrapMode: Text.Wrap
-                                                        z: 1
-                                                        minimumPointSize: 6
-                                                        minimumPixelSize: 6
-                                                        fontSizeMode: Text.Fit
-                                                        font.styleName: "ExtraBold Italic"
-                                                    }
-
-                                                    Text {
-                                                        id: attack4NameDrop
-                                                        color: "#2a7b2d"
-                                                        text: attack4NameText.text
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 4
-                                                        anchors.rightMargin: 4
-                                                        anchors.topMargin: 2
-                                                        anchors.bottomMargin: 2
-                                                        horizontalAlignment: Text.AlignHCenter
-                                                        verticalAlignment: Text.AlignVCenter
-                                                        wrapMode: Text.Wrap
-                                                        z: 0
-                                                        minimumPointSize: 6
-                                                        minimumPixelSize: 6
-                                                        fontSizeMode: Text.Fit
-                                                        font.styleName: "ExtraBold Italic"
-                                                    }
-
-                                                    Rectangle {
-                                                        id: rectangle33
-                                                        x: -6
-                                                        y: -6
-                                                        color: "#00ffffff"
-                                                        radius: 4
-                                                        border.color: "#25fb2e"
-                                                        border.width: 1
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 3
-                                                        anchors.rightMargin: 3
-                                                        anchors.topMargin: 3
-                                                        anchors.bottomMargin: 3
-                                                    }
-                                                }
-                                            }
+                                            height: 200
+                                            nameText: "Attack 1"
+                                            mainColor: window.primaryColor
+                                            bezelColor: window.bezelColor
+                                            screenColor: window.screenColor
+                                            textColor: window.textColor
+                                            dropTextColor: window.dropTextColor
+                                            borderColor: window.borderColor
+                                            dropBorderColor: window.dropBorderColor
                                             anchors.horizontalCenter: parent.horizontalCenter
                                         }
 
-
-                                        Rectangle {
-                                            id: attack4DescriptionBlock
+                                        AttackInfoBlock {
+                                            id: attack2Block
                                             width: 250
-                                            height: 120
-                                            color: "#c80d0d"
-                                            radius: 8
-                                            border.color: "#6c0101"
-                                            border.width: 2
-                                            Rectangle {
-                                                id: attack4DescriptionBezel
-                                                color: "#b2b2b2"
-                                                radius: 8
-                                                border.color: "#616161"
-                                                border.width: 2
-                                                anchors.fill: parent
-                                                anchors.leftMargin: 4
-                                                anchors.rightMargin: 4
-                                                anchors.topMargin: 4
-                                                anchors.bottomMargin: 4
-                                                Rectangle {
-                                                    id: attack4DescriptionScreen
-                                                    x: 10
-                                                    y: 4
-                                                    color: attack1NameScreen.color
-                                                    radius: 6
-                                                    border.color: "#128c17"
-                                                    border.width: 2
-                                                    anchors.fill: parent
-                                                    anchors.leftMargin: 6
-                                                    anchors.rightMargin: 6
-                                                    anchors.topMargin: 6
-                                                    anchors.bottomMargin: 6
-                                                    Text {
-                                                        id: attack4DescriptionDropText
-                                                        visible: true
-                                                        color: "#c5002a02"
-                                                        text: attack4DescriptionText.text
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 4
-                                                        anchors.rightMargin: 4
-                                                        anchors.topMargin: 4
-                                                        anchors.bottomMargin: 4
-                                                        horizontalAlignment: Text.AlignHCenter
-                                                        verticalAlignment: Text.AlignVCenter
-                                                        wrapMode: Text.Wrap
-                                                        z: 1
-                                                        minimumPointSize: 6
-                                                        minimumPixelSize: 6
-                                                        fontSizeMode: Text.Fit
-                                                        font.styleName: "ExtraBold Italic"
-                                                        font.pointSize: attack4DescriptionText.font.pointSize
-                                                    }
-
-                                                    Text {
-                                                        id: attack4DescriptionText
-                                                        visible: true
-                                                        color: "#095f0c"
-                                                        text: "Attack 4 Description"
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 4
-                                                        anchors.rightMargin: 4
-                                                        anchors.topMargin: 4
-                                                        anchors.bottomMargin: 4
-                                                        horizontalAlignment: Text.AlignHCenter
-                                                        verticalAlignment: Text.AlignVCenter
-                                                        wrapMode: Text.Wrap
-                                                        z: 0
-                                                        minimumPointSize: 6
-                                                        minimumPixelSize: 6
-                                                        fontSizeMode: Text.Fit
-                                                        font.styleName: "ExtraBold Italic"
-                                                    }
-
-                                                    Rectangle {
-                                                        id: rectangle34
-                                                        x: -7
-                                                        y: 8
-                                                        color: "#00ffffff"
-                                                        radius: 4
-                                                        border.color: "#25fb2e"
-                                                        border.width: 1
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 3
-                                                        anchors.rightMargin: 3
-                                                        anchors.topMargin: 3
-                                                        anchors.bottomMargin: 3
-                                                    }
-                                                }
-                                            }
+                                            height: 200
+                                            nameText: "Attack 2"
+                                            mainColor: window.primaryColor
+                                            bezelColor: window.bezelColor
+                                            screenColor: window.screenColor
+                                            textColor: window.textColor
+                                            dropTextColor: window.dropTextColor
+                                            borderColor: window.borderColor
+                                            dropBorderColor: window.dropBorderColor
+                                            anchors.horizontalCenter: parent.horizontalCenter
                                         }
 
+                                        AttackInfoBlock {
+                                            id: attack3Block
+                                            width: 250
+                                            height: 200
+                                            nameText: "Attack 3"
+                                            mainColor: window.primaryColor
+                                            bezelColor: window.bezelColor
+                                            screenColor: window.screenColor
+                                            textColor: window.textColor
+                                            dropTextColor: window.dropTextColor
+                                            borderColor: window.borderColor
+                                            dropBorderColor: window.dropBorderColor
+                                            anchors.horizontalCenter: parent.horizontalCenter
+                                        }
+
+                                        AttackInfoBlock {
+                                            id: attack4Block
+                                            width: 250
+                                            height: 200
+                                            nameText: "Attack 4"
+                                            mainColor: window.primaryColor
+                                            bezelColor: window.bezelColor
+                                            screenColor: window.screenColor
+                                            textColor: window.textColor
+                                            dropTextColor: window.dropTextColor
+                                            borderColor: window.borderColor
+                                            dropBorderColor: window.dropBorderColor
+                                            anchors.horizontalCenter: parent.horizontalCenter
+                                        }
 
                                         Rectangle {
                                             id: ability1NameBlock
@@ -3995,7 +2767,7 @@ Window {
                                                     id: ability1NameScreen
                                                     x: 10
                                                     y: 4
-                                                    color: attack1NameScreen.color
+                                                    color: screenColor
                                                     radius: 4
                                                     border.color: "#128c17"
                                                     border.width: 2
@@ -4077,7 +2849,7 @@ Window {
                                                     id: ability1TypeScreen
                                                     x: 10
                                                     y: 4
-                                                    color: attack1NameScreen.color
+                                                    color: screenColor
                                                     radius: 4
                                                     border.color: "#128c17"
                                                     border.width: 2
@@ -4153,7 +2925,7 @@ Window {
                                                     id: ability1DescriptionScreen
                                                     x: 10
                                                     y: 4
-                                                    color: attack1NameScreen.color
+                                                    color: screenColor
                                                     radius: 6
                                                     border.color: "#128c17"
                                                     border.width: 2
@@ -4246,7 +3018,7 @@ Window {
                                                     id: ability2NameScreen
                                                     x: 10
                                                     y: 4
-                                                    color: attack1NameScreen.color
+                                                    color: screenColor
                                                     radius: 4
                                                     border.color: "#128c17"
                                                     border.width: 2
@@ -4327,7 +3099,7 @@ Window {
                                                     id: ability2TypeScreen
                                                     x: 10
                                                     y: 4
-                                                    color: attack1NameScreen.color
+                                                    color: screenColor
                                                     radius: 4
                                                     border.color: "#128c17"
                                                     border.width: 2
@@ -4404,7 +3176,7 @@ Window {
                                                     id: ability2DescriptionScreen
                                                     x: 10
                                                     y: 4
-                                                    color: attack1NameScreen.color
+                                                    color: screenColor
                                                     radius: 6
                                                     border.color: "#128c17"
                                                     border.width: 2
@@ -4669,6 +3441,7 @@ Window {
                     } else {
                         cards = data.map(card => ({
                                                       "name": card.name,
+                                                      "id": card.id,
                                                       "supertype": card.supertype,
                                                       "type1": card.type1,
                                                       "type2": card.type2,
@@ -4696,21 +3469,21 @@ Window {
                                                       "attack1Text": card.attack1Text || "",
                                                       "attack1Damage": card.attack1Damage || "",
                                                       "attack1ConvertedEnergyCost": card.attack1ConvertedEnergyCost || 0,
-                                                      "attack1Cost1": card.attack1Cost1 || "",
-                                                      "attack1Cost2": card.attack1Cost2 || "",
-                                                      "attack1Cost3": card.attack1Cost3 || "",
-                                                      "attack1Cost4": card.attack1Cost4 || "",
-                                                      "attack1Cost5": card.attack1Cost5 || "",
+                                                      "attack1Cost1": card.attack1Cost1 || "Cost 1",
+                                                      "attack1Cost2": card.attack1Cost2 || "Cost 2",
+                                                      "attack1Cost3": card.attack1Cost3 || "Cost 3",
+                                                      "attack1Cost4": card.attack1Cost4 || "Cost 4",
+                                                      "attack1Cost5": card.attack1Cost5 || "Cost 5",
 
                                                       // Attack 2
                                                       "attack2Name": card.attack2Name || "",
                                                       "attack2Text": card.attack2Text || "",
                                                       "attack2Damage": card.attack2Damage || "",
                                                       "attack2ConvertedEnergyCost": card.attack2ConvertedEnergyCost || 0,
-                                                      "attack2Cost1": card.attack2Cost1 || "",
-                                                      "attack2Cost2": card.attack2Cost2 || "",
-                                                      "attack2Cost3": card.attack2Cost3 || "",
-                                                      "attack2Cost4": card.attack2Cost4 || "",
+                                                      "attack2Cost1": card.attack2Cost1 || "Cost 1",
+                                                      "attack2Cost2": card.attack2Cost2 || "Cost 2",
+                                                      "attack2Cost3": card.attack2Cost3 || "Cost 3",
+                                                      "attack2Cost4": card.attack2Cost4 || "Cost 4",
                                                       "attack2Cost5": card.attack2Cost5 || "",
 
                                                       // Attack 3
@@ -4718,10 +3491,10 @@ Window {
                                                       "attack3Text": card.attack3Text || "",
                                                       "attack3Damage": card.attack3Damage || "",
                                                       "attack3ConvertedEnergyCost": card.attack3ConvertedEnergyCost || 0,
-                                                      "attack3Cost1": card.attack3Cost1 || "",
-                                                      "attack3Cost2": card.attack3Cost2 || "",
-                                                      "attack3Cost3": card.attack3Cost3 || "",
-                                                      "attack3Cost4": card.attack3Cost4 || "",
+                                                      "attack3Cost1": card.attack3Cost1 || "Cost 1",
+                                                      "attack3Cost2": card.attack3Cost2 || "Cost 2",
+                                                      "attack3Cost3": card.attack3Cost3 || "Cost 3",
+                                                      "attack3Cost4": card.attack3Cost4 || "Cost 4",
                                                       "attack3Cost5": card.attack3Cost5 || "",
 
                                                       // Attack 4
@@ -4729,10 +3502,10 @@ Window {
                                                       "attack4Text": card.attack4Text || "",
                                                       "attack4Damage": card.attack4Damage || "",
                                                       "attack4ConvertedEnergyCost": card.attack4ConvertedEnergyCost || 0,
-                                                      "attack4Cost1": card.attack4Cost1 || "",
-                                                      "attack4Cost2": card.attack4Cost2 || "",
-                                                      "attack4Cost3": card.attack4Cost3 || "",
-                                                      "attack4Cost4": card.attack4Cost4 || "",
+                                                      "attack4Cost1": card.attack4Cost1 || "Cost 1",
+                                                      "attack4Cost2": card.attack4Cost2 || "Cost 2",
+                                                      "attack4Cost3": card.attack4Cost3 || "Cost 3",
+                                                      "attack4Cost4": card.attack4Cost4 || "Cost 4",
                                                       "attack4Cost5": card.attack4Cost5 || "",
 
                                                       // Subtypes
@@ -4746,13 +3519,13 @@ Window {
 
                         selectedIndex = 0; // Start with the first card
                         updateAttackInfo();
-                        updateAttackCost();
                         updateAbilityInfo();
                         updateSubTypeInfo();
                         updateSuperTypeInfo();
                         updateTypeInfo();
                         resetLeftColumnScroll();
                         resetRightColumnScroll();
+                        view.visible = true
                     }
                 }
             }
@@ -4797,6 +3570,6 @@ Window {
 
 /*##^##
 Designer {
-    D{i:0}D{i:32;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}
+    D{i:0}D{i:34;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}
 }
 ##^##*/
