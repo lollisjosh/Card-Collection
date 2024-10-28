@@ -118,16 +118,43 @@ ToolBar {
             metalImage.source = typeImageMap["metal"];
             fairyImage.source = typeImageMap["fairy"];
             //dragonImage.source = typeImageMap["dragon"];
-           // colorlessImage.source = typeImageMap["colorless"];
+            // colorlessImage.source = typeImageMap["colorless"];
 
-            grassDimmer.visible = grassTypeButton.checked;
-            fireDimmer.visible = fireTypeButton.checked;
-            waterDimmer.visible = waterTypeButton.checked;
-            lightningDimmer.visible = lightningTypeButton.checked;
-            psychicDimmer.visible = psychicTypeButton.checked;
-            fightingDimmer.visible = fightingTypeButton.checked;
-            darknessDimmer.visible = darknessTypeButton.checked;
+            // grassTypeButton.checked = true;
+            // fireTypeButton.checked = true;
+            // waterTypeButton.checked = true;
+            // lightningTypeButton.checked = true;
+            // psychicTypeButton.checked = true;
+            // fightingTypeButton.checked = true;
+            // darknessTypeButton.checked = true;
+            // metalTypeButton.checked = true;
+            // fairyTypeButton.checked = true;
+            // dragonTypeButton.checked = true;
+            // colorlessTypeButton.checked = true;
 
+            grassTypeButton.checked = false;
+            fireTypeButton.checked = false;
+            waterTypeButton.checked = false;
+            lightningTypeButton.checked = false;
+            psychicTypeButton.checked = false;
+            fightingTypeButton.checked = false;
+            darknessTypeButton.checked = false;
+            metalTypeButton.checked = false;
+            fairyTypeButton.checked = false;
+            dragonTypeButton.checked = false;
+            colorlessTypeButton.checked = false;
+
+            grassDimmer.visible = !grassTypeButton.checked;
+            fireDimmer.visible = !fireTypeButton.checked;
+            waterDimmer.visible = !waterTypeButton.checked;
+            lightningDimmer.visible = !lightningTypeButton.checked;
+            psychicDimmer.visible = !psychicTypeButton.checked;
+            fightingDimmer.visible = !fightingTypeButton.checked;
+            darknessDimmer.visible = !darknessTypeButton.checked;
+            metalDimmer.visible = !metalTypeButton.checked;
+            fairyDimmer.visible = !fairyTypeButton.checked;
+            dragonImageBlock.visible = !dragonTypeButton.checked;
+            colorlessImageBlock.visible = !colorlessTypeButton.checked;
 
         }
 
@@ -141,7 +168,7 @@ ToolBar {
             ToolTip.timeout: 5000
             ToolTip.visible: hovered
             checkable: true
-            checked: false
+            checked: true
             flat: false
             height: 50
             anchors.verticalCenter: parent.verticalCenter
@@ -154,7 +181,7 @@ ToolBar {
                 button: "green"
             }
             onClicked: {
-                grassDimmer.visible = grassTypeButton.checked
+                grassDimmer.visible = !grassTypeButton.checked
             }
 
             width: 50
@@ -240,7 +267,7 @@ ToolBar {
             Layout.rowSpan: 1
             highlighted: fireTypeButton.checked
             flat: false
-            checked: false
+            checked: true
             checkable: true
             Layout.fillWidth: false
             Layout.fillHeight: false
@@ -260,7 +287,7 @@ ToolBar {
             scale: hovered ? 1.2 : 1.0
 
             onClicked: {
-                fireDimmer.visible = fireTypeButton.checked
+                fireDimmer.visible = !fireTypeButton.checked
             }
             Rectangle {
                 id: fireImageBlock
@@ -344,7 +371,7 @@ ToolBar {
             Layout.rowSpan: 1
             highlighted: waterTypeButton.checked
             flat: false
-            checked: false
+            checked: true
             checkable: true
             Layout.fillWidth: false
             Layout.fillHeight: false
@@ -364,7 +391,7 @@ ToolBar {
             scale: hovered ? 1.2 : 1.0
 
             onClicked: {
-                waterDimmer.visible = waterTypeButton.checked
+                waterDimmer.visible = !waterTypeButton.checked
             }
             Rectangle {
                 id: waterImageBlock
@@ -448,7 +475,7 @@ ToolBar {
             Layout.rowSpan: 1
             highlighted: lightningTypeButton.checked
             flat: false
-            checked: false
+            checked: true
             checkable: true
             Layout.fillWidth: false
             Layout.fillHeight: false
@@ -468,7 +495,7 @@ ToolBar {
             scale: hovered ? 1.2 : 1.0
 
             onClicked: {
-                lightningDimmer.visible = lightningTypeButton.checked
+                lightningDimmer.visible = !lightningTypeButton.checked
             }
             Rectangle {
                 id: lightningImageBlock
@@ -551,7 +578,7 @@ ToolBar {
             Layout.preferredWidth: 24
             Layout.rowSpan: 1
             highlighted: psychicTypeButton.checked
-            checked: false
+            checked: true
             checkable: true
             Layout.fillWidth: false
             Layout.fillHeight: false
@@ -571,7 +598,7 @@ ToolBar {
             scale: hovered ? 1.2 : 1.0
 
             onClicked: {
-                psychicDimmer.visible = psychicTypeButton.checked
+                psychicDimmer.visible = !psychicTypeButton.checked
             }
             Rectangle {
                 id: psychicImageBlock
@@ -657,7 +684,7 @@ ToolBar {
             Layout.rowSpan: 1
             highlighted: fightingTypeButton.checked
             flat: false
-            checked: false
+            checked: true
             checkable: true
             Layout.fillWidth: false
             Layout.fillHeight: false
@@ -675,7 +702,7 @@ ToolBar {
             scale: hovered ? 1.2 : 1.0
 
             onClicked: {
-                fightingDimmer.visible = fightingTypeButton.checked
+                fightingDimmer.visible = !fightingTypeButton.checked
             }
 
             padding: 0
@@ -761,7 +788,7 @@ ToolBar {
             Layout.rowSpan: 1
             highlighted: darknessTypeButton.checked
             flat: false
-            checked: false
+            checked: true
             checkable: true
             Layout.fillWidth: false
             Layout.fillHeight: false
@@ -781,7 +808,7 @@ ToolBar {
             scale: hovered ? 1.2 : 1.0
 
             onClicked: {
-                darknessDimmer.visible = darknessTypeButton.checked
+                darknessDimmer.visible = !darknessTypeButton.checked
             }
             Rectangle {
                 id: darknessImageBlock
@@ -865,7 +892,7 @@ ToolBar {
             Layout.rowSpan: 1
             highlighted: metalTypeButton.checked
             flat: false
-            checked: false
+            checked: true
             checkable: true
             Layout.fillWidth: false
             Layout.fillHeight: false
@@ -883,7 +910,7 @@ ToolBar {
             scale: hovered ? 1.2 : 1.0
 
             onClicked: {
-                metalDimmer.visible = metalTypeButton.checked
+                metalDimmer.visible = !metalTypeButton.checked
             }
 
             padding: 0
@@ -970,7 +997,7 @@ ToolBar {
             Layout.rowSpan: 1
             highlighted: fairyTypeButton.checked
             flat: false
-            checked: false
+            checked: true
             checkable: true
             Layout.fillWidth: false
             Layout.fillHeight: false
@@ -988,7 +1015,7 @@ ToolBar {
             // Change scale when hovered
             scale: hovered ? 1.2 : 1.0
             onClicked: {
-                fairyDimmer.visible = fairyTypeButton.checked
+                fairyDimmer.visible = !fairyTypeButton.checked
             }
 
             Rectangle {
@@ -1074,12 +1101,72 @@ ToolBar {
             Layout.rowSpan: 1
             highlighted: dragonTypeButton.checked
             flat: false
-            checked: false
+            checked: true
             checkable: true
             Layout.fillWidth: false
             Layout.fillHeight: false
             palette {
                 button: "goldenrod"
+            }
+            onClicked: {
+                dragonDummyImage.visible = !dragonTypeButton.checked
+            }
+
+            Image {
+                id: dragonDummyImage
+                x: -150
+                y: -150
+                width: 350
+                height: 350
+                opacity: 1
+                visible: true
+                z: 1
+                sourceSize.width: 0
+                sourceSize.height: 0
+                scale: 0.15
+                layer.enabled: true
+                layer.effect: OpacityMask {
+                    width: 34
+                    height: 34
+                    opacity: 0
+                    visible: true
+                    scale: 1
+                    maskSource: dragonMask
+                    layer.textureSize.width: 0
+                    layer.textureSize.height: 0
+                    layer.enabled: true
+                    enabled: true
+                    clip: false
+                }
+                fillMode: Image.Pad
+                Rectangle {
+                    id: dragonDimmer
+                    x: -10
+                    y: -10
+                    opacity: 1
+                    color: "#83474747"
+                    anchors.fill: parent
+                    layer.enabled: true
+                    z: 0
+                }
+                clip: false
+            }
+
+            Rectangle {
+                id: dragonMask
+                x: 0
+                y: 0
+                width: 50
+                height: 50
+                visible: false
+                color: "#ffffff"
+                radius: 46
+                border.width: 0
+                scale: 1
+                layer.textureSize.width: 0
+                layer.enabled: true
+                enabled: true
+                clip: false
             }
             hoverEnabled: true
 
@@ -1096,9 +1183,7 @@ ToolBar {
             icon.width: 50
             padding: 0
 
-            onClicked: {
-                dragonDimmer.visible = dragonTypeButton.checked
-            }
+
 
         }
 
@@ -1113,7 +1198,7 @@ ToolBar {
             Layout.preferredWidth: 24
             Layout.rowSpan: 1
             flat: false
-            checked: false
+            checked: true
             checkable: true
             Layout.fillWidth: false
             Layout.fillHeight: false
@@ -1134,12 +1219,72 @@ ToolBar {
             icon.width: 50
             // Change scale when hovered
             scale: hovered ? 1.2 : 1.0
-
-
             onClicked: {
-                colorlessDimmer.visible = colorlessTypeButton.checked
+                colorlessDummyImage.visible = !colorlessTypeButton.checked
             }
+
+            Image {
+                id: colorlessDummyImage
+                x: -150
+                y: -150
+                width: 350
+                height: 350
+                opacity: 1
+                visible: true
+                z: 1
+                sourceSize.width: 0
+                sourceSize.height: 0
+                scale: 0.15
+                layer.enabled: true
+                layer.effect: OpacityMask {
+                    width: 34
+                    height: 34
+                    opacity: 0
+                    visible: true
+                    scale: 1
+                    maskSource: colorlessMask
+                    layer.textureSize.width: 0
+                    layer.textureSize.height: 0
+                    layer.enabled: true
+                    enabled: true
+                    clip: false
+                }
+                fillMode: Image.Pad
+                Rectangle {
+                    id: colorlessDimmer
+                    x: -10
+                    y: -10
+                    opacity: 1
+                    color: "#83474747"
+                    anchors.fill: parent
+                    layer.enabled: true
+                    z: 0
+                }
+                clip: false
+            }
+
+            Rectangle {
+                id: colorlessMask
+                x: 0
+                y: 0
+                width: 50
+                height: 50
+                visible: false
+                color: "#ffffff"
+                radius: 46
+                border.width: 0
+                scale: 1
+                layer.textureSize.width: 0
+                layer.enabled: true
+                enabled: true
+                clip: false
+            }
+
+
+
+                clip: false
         }
+
     }
 
     Item {
