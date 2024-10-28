@@ -3,6 +3,7 @@ import QtQuick.Layouts
 import QtQuick.Window 2.15
 import QtQuick 2.13
 import Qt5Compat.GraphicalEffects
+import QtQuick3D
 
 
 ToolBar {
@@ -22,6 +23,7 @@ ToolBar {
     property bool colorlessChecked: colorlessTypeButton.checked
     property bool fairyChecked: fairyTypeButton.checked
     property bool dragonChecked: dragonTypeButton.checked
+    property alias colorlessTypeButton: colorlessTypeButton
 
 
 
@@ -115,10 +117,16 @@ ToolBar {
             darknessImage.source = typeImageMap["darkness"];
             metalImage.source = typeImageMap["metal"];
             fairyImage.source = typeImageMap["fairy"];
-            dragonImage.source = typeImageMap["dragon"];
-            colorlessImage.source = typeImageMap["colorless"];
+            //dragonImage.source = typeImageMap["dragon"];
+           // colorlessImage.source = typeImageMap["colorless"];
 
-
+            grassDimmer.visible = grassTypeButton.checked;
+            fireDimmer.visible = fireTypeButton.checked;
+            waterDimmer.visible = waterTypeButton.checked;
+            lightningDimmer.visible = lightningTypeButton.checked;
+            psychicDimmer.visible = psychicTypeButton.checked;
+            fightingDimmer.visible = fightingTypeButton.checked;
+            darknessDimmer.visible = darknessTypeButton.checked;
 
 
         }
@@ -139,16 +147,24 @@ ToolBar {
             anchors.verticalCenter: parent.verticalCenter
             highlighted: grassTypeButton.checked
             hoverEnabled: true
+            // Change scale when hovered
+            scale: hovered ? 1.2 : 1.0
             ToolTip.text: qsTr("Grass")
             palette {
                 button: "green"
             }
+            onClicked: {
+                grassDimmer.visible = grassTypeButton.checked
+            }
+
             width: 50
+            padding: 0
 
             Rectangle {
                 id: grassImageBlock
                 x: -6
                 y: -6
+                visible: true
                 color: "#00ffffff"
                 radius: 10
                 border.color: "#0002d20b"
@@ -163,6 +179,7 @@ ToolBar {
                     height: 350
                     opacity: 1
                     visible: true
+                    source: "https://images.pokemontcg.io/sm1/164_hires.png"
                     sourceSize.width: 0
                     sourceSize.height: 0
                     scale: 0.15
@@ -182,6 +199,13 @@ ToolBar {
                     }
                     fillMode: Image.Pad
                     clip: false
+
+                    Rectangle {
+                        id: grassDimmer
+                        opacity: 1
+                        color: "#83474747"
+                        anchors.fill: parent
+                    }
                 }
 
                 Rectangle {
@@ -230,13 +254,19 @@ ToolBar {
             ToolTip.visible: hovered
             ToolTip.text: qsTr("Fire")
 
+            padding: 0
+
             // Change scale when hovered
             scale: hovered ? 1.2 : 1.0
 
+            onClicked: {
+                fireDimmer.visible = fireTypeButton.checked
+            }
             Rectangle {
                 id: fireImageBlock
                 x: -6
                 y: -6
+                visible: true
                 color: "#00ffffff"
                 radius: 10
                 border.color: "#0002d20b"
@@ -251,6 +281,7 @@ ToolBar {
                     height: 350
                     opacity: 1
                     visible: true
+                    source: "https://images.pokemontcg.io/sm1/165_hires.png"
                     sourceSize.width: 0
                     sourceSize.height: 0
                     scale: 0.15
@@ -270,6 +301,15 @@ ToolBar {
                     }
                     fillMode: Image.Pad
                     clip: false
+
+                    Rectangle {
+                        id: fireDimmer
+                        x: -10
+                        y: -10
+                        opacity: 1
+                        color: "#83474747"
+                        anchors.fill: parent
+                    }
                 }
 
                 Rectangle {
@@ -318,15 +358,19 @@ ToolBar {
             ToolTip.visible: hovered
             ToolTip.text: qsTr("Water")
 
+            padding: 0
+
             // Change scale when hovered
             scale: hovered ? 1.2 : 1.0
 
-
-
+            onClicked: {
+                waterDimmer.visible = waterTypeButton.checked
+            }
             Rectangle {
                 id: waterImageBlock
                 x: -6
                 y: -6
+                visible: true
                 color: "#00ffffff"
                 radius: 10
                 border.color: "#0002d20b"
@@ -341,6 +385,7 @@ ToolBar {
                     height: 350
                     opacity: 1
                     visible: true
+                    source: "https://images.pokemontcg.io/sm1/166_hires.png"
                     sourceSize.width: 0
                     sourceSize.height: 0
                     scale: 0.15
@@ -360,6 +405,15 @@ ToolBar {
                     }
                     fillMode: Image.Pad
                     clip: false
+
+                    Rectangle {
+                        id: waterDimmer
+                        x: -10
+                        y: -10
+                        opacity: 1
+                        color: "#83474747"
+                        anchors.fill: parent
+                    }
                 }
 
                 Rectangle {
@@ -408,12 +462,19 @@ ToolBar {
             ToolTip.visible: hovered
             ToolTip.text: qsTr("Lightning")
 
+            padding: 0
+
             // Change scale when hovered
             scale: hovered ? 1.2 : 1.0
+
+            onClicked: {
+                lightningDimmer.visible = lightningTypeButton.checked
+            }
             Rectangle {
                 id: lightningImageBlock
                 x: -6
                 y: -6
+                visible: true
                 color: "#00ffffff"
                 radius: 10
                 border.color: "#0002d20b"
@@ -428,6 +489,7 @@ ToolBar {
                     height: 350
                     opacity: 1
                     visible: true
+                    source: "https://images.pokemontcg.io/sm1/167_hires.png"
                     sourceSize.width: 0
                     sourceSize.height: 0
                     scale: 0.15
@@ -447,6 +509,15 @@ ToolBar {
                     }
                     fillMode: Image.Pad
                     clip: false
+
+                    Rectangle {
+                        id: lightningDimmer
+                        x: -10
+                        y: -10
+                        opacity: 1
+                        color: "#83474747"
+                        anchors.fill: parent
+                    }
                 }
 
                 Rectangle {
@@ -469,8 +540,6 @@ ToolBar {
             }
 
         }
-
-
 
         RoundButton {
             id: psychicTypeButton
@@ -496,13 +565,19 @@ ToolBar {
             ToolTip.visible: hovered
             ToolTip.text: qsTr("Psychic")
 
+            padding: 0
+
             // Change scale when hovered
             scale: hovered ? 1.2 : 1.0
 
+            onClicked: {
+                psychicDimmer.visible = psychicTypeButton.checked
+            }
             Rectangle {
                 id: psychicImageBlock
                 x: -6
                 y: -6
+                visible: true
                 color: "#00ffffff"
                 radius: 10
                 border.color: "#0002d20b"
@@ -517,6 +592,7 @@ ToolBar {
                     height: 350
                     opacity: 1
                     visible: true
+                    source: "https://images.pokemontcg.io/sm1/168_hires.png"
                     sourceSize.width: 0
                     sourceSize.height: 0
                     scale: 0.15
@@ -536,6 +612,15 @@ ToolBar {
                     }
                     fillMode: Image.Pad
                     clip: false
+
+                    Rectangle {
+                        id: psychicDimmer
+                        x: -10
+                        y: -10
+                        opacity: 1
+                        color: "#83474747"
+                        anchors.fill: parent
+                    }
                 }
 
                 Rectangle {
@@ -589,10 +674,16 @@ ToolBar {
             // Change scale when hovered
             scale: hovered ? 1.2 : 1.0
 
+            onClicked: {
+                fightingDimmer.visible = fightingTypeButton.checked
+            }
+
+            padding: 0
             Rectangle {
                 id: fightingImageBlock
                 x: -6
                 y: -6
+                visible: true
                 color: "#00ffffff"
                 radius: 10
                 border.color: "#0002d20b"
@@ -607,6 +698,7 @@ ToolBar {
                     height: 350
                     opacity: 1
                     visible: true
+                    source: "https://images.pokemontcg.io/sm1/169_hires.png"
                     sourceSize.width: 0
                     sourceSize.height: 0
                     scale: 0.15
@@ -626,6 +718,15 @@ ToolBar {
                     }
                     fillMode: Image.Pad
                     clip: false
+
+                    Rectangle {
+                        id: fightingDimmer
+                        x: -10
+                        y: -10
+                        opacity: 1
+                        color: "#83474747"
+                        anchors.fill: parent
+                    }
                 }
 
                 Rectangle {
@@ -674,13 +775,19 @@ ToolBar {
             ToolTip.visible: hovered
             ToolTip.text: qsTr("Darkness")
 
+            padding: 0
+
             // Change scale when hovered
             scale: hovered ? 1.2 : 1.0
 
+            onClicked: {
+                darknessDimmer.visible = darknessTypeButton.checked
+            }
             Rectangle {
                 id: darknessImageBlock
                 x: -6
                 y: -6
+                visible: true
                 color: "#00ffffff"
                 radius: 10
                 border.color: "#0002d20b"
@@ -695,6 +802,7 @@ ToolBar {
                     height: 350
                     opacity: 1
                     visible: true
+                    source: "https://images.pokemontcg.io/sm1/170_hires.png"
                     sourceSize.width: 0
                     sourceSize.height: 0
                     scale: 0.15
@@ -714,6 +822,15 @@ ToolBar {
                     }
                     fillMode: Image.Pad
                     clip: false
+
+                    Rectangle {
+                        id: darknessDimmer
+                        x: -10
+                        y: -10
+                        opacity: 1
+                        color: "#83474747"
+                        anchors.fill: parent
+                    }
                 }
 
                 Rectangle {
@@ -765,10 +882,16 @@ ToolBar {
             // Change scale when hovered
             scale: hovered ? 1.2 : 1.0
 
+            onClicked: {
+                metalDimmer.visible = metalTypeButton.checked
+            }
+
+            padding: 0
             Rectangle {
                 id: metalImageBlock
                 x: -6
                 y: -6
+                visible: true
                 color: "#00ffffff"
                 radius: 10
                 border.color: "#0002d20b"
@@ -783,6 +906,7 @@ ToolBar {
                     height: 350
                     opacity: 1
                     visible: true
+                    source: "https://images.pokemontcg.io/sm1/171_hires.png"
                     sourceSize.width: 0
                     sourceSize.height: 0
                     scale: 0.15
@@ -802,6 +926,15 @@ ToolBar {
                     }
                     fillMode: Image.Pad
                     clip: false
+
+                    Rectangle {
+                        id: metalDimmer
+                        x: -10
+                        y: -10
+                        opacity: 1
+                        color: "#83474747"
+                        anchors.fill: parent
+                    }
                 }
 
                 Rectangle {
@@ -831,6 +964,7 @@ ToolBar {
             height: 50
             text: ""
             anchors.verticalCenter: parent.verticalCenter
+            clip: false
             Layout.preferredHeight: 24
             Layout.preferredWidth: 24
             Layout.rowSpan: 1
@@ -844,6 +978,7 @@ ToolBar {
                 button: "hotpink"
             }
             hoverEnabled: true
+            padding: 0
 
             ToolTip.delay: 800
             ToolTip.timeout: 5000
@@ -852,11 +987,15 @@ ToolBar {
 
             // Change scale when hovered
             scale: hovered ? 1.2 : 1.0
+            onClicked: {
+                fairyDimmer.visible = fairyTypeButton.checked
+            }
 
             Rectangle {
                 id: fairyImageBlock
                 x: -6
                 y: -6
+                visible: true
                 color: "#00ffffff"
                 radius: 10
                 border.color: "#0002d20b"
@@ -871,6 +1010,7 @@ ToolBar {
                     height: 350
                     opacity: 1
                     visible: true
+                    source: "https://images.pokemontcg.io/sm1/172_hires.png"
                     sourceSize.width: 0
                     sourceSize.height: 0
                     scale: 0.15
@@ -890,6 +1030,15 @@ ToolBar {
                     }
                     fillMode: Image.Pad
                     clip: false
+
+                    Rectangle {
+                        id: fairyDimmer
+                        x: -10
+                        y: -10
+                        opacity: 1
+                        color: "#83474747"
+                        anchors.fill: parent
+                    }
                 }
 
                 Rectangle {
@@ -919,6 +1068,7 @@ ToolBar {
             height: 50
             text: ""
             anchors.verticalCenter: parent.verticalCenter
+            clip: false
             Layout.preferredHeight: 24
             Layout.preferredWidth: 24
             Layout.rowSpan: 1
@@ -941,62 +1091,13 @@ ToolBar {
             // Change scale when hovered
             scale: hovered ? 1.2 : 1.0
 
-            Rectangle {
-                id: dragonImageBlock
-                x: -6
-                y: -6
-                color: "#00ffffff"
-                radius: 10
-                border.color: "#0002d20b"
-                border.width: 0
-                anchors.fill: parent
-                scale: 0.9
-                Image {
-                    id: dragonImage
-                    x: -150
-                    y: -150
-                    width: 350
-                    height: 350
-                    opacity: 1
-                    visible: true
-                    sourceSize.width: 0
-                    sourceSize.height: 0
-                    scale: 0.15
-                    layer.enabled: true
-                    layer.effect: OpacityMask {
-                        width: 34
-                        height: 34
-                        opacity: 0
-                        visible: true
-                        scale: 1
-                        maskSource: dragonMask
-                        layer.textureSize.width: 0
-                        layer.textureSize.height: 0
-                        layer.enabled: true
-                        enabled: true
-                        clip: false
-                    }
-                    fillMode: Image.Pad
-                    clip: false
-                }
+            icon.source: "dragonEnergyCropped.png"
+            icon.height: 50
+            icon.width: 50
+            padding: 0
 
-                Rectangle {
-                    id: dragonMask
-                    x: 0
-                    y: 0
-                    width: 50
-                    height: 50
-                    visible: false
-                    color: "#ffffff"
-                    radius: 46
-                    border.width: 0
-                    scale: 1
-                    layer.textureSize.width: 0
-                    layer.enabled: true
-                    enabled: true
-                    clip: false
-                }
-                clip: true
+            onClicked: {
+                dragonDimmer.visible = dragonTypeButton.checked
             }
 
         }
@@ -1007,10 +1108,10 @@ ToolBar {
             height: 50
             text: ""
             anchors.verticalCenter: parent.verticalCenter
+            highlighted: false
             Layout.preferredHeight: 24
             Layout.preferredWidth: 24
             Layout.rowSpan: 1
-            highlighted: colorlessTypeButton.checked
             flat: false
             checked: false
             checkable: true
@@ -1027,67 +1128,28 @@ ToolBar {
             ToolTip.visible: hovered
             ToolTip.text: qsTr("Colorless")
 
+            padding: 0
+            icon.source: "colorlessEnergyCropped.png"
+            icon.height: 50
+            icon.width: 50
             // Change scale when hovered
             scale: hovered ? 1.2 : 1.0
 
-            Rectangle {
-                id: colorlessImageBlock
-                x: -6
-                y: -6
-                color: "#00ffffff"
-                radius: 10
-                border.color: "#0002d20b"
-                border.width: 0
-                anchors.fill: parent
-                scale: 0.9
-                Image {
-                    id: colorlessImage
-                    x: -150
-                    y: -150
-                    width: 350
-                    height: 350
-                    opacity: 1
-                    visible: true
-                    sourceSize.width: 0
-                    sourceSize.height: 0
-                    scale: 0.15
-                    layer.enabled: true
-                    layer.effect: OpacityMask {
-                        width: 34
-                        height: 34
-                        opacity: 0
-                        visible: true
-                        scale: 1
-                        maskSource: colorlessMask
-                        layer.textureSize.width: 0
-                        layer.textureSize.height: 0
-                        layer.enabled: true
-                        enabled: true
-                        clip: false
-                    }
-                    fillMode: Image.Pad
-                    clip: false
-                }
 
-                Rectangle {
-                    id: colorlessMask
-                    x: 0
-                    y: 0
-                    width: 50
-                    height: 50
-                    visible: false
-                    color: "#ffffff"
-                    radius: 46
-                    border.width: 0
-                    scale: 1
-                    layer.textureSize.width: 0
-                    layer.enabled: true
-                    enabled: true
-                    clip: false
-                }
-                clip: true
+            onClicked: {
+                colorlessDimmer.visible = colorlessTypeButton.checked
             }
+        }
+    }
 
+    Item {
+        id: __materialLibrary__
+
+        PrincipledMaterial {
+            id: principledMaterial
+            objectName: "New Material"
         }
     }
 }
+
+
