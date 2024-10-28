@@ -18,6 +18,7 @@ Window {
 
     visible: true
     color: "#611b1b"
+    property alias btnSearch: btnSearch
 
     title: qsTr("Card Collection")
 
@@ -350,6 +351,7 @@ Window {
 
         StackLayout {
             id: stackLayout
+            y: 50
             width: 600
             height: 600
             visible: true
@@ -395,12 +397,15 @@ Window {
                             bottomPadding: 0
                             contentHeight: 30
                             height: 60
+                            anchors.left: parent.left
+                            anchors.right: parent.right
+                            anchors.leftMargin: 0
+                            anchors.rightMargin: 0
                             Layout.preferredWidth: 500
                             fairyChecked: false
                             dragonChecked: false
                             horizontalPadding: 0
                             verticalPadding: 0
-                            width: 600
 
                             // Dynamic ListModel for sets
                             setsModel: ListModel {
@@ -436,11 +441,119 @@ Window {
                                 z: 1
                                 spacing: 5
 
-                                TextField {
-                                    id: txtSearchBox
-                                    width: 480
+
+                                ComboBox {
+                                    id: setComboBox
                                     height: 25
                                     anchors.verticalCenter: parent.verticalCenter
+                                    anchors.left: parent.left
+                                    anchors.right: txtSearchBox.left
+                                    anchors.leftMargin: 2
+                                    anchors.rightMargin: 6
+                                    Layout.leftMargin: 6
+                                    Layout.preferredHeight: -1
+                                    Layout.preferredWidth: -1
+                                    Layout.fillHeight: false
+                                    Layout.fillWidth: true
+                                    displayText: "Sets"
+
+                                    model: setsModel
+
+                                    delegate: Item {
+                                        width: parent ? parent.width : 0
+                                        height: checkDelegate ? checkDelegate.height : 30
+
+                                        function toggle() {
+                                            checkDelegate.toggle()
+                                        }
+
+                                        CheckDelegate {
+                                            id: checkDelegate
+                                            anchors.fill: parent
+                                            text: model.name
+                                            highlighted: setComboBox.highlightedIndex == index
+                                            checked: model.selected
+                                            onCheckedChanged: {
+                                                if (model.selected !== checked) {
+                                                    model.selected = checked;
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    // override space key handling to toggle items when the popup is visible
+                                    Keys.onSpacePressed: {
+                                        if (setComboBox.popup.visible) {
+                                            var currentItem = setComboBox.popup.contentItem.currentItem
+                                            if (currentItem) {
+                                                currentItem.toggle()
+                                                event.accepted = true
+                                            }
+                                        }
+                                    }
+
+                                    Keys.onReleased: {
+                                        if (setComboBox.popup.visible)
+                                            event.accepted = (event.key === Qt.Key_Space)
+                                    }
+
+                                    Component.onCompleted: {
+                                        // Request All Sets to populate combo box
+                                        //console.log("Requesting sets from backend...")
+                                        backendController.request_sets_retrieve()
+                                    }
+
+                                    Connections {
+                                        target: backendController
+
+                                        function onSetsResults(response) {
+                                            var data = JSON.parse(response)
+                                            setsModel.clear(
+                                                        ) // Clear existing items in the model
+
+                                            if (data.error) {
+                                                sets = [] // Clear the array of sets
+                                                console.log("Error in the data received from backend.")
+                                            } else {
+                                                // Collect sets into an array
+                                                var tempSets = []
+
+                                                data.forEach(function (set) {
+                                                    // Collect each set object
+                                                    tempSets.push({
+                                                                      "name": set.name,
+                                                                      "selected": false
+                                                                  })
+                                                })
+
+                                                // Sort the array alphabetically by name
+                                                tempSets.sort(function (a, b) {
+                                                    return a.name.localeCompare(
+                                                                b.name) // Sort using localeCompare for proper alphabetical order
+                                                })
+
+                                                // Append sorted sets to the model
+                                                tempSets.forEach(
+                                                            function (sortedSet) {
+                                                                setsModel.append(
+                                                                            sortedSet)
+                                                                //console.log("Appending set: ", sortedSet.name); // Debugging each appended set
+                                                            })
+
+                                                //console.log("SetsModel updated with new sets: ", setsModel.count); // Check the number of elements
+                                            }
+                                        }
+                                    }
+                                }
+
+                                TextField {
+                                    id: txtSearchBox
+                                    x: 111
+                                    width: 240
+                                    height: 25
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    anchors.right: btnSearch.left
+                                    anchors.rightMargin: 6
                                     Layout.fillHeight: false
                                     //anchors.verticalCenter: btnSearch.verticalCenter
                                     //anchors.left: parent.left
@@ -476,10 +589,13 @@ Window {
 
                                 Button {
                                     id: btnSearch
-                                    width: 100
+                                    x: 485
+                                    width: 75
                                     height: 25
                                     text: qsTr("Search")
                                     anchors.verticalCenter: parent.verticalCenter
+                                    anchors.right: parent.right
+                                    anchors.rightMargin: -585
                                     z: 1
                                     font.styleName: "Bold Italic"
                                     Layout.fillHeight: false
@@ -3582,6 +3698,6 @@ Window {
 
 /*##^##
 Designer {
-    D{i:0}D{i:16}D{i:18}D{i:22}D{i:34;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}
+    D{i:0}D{i:13}D{i:16}D{i:17}D{i:26}D{i:38;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}
 }
 ##^##*/
