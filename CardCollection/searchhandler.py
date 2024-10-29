@@ -1,5 +1,6 @@
 from pokemontcgsdk import Card
 from backend import Backend
+from cardprocessor import CardProcessor
 
 class SearchHandler:
     """
@@ -24,3 +25,17 @@ class SearchHandler:
         """
 
         return Backend.construct_query(search_parameters)
+
+    def handle_card_process(self, cards: list[Card]) -> list[dict[str, str]]:
+        """
+        A function that takes a list of tuples representing search parameters, constructs a query string using the Backend class, and retrieves a list of Card objects from the API.
+
+        Args:
+            cards: list[Card]: A list of Card objects as defined by the API
+        Returns:
+           list[dict[str, str]: A list of dictionaries:
+                - key: card attribute defined by API
+                - value: card data string for that attribute
+        """
+        
+        return CardProcessor.process_cards(self, cards)
