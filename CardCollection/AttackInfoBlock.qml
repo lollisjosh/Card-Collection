@@ -109,6 +109,8 @@ Rectangle {
         descriptionText.text = attackText || defaultText;
 
         updateCostTexts(costs);
+
+        root.visible = nameText.text !== defaultName;
     }
 
     function updateCostTexts(costs) {
