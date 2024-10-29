@@ -65,11 +65,10 @@ class BackendController(QObject):
                 List of search parameter tuples of the form (category, subcategory, target).
         """
         try:
-            cards = searchhandler.SearchHandler.handle_request_search(params)
+            cards = searchhandler.SearchHandler.handle_search(params)
 
             if cards:
-                card_list = cardprocessor.CardProcessor.process_cards(cards)
-                self.search_results.emit(json.dumps(card_list))
+                self.search_results.emit(json.dumps(cards))
             else:
                 self.search_results.emit(json.dumps({"error": "No results found."}))
 
