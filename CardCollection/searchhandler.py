@@ -10,7 +10,7 @@ class SearchHandler:
         handle_search(search_parameters): Constructs a query string using the Backend class, construct_query function.
     """
 
-    def handle_search(self, search_parameters: list[tuple[str, str, str]]) -> list[Card]:
+    def handle_search(self, search_parameters: list[tuple[str, str, str]]) -> list[dict[str, str]]:
         """
         A function that takes a list of tuples representing search parameters, constructs a query string using the Backend class, and retrieves a list of Card objects from the API.
 
@@ -21,11 +21,14 @@ class SearchHandler:
                 - target (str): The search target (value being searched).
 
         Returns:
-            list[Card]: A list of Card objects as search results.
+            list[dict[str, str]: A list of dictionaries:
+                - key: card attribute defined by API
+                - value: card data string for that attribute
         """
 
-        return Backend.construct_query(search_parameters)
-
+        query = Backend.construct_query(search_parameters)
+        return Backend.query_api(query)
+    
     def handle_card_process(self, cards: list[Card]) -> list[dict[str, str]]:
         """
         A function that takes a list of tuples representing search parameters, constructs a query string using the Backend class, and retrieves a list of Card objects from the API.
