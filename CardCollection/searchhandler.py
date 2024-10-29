@@ -23,4 +23,4 @@ class SearchHandler:
             list[Card]: A list of Card objects as search results.
         """
 
-        return Backend.construct_query(tupleList)
+        return Backend.construct_query(search_parameters)
