@@ -73,8 +73,8 @@ Rectangle {
     property color dropBorderColor: "#25fb2e"
 
     // Width and Height
-    width: 250 // Default value, can be overridden
-    height: 192
+    width: 300 // Default value, can be overridden
+    height: 200
     color: blockBG
     radius: 4
     border.color: blockBorderColor
@@ -129,7 +129,7 @@ Rectangle {
             "metal": "https://images.pokemontcg.io/sm1/171_hires.png",
             "fairy": "https://images.pokemontcg.io/sm1/172_hires.png",
             "dragon": "https://images.pokemontcg.io/xy6/97_hires.png",
-            "colorless": "https://images.pokemontcg.io/swsh3/176_hires.png"
+            "colorless": "colorlessEnergyCropped.png"
         };
 
         // Update cost texts for all costs
@@ -146,12 +146,60 @@ Rectangle {
         const normalizedCost4 = costs.cost4 ? costs.cost4.trim().toLowerCase() : null;
         const normalizedCost5 = costs.cost5 ? costs.cost5.trim().toLowerCase() : null;
 
-        // Update cost images for cost1, cost2, cost3, cost4, and cost5
-        cost1Image.source = costImageMap[normalizedCost1] || "";
-        cost2Image.source = costImageMap[normalizedCost2] || "";
-        cost3Image.source = costImageMap[normalizedCost3] || "";
-        cost4Image.source = costImageMap[normalizedCost4] || "";
-        cost5Image.source = costImageMap[normalizedCost5] || "";
+        if(normalizedCost1 === "colorless") {
+            colorless1DummyImage.visible = true;
+            cost1Image.visible = false;
+        }
+        else {
+            cost1Image.source = costImageMap[normalizedCost1] || "";
+            colorless1DummyImage.visible = false;
+            cost1Image.visible = true;
+        }
+
+        if(normalizedCost2 === "colorless") {
+            colorless2DummyImage.visible = true;
+            cost2Image.visible = false;
+        }else {
+            cost2Image.source = costImageMap[normalizedCost2] || "";
+            colorless2DummyImage.visible = false;
+            cost2Image.visible = true;
+        }
+
+        if(normalizedCost3 === "colorless") {
+            colorless3DummyImage.visible = true;
+            cost3Image.visible = false;
+        }else {
+            cost3Image.source = costImageMap[normalizedCost3] || "";
+            colorless3DummyImage.visible = false;
+            cost3Image.visible = true;
+        }
+
+        if(normalizedCost4 === "colorless") {
+            colorless4DummyImage.visible = true;
+            cost4Image.visible = false;
+        }else {
+            cost4Image.source = costImageMap[normalizedCost4] || "";
+            colorless4DummyImage.visible = false;
+            cost4Image.visible = true;
+        }
+
+        if(normalizedCost5 === "colorless") {
+            colorless5DummyImage.visible = true;
+            cost5Image.visible = false;
+        }else {
+            cost5Image.source = costImageMap[normalizedCost5] || "";
+            colorless5DummyImage.visible = false;
+            cost5Image.visible = true;
+        }
+
+
+
+        // // Update cost images for cost1, cost2, cost3, cost4, and cost5
+        // cost1Image.source = costImageMap[normalizedCost1] || "";
+        // cost2Image.source = costImageMap[normalizedCost2] || "";
+        // cost3Image.source = costImageMap[normalizedCost3] || "";
+        // cost4Image.source = costImageMap[normalizedCost4] || "";
+        // cost5Image.source = costImageMap[normalizedCost5] || "";
 
         // Determine visibility based on whether costs were provided
         const cost1Visible = cost1Text.text !== defaultCost1;
@@ -167,7 +215,11 @@ Rectangle {
         cost4Text.visible = cost4Visible;
         cost5Text.visible = cost5Visible;
 
-        updateVisibilityAndWidth(); // Trigger width recalculation
+        // Update visibility of cost texts
+        cost1ImageBlock.visible = cost1Visible;
+
+
+        //updateVisibilityAndWidth(); // Trigger width recalculation
     }
 
 
@@ -260,7 +312,7 @@ Rectangle {
 
     Rectangle {
         id: costBlock
-        height: 50
+        height: 55
         color: "#00c80d0d"
         radius: 6
         border.color: "#006c0101"
@@ -275,10 +327,14 @@ Rectangle {
         Row {
             id: costFlow
             layoutDirection: Qt.LeftToRight
-            spacing: -1
+            spacing: 0
 
             property int visibleCount: 0
-            anchors.fill: parent
+            x: 0
+            y: 0
+            width: 271
+            height: 50
+
 
             Rectangle {
                 id: cost1Block
@@ -302,6 +358,8 @@ Rectangle {
                     anchors.rightMargin: 2
                     anchors.topMargin: 2
                     anchors.bottomMargin: 2
+                    z: 2
+                    clip: true
                     Layout.preferredHeight: 60
                     Layout.preferredWidth: 60
                     Layout.fillHeight: true
@@ -321,6 +379,7 @@ Rectangle {
                         anchors.rightMargin: 4
                         anchors.topMargin: 4
                         anchors.bottomMargin: 4
+                        z: 3
                         Text {
                             id: cost1Text
                             visible: false
@@ -397,6 +456,8 @@ Rectangle {
 
                         // Define the circular mask
 
+
+
                         Rectangle {
                             id: cost1ImageBlock
                             color: "#00ffffff"
@@ -406,61 +467,171 @@ Rectangle {
                             anchors.fill: parent
                             clip: true
                             scale: 0.9
-
                             Image {
                                 id: cost1Image
-                                x: -158
-                                y: -158
+                                x: -154
+                                y: -154
                                 width: 350
                                 height: 350
-                                sourceSize.height: 0
-                                sourceSize.width: 0
                                 opacity: 1
                                 visible: true
-                                clip: false
-                                fillMode: Image.Pad
-                                scale: 0.1
-
+                               // source: ""
+                                sourceSize.width: 0
+                                sourceSize.height: 0
+                                scale: 0.15
                                 layer.enabled: true
                                 layer.effect: OpacityMask {
                                     width: 34
                                     height: 34
                                     opacity: 0
                                     visible: true
-                                    layer.textureSize.height: 0
-                                    enabled: true
-                                    layer.textureSize.width: 0
                                     scale: 1
-                                    clip: false
+                                    maskSource: cost1Mask
+                                    layer.textureSize.width: 0
+                                    layer.textureSize.height: 0
                                     layer.enabled: true
-                                    maskSource: mask
+                                    enabled: true
+                                    clip: false
+                                }
+                                fillMode: Image.Pad
+                                clip: false
+
+                                Rectangle {
+                                    id: cost1Dimmer
+                                    opacity: 1
+                                    visible: false
+                                    color: "#83474747"
+                                    anchors.fill: parent
                                 }
                             }
 
                             Rectangle {
-                                id: mask
+                                id: cost1Mask
                                 x: 0
                                 y: 0
-                                width: 34
-                                height: 34
+                                width: 50
+                                height: 50
+                                visible: false
+                                color: "#ffffff"
+                                radius: 46
                                 border.width: 0
                                 scale: 1
                                 layer.textureSize.width: 0
                                 layer.enabled: true
                                 enabled: true
                                 clip: false
-                                visible: false
-                                color: "#ffffff"
-                                radius: 46
                             }
                         }
 
+                        Image {
+                            id: colorless1DummyImage
+                            x: -157
+                            y: -157
+                            width: 350
+                            height: 350
+                            opacity: 1
+                            visible: false
+                            source: "colorlessEnergyCropped.png"
+                            z: 0
+                            sourceSize.width: 0
+                            sourceSize.height: 0
+                            scale: 0.85
+                            layer.enabled: true
+                            layer.effect: OpacityMask {
+                                width: 34
+                                height: 34
+                                opacity: 0
+                                visible: true
+                                scale: 1
+                                maskSource: colorless1Mask
+                                layer.textureSize.width: 0
+                                layer.textureSize.height: 0
+                                layer.enabled: true
+                                enabled: true
+                                clip: false
+                            }
+                            fillMode: Image.Pad
+                            clip: false
+                        }
 
-                        clip: false
+                        Rectangle {
+                            id: colorless1Mask
+                            x: 0
+                            y: 0
+                            width: 36
+                            height: 36
+                            visible: false
+                            color: "#ffffff"
+                            radius: 46
+                            border.width: 0
+                            scale: 1
+                            layer.textureSize.width: 0
+                            layer.enabled: true
+                            enabled: true
+                            clip: false
+                        }
+
+
+
+                        //     Image {
+                        //         id: cost1Image
+                        //         x: -154
+                        //         y: -154
+                        //         width: 350
+                        //         height: 350
+                        //         sourceSize.height: 0
+                        //         sourceSize.width: 0
+                        //         opacity: 1
+                        //         visible: true
+                        //         clip: false
+                        //         fillMode: Image.Pad
+                        //         scale: 0.1
+
+                        //         layer.enabled: true
+                        //         layer.effect: OpacityMask {
+                        //             width: 34
+                        //             height: 34
+                        //             opacity: 0
+                        //             visible: true
+                        //             layer.textureSize.height: 0
+                        //             enabled: true
+                        //             layer.textureSize.width: 0
+                        //             scale: 1
+                        //             clip: false
+                        //             layer.enabled: true
+                        //             maskSource: mask
+                        //         }
+                        //     }
+
+                        //     Rectangle {
+                        //         id: mask
+                        //         x: 0
+                        //         y: 0
+                        //         width: 34
+                        //         height: 34
+                        //         border.width: 0
+                        //         scale: 1
+                        //         layer.textureSize.width: 0
+                        //         layer.enabled: true
+                        //         enabled: true
+                        //         clip: false
+                        //         visible: false
+                        //         color: "#ffffff"
+                        //         radius: 46
+                        //     }
+                        // }
+
+
+                        clip: true
                     }
                 }
 
             }
+
+
+
+
+
 
             Rectangle {
                 id: cost2Block
@@ -473,6 +644,7 @@ Rectangle {
                 border.width: 2
                 Rectangle {
                     id: cost2Bezel
+                    visible: true
                     color: "#b2b2b2"
                     radius: 8
                     border.color: bezelBorderColor
@@ -482,6 +654,7 @@ Rectangle {
                     anchors.rightMargin: 2
                     anchors.topMargin: 2
                     anchors.bottomMargin: 2
+                    clip: true
                     Layout.preferredWidth: 60
                     Layout.preferredHeight: 60
                     Layout.fillHeight: true
@@ -490,6 +663,7 @@ Rectangle {
                         id: cost2Screen
                         x: 7
                         y: 4
+                        visible: true
                         color: dimScreenColor
                         radius: 4
                         border.color: screenShadeColor
@@ -569,28 +743,27 @@ Rectangle {
                             anchors.topMargin: 3
                             anchors.bottomMargin: 3
                         }
-
                         Rectangle {
                             id: cost2ImageBlock
-                            x: -6
-                            y: -6
                             color: "#00ffffff"
                             radius: 10
                             border.color: "#0002d20b"
                             border.width: 0
                             anchors.fill: parent
+                            clip: true
                             scale: 0.9
                             Image {
                                 id: cost2Image
-                                x: -158
-                                y: -158
+                                x: -154
+                                y: -154
                                 width: 350
                                 height: 350
                                 opacity: 1
                                 visible: true
+                               // source: ""
                                 sourceSize.width: 0
                                 sourceSize.height: 0
-                                scale: 0.1
+                                scale: 0.15
                                 layer.enabled: true
                                 layer.effect: OpacityMask {
                                     width: 34
@@ -598,7 +771,7 @@ Rectangle {
                                     opacity: 0
                                     visible: true
                                     scale: 1
-                                    maskSource: mask2
+                                    maskSource: cost2Mask
                                     layer.textureSize.width: 0
                                     layer.textureSize.height: 0
                                     layer.enabled: true
@@ -607,14 +780,22 @@ Rectangle {
                                 }
                                 fillMode: Image.Pad
                                 clip: false
+
+                                Rectangle {
+                                    id: cost2Dimmer
+                                    opacity: 1
+                                    visible: false
+                                    color: "#83474747"
+                                    anchors.fill: parent
+                                }
                             }
 
                             Rectangle {
-                                id: mask2
+                                id: cost2Mask
                                 x: 0
                                 y: 0
-                                width: 34
-                                height: 34
+                                width: 50
+                                height: 50
                                 visible: false
                                 color: "#ffffff"
                                 radius: 46
@@ -625,12 +806,122 @@ Rectangle {
                                 enabled: true
                                 clip: false
                             }
-                            clip: true
                         }
+
+                        Image {
+                            id: colorless2DummyImage
+                            x: -156
+                            y: -156
+                            width: 350
+                            height: 350
+                            opacity: 1
+                            visible: false
+                            source: "colorlessEnergyCropped.png"
+                            z: 2
+                            sourceSize.width: 0
+                            sourceSize.height: 0
+                            scale: 0.95
+                            layer.enabled: true
+                            layer.effect: OpacityMask {
+                                width: 34
+                                height: 34
+                                opacity: 0
+                                visible: true
+                                scale: 1
+                                maskSource: colorless2Mask
+                                layer.textureSize.width: 0
+                                layer.textureSize.height: 0
+                                layer.enabled: true
+                                enabled: true
+                                clip: false
+                            }
+                            fillMode: Image.Pad
+                            clip: false
+                        }
+
+                        Rectangle {
+                            id: colorless2Mask
+                            x: 0
+                            y: 0
+                            width: 38
+                            height: 38
+                            visible: false
+                            color: "#ffffff"
+                            radius: 46
+                            border.width: 0
+                            scale: 1
+                            layer.textureSize.width: 0
+                            layer.enabled: true
+                            enabled: true
+                            clip: false
+                        }
+
+                        // Rectangle {
+                        //     id: cost2ImageBlock
+                        //     x: -6
+                        //     y: -6
+                        //     color: "#00ffffff"
+                        //     radius: 10
+                        //     border.color: "#0002d20b"
+                        //     border.width: 0
+                        //     anchors.fill: parent
+                        //     scale: 0.9
+                        //     Image {
+                        //         id: cost2Image
+                        //         x: -158
+                        //         y: -158
+                        //         width: 350
+                        //         height: 350
+                        //         opacity: 1
+                        //         visible: true
+                        //         sourceSize.width: 0
+                        //         sourceSize.height: 0
+                        //         scale: 0.1
+                        //         layer.enabled: true
+                        //         layer.effect: OpacityMask {
+                        //             width: 34
+                        //             height: 34
+                        //             opacity: 0
+                        //             visible: true
+                        //             scale: 1
+                        //             maskSource: mask2
+                        //             layer.textureSize.width: 0
+                        //             layer.textureSize.height: 0
+                        //             layer.enabled: true
+                        //             enabled: true
+                        //             clip: false
+                        //         }
+                        //         fillMode: Image.Pad
+                        //         clip: false
+                        //     }
+
+                        //     Rectangle {
+                        //         id: mask2
+                        //         x: 0
+                        //         y: 0
+                        //         width: 34
+                        //         height: 34
+                        //         visible: false
+                        //         color: "#ffffff"
+                        //         radius: 46
+                        //         border.width: 0
+                        //         scale: 1
+                        //         layer.textureSize.width: 0
+                        //         layer.enabled: true
+                        //         enabled: true
+                        //         clip: false
+                        //     }
+                        //     clip: true
+                        // }
                         clip: true
                     }
                 }
             }
+
+
+
+
+
 
             Rectangle {
                 id: cost3Block
@@ -643,6 +934,7 @@ Rectangle {
                 border.width: 2
                 Rectangle {
                     id: cost3Bezel
+                    visible: true
                     color: "#b2b2b2"
                     radius: 8
                     border.color: bezelBorderColor
@@ -739,25 +1031,25 @@ Rectangle {
 
                         Rectangle {
                             id: cost3ImageBlock
-                            x: -6
-                            y: -6
                             color: "#00ffffff"
                             radius: 10
                             border.color: "#0002d20b"
                             border.width: 0
                             anchors.fill: parent
+                            clip: true
                             scale: 0.9
                             Image {
                                 id: cost3Image
-                                x: -158
-                                y: -158
+                                x: -154
+                                y: -154
                                 width: 350
                                 height: 350
                                 opacity: 1
                                 visible: true
+                               // source: ""
                                 sourceSize.width: 0
                                 sourceSize.height: 0
-                                scale: 0.1
+                                scale: 0.15
                                 layer.enabled: true
                                 layer.effect: OpacityMask {
                                     width: 34
@@ -765,7 +1057,7 @@ Rectangle {
                                     opacity: 0
                                     visible: true
                                     scale: 1
-                                    maskSource: mask3
+                                    maskSource: cost3Mask
                                     layer.textureSize.width: 0
                                     layer.textureSize.height: 0
                                     layer.enabled: true
@@ -774,14 +1066,22 @@ Rectangle {
                                 }
                                 fillMode: Image.Pad
                                 clip: false
+
+                                Rectangle {
+                                    id: cost3Dimmer
+                                    opacity: 1
+                                    visible: false
+                                    color: "#83474747"
+                                    anchors.fill: parent
+                                }
                             }
 
                             Rectangle {
-                                id: mask3
+                                id: cost3Mask
                                 x: 0
                                 y: 0
-                                width: 34
-                                height: 34
+                                width: 50
+                                height: 50
                                 visible: false
                                 color: "#ffffff"
                                 radius: 46
@@ -792,8 +1092,114 @@ Rectangle {
                                 enabled: true
                                 clip: false
                             }
-                            clip: true
                         }
+
+
+                        Image {
+                            id: colorless3DummyImage
+                            x: -156
+                            y: -156
+                            width: 350
+                            height: 350
+                            opacity: 1
+                            visible: false
+                            source: "colorlessEnergyCropped.png"
+                            z: 2
+                            sourceSize.width: 0
+                            sourceSize.height: 0
+                            scale: 0.95
+                            layer.enabled: true
+                            layer.effect: OpacityMask {
+                                width: 34
+                                height: 34
+                                opacity: 0
+                                visible: true
+                                scale: 1
+                                maskSource: colorless3Mask
+                                layer.textureSize.width: 0
+                                layer.textureSize.height: 0
+                                layer.enabled: true
+                                enabled: true
+                                clip: false
+                            }
+                            fillMode: Image.Pad
+                            clip: false
+                        }
+
+                        Rectangle {
+                            id: colorless3Mask
+                            x: 0
+                            y: 0
+                            width: 38
+                            height: 38
+                            visible: false
+                            color: "#ffffff"
+                            radius: 46
+                            border.width: 0
+                            scale: 1
+                            layer.textureSize.width: 0
+                            layer.enabled: true
+                            enabled: true
+                            clip: false
+                        }
+
+                        // Rectangle {
+                        //     id: cost3ImageBlock
+                        //     x: -6
+                        //     y: -6
+                        //     color: "#00ffffff"
+                        //     radius: 10
+                        //     border.color: "#0002d20b"
+                        //     border.width: 0
+                        //     anchors.fill: parent
+                        //     scale: 0.9
+                        //     Image {
+                        //         id: cost3Image
+                        //         x: -158
+                        //         y: -158
+                        //         width: 350
+                        //         height: 350
+                        //         opacity: 1
+                        //         visible: true
+                        //         sourceSize.width: 0
+                        //         sourceSize.height: 0
+                        //         scale: 0.1
+                        //         layer.enabled: true
+                        //         layer.effect: OpacityMask {
+                        //             width: 34
+                        //             height: 34
+                        //             opacity: 0
+                        //             visible: true
+                        //             scale: 1
+                        //             maskSource: mask3
+                        //             layer.textureSize.width: 0
+                        //             layer.textureSize.height: 0
+                        //             layer.enabled: true
+                        //             enabled: true
+                        //             clip: false
+                        //         }
+                        //         fillMode: Image.Pad
+                        //         clip: false
+                        //     }
+
+                        //     Rectangle {
+                        //         id: mask3
+                        //         x: 0
+                        //         y: 0
+                        //         width: 34
+                        //         height: 34
+                        //         visible: false
+                        //         color: "#ffffff"
+                        //         radius: 46
+                        //         border.width: 0
+                        //         scale: 1
+                        //         layer.textureSize.width: 0
+                        //         layer.enabled: true
+                        //         enabled: true
+                        //         clip: false
+                        //     }
+                        //     clip: true
+                        // }
 
                         clip: true
                     }
@@ -803,6 +1209,11 @@ Rectangle {
                     Layout.fillHeight: true
                 }
             }
+
+
+
+
+
 
             Rectangle {
                 id: cost4Block
@@ -816,6 +1227,7 @@ Rectangle {
 
                 Rectangle {
                     id: cost4Bezel
+                    visible: true
                     color: "#b2b2b2"
                     radius: 8
                     border.color: bezelBorderColor
@@ -911,25 +1323,25 @@ Rectangle {
 
                         Rectangle {
                             id: cost4ImageBlock
-                            x: -6
-                            y: -6
                             color: "#00ffffff"
                             radius: 10
                             border.color: "#0002d20b"
                             border.width: 0
                             anchors.fill: parent
+                            clip: true
                             scale: 0.9
                             Image {
                                 id: cost4Image
-                                x: -158
-                                y: -158
+                                x: -154
+                                y: -154
                                 width: 350
                                 height: 350
                                 opacity: 1
                                 visible: true
+                               // source: ""
                                 sourceSize.width: 0
                                 sourceSize.height: 0
-                                scale: 0.1
+                                scale: 0.15
                                 layer.enabled: true
                                 layer.effect: OpacityMask {
                                     width: 34
@@ -937,7 +1349,7 @@ Rectangle {
                                     opacity: 0
                                     visible: true
                                     scale: 1
-                                    maskSource: mask4
+                                    maskSource: cost4Mask
                                     layer.textureSize.width: 0
                                     layer.textureSize.height: 0
                                     layer.enabled: true
@@ -946,14 +1358,22 @@ Rectangle {
                                 }
                                 fillMode: Image.Pad
                                 clip: false
+
+                                Rectangle {
+                                    id: cost4Dimmer
+                                    opacity: 1
+                                    visible: false
+                                    color: "#83474747"
+                                    anchors.fill: parent
+                                }
                             }
 
                             Rectangle {
-                                id: mask4
+                                id: cost4Mask
                                 x: 0
                                 y: 0
-                                width: 34
-                                height: 34
+                                width: 50
+                                height: 50
                                 visible: false
                                 color: "#ffffff"
                                 radius: 46
@@ -964,8 +1384,114 @@ Rectangle {
                                 enabled: true
                                 clip: false
                             }
-                            clip: true
                         }
+
+
+                        Image {
+                            id: colorless4DummyImage
+                            x: -156
+                            y: -156
+                            width: 350
+                            height: 350
+                            opacity: 1
+                            visible: false
+                            source: "colorlessEnergyCropped.png"
+                            z: 2
+                            sourceSize.width: 0
+                            sourceSize.height: 0
+                            scale: 0.95
+                            layer.enabled: true
+                            layer.effect: OpacityMask {
+                                width: 34
+                                height: 34
+                                opacity: 0
+                                visible: true
+                                scale: 1
+                                maskSource: colorless4Mask
+                                layer.textureSize.width: 0
+                                layer.textureSize.height: 0
+                                layer.enabled: true
+                                enabled: true
+                                clip: false
+                            }
+                            fillMode: Image.Pad
+                            clip: false
+                        }
+
+                        Rectangle {
+                            id: colorless4Mask
+                            x: 0
+                            y: 0
+                            width: 38
+                            height: 38
+                            visible: false
+                            color: "#ffffff"
+                            radius: 46
+                            border.width: 0
+                            scale: 1
+                            layer.textureSize.width: 0
+                            layer.enabled: true
+                            enabled: true
+                            clip: false
+                        }
+
+                        // Rectangle {
+                        //     id: cost4ImageBlock
+                        //     x: -6
+                        //     y: -6
+                        //     color: "#00ffffff"
+                        //     radius: 10
+                        //     border.color: "#0002d20b"
+                        //     border.width: 0
+                        //     anchors.fill: parent
+                        //     scale: 0.9
+                        //     Image {
+                        //         id: cost4Image
+                        //         x: -158
+                        //         y: -158
+                        //         width: 350
+                        //         height: 350
+                        //         opacity: 1
+                        //         visible: true
+                        //         sourceSize.width: 0
+                        //         sourceSize.height: 0
+                        //         scale: 0.1
+                        //         layer.enabled: true
+                        //         layer.effect: OpacityMask {
+                        //             width: 34
+                        //             height: 34
+                        //             opacity: 0
+                        //             visible: true
+                        //             scale: 1
+                        //             maskSource: mask4
+                        //             layer.textureSize.width: 0
+                        //             layer.textureSize.height: 0
+                        //             layer.enabled: true
+                        //             enabled: true
+                        //             clip: false
+                        //         }
+                        //         fillMode: Image.Pad
+                        //         clip: false
+                        //     }
+
+                        //     Rectangle {
+                        //         id: mask4
+                        //         x: 0
+                        //         y: 0
+                        //         width: 34
+                        //         height: 34
+                        //         visible: false
+                        //         color: "#ffffff"
+                        //         radius: 46
+                        //         border.width: 0
+                        //         scale: 1
+                        //         layer.textureSize.width: 0
+                        //         layer.enabled: true
+                        //         enabled: true
+                        //         clip: false
+                        //     }
+                        //     clip: true
+                        // }
 
                         clip: true
                     }
@@ -976,6 +1502,11 @@ Rectangle {
                 }
 
             }
+
+
+
+
+
 
             Rectangle {
                 id: cost5Block
@@ -1091,25 +1622,25 @@ Rectangle {
 
                         Rectangle {
                             id: cost5ImageBlock
-                            x: -6
-                            y: -6
                             color: "#00ffffff"
                             radius: 10
                             border.color: "#0002d20b"
                             border.width: 0
                             anchors.fill: parent
+                            clip: true
                             scale: 0.9
                             Image {
                                 id: cost5Image
-                                x: -158
-                                y: -158
+                                x: -154
+                                y: -154
                                 width: 350
                                 height: 350
                                 opacity: 1
                                 visible: true
+                               // source: ""
                                 sourceSize.width: 0
                                 sourceSize.height: 0
-                                scale: 0.1
+                                scale: 0.15
                                 layer.enabled: true
                                 layer.effect: OpacityMask {
                                     width: 34
@@ -1117,7 +1648,7 @@ Rectangle {
                                     opacity: 0
                                     visible: true
                                     scale: 1
-                                    maskSource: mask5
+                                    maskSource: cost5Mask
                                     layer.textureSize.width: 0
                                     layer.textureSize.height: 0
                                     layer.enabled: true
@@ -1126,14 +1657,22 @@ Rectangle {
                                 }
                                 fillMode: Image.Pad
                                 clip: false
+
+                                Rectangle {
+                                    id: cost5Dimmer
+                                    opacity: 1
+                                    visible: false
+                                    color: "#83474747"
+                                    anchors.fill: parent
+                                }
                             }
 
                             Rectangle {
-                                id: mask5
+                                id: cost5Mask
                                 x: 0
                                 y: 0
-                                width: 34
-                                height: 34
+                                width: 50
+                                height: 50
                                 visible: false
                                 color: "#ffffff"
                                 radius: 46
@@ -1144,13 +1683,124 @@ Rectangle {
                                 enabled: true
                                 clip: false
                             }
-                            clip: true
                         }
+
+
+                        Image {
+                            id: colorless5DummyImage
+                            x: -156
+                            y: -156
+                            width: 350
+                            height: 350
+                            opacity: 1
+                            visible: false
+                            source: "colorlessEnergyCropped.png"
+                            z: 2
+                            sourceSize.width: 0
+                            sourceSize.height: 0
+                            scale: 0.95
+                            layer.enabled: true
+                            layer.effect: OpacityMask {
+                                width: 34
+                                height: 34
+                                opacity: 0
+                                visible: true
+                                scale: 1
+                                maskSource: colorless5Mask
+                                layer.textureSize.width: 0
+                                layer.textureSize.height: 0
+                                layer.enabled: true
+                                enabled: true
+                                clip: false
+                            }
+                            fillMode: Image.Pad
+                            clip: false
+                        }
+
+                        Rectangle {
+                            id: colorless5Mask
+                            x: 0
+                            y: 0
+                            width: 38
+                            height: 38
+                            visible: false
+                            color: "#ffffff"
+                            radius: 46
+                            border.width: 0
+                            scale: 1
+                            layer.textureSize.width: 0
+                            layer.enabled: true
+                            enabled: true
+                            clip: false
+                        }
+
+                        // Rectangle {
+                        //     id: cost5ImageBlock
+                        //     x: -6
+                        //     y: -6
+                        //     color: "#00ffffff"
+                        //     radius: 10
+                        //     border.color: "#0002d20b"
+                        //     border.width: 0
+                        //     anchors.fill: parent
+                        //     scale: 0.9
+                        //     Image {
+                        //         id: cost5Image
+                        //         x: -158
+                        //         y: -158
+                        //         width: 350
+                        //         height: 350
+                        //         opacity: 1
+                        //         visible: true
+                        //         sourceSize.width: 0
+                        //         sourceSize.height: 0
+                        //         scale: 0.1
+                        //         layer.enabled: true
+                        //         layer.effect: OpacityMask {
+                        //             width: 34
+                        //             height: 34
+                        //             opacity: 0
+                        //             visible: true
+                        //             scale: 1
+                        //             maskSource: mask5
+                        //             layer.textureSize.width: 0
+                        //             layer.textureSize.height: 0
+                        //             layer.enabled: true
+                        //             enabled: true
+                        //             clip: false
+                        //         }
+                        //         fillMode: Image.Pad
+                        //         clip: false
+                        //     }
+
+                        //     Rectangle {
+                        //         id: mask5
+                        //         x: 0
+                        //         y: 0
+                        //         width: 34
+                        //         height: 34
+                        //         visible: false
+                        //         color: "#ffffff"
+                        //         radius: 46
+                        //         border.width: 0
+                        //         scale: 1
+                        //         layer.textureSize.width: 0
+                        //         layer.enabled: true
+                        //         enabled: true
+                        //         clip: false
+                        //     }
+                        //     clip: true
+                        // }
 
                         clip: true
                     }
                 }
             }
+
+
+
+
+
         }
     }
 
@@ -1167,7 +1817,7 @@ Rectangle {
         anchors.bottom: parent.bottom
         anchors.leftMargin: 2
         anchors.rightMargin: 2
-        anchors.topMargin: 2
+        anchors.topMargin: -4
         anchors.bottomMargin: 2
 
         Rectangle {

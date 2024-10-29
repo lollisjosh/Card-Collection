@@ -23,45 +23,32 @@ ToolBar {
     property bool colorlessChecked: colorlessTypeButton.checked
     property bool fairyChecked: fairyTypeButton.checked
     property bool dragonChecked: dragonTypeButton.checked
-    property alias colorlessTypeButton: colorlessTypeButton
+    width: 600
+    height: 60
 
 
-
-    Row {
-        id: filtersRow
-        visible: false
-        anchors.fill: parent
-        anchors.leftMargin: -6
-        anchors.rightMargin: -6
-        z: 2
-        spacing: 2
-    }
 
     Rectangle {
         id: rectangle4
+        x: -6
         y: 0
+        width: 600
         height: 60
         color: "#00ffffff"
         radius: 1
         border.color: "#6c0101"
         border.width: 2
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.leftMargin: 0
-        anchors.rightMargin: 0
         z: 1
     }
 
     Rectangle {
         id: rectangle8
+        x: -6
         y: 0
+        width: 600
         height: 60
         color: "#cc1c1c"
         border.color: "#00000000"
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.leftMargin: 0
-        anchors.rightMargin: 0
 
         Rectangle {
             id: rectangle32
@@ -75,15 +62,12 @@ ToolBar {
 
     Row {
         id: typesRow
-        x: 0
+        height: 50
+        anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
-        anchors.leftMargin: 4
-        anchors.rightMargin: 0
-        anchors.topMargin: 0
-        anchors.bottomMargin: 0
+        anchors.leftMargin: -2
+        anchors.rightMargin: -2
         Layout.leftMargin: 6
         spacing: 4
         Layout.preferredWidth: -1
@@ -153,8 +137,8 @@ ToolBar {
             darknessDimmer.visible = !darknessTypeButton.checked;
             metalDimmer.visible = !metalTypeButton.checked;
             fairyDimmer.visible = !fairyTypeButton.checked;
-            dragonImageBlock.visible = !dragonTypeButton.checked;
-            colorlessImageBlock.visible = !colorlessTypeButton.checked;
+            dragonDummyImage.visible = !dragonTypeButton.checked;
+            colorlessDummyImage.visible = !colorlessTypeButton.checked;
 
         }
 
@@ -192,7 +176,7 @@ ToolBar {
                 x: -6
                 y: -6
                 visible: true
-                color: "#00ffffff"
+                color: "#00128c17"
                 radius: 10
                 border.color: "#0002d20b"
                 border.width: 0
@@ -251,7 +235,7 @@ ToolBar {
                     enabled: true
                     clip: false
                 }
-                clip: true
+                clip: false
             }
 
         }
@@ -563,7 +547,7 @@ ToolBar {
                     enabled: true
                     clip: false
                 }
-                clip: true
+                clip: false
             }
 
         }
@@ -666,7 +650,7 @@ ToolBar {
                     enabled: true
                     clip: false
                 }
-                clip: true
+                clip: false
             }
 
 
@@ -682,9 +666,9 @@ ToolBar {
             Layout.preferredHeight: 24
             Layout.preferredWidth: 24
             Layout.rowSpan: 1
-            highlighted: fightingTypeButton.checked
+            // highlighted: fightingTypeButton.checked
             flat: false
-            checked: true
+            checked: false
             checkable: true
             Layout.fillWidth: false
             Layout.fillHeight: false
@@ -772,7 +756,7 @@ ToolBar {
                     enabled: true
                     clip: false
                 }
-                clip: true
+                clip: false
             }
 
         }
@@ -876,7 +860,7 @@ ToolBar {
                     enabled: true
                     clip: false
                 }
-                clip: true
+                clip: false
             }
 
         }
@@ -980,7 +964,7 @@ ToolBar {
                     enabled: true
                     clip: false
                 }
-                clip: true
+                clip: false
             }
 
         }
@@ -1084,7 +1068,7 @@ ToolBar {
                     enabled: true
                     clip: false
                 }
-                clip: true
+                clip: false
             }
 
         }
@@ -1099,9 +1083,9 @@ ToolBar {
             Layout.preferredHeight: 24
             Layout.preferredWidth: 24
             Layout.rowSpan: 1
-            highlighted: dragonTypeButton.checked
+            //highlighted: dragonTypeButton.checked
             flat: false
-            checked: true
+            checked: false
             checkable: true
             Layout.fillWidth: false
             Layout.fillHeight: false
@@ -1198,7 +1182,7 @@ ToolBar {
             Layout.preferredWidth: 24
             Layout.rowSpan: 1
             flat: false
-            checked: true
+            checked: false
             checkable: true
             Layout.fillWidth: false
             Layout.fillHeight: false
@@ -1282,7 +1266,7 @@ ToolBar {
 
 
 
-                clip: false
+            clip: false
         }
 
     }
@@ -1296,5 +1280,3 @@ ToolBar {
         }
     }
 }
-
-

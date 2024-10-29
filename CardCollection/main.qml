@@ -394,7 +394,7 @@ Window {
                             Layout.fillWidth: true
                             Layout.preferredHeight: 40
                             Layout.topMargin: 0
-                            bottomPadding: 0
+                            //bottomPadding: 0
                             contentHeight: 30
                             height: 60
                             anchors.left: parent.left
@@ -402,10 +402,8 @@ Window {
                             anchors.leftMargin: 0
                             anchors.rightMargin: 0
                             Layout.preferredWidth: 500
-                            fairyChecked: false
-                            dragonChecked: false
-                            horizontalPadding: 0
-                            verticalPadding: 0
+                           // horizontalPadding: 0
+                           // verticalPadding: 0
 
                             // Dynamic ListModel for sets
                             setsModel: ListModel {
@@ -689,7 +687,7 @@ Window {
                                                 var tupleString = "[" + searchParams[i][0] + ", "
                                                         + searchParams[i][1] + ", "
                                                         + searchParams[i][2] + "]"
-
+                                                console.log(tupleString);
                                             }
                                             backendController.request_search(
                                                         searchParams)
@@ -3698,6 +3696,6 @@ Window {
 
 /*##^##
 Designer {
-    D{i:0}D{i:13}D{i:16}D{i:17}D{i:26}D{i:38;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}
+    D{i:0}D{i:38;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}
 }
 ##^##*/
