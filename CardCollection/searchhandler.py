@@ -27,7 +27,8 @@ class SearchHandler:
         """
 
         query = Backend.construct_query(search_parameters)
-        return Backend.query_api(query)
+        results = Backend.query_api(query)
+        return self.handle_card_process(results)
     
     def handle_card_process(self, cards: list[Card]) -> list[dict[str, str]]:
         """
