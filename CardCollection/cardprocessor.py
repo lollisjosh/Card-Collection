@@ -1,4 +1,5 @@
 from pokemontcgsdk import Card
+
 class CardProcessor:
     """
     A utility class for processing Card objects into JSON-serializable formats.
@@ -27,7 +28,7 @@ class CardProcessor:
     """
 
     @staticmethod
-    def process_cards(cards : list[Card]):
+    def process_cards(cards : list[Card]) -> list[dict[str,str]]:
         """
         Processes a list of Card objects, extracting key attributes and organizing them 
         into a list of dictionaries formatted for JSON serialization.
@@ -73,7 +74,7 @@ class CardProcessor:
         return processed_cards
 
     @staticmethod
-    def process_abilities(card: Card):
+    def process_abilities(card: Card) -> dict[str,str]:
         """
         Processes the abilities of a given card object, returning a dictionary with details \
             for up to two abilities, including each ability's name, text, and type.
@@ -114,7 +115,7 @@ class CardProcessor:
         return abilities
 
     @staticmethod
-    def process_attacks(card):
+    def process_attacks(card) -> dict[str,str]:
         """
         Processes the attacks of a given card object, returning a dictionary with \
         details for up to four attacks. Each attack includes the attack's \
@@ -191,7 +192,7 @@ class CardProcessor:
         return attacks
 
     @staticmethod
-    def process_subtypes(card):
+    def process_subtypes(card) -> dict[str,str]:
         """
         Processes the subtypes of a given card object, returning a dictionary with up to 
         four subtypes.
