@@ -130,7 +130,7 @@ Rectangle {
             "darkness": "https://images.pokemontcg.io/sm1/170_hires.png",
             "metal": "https://images.pokemontcg.io/sm1/171_hires.png",
             "fairy": "https://images.pokemontcg.io/sm1/172_hires.png",
-            "dragon": "https://images.pokemontcg.io/xy6/97_hires.png",
+            "dragon": "dragonEnergyCropped.png",
             "colorless": "colorlessEnergyCropped.png"
         };
 
@@ -151,50 +151,94 @@ Rectangle {
         if(normalizedCost1 === "colorless") {
             colorless1DummyImage.visible = true;
             cost1Image.visible = false;
+            dragon1DummyImage.visible = false;
+
+        }else if(normalizedCost1 === "dragon") {
+            dragon1DummyImage.visible = true;
+            colorless1DummyImage.visible = false;
+            cost1Image.visible = false;
         }
         else {
             cost1Image.source = costImageMap[normalizedCost1] || "";
             colorless1DummyImage.visible = false;
+            dragon1DummyImage.visible = false;
             cost1Image.visible = true;
         }
 
         if(normalizedCost2 === "colorless") {
             colorless2DummyImage.visible = true;
             cost2Image.visible = false;
-        }else {
+            colorless2DummyImage.visible = false;
+
+        }else if(normalizedCost2 === "dragon") {
+            dragon2DummyImage.visible = true;
+            colorless2DummyImage.visible = false;
+            cost2Image.visible = false;
+        }
+        else {
             cost2Image.source = costImageMap[normalizedCost2] || "";
             colorless2DummyImage.visible = false;
+            dragon2DummyImage.visible = false;
             cost2Image.visible = true;
         }
 
         if(normalizedCost3 === "colorless") {
             colorless3DummyImage.visible = true;
             cost3Image.visible = false;
+            dragon3DummyImage.visible = false;
+
+        }else if(normalizedCost3 === "dragon") {
+            dragon3DummyImage.visible = true;
+            colorless3DummyImage.visible = false;
+            cost3Image.visible = false;
         }else {
             cost3Image.source = costImageMap[normalizedCost3] || "";
             colorless3DummyImage.visible = false;
+            dragon3DummyImage.visible = false;
+
             cost3Image.visible = true;
         }
 
         if(normalizedCost4 === "colorless") {
             colorless4DummyImage.visible = true;
             cost4Image.visible = false;
+            dragon4DummyImage.visible = false;
+
+        }else if(normalizedCost4 === "dragon") {
+            dragon4DummyImage.visible = true;
+            colorless4DummyImage.visible = false;
+            cost4Image.visible = false;
         }else {
             cost4Image.source = costImageMap[normalizedCost4] || "";
             colorless4DummyImage.visible = false;
+            dragon4DummyImage.visible = false;
+
             cost4Image.visible = true;
         }
 
         if(normalizedCost5 === "colorless") {
             colorless5DummyImage.visible = true;
+            dragon5DummyImage.visible= false;
+            cost5Image.visible = false;
+        }else if(normalizedCost5 === "dragon") {
+            dragon5DummyImage.visible = true;
+            colorless5DummyImage.visible = false;
             cost5Image.visible = false;
         }else {
             cost5Image.source = costImageMap[normalizedCost5] || "";
             colorless5DummyImage.visible = false;
+            dragon5DummyImage.visible = false;
+
             cost5Image.visible = true;
         }
 
-
+        console.log(" ")
+        console.log("COSTS" + selectedIndex + ":")
+        console.log(normalizedCost1)
+        console.log(normalizedCost2)
+        console.log(normalizedCost3)
+        console.log(normalizedCost4)
+        console.log(normalizedCost5)
 
         // // Update cost images for cost1, cost2, cost3, cost4, and cost5
         // cost1Image.source = costImageMap[normalizedCost1] || "";
@@ -204,11 +248,11 @@ Rectangle {
         // cost5Image.source = costImageMap[normalizedCost5] || "";
 
         // Determine visibility based on whether costs were provided
-        // const cost1Visible = cost1Text.text !== defaultCost1;
-        // const cost2Visible = cost2Text.text !== defaultCost2;
-        // const cost3Visible = cost3Text.text !== defaultCost3;
-        // const cost4Visible = cost4Text.text !== defaultCost4;
-        // const cost5Visible = cost5Text.text !== defaultCost5;
+        const cost1Visible = cost1Text.text !== defaultCost1;
+        const cost2Visible = cost2Text.text !== defaultCost2;
+        const cost3Visible = cost3Text.text !== defaultCost3;
+        const cost4Visible = cost4Text.text !== defaultCost4;
+        const cost5Visible = cost5Text.text !== defaultCost5;
 
         // Update visibility of cost texts
         cost1Text.visible = cost1Visible;
@@ -218,7 +262,7 @@ Rectangle {
         cost5Text.visible = cost5Visible;
 
         // Update visibility of cost texts
-        cost1ImageBlock.visible = cost1Visible;
+        //cost1ImageBlock.visible = cost1Visible;
 
 
         //updateVisibilityAndWidth(); // Trigger width recalculation
@@ -358,7 +402,7 @@ Rectangle {
                     anchors.rightMargin: 2
                     anchors.topMargin: 2
                     anchors.bottomMargin: 2
-                    z: 2
+                    z: 0
                     clip: true
                     Layout.preferredHeight: 60
                     Layout.preferredWidth: 60
@@ -379,10 +423,10 @@ Rectangle {
                         anchors.rightMargin: 4
                         anchors.topMargin: 4
                         anchors.bottomMargin: 4
-                        z: 3
+                        z: 0
                         Text {
                             id: cost1Text
-                            visible: false
+                            visible: true
                             color: textColor
                             text: "Cost 1"
                             anchors.fill: parent
@@ -450,7 +494,7 @@ Rectangle {
                             anchors.rightMargin: 2
                             anchors.topMargin: 2
                             anchors.bottomMargin: 2
-                            clip: false
+                            clip: true
                             z: 4
                         }
 
@@ -475,7 +519,7 @@ Rectangle {
                                 height: 350
                                 opacity: 1
                                 visible: true
-                               // source: ""
+                                // source: ""
                                 sourceSize.width: 0
                                 sourceSize.height: 0
                                 scale: 0.15
@@ -535,7 +579,7 @@ Rectangle {
                             z: 0
                             sourceSize.width: 0
                             sourceSize.height: 0
-                            scale: 0.85
+                            scale: 1
                             layer.enabled: true
                             layer.effect: OpacityMask {
                                 width: 34
@@ -551,7 +595,7 @@ Rectangle {
                                 clip: false
                             }
                             fillMode: Image.Pad
-                            clip: false
+                            clip: true
                         }
 
                         Rectangle {
@@ -571,57 +615,53 @@ Rectangle {
                             clip: false
                         }
 
+                        Image {
+                            id: dragon1DummyImage
+                            x: -157
+                            y: -157
+                            width: 350
+                            height: 350
+                            opacity: 1
+                            visible: false
+                            source: "dragonEnergyCropped.png"
+                            z: 0
+                            sourceSize.width: 0
+                            sourceSize.height: 0
+                            scale: 1
+                            layer.enabled: true
+                            layer.effect: OpacityMask {
+                                width: 34
+                                height: 34
+                                opacity: 0
+                                visible: true
+                                scale: 1
+                                maskSource: dragon1Mask
+                                layer.textureSize.width: 0
+                                layer.textureSize.height: 0
+                                layer.enabled: true
+                                enabled: true
+                                clip: false
+                            }
+                            fillMode: Image.Pad
+                            clip: true
+                        }
 
-
-                        //     Image {
-                        //         id: cost1Image
-                        //         x: -154
-                        //         y: -154
-                        //         width: 350
-                        //         height: 350
-                        //         sourceSize.height: 0
-                        //         sourceSize.width: 0
-                        //         opacity: 1
-                        //         visible: true
-                        //         clip: false
-                        //         fillMode: Image.Pad
-                        //         scale: 0.1
-
-                        //         layer.enabled: true
-                        //         layer.effect: OpacityMask {
-                        //             width: 34
-                        //             height: 34
-                        //             opacity: 0
-                        //             visible: true
-                        //             layer.textureSize.height: 0
-                        //             enabled: true
-                        //             layer.textureSize.width: 0
-                        //             scale: 1
-                        //             clip: false
-                        //             layer.enabled: true
-                        //             maskSource: mask
-                        //         }
-                        //     }
-
-                        //     Rectangle {
-                        //         id: mask
-                        //         x: 0
-                        //         y: 0
-                        //         width: 34
-                        //         height: 34
-                        //         border.width: 0
-                        //         scale: 1
-                        //         layer.textureSize.width: 0
-                        //         layer.enabled: true
-                        //         enabled: true
-                        //         clip: false
-                        //         visible: false
-                        //         color: "#ffffff"
-                        //         radius: 46
-                        //     }
-                        // }
-
-
+                        Rectangle {
+                            id: dragon1Mask
+                            x: 0
+                            y: 0
+                            width: 36
+                            height: 36
+                            visible: false
+                            color: "#ffffff"
+                            radius: 46
+                            border.width: 0
+                            scale: 1
+                            layer.textureSize.width: 0
+                            layer.enabled: true
+                            enabled: true
+                            clip: false
+                        }
                         clip: true
                     }
                 }
@@ -675,7 +715,7 @@ Rectangle {
                         anchors.bottomMargin: 4
                         Text {
                             id: cost2Text
-                            visible: false
+                            visible: true
                             color: textColor
                             text: "Cost 2"
                             anchors.fill: parent
@@ -742,6 +782,7 @@ Rectangle {
                             anchors.rightMargin: 3
                             anchors.topMargin: 3
                             anchors.bottomMargin: 3
+                            clip: true
                         }
                         Rectangle {
                             id: cost2ImageBlock
@@ -760,7 +801,7 @@ Rectangle {
                                 height: 350
                                 opacity: 1
                                 visible: true
-                               // source: ""
+                                // source: ""
                                 sourceSize.width: 0
                                 sourceSize.height: 0
                                 scale: 0.15
@@ -817,7 +858,7 @@ Rectangle {
                             opacity: 1
                             visible: false
                             source: "colorlessEnergyCropped.png"
-                            z: 2
+                            z: 0
                             sourceSize.width: 0
                             sourceSize.height: 0
                             scale: 0.95
@@ -826,7 +867,7 @@ Rectangle {
                                 width: 34
                                 height: 34
                                 opacity: 0
-                                visible: true
+                                visible: false
                                 scale: 1
                                 maskSource: colorless2Mask
                                 layer.textureSize.width: 0
@@ -836,7 +877,7 @@ Rectangle {
                                 clip: false
                             }
                             fillMode: Image.Pad
-                            clip: false
+                            clip: true
                         }
 
                         Rectangle {
@@ -856,72 +897,58 @@ Rectangle {
                             clip: false
                         }
 
-                        // Rectangle {
-                        //     id: cost2ImageBlock
-                        //     x: -6
-                        //     y: -6
-                        //     color: "#00ffffff"
-                        //     radius: 10
-                        //     border.color: "#0002d20b"
-                        //     border.width: 0
-                        //     anchors.fill: parent
-                        //     scale: 0.9
-                        //     Image {
-                        //         id: cost2Image
-                        //         x: -158
-                        //         y: -158
-                        //         width: 350
-                        //         height: 350
-                        //         opacity: 1
-                        //         visible: true
-                        //         sourceSize.width: 0
-                        //         sourceSize.height: 0
-                        //         scale: 0.1
-                        //         layer.enabled: true
-                        //         layer.effect: OpacityMask {
-                        //             width: 34
-                        //             height: 34
-                        //             opacity: 0
-                        //             visible: true
-                        //             scale: 1
-                        //             maskSource: mask2
-                        //             layer.textureSize.width: 0
-                        //             layer.textureSize.height: 0
-                        //             layer.enabled: true
-                        //             enabled: true
-                        //             clip: false
-                        //         }
-                        //         fillMode: Image.Pad
-                        //         clip: false
-                        //     }
 
-                        //     Rectangle {
-                        //         id: mask2
-                        //         x: 0
-                        //         y: 0
-                        //         width: 34
-                        //         height: 34
-                        //         visible: false
-                        //         color: "#ffffff"
-                        //         radius: 46
-                        //         border.width: 0
-                        //         scale: 1
-                        //         layer.textureSize.width: 0
-                        //         layer.enabled: true
-                        //         enabled: true
-                        //         clip: false
-                        //     }
-                        //     clip: true
-                        // }
+                        Image {
+                            id: dragon2DummyImage
+                            x: -157
+                            y: -157
+                            width: 350
+                            height: 350
+                            opacity: 1
+                            visible: false
+                            source: "dragonEnergyCropped.png"
+                            z: 0
+                            sourceSize.width: 0
+                            sourceSize.height: 0
+                            scale: 0.85
+                            layer.enabled: true
+                            layer.effect: OpacityMask {
+                                width: 34
+                                height: 34
+                                opacity: 0
+                                visible: true
+                                scale: 1
+                                maskSource: dragon2Mask
+                                layer.textureSize.width: 0
+                                layer.textureSize.height: 0
+                                layer.enabled: true
+                                enabled: true
+                                clip: false
+                            }
+                            fillMode: Image.Pad
+                            clip: true
+                        }
+
+                        Rectangle {
+                            id: dragon2Mask
+                            x: 0
+                            y: 0
+                            width: 38
+                            height: 38
+                            visible: false
+                            color: "#ffffff"
+                            radius: 46
+                            border.width: 0
+                            scale: 1
+                            layer.textureSize.width: 0
+                            layer.enabled: true
+                            enabled: true
+                            clip: false
+                        }
                         clip: true
                     }
                 }
             }
-
-
-
-
-
 
             Rectangle {
                 id: cost3Block
@@ -959,7 +986,7 @@ Rectangle {
                         anchors.bottomMargin: 4
                         Text {
                             id: cost3Text
-                            visible: false
+                            visible: true
                             color: textColor
                             text: "Cost 3"
                             anchors.fill: parent
@@ -1046,7 +1073,7 @@ Rectangle {
                                 height: 350
                                 opacity: 1
                                 visible: true
-                               // source: ""
+                                // source: ""
                                 sourceSize.width: 0
                                 sourceSize.height: 0
                                 scale: 0.15
@@ -1066,14 +1093,6 @@ Rectangle {
                                 }
                                 fillMode: Image.Pad
                                 clip: false
-
-                                Rectangle {
-                                    id: cost3Dimmer
-                                    opacity: 1
-                                    visible: false
-                                    color: "#83474747"
-                                    anchors.fill: parent
-                                }
                             }
 
                             Rectangle {
@@ -1113,7 +1132,7 @@ Rectangle {
                                 width: 34
                                 height: 34
                                 opacity: 0
-                                visible: true
+                                visible: false
                                 scale: 1
                                 maskSource: colorless3Mask
                                 layer.textureSize.width: 0
@@ -1123,7 +1142,7 @@ Rectangle {
                                 clip: false
                             }
                             fillMode: Image.Pad
-                            clip: false
+                            clip: true
                         }
 
                         Rectangle {
@@ -1143,63 +1162,53 @@ Rectangle {
                             clip: false
                         }
 
-                        // Rectangle {
-                        //     id: cost3ImageBlock
-                        //     x: -6
-                        //     y: -6
-                        //     color: "#00ffffff"
-                        //     radius: 10
-                        //     border.color: "#0002d20b"
-                        //     border.width: 0
-                        //     anchors.fill: parent
-                        //     scale: 0.9
-                        //     Image {
-                        //         id: cost3Image
-                        //         x: -158
-                        //         y: -158
-                        //         width: 350
-                        //         height: 350
-                        //         opacity: 1
-                        //         visible: true
-                        //         sourceSize.width: 0
-                        //         sourceSize.height: 0
-                        //         scale: 0.1
-                        //         layer.enabled: true
-                        //         layer.effect: OpacityMask {
-                        //             width: 34
-                        //             height: 34
-                        //             opacity: 0
-                        //             visible: true
-                        //             scale: 1
-                        //             maskSource: mask3
-                        //             layer.textureSize.width: 0
-                        //             layer.textureSize.height: 0
-                        //             layer.enabled: true
-                        //             enabled: true
-                        //             clip: false
-                        //         }
-                        //         fillMode: Image.Pad
-                        //         clip: false
-                        //     }
+                        Image {
+                            id: dragon3DummyImage
+                            x: -157
+                            y: -157
+                            width: 350
+                            height: 350
+                            opacity: 1
+                            visible: false
+                            source: "dragonEnergyCropped.png"
+                            z: 0
+                            sourceSize.width: 0
+                            sourceSize.height: 0
+                            scale: 0.85
+                            layer.enabled: true
+                            layer.effect: OpacityMask {
+                                width: 34
+                                height: 34
+                                opacity: 0
+                                visible: false
+                                scale: 1
+                                maskSource: dragon3Mask
+                                layer.textureSize.width: 0
+                                layer.textureSize.height: 0
+                                layer.enabled: true
+                                enabled: true
+                                clip: false
+                            }
+                            fillMode: Image.Pad
+                            clip: true
+                        }
 
-                        //     Rectangle {
-                        //         id: mask3
-                        //         x: 0
-                        //         y: 0
-                        //         width: 34
-                        //         height: 34
-                        //         visible: false
-                        //         color: "#ffffff"
-                        //         radius: 46
-                        //         border.width: 0
-                        //         scale: 1
-                        //         layer.textureSize.width: 0
-                        //         layer.enabled: true
-                        //         enabled: true
-                        //         clip: false
-                        //     }
-                        //     clip: true
-                        // }
+                        Rectangle {
+                            id: dragon3Mask
+                            x: 0
+                            y: 0
+                            width: 36
+                            height: 36
+                            visible: false
+                            color: "#ffffff"
+                            radius: 46
+                            border.width: 0
+                            scale: 1
+                            layer.textureSize.width: 0
+                            layer.enabled: true
+                            enabled: true
+                            clip: false
+                        }
 
                         clip: true
                     }
@@ -1209,11 +1218,6 @@ Rectangle {
                     Layout.fillHeight: true
                 }
             }
-
-
-
-
-
 
             Rectangle {
                 id: cost4Block
@@ -1252,7 +1256,7 @@ Rectangle {
                         anchors.bottomMargin: 4
                         Text {
                             id: cost4Text
-                            visible: false
+                            visible: true
                             color: textColor
                             text: "Cost 4"
                             anchors.fill: parent
@@ -1338,7 +1342,6 @@ Rectangle {
                                 height: 350
                                 opacity: 1
                                 visible: true
-                               // source: ""
                                 sourceSize.width: 0
                                 sourceSize.height: 0
                                 scale: 0.15
@@ -1396,7 +1399,7 @@ Rectangle {
                             opacity: 1
                             visible: false
                             source: "colorlessEnergyCropped.png"
-                            z: 2
+                            z: 0
                             sourceSize.width: 0
                             sourceSize.height: 0
                             scale: 0.95
@@ -1434,64 +1437,53 @@ Rectangle {
                             enabled: true
                             clip: false
                         }
+                        Image {
+                            id: dragon4DummyImage
+                            x: -157
+                            y: -157
+                            width: 350
+                            height: 350
+                            opacity: 1
+                            visible: false
+                            source: "dragonEnergyCropped.png"
+                            z: 0
+                            sourceSize.width: 0
+                            sourceSize.height: 0
+                            scale: 0.85
+                            layer.enabled: true
+                            layer.effect: OpacityMask {
+                                width: 34
+                                height: 34
+                                opacity: 0
+                                visible: true
+                                scale: 1
+                                maskSource: dragon4Mask
+                                layer.textureSize.width: 0
+                                layer.textureSize.height: 0
+                                layer.enabled: true
+                                enabled: true
+                                clip: false
+                            }
+                            fillMode: Image.Pad
+                            clip: false
+                        }
 
-                        // Rectangle {
-                        //     id: cost4ImageBlock
-                        //     x: -6
-                        //     y: -6
-                        //     color: "#00ffffff"
-                        //     radius: 10
-                        //     border.color: "#0002d20b"
-                        //     border.width: 0
-                        //     anchors.fill: parent
-                        //     scale: 0.9
-                        //     Image {
-                        //         id: cost4Image
-                        //         x: -158
-                        //         y: -158
-                        //         width: 350
-                        //         height: 350
-                        //         opacity: 1
-                        //         visible: true
-                        //         sourceSize.width: 0
-                        //         sourceSize.height: 0
-                        //         scale: 0.1
-                        //         layer.enabled: true
-                        //         layer.effect: OpacityMask {
-                        //             width: 34
-                        //             height: 34
-                        //             opacity: 0
-                        //             visible: true
-                        //             scale: 1
-                        //             maskSource: mask4
-                        //             layer.textureSize.width: 0
-                        //             layer.textureSize.height: 0
-                        //             layer.enabled: true
-                        //             enabled: true
-                        //             clip: false
-                        //         }
-                        //         fillMode: Image.Pad
-                        //         clip: false
-                        //     }
-
-                        //     Rectangle {
-                        //         id: mask4
-                        //         x: 0
-                        //         y: 0
-                        //         width: 34
-                        //         height: 34
-                        //         visible: false
-                        //         color: "#ffffff"
-                        //         radius: 46
-                        //         border.width: 0
-                        //         scale: 1
-                        //         layer.textureSize.width: 0
-                        //         layer.enabled: true
-                        //         enabled: true
-                        //         clip: false
-                        //     }
-                        //     clip: true
-                        // }
+                        Rectangle {
+                            id: dragon4Mask
+                            x: 0
+                            y: 0
+                            width: 36
+                            height: 36
+                            visible: false
+                            color: "#ffffff"
+                            radius: 46
+                            border.width: 0
+                            scale: 1
+                            layer.textureSize.width: 0
+                            layer.enabled: true
+                            enabled: true
+                            clip: false
+                        }
 
                         clip: true
                     }
@@ -1502,11 +1494,6 @@ Rectangle {
                 }
 
             }
-
-
-
-
-
 
             Rectangle {
                 id: cost5Block
@@ -1550,7 +1537,7 @@ Rectangle {
                         anchors.bottomMargin: 4
                         Text {
                             id: cost5Text
-                            visible: false
+                            visible: true
                             color: textColor
                             text: "Cost 5"
                             anchors.fill: parent
@@ -1570,18 +1557,18 @@ Rectangle {
                             font.pointSize: 30
                         }
 
-                        DropShadow {
-                            id: cost5DropShadow
-                            opacity: 0.8
-                            visible: false
-                            color: "#095f0c"
-                            radius: 3.8
-                            anchors.fill: cost5Text
-                            source: cost5Text
-                            verticalOffset: 3
-                            samples: 16
-                            horizontalOffset: 3
-                        }
+                        // DropShadow {
+                        //     id: cost5DropShadow
+                        //     opacity: 0.8
+                        //     visible: false
+                        //     color: "#095f0c"
+                        //     radius: 3.8
+                        //     anchors.fill: cost5Text
+                        //     source: cost5Text
+                        //     verticalOffset: 3
+                        //     samples: 16
+                        //     horizontalOffset: 3
+                        // }
 
                         Text {
                             id: cost5DropText
@@ -1637,7 +1624,7 @@ Rectangle {
                                 height: 350
                                 opacity: 1
                                 visible: true
-                               // source: ""
+                                // source: ""
                                 sourceSize.width: 0
                                 sourceSize.height: 0
                                 scale: 0.15
@@ -1657,14 +1644,6 @@ Rectangle {
                                 }
                                 fillMode: Image.Pad
                                 clip: false
-
-                                Rectangle {
-                                    id: cost5Dimmer
-                                    opacity: 1
-                                    visible: false
-                                    color: "#83474747"
-                                    anchors.fill: parent
-                                }
                             }
 
                             Rectangle {
@@ -1685,7 +1664,6 @@ Rectangle {
                             }
                         }
 
-
                         Image {
                             id: colorless5DummyImage
                             x: -156
@@ -1695,7 +1673,7 @@ Rectangle {
                             opacity: 1
                             visible: false
                             source: "colorlessEnergyCropped.png"
-                            z: 2
+                            z: 0
                             sourceSize.width: 0
                             sourceSize.height: 0
                             scale: 0.95
@@ -1733,64 +1711,53 @@ Rectangle {
                             enabled: true
                             clip: false
                         }
+                        Image {
+                            id: dragon5DummyImage
+                            x: -157
+                            y: -157
+                            width: 350
+                            height: 350
+                            opacity: 1
+                            visible: false
+                            source: "dragonEnergyCropped.png"
+                            z: 0
+                            sourceSize.width: 0
+                            sourceSize.height: 0
+                            scale: 0.85
+                            layer.enabled: true
+                            layer.effect: OpacityMask {
+                                width: 34
+                                height: 34
+                                opacity: 0
+                                visible: true
+                                scale: 1
+                                maskSource: dragon5Mask
+                                layer.textureSize.width: 0
+                                layer.textureSize.height: 0
+                                layer.enabled: true
+                                enabled: true
+                                clip: false
+                            }
+                            fillMode: Image.Pad
+                            clip: false
+                        }
 
-                        // Rectangle {
-                        //     id: cost5ImageBlock
-                        //     x: -6
-                        //     y: -6
-                        //     color: "#00ffffff"
-                        //     radius: 10
-                        //     border.color: "#0002d20b"
-                        //     border.width: 0
-                        //     anchors.fill: parent
-                        //     scale: 0.9
-                        //     Image {
-                        //         id: cost5Image
-                        //         x: -158
-                        //         y: -158
-                        //         width: 350
-                        //         height: 350
-                        //         opacity: 1
-                        //         visible: true
-                        //         sourceSize.width: 0
-                        //         sourceSize.height: 0
-                        //         scale: 0.1
-                        //         layer.enabled: true
-                        //         layer.effect: OpacityMask {
-                        //             width: 34
-                        //             height: 34
-                        //             opacity: 0
-                        //             visible: true
-                        //             scale: 1
-                        //             maskSource: mask5
-                        //             layer.textureSize.width: 0
-                        //             layer.textureSize.height: 0
-                        //             layer.enabled: true
-                        //             enabled: true
-                        //             clip: false
-                        //         }
-                        //         fillMode: Image.Pad
-                        //         clip: false
-                        //     }
-
-                        //     Rectangle {
-                        //         id: mask5
-                        //         x: 0
-                        //         y: 0
-                        //         width: 34
-                        //         height: 34
-                        //         visible: false
-                        //         color: "#ffffff"
-                        //         radius: 46
-                        //         border.width: 0
-                        //         scale: 1
-                        //         layer.textureSize.width: 0
-                        //         layer.enabled: true
-                        //         enabled: true
-                        //         clip: false
-                        //     }
-                        //     clip: true
-                        // }
+                        Rectangle {
+                            id: dragon5Mask
+                            x: 0
+                            y: 0
+                            width: 36
+                            height: 36
+                            visible: false
+                            color: "#ffffff"
+                            radius: 46
+                            border.width: 0
+                            scale: 1
+                            layer.textureSize.width: 0
+                            layer.enabled: true
+                            enabled: true
+                            clip: false
+                        }
 
                         clip: true
                     }
