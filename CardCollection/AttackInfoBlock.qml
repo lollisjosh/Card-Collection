@@ -28,7 +28,6 @@ Rectangle {
     property alias cost4Visible: cost4Block.visible
     property alias cost5Visible: cost5Block.visible
 
-
     property alias cost1Width: cost1Block.width
     property alias cost1Height: cost1Block.height
 
@@ -50,12 +49,7 @@ Rectangle {
     property alias cost4Text: cost4Text.text
     property alias cost5Text: cost5Text.text
 
-    property alias cost1Source: cost1Image.source
-    property alias cost2Source: cost2Image.source
-
-
     property alias descText: descriptionText.text
-
 
     // Exposed properties
     property color blockBG: "#ff0000"
@@ -168,7 +162,7 @@ Rectangle {
         if(normalizedCost2 === "colorless") {
             colorless2DummyImage.visible = true;
             cost2Image.visible = false;
-            colorless2DummyImage.visible = false;
+            dragon2DummyImage.visible = false;
 
         }else if(normalizedCost2 === "dragon") {
             dragon2DummyImage.visible = true;
@@ -579,7 +573,7 @@ Rectangle {
                             z: 0
                             sourceSize.width: 0
                             sourceSize.height: 0
-                            scale: 1
+                            scale: 0.95
                             layer.enabled: true
                             layer.effect: OpacityMask {
                                 width: 34
@@ -851,8 +845,8 @@ Rectangle {
 
                         Image {
                             id: colorless2DummyImage
-                            x: -156
-                            y: -156
+                            x: -157
+                            y: -157
                             width: 350
                             height: 350
                             opacity: 1
@@ -867,7 +861,7 @@ Rectangle {
                                 width: 34
                                 height: 34
                                 opacity: 0
-                                visible: false
+                                visible: true
                                 scale: 1
                                 maskSource: colorless2Mask
                                 layer.textureSize.width: 0
@@ -877,15 +871,15 @@ Rectangle {
                                 clip: false
                             }
                             fillMode: Image.Pad
-                            clip: true
+                            clip: false
                         }
 
                         Rectangle {
                             id: colorless2Mask
                             x: 0
                             y: 0
-                            width: 38
-                            height: 38
+                            width: 36
+                            height: 36
                             visible: false
                             color: "#ffffff"
                             radius: 46
@@ -926,7 +920,7 @@ Rectangle {
                                 clip: false
                             }
                             fillMode: Image.Pad
-                            clip: true
+                            clip: false
                         }
 
                         Rectangle {
