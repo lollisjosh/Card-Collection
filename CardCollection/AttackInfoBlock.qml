@@ -80,24 +80,24 @@ Rectangle {
     border.color: blockBorderColor
     border.width: 0 // Default value, can be overridden
 
-    function updateVisibilityAndWidth() {
-        // Count visible blocks
-        const visibleBlocks = [cost1Block, cost2Block, cost3Block, cost4Block, cost5Block]
-        .filter(block => block.visible);
+    // function updateVisibilityAndWidth() {
+    //     // Count visible blocks
+    //     const visibleBlocks = [cost1Block, cost2Block, cost3Block, cost4Block, cost5Block]
+    //     .filter(block => block.visible);
 
-        const visibleCount = visibleBlocks.length;
+    //     const visibleCount = visibleBlocks.length;
 
-        // Calculate width for each visible block with a slight reduction for spacing
-        const margin = 5; // Margin between blocks
-        const spacing = 3; // Current spacing in Flow
-        const totalSpacing = spacing * (visibleCount - 1); // Total space taken by margins
-        const proportionalWidth = visibleCount > 0 ? (costBlock.width - totalSpacing) / visibleCount : 0;
+    //     // Calculate width for each visible block with a slight reduction for spacing
+    //     const margin = 5; // Margin between blocks
+    //     const spacing = 3; // Current spacing in Flow
+    //     const totalSpacing = spacing * (visibleCount - 1); // Total space taken by margins
+    //     const proportionalWidth = visibleCount > 0 ? (costBlock.width - totalSpacing) / visibleCount : 0;
 
-        // Set the width of each block based on visibility
-        visibleBlocks.forEach(block => {
-                                  block.width = proportionalWidth > 0 ? proportionalWidth : 0; // Ensure non-negative width
-                              });
-    }
+    //     // Set the width of each block based on visibility
+    //     visibleBlocks.forEach(block => {
+    //                               block.width = proportionalWidth > 0 ? proportionalWidth : 0; // Ensure non-negative width
+    //                           });
+    // }
 
     function updateAttack(attackName, attackText, attackIndex, costs) {
         // Set default values
@@ -202,11 +202,11 @@ Rectangle {
         // cost5Image.source = costImageMap[normalizedCost5] || "";
 
         // Determine visibility based on whether costs were provided
-        const cost1Visible = cost1Text.text !== defaultCost1;
-        const cost2Visible = cost2Text.text !== defaultCost2;
-        const cost3Visible = cost3Text.text !== defaultCost3;
-        const cost4Visible = cost4Text.text !== defaultCost4;
-        const cost5Visible = cost5Text.text !== defaultCost5;
+        // const cost1Visible = cost1Text.text !== defaultCost1;
+        // const cost2Visible = cost2Text.text !== defaultCost2;
+        // const cost3Visible = cost3Text.text !== defaultCost3;
+        // const cost4Visible = cost4Text.text !== defaultCost4;
+        // const cost5Visible = cost5Text.text !== defaultCost5;
 
         // Update visibility of cost texts
         cost1Text.visible = cost1Visible;
@@ -326,14 +326,12 @@ Rectangle {
 
         Row {
             id: costFlow
-            layoutDirection: Qt.LeftToRight
-            spacing: 0
 
             property int visibleCount: 0
-            x: 0
-            y: 0
-            width: 271
-            height: 50
+            anchors.fill: parent
+            anchors.leftMargin: 2
+            anchors.rightMargin: 2
+            spacing: -2
 
 
             Rectangle {
