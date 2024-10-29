@@ -226,13 +226,13 @@ Rectangle {
             cost5Image.visible = true;
         }
 
-        console.log(" ")
-        console.log("COSTS" + selectedIndex + ":")
-        console.log(normalizedCost1)
-        console.log(normalizedCost2)
-        console.log(normalizedCost3)
-        console.log(normalizedCost4)
-        console.log(normalizedCost5)
+        // console.log(" ")
+        // console.log("COSTS" + selectedIndex + ":")
+        // console.log(normalizedCost1)
+        // console.log(normalizedCost2)
+        // console.log(normalizedCost3)
+        // console.log(normalizedCost4)
+        // console.log(normalizedCost5)
 
         // // Update cost images for cost1, cost2, cost3, cost4, and cost5
         // cost1Image.source = costImageMap[normalizedCost1] || "";
