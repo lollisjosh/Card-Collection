@@ -1,280 +1,167 @@
-from pokemonttcgsdk import Card
-
+from pokemontcgsdk import Card
 class CardProcessor:
-    """A utility class that processes Pokémon TCG card types into a python type.
+    """
+    A utility class for processing Card objects into JSON-serializable formats.
+    
+    The CardProcessor class provides static methods for extracting and formatting key
+    attributes from Card objects, including abilities, attacks, subtypes, and set details. 
+    These methods help structure card data consistently, preparing it for use in frontend 
+    applications or data storage.
 
-    This class provides static methods to process various attributes of Pokémon cards,
-    including abilities, attacks, and subtypes, transforming them into a structured format
-    for use in the application.
-
-    Returns:
-        None
+    Methods:
+    --------
+    process_abilities(card: Card) -> dict
+        Extracts ability information from a Card, returning names, descriptions, and types
+        for up to two abilities.
+    
+    process_attacks(card: Card) -> dict
+        Extracts attack information from a Card, including names, descriptions, and up to 
+        five energy costs for each of up to four attacks.
+    
+    process_subtypes(card: Card) -> dict
+        Extracts up to four subtypes from a Card's subtype list.
+    
+    process_cards(cards: list[Card]) -> list[dict]
+        Processes a list of Card objects, combining attributes from abilities, attacks, 
+        subtypes, and other basic card data into a list of JSON-serializable dictionaries.
     """
 
     @staticmethod
-<<<<<<< Updated upstream
-    def process_cards(cards):
+    def process_cards(cards : list[Card]):
         """
-        Processes a list of Pokémon cards and 
-        extracts relevant attributes.
+        Processes a list of Card objects, extracting key attributes and organizing them 
+        into a list of dictionaries formatted for JSON serialization.
 
-        Args:
-            cards (list[Card]): A list of Card objects 
-            from the Pokémon TCG SDK.
+        Parameters:
+        -----------
+        cards : list[Card]
+            A list of Card objects, each containing attributes such as abilities, attacks, 
+            subtypes, name, and set details.
 
         Returns:
-            list[dict]: A list of dictionaries, each 
-            containing processed information for a card, 
-            including its abilities, attacks, and metadata.
-        """
-=======
-    def process_cards(
-        cards: list,
-        include_id: bool = True,
-        include_name: bool = True,
-        include_supertype: bool = True,
-        include_subtypes: bool = True,
-        include_level: bool = True,
-        include_hp: bool = True,
-        include_types: bool = True,
-        include_rules: bool = True,
-        include_abilities: bool = True,
-        include_attacks: bool = True,
-        include_retreat_cost: bool = True,
-        include_converted_retreat_cost: bool = True,
-        include_set: bool = True,
-        include_number: bool = True,
-        include_artist: bool = True,
-        include_rarity: bool = True,
-        include_flavor_text: bool = True,
-        include_images: bool = True,
-    ) -> list[dict]:
->>>>>>> Stashed changes
-
+        --------
+        list[dict[str, str]]
+            A list of dictionaries, each representing a parsed Card with the following 
+            attributes:
+                - Ability, attack, and subtype details from process_abilities, process_attacks, 
+                and process_subtypes.
+                - 'name': The card's name.
+                - 'id': The card's unique identifier.
+                - 'supertype': The card's supertype.
+                - 'imageUrl': URL to the card's large image.
+                - 'set': The name of the card's set.
+                - 'setSymbol': URL to the symbol image of the card's set.
+                - 'setLogo': URL to the logo image of the card's set.
+            
+            Any missing attributes are defaulted to empty strings by the helper methods.
+            """
         processed_cards = []
         for card in cards:
             processed_card = {
-<<<<<<< Updated upstream
-            **CardProcessor.process_abilities(card),
-            **CardProcessor.process_attacks(card),
-            **CardProcessor.process_subtypes(card),
-            "name": card.name,
-            "supertype": card.supertype,
-            "imageUrl": card.images.large,
-            "set": card.set.name,
-            "setSymbol": card.set.images.symbol,
-            "setLogo": card.set.images.logo,
-=======
-                **(CardProcessor.process_abilities(card) if include_abilities else {}),
-                **(CardProcessor.process_attacks(card) if include_attacks else {}),
-                **(CardProcessor.process_subtypes(card) if include_subtypes else {}),
-                **(CardProcessor.process_types(card) if include_types else {}),
-
-                "id": card.id if include_id else None,
-                "name": card.name if include_name else None,
-                "supertype": card.supertype if include_supertype else None,
-                "hp": card.hp if include_hp else None,
-                "types": card.types if include_types else [],
-                "rules": card.rules if include_rules else [],
-                "retreatCost": card.retreatCost if include_retreat_cost else [],
-
-                "convertedRetreatCost": (
-                card.convertedRetreatCost if
-                    include_converted_retreat_cost else 0
-                ),
-
-                "set": card.set.name if include_set else None,
-                "number": card.number if include_number else None,
-                "artist": card.artist if include_artist else None,
-                "rarity": card.rarity if include_rarity else None,
-                "flavorText": card.flavorText if include_flavor_text else None,
-                "imageUrl": card.images.large if include_images else None,
-
-                "setSymbol": card.set.images.symbol
-                if include_images and include_set
-                else None,
-
-                "setLogo": card.set.images.logo
-                if include_images and include_set
-                else None,
->>>>>>> Stashed changes
+                **CardProcessor.process_abilities(card),
+                **CardProcessor.process_attacks(card),
+                **CardProcessor.process_subtypes(card),
+                "name": card.name,
+                "id": card.id,
+                "supertype": card.supertype,
+                "imageUrl": card.images.large,
+                "set": card.set.name,
+                "setSymbol": card.set.images.symbol,
+                "setLogo": card.set.images.logo,
             }
-
             processed_cards.append(processed_card)
-
         return processed_cards
 
     @staticmethod
-    def process_abilities(card):
+    def process_abilities(card: Card):
         """
-        Extracts abilities from a Pokémon card.
+        Processes the abilities of a given card object, returning a dictionary with details \
+            for up to two abilities, including each ability's name, text, and type.
 
-        Args:
-            card (Card): A Card object from the Pokémon TCG SDK.
+        Parameters:
+        -----------
+        card : Card
+            The card object containing ability information, where each ability has attributes
+            like 'name', 'text', and 'type'.
 
         Returns:
-            dict: A dictionary containing the first two abilities 
-            of the card, if available, along with their names, 
-            text descriptions, and types.
-        """
-
+        --------
+        dict
+            A dictionary with keys for ability names, texts, and types: \
+                - 'ability1Name', 'ability1Text', 'ability1Type' for the first ability. \
+                - 'ability2Name', 'ability2Text', 'ability2Type' for the second ability. \
+            If the card has no abilities, or lacks certain attributes, default values are empty strings.
+"""
         abilities = {
             "ability1Name": "",
             "ability1Text": "",
             "ability1Type": "",
             "ability2Name": "",
             "ability2Text": "",
-            "ability2Type": "",
+            "ability2Type": ""
         }
 
-<<<<<<< Updated upstream
-        # Check if abilities exists and is not None
-        if hasattr(card, 'abilities') and card.abilities:  
-            if len(card.abilities) > 0:
-
-                abilities["ability1Name"] = card.abilities[0].name                
-
-                abilities["ability1Text"] = \
-                    card.abilities[0].text if hasattr(card.abilities[0], 'text') else ""
-
-                abilities["ability1Type"] = \
-                    card.abilities[0].type if hasattr(card.abilities[0], 'type') else ""
-
-=======
-        if (
-            hasattr(card, "abilities") and card.abilities
-        ):  # Check if abilities exists and is not None
+        if hasattr(card, 'abilities') and card.abilities:  # Check if abilities exists and is not None
             if len(card.abilities) > 0:
                 abilities["ability1Name"] = card.abilities[0].name
-                abilities["ability1Text"] = (
-                    card.abilities[0].text if hasattr(card.abilities[0], "text") else ""
-                )
-                abilities["ability1Type"] = (
-                    card.abilities[0].type if hasattr(card.abilities[0], "type") else ""
-                )
->>>>>>> Stashed changes
+                abilities["ability1Text"] = card.abilities[0].text if hasattr(card.abilities[0], 'text') else ""
+                abilities["ability1Type"] = card.abilities[0].type if hasattr(card.abilities[0], 'type') else ""
             if len(card.abilities) > 1:
-
                 abilities["ability2Name"] = card.abilities[1].name
-<<<<<<< Updated upstream
-
-                abilities["ability2Text"] = card.abilities[1].text \
-                    if hasattr(card.abilities[1], 'text') else ""
-
-                abilities["ability2Type"] = card.abilities[1].type \
-                    if hasattr(card.abilities[1], 'type') else ""
-=======
-                abilities["ability2Text"] = (
-                    card.abilities[1].text if hasattr(card.abilities[1], "text") else ""
-                )
-                abilities["ability2Type"] = (
-                    card.abilities[1].type if hasattr(card.abilities[1], "type") else ""
-                )
->>>>>>> Stashed changes
+                abilities["ability2Text"] = card.abilities[1].text if hasattr(card.abilities[1], 'text') else ""
+                abilities["ability2Type"] = card.abilities[1].type if hasattr(card.abilities[1], 'type') else ""
 
         return abilities
 
     @staticmethod
     def process_attacks(card):
         """
-        Extracts attack information from a Pokémon card.
+        Processes the attacks of a given card object, returning a dictionary with \
+        details for up to four attacks. Each attack includes the attack's \
+        name, description, and up to five individual energy costs.\
 
-        Args:
-            card (Card): A Card object from the Pokémon TCG SDK.
+        Parameters:
+        -----------
+        card : Card
+            The card object containing attack information, \
+            where each attack has attributes like \
+            'name', 'text', and multiple 'cost' fields.
 
         Returns:
-            dict: A dictionary containing the first four attacks of the card, 
-            if available, along with their costs, names, text descriptions, 
-            damage values, and converted energy costs.
+        --------
+        dict
+            A dictionary with keys for each attack's name, description, and energy costs:
+                - 'attack1Name', 'attack1Text', 'attack1Cost1-5'for the 1st attack.
+                - 'attack2Name', 'attack2Text', 'attack2Cost1-5'for the 2nd attack.
+                - 'attack3Name', 'attack3Text', 'attack3Cost1-5'for the 3rd attack.
+                - 'attack4Name', 'attack4Text', 'attack4Cost1-5'for the 4th attack.
+
+                If the card has no attacks or lacks specific attributes, default values are \
+                    set to empty strings for names and descriptions, or empty strings \
+                        for each of the cost fields.
         """
 
+
         attacks = {}
-<<<<<<< Updated upstream
-
         if hasattr(card, 'attacks') and card.attacks:  # Ensure attacks exists
-=======
-        if hasattr(card, "attacks") and card.attacks:  # Ensure attacks exists
->>>>>>> Stashed changes
             for i in range(4):
-
                 attack_prefix = f"attack{i+1}"
-
                 if len(card.attacks) > i:
-
                     attack = card.attacks[i]
-<<<<<<< Updated upstream
-
                     cost = attack.cost if hasattr(attack, 'cost') and attack.cost else []
-
                     attacks.update({
-
                         f"{attack_prefix}Cost1": cost[0] if len(cost) > 0 else "",
-
                         f"{attack_prefix}Cost2": cost[1] if len(cost) > 1 else "",
-
                         f"{attack_prefix}Cost3": cost[2] if len(cost) > 2 else "",
-
                         f"{attack_prefix}Cost4": cost[3] if len(cost) > 3 else "",
-
                         f"{attack_prefix}Cost5": cost[4] if len(cost) > 4 else "",
-
                         f"{attack_prefix}Name": attack.name,
-
                         f"{attack_prefix}Text": attack.text if hasattr(attack, 'text') else "",
-
-                        f"{attack_prefix}Damage": attack.damage \
-                            if hasattr(attack, 'damage') else "",
-
-                        f"{attack_prefix}ConvertedEnergyCost": attack.convertedEnergyCost \
-                            if hasattr(attack, 'convertedEnergyCost') else 0
+                        f"{attack_prefix}Damage": attack.damage if hasattr(attack, 'damage') else "",
+                        f"{attack_prefix}ConvertedEnergyCost": attack.convertedEnergyCost if hasattr(attack, 'convertedEnergyCost') else 0
                     })
                 else:
-
                     attacks.update({
-=======
-                    cost = (
-                        attack.cost if hasattr(attack, "cost") and attack.cost else []
-                    )
-                    attacks.update(
-                        {
-                            f"{attack_prefix}Cost1": cost[0] if len(cost) > 0 else "",
-                            f"{attack_prefix}Cost2": cost[1] if len(cost) > 1 else "",
-                            f"{attack_prefix}Cost3": cost[2] if len(cost) > 2 else "",
-                            f"{attack_prefix}Cost4": cost[3] if len(cost) > 3 else "",
-                            f"{attack_prefix}Cost5": cost[4] if len(cost) > 4 else "",
-                            f"{attack_prefix}Name": attack.name,
-                            f"{attack_prefix}Text": attack.text
-                            if hasattr(attack, "text")
-                            else "",
-                            f"{attack_prefix}Damage": attack.damage
-                            if hasattr(attack, "damage")
-                            else "",
-                            f"{attack_prefix}ConvertedEnergyCost": attack.convertedEnergyCost
-                            if hasattr(attack, "convertedEnergyCost")
-                            else 0,
-                        }
-                    )
-                else:
-                    attacks.update(
-                        {
-                            f"{attack_prefix}Cost1": "",
-                            f"{attack_prefix}Cost2": "",
-                            f"{attack_prefix}Cost3": "",
-                            f"{attack_prefix}Cost4": "",
-                            f"{attack_prefix}Cost5": "",
-                            f"{attack_prefix}Name": "",
-                            f"{attack_prefix}Text": "",
-                            f"{attack_prefix}Damage": "",
-                            f"{attack_prefix}ConvertedEnergyCost": 0,
-                        }
-                    )
-        else:
-            # If attacks is None or empty, set defaults
-            for i in range(4):
-                attack_prefix = f"attack{i+1}"
-                attacks.update(
-                    {
->>>>>>> Stashed changes
                         f"{attack_prefix}Cost1": "",
                         f"{attack_prefix}Cost2": "",
                         f"{attack_prefix}Cost3": "",
@@ -283,15 +170,12 @@ class CardProcessor:
                         f"{attack_prefix}Name": "",
                         f"{attack_prefix}Text": "",
                         f"{attack_prefix}Damage": "",
-<<<<<<< Updated upstream
                         f"{attack_prefix}ConvertedEnergyCost": 0
                     })
         else:
             # If attacks is None or empty, set defaults
             for i in range(4):
-
                 attack_prefix = f"attack{i+1}"
-
                 attacks.update({
                     f"{attack_prefix}Cost1": "",
                     f"{attack_prefix}Cost2": "",
@@ -303,26 +187,30 @@ class CardProcessor:
                     f"{attack_prefix}Damage": "",
                     f"{attack_prefix}ConvertedEnergyCost": 0
                 })
-=======
-                        f"{attack_prefix}ConvertedEnergyCost": 0,
-                    }
-                )
->>>>>>> Stashed changes
 
         return attacks
 
     @staticmethod
-<<<<<<< Updated upstream
     def process_subtypes(card):
         """
-        Extracts subtypes from a Pokémon card.
+        Processes the subtypes of a given card object, returning a dictionary with up to 
+        four subtypes.
 
-        Args:
-            card (Card): A Card object from the Pokémon TCG SDK.
+        Parameters:
+        -----------
+        card : Card
+            The card object containing subtype information, where subtypes are stored as
+            a list of strings.
 
         Returns:
-            dict: A dictionary containing up to 
-            four subtypes of the card, if available.
+        --------
+        dict
+            A dictionary with keys for up to four subtypes:
+                - 'subtype1' through 'subtype4' corresponding to the first through fourth
+                subtypes in the card's subtype list.
+            
+            If the card has fewer than four subtypes or lacks specific attributes, the 
+            remaining fields default to empty strings.
         """
 
         subtypes = {
@@ -331,27 +219,12 @@ class CardProcessor:
             "subtype3": "",
             "subtype4": ""
         }
-=======
-    def process_types(card):
-        types = {"type1": "", "type2": ""}
->>>>>>> Stashed changes
 
-        if hasattr(card, "types") and card.types:  # Check if types exists
-            if len(card.types) > 0:
-                types["type1"] = card.types[0]  # First type
-            if len(card.types) > 1:
-                types["type2"] = card.types[1]  # Second type
-
-        return types
-
-    @staticmethod
-    def process_subtypes(card):
-        subtypes = {"subtype1": "", "subtype2": "", "subtype3": "", "subtype4": ""}
-
-        if hasattr(card, "subtypes") and card.subtypes:  # Check if subtypes exists
+        if hasattr(card, 'subtypes') and card.subtypes:  # Check if subtypes exists
             subtypes["subtype1"] = card.subtypes[0] if len(card.subtypes) > 0 else ""
             subtypes["subtype2"] = card.subtypes[1] if len(card.subtypes) > 1 else ""
             subtypes["subtype3"] = card.subtypes[2] if len(card.subtypes) > 2 else ""
             subtypes["subtype4"] = card.subtypes[3] if len(card.subtypes) > 3 else ""
+
 
         return subtypes
