@@ -189,8 +189,8 @@ Window {
         if (!cards[selectedIndex]) {
             // console.log("cards[selectedIndex] doesn't exist")
             // Reset to defaults if no card is selected
-            type1.type = defaultType1;
-            type2.type = defaultType2;
+            typeBlock.type1Type = defaultType1;
+            typeBlock.type2Type= defaultType2;
             return; // Exit early if no card is found
         }
         else {
@@ -201,8 +201,8 @@ Window {
         const normalizedType1 = cards[selectedIndex]?.type1?.trim().toLowerCase() || "";
         const normalizedType2 = cards[selectedIndex]?.type2?.trim().toLowerCase() || "";
 
-        type1.type = normalizedType1 || defaultType1;
-        type2.type = normalizedType2 || defaultType2;
+        typeBlock.type1Type = normalizedType1 || defaultType1;
+        typeBlock.type2Type = normalizedType2 || defaultType2;
     }
 
     function resetCardRotation() {
@@ -1173,7 +1173,7 @@ Window {
 
                                 Flickable {
                                     id: leftScrollView
-                                    width: 250
+                                    width: 280
                                     anchors.left: parent.left
                                     anchors.top: parent.top
                                     anchors.bottom: parent.bottom
@@ -1190,12 +1190,12 @@ Window {
                                     // First attack
                                     Column {
                                         id: column
-                                        x: 0
-                                        width: 250
+                                        x: 5
+                                        width: 283
                                         height: 1132
-                                        anchors.top: parent.top
-                                        anchors.topMargin: 4
-                                        spacing: 6
+                                        anchors.verticalCenter: parent.verticalCenter
+                                        anchors.verticalCenterOffset: -16
+                                        spacing: 4
 
                                         AttackInfoBlock {
                                             id: attack1Block
@@ -1284,8 +1284,8 @@ Window {
                                     anchors.left: leftScrollView.right
                                     anchors.right: parent.right
                                     anchors.top: parent.top
-                                    anchors.leftMargin: 4
-                                    anchors.rightMargin: 4
+                                    anchors.leftMargin: -14
+                                    anchors.rightMargin: 22
                                     anchors.topMargin: 4
                                     contentX: 0
                                     contentWidth: 250
@@ -1293,13 +1293,13 @@ Window {
                                     clip: false
                                     boundsBehavior: Flickable.DragOverBounds
                                     boundsMovement: Flickable.FollowBoundsBehavior
-                                    contentHeight: 500 // Set a suitable height for your content
+                                    contentHeight: 650 // Set a suitable height for your content
 
                                     Column {
                                         id: rightSideColumn
-                                        x: 33
-                                        y: 0
-                                        width: 257
+                                        x: 26
+                                        y: -1
+                                        width: 242
                                         height: 435
 
                                         spacing: 3
@@ -1307,7 +1307,7 @@ Window {
 
                                         Rectangle {
                                             id: supertypeBlock
-                                            width: 200
+                                            width: 190
                                             height: 40
                                             color: "#c80d0d"
                                             radius: 8
@@ -1416,12 +1416,12 @@ Window {
 
                                         Rectangle {
                                             id: nameBlock
-                                            width: 250
+                                            width: 240
                                             height: 70
                                             color: "#c80d0d"
                                             radius: 8
-                                            border.color: "#6c0101"
-                                            border.width: 2
+                                            border.color: borderColor
+                                            border.width: 1
                                             anchors.horizontalCenter: parent.horizontalCenter
 
                                             Rectangle {
@@ -1530,36 +1530,18 @@ Window {
                                         }
 
 
-                                        Rectangle {
+                                        TypeBlock {
                                             id: typeBlock
-                                            width: 110
-                                            height: 55
-                                            color: "#ff0000"
-                                            radius: 6
-                                            border.color: "#006c0101"
-                                            border.width: 0
                                             anchors.horizontalCenter: parent.horizontalCenter
+                                            border.color: borderColor
+                                            border.width: 1
+                                            color: "#ff0000"
+                                            height: 55
+                                            radius: 8
+                                            width: 110
+                                            type1Type: "Type 1"
+                                            type2Type: "Type 2"
 
-                                            Row {
-                                                id: typeFlow
-                                                width: 105
-                                                height: 50
-                                                anchors.verticalCenter: parent.verticalCenter
-                                                anchors.verticalCenterOffset: -1
-                                                anchors.horizontalCenterOffset: 1
-                                                anchors.horizontalCenter: parent.horizontalCenter
-                                                layoutDirection: Qt.LeftToRight
-                                                spacing: 4
-
-                                                TypeBlock{
-                                                    id: type1
-                                                    type: "Type 1"
-                                                }
-                                                TypeBlock{
-                                                    id: type2
-                                                    type: ""
-                                                }
-                                            }
                                         }
 
                                         SubtypeBlock {
@@ -1567,6 +1549,7 @@ Window {
                                             anchors.horizontalCenter: parent.horizontalCenter
                                             border.color: "#006c0101"
                                             border.width: 0
+                                            blockBorderColor: "#6c0101"
                                             color: window.blockBG
                                             height: 125
                                             radius: 6
@@ -1580,7 +1563,7 @@ Window {
 
                                         Rectangle {
                                             id: setLogoBlock
-                                            width: 250
+                                            width: 240
                                             height: 200
                                             color: "#c80d0d"
                                             radius: 8
@@ -1723,7 +1706,7 @@ Window {
 
                                         Row {
                                             id: row
-                                            width: 250
+                                            width: 240
                                             height: 66
                                             anchors.horizontalCenter: parent.horizontalCenter
                                             spacing: 3
@@ -2293,6 +2276,6 @@ Window {
 
 /*##^##
 Designer {
-    D{i:0}D{i:38;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}
+    D{i:0}D{i:38;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}D{i:67}
 }
 ##^##*/
