@@ -190,40 +190,10 @@ Window {
                     || "Sub Type 3"
             subtypeBlock.sub4Text = cards[selectedIndex].subtype4
                     || "Sub Type 4"
+
+            subtypeBlock.updateSubTypeInfo();
         }
 
-
-        // if(cards[selectedIndex]) {
-        //     subtype2Text.text = cards[selectedIndex].subtype2
-        //             || "Sub Type 2"
-        // }
-
-        // if(cards[selectedIndex]) {
-        //     subtype3Text.text = cards[selectedIndex].subtype3
-        //             || "Sub Type 3"
-        // }
-
-        // if(cards[selectedIndex]) {
-        //     subtype4Text.text = cards[selectedIndex].subtype4
-        //             || "Sub Type 4"
-        // }
-
-        // Set visibility for each ability based on the card data
-      //  subtype1Block.visible = cards[selectedIndex].subtype1 !== "Sub Type 1" && cards[selectedIndex].subtype1 !== ""
-      //  subtype2Block.visible = cards[selectedIndex].subtype2 !== "Sub Type 2" && cards[selectedIndex].subtype2 !== ""
-       // subtype3Block.visible = cards[selectedIndex].subtype3 !== "Sub Type 3" && cards[selectedIndex].subtype3 !== ""
-      //  subtype4Block.visible = cards[selectedIndex].subtype4 !== "Sub Type 4" && cards[selectedIndex].subtype4 !== ""
-
-        // if (subtype1Block.visible && !subtype2Block.visible && !subtype3Block.visible && !subtype4Block.visible ||
-        //         subtype1Block.visible && subtype2Block.visible && subtype3Block.visible && !subtype4Block.visible) {
-        //     subtype1Block.width = 250;
-        // } else if (subtype1Block.visible && subtype2Block.visible && !subtype3Block.visible && !subtype4Block.visible) {
-        //     subtype1Block.width = 122;
-        // } else {
-        //     subtype1Block.width = 122; // Set a fallback width if needed
-        // }        //subtype2Block.width = subtype3Block.visible ? 85 : 175
-
-        // subtypeBlock.height = subtype3Block.visible ? subtype1Block.height * 2 : subtype1Block.height
     }
 
     function updateSuperTypeInfo() {
@@ -231,7 +201,6 @@ Window {
             supertypeText.text = cards[selectedIndex].supertype
                     || "Super Type"
         }
-
     }
 
     function updateTypeInfo() {
@@ -628,7 +597,7 @@ Window {
                                     x: 111
                                     width: 240
                                     height: 25
-                                    text: "Rayquaza"
+                                    text: "Deoxys"
                                     anchors.verticalCenter: parent.verticalCenter
                                     anchors.right: btnSearch.left
                                     anchors.rightMargin: 6
@@ -767,7 +736,6 @@ Window {
                                                 var tupleString = "[" + searchParams[paramIndex][0] + ", "
                                                         + searchParams[paramIndex][1] + ", "
                                                         + searchParams[paramIndex][2] + "]"
-                                                console.log(tupleString);
                                             }
                                             backendController.request_search(
                                                         searchParams)
