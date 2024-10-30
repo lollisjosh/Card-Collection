@@ -177,7 +177,7 @@ Window {
             ability1.isVisible = cards[selectedIndex].ability1Name !== "Ability 1" && cards[selectedIndex].ability1Name !== ""
 
             ability2.isVisible = cards[selectedIndex].ability2Name !== "Ability 2" && cards[selectedIndex].ability2Name !== ""
-            }
+        }
     }
 
     function updateSubTypeInfo() {
@@ -246,66 +246,66 @@ Window {
             "colorless": "colorlessEnergyCropped.png"
         };
         // Check if the card exists
-            if (!cards[selectedIndex]) {
-               // console.log("cards[selectedIndex] doesn't exist")
-                // Reset to defaults if no card is selected
-                type1.type = defaultType1;
-                return; // Exit early if no card is found
-            }
-            else {
-              //  console.log(cards[selectedIndex].type1)
-            }
+        if (!cards[selectedIndex]) {
+            // console.log("cards[selectedIndex] doesn't exist")
+            // Reset to defaults if no card is selected
+            type1.type = defaultType1;
+            return; // Exit early if no card is found
+        }
+        else {
+            //  console.log(cards[selectedIndex].type1)
+        }
 
         // Set type text values or defaults
-         // type1Block.type = cards[selectedIndex]?.type1 || defaultType1;
-            type1Text.text = cards[selectedIndex]?.type1 || defaultType1;
-            type2Text.text = cards[selectedIndex]?.type2 || defaultType2;
+        // type1Block.type = cards[selectedIndex]?.type1 || defaultType1;
+        type1Text.text = cards[selectedIndex]?.type1 || defaultType1;
+        type2Text.text = cards[selectedIndex]?.type2 || defaultType2;
 
         //console.log(type1Text.text)
         //console.log(type2Text.text)
 
-          // Normalize type strings for image source mapping
-          const normalizedType1 = cards[selectedIndex]?.type1?.trim().toLowerCase() || "";
-          const normalizedType2 = cards[selectedIndex]?.type2?.trim().toLowerCase() || "";
+        // Normalize type strings for image source mapping
+        const normalizedType1 = cards[selectedIndex]?.type1?.trim().toLowerCase() || "";
+        const normalizedType2 = cards[selectedIndex]?.type2?.trim().toLowerCase() || "";
 
-          // Set visibility based on whether default text is used
-         //type1Block.visible = type1Text.text !== defaultType1;
-         //type2Block.visible = type2Text.text !== defaultType2;
+        // Set visibility based on whether default text is used
+        //type1Block.visible = type1Text.text !== defaultType1;
+        //type2Block.visible = type2Text.text !== defaultType2;
 
-          // Set widths based on the visibility of Type 2
-          //type1Block.width = type2Block.visible ? 85 : 175;
-          //  console.log(normalizedType1)
-          //  console.log(normalizedType2)
-          // Handle images and special cases for colorless and dragon types
-          if (normalizedType1 === "colorless") {
-              colorlessType1DummyImage.visible = true;
-              dragonType1DummyImage.visible = false;
-              type1Image.visible = false;  // Hide the normal type image
-          } else if (normalizedType1 === "dragon") {
-              dragonType1DummyImage.visible = true;
-              colorlessType1DummyImage.visible = false;
-              type1Image.visible = false;  // Hide the normal type image
-          } else {
-              type1Image.source = typeImageMap[normalizedType1] || ""; // Use the mapped source
-              colorlessType1DummyImage.visible = false;  // Hide dummy images
-              dragonType1DummyImage.visible = false;
-              type1Image.visible = true;  // Show the normal type image
-          }
+        // Set widths based on the visibility of Type 2
+        //type1Block.width = type2Block.visible ? 85 : 175;
+        //  console.log(normalizedType1)
+        //  console.log(normalizedType2)
+        // Handle images and special cases for colorless and dragon types
+        if (normalizedType1 === "colorless") {
+            colorlessType1DummyImage.visible = true;
+            dragonType1DummyImage.visible = false;
+            type1Image.visible = false;  // Hide the normal type image
+        } else if (normalizedType1 === "dragon") {
+            dragonType1DummyImage.visible = true;
+            colorlessType1DummyImage.visible = false;
+            type1Image.visible = false;  // Hide the normal type image
+        } else {
+            type1Image.source = typeImageMap[normalizedType1] || ""; // Use the mapped source
+            colorlessType1DummyImage.visible = false;  // Hide dummy images
+            dragonType1DummyImage.visible = false;
+            type1Image.visible = true;  // Show the normal type image
+        }
 
-          if (normalizedType2 === "colorless") {
-              colorlessType2DummyImage.visible = true;
-              dragonType2DummyImage.visible = false;
-              type2Image.visible = false;  // Hide the normal type image
-          } else if (normalizedType2 === "dragon") {
-              dragonType2DummyImage.visible = true;
-              colorlessType2DummyImage.visible = false;
-              type2Image.visible = false;  // Hide the normal type image
-          } else {
-              type2Image.source = typeImageMap[normalizedType2] || ""; // Use the mapped source
-              colorlessType2DummyImage.visible = false;  // Hide dummy images
-              dragonType2DummyImage.visible = false;
-              type2Image.visible = true;  // Show the normal type image
-          }
+        if (normalizedType2 === "colorless") {
+            colorlessType2DummyImage.visible = true;
+            dragonType2DummyImage.visible = false;
+            type2Image.visible = false;  // Hide the normal type image
+        } else if (normalizedType2 === "dragon") {
+            dragonType2DummyImage.visible = true;
+            colorlessType2DummyImage.visible = false;
+            type2Image.visible = false;  // Hide the normal type image
+        } else {
+            type2Image.source = typeImageMap[normalizedType2] || ""; // Use the mapped source
+            colorlessType2DummyImage.visible = false;  // Hide dummy images
+            dragonType2DummyImage.visible = false;
+            type2Image.visible = true;  // Show the normal type image
+        }
     }
 
 
@@ -331,7 +331,7 @@ Window {
             updateAbilityInfo();
             updateSubTypeInfo();
             updateSuperTypeInfo();
-           updateTypeInfo();
+            updateTypeInfo();
             resetLeftColumnScroll();
             resetRightColumnScroll();
             resetCardRotation();
@@ -346,7 +346,7 @@ Window {
             updateAbilityInfo();
             updateSubTypeInfo();
             updateSuperTypeInfo();
-           updateTypeInfo();
+            updateTypeInfo();
             resetLeftColumnScroll();
             resetRightColumnScroll();
             resetCardRotation();
@@ -799,10 +799,10 @@ Window {
                                         // Call the request_search function with the built tuples if there are any
                                         if (searchParams.length > 0) {
                                             //Print each tuple as a string to the console
-                                            for (var i = 0; i < searchParams.length; i++) {
-                                                var tupleString = "[" + searchParams[i][0] + ", "
-                                                        + searchParams[i][1] + ", "
-                                                        + searchParams[i][2] + "]"
+                                            for (var paramIndex = 0; paramIndex < searchParams.length; paramIndex++) {
+                                                var tupleString = "[" + searchParams[paramIndex][0] + ", "
+                                                        + searchParams[paramIndex][1] + ", "
+                                                        + searchParams[paramIndex][2] + "]"
                                                 console.log(tupleString);
                                             }
                                             backendController.request_search(
@@ -1305,8 +1305,6 @@ Window {
                                     boundsBehavior: Flickable.DragOverBounds
                                     boundsMovement: Flickable.FollowBoundsBehavior
                                     flickableDirection: Flickable.VerticalFlick
-                                    // Adjust width as needed
-                                    // Set a height that fits your layout
                                     contentHeight: 1170 // Set a suitable height for your content
 
                                     // First attack
@@ -1390,6 +1388,7 @@ Window {
                                             typeText: "Ability 1 Type"
                                             descText: "Ability 1 Description"
                                         }
+
                                         AbilityInfoBlock {
                                             id: ability2
                                             width: 250
@@ -1397,508 +1396,6 @@ Window {
                                             typeText: "Ability 2 Type"
                                             descText: "Ability 2 Description"
                                         }
-
-                                        // Rectangle {
-                                        //     id: ability1NameBlock
-                                        //     width: 200
-                                        //     height: 45
-                                        //     color: "#c80d0d"
-                                        //     radius: 8
-                                        //     border.color: "#6c0101"
-                                        //     border.width: 2
-                                        //     anchors.horizontalCenter: parent.horizontalCenter
-                                        //     Rectangle {
-                                        //         id: ability1NameBezel
-                                        //         color: "#b2b2b2"
-                                        //         radius: 8
-                                        //         border.color: "#616161"
-                                        //         border.width: 2
-                                        //         anchors.fill: parent
-                                        //         anchors.leftMargin: 4
-                                        //         anchors.rightMargin: 4
-                                        //         anchors.topMargin: 3
-                                        //         anchors.bottomMargin: 3
-                                        //         Rectangle {
-                                        //             id: ability1NameScreen
-                                        //             x: 10
-                                        //             y: 4
-                                        //             color: screenColor
-                                        //             radius: 4
-                                        //             border.color: "#128c17"
-                                        //             border.width: 2
-                                        //             anchors.fill: parent
-                                        //             anchors.leftMargin: 5
-                                        //             anchors.rightMargin: 5
-                                        //             anchors.topMargin: 6
-                                        //             anchors.bottomMargin: 6
-                                        //             Text {
-                                        //                 id: ability1NameText
-                                        //                 color: "#c5002a02"
-                                        //                 text: "Ability 1"
-                                        //                 anchors.fill: parent
-                                        //                 horizontalAlignment: Text.AlignHCenter
-                                        //                 verticalAlignment: Text.AlignVCenter
-                                        //                 wrapMode: Text.Wrap
-                                        //                 minimumPointSize: 10
-                                        //                 minimumPixelSize: 10
-                                        //                 z: 1
-                                        //                 fontSizeMode: Text.HorizontalFit
-                                        //                 font.styleName: "ExtraBold Italic"
-                                        //             }
-
-                                        //             Text {
-                                        //                 id: ability1NameDropText
-                                        //                 color: "#095f0c"
-                                        //                 text: ability1NameText.text
-                                        //                 anchors.fill: parent
-                                        //                 horizontalAlignment: Text.AlignHCenter
-                                        //                 verticalAlignment: Text.AlignVCenter
-                                        //                 wrapMode: Text.Wrap
-                                        //                 minimumPointSize: 10
-                                        //                 minimumPixelSize: 10
-                                        //                 z: 0
-                                        //                 fontSizeMode: Text.HorizontalFit
-                                        //                 font.styleName: "ExtraBold Italic"
-                                        //             }
-
-                                        //             Rectangle {
-                                        //                 id: rectangle16
-                                        //                 x: -6
-                                        //                 y: -6
-                                        //                 color: "#00ffffff"
-                                        //                 radius: 4
-                                        //                 border.color: "#25fb2e"
-                                        //                 border.width: 1
-                                        //                 anchors.fill: parent
-                                        //                 anchors.leftMargin: 3
-                                        //                 anchors.rightMargin: 3
-                                        //                 anchors.topMargin: 3
-                                        //                 anchors.bottomMargin: 3
-                                        //             }
-                                        //         }
-                                        //     }
-                                        // }
-
-
-                                        // Rectangle {
-                                        //     id: ability1TypeBlock
-                                        //     width: 175
-                                        //     height: 45
-                                        //     color: "#c80d0d"
-                                        //     radius: 8
-                                        //     border.color: "#6c0101"
-                                        //     border.width: 2
-                                        //     anchors.horizontalCenter: parent.horizontalCenter
-                                        //     Rectangle {
-                                        //         id: ability1TypeBezel
-                                        //         color: "#b2b2b2"
-                                        //         radius: 8
-                                        //         border.color: "#616161"
-                                        //         border.width: 2
-                                        //         anchors.fill: parent
-                                        //         anchors.leftMargin: 4
-                                        //         anchors.rightMargin: 4
-                                        //         anchors.topMargin: 3
-                                        //         anchors.bottomMargin: 3
-                                        //         Rectangle {
-                                        //             id: ability1TypeScreen
-                                        //             x: 10
-                                        //             y: 4
-                                        //             color: screenColor
-                                        //             radius: 4
-                                        //             border.color: "#128c17"
-                                        //             border.width: 2
-                                        //             anchors.fill: parent
-                                        //             anchors.leftMargin: 5
-                                        //             anchors.rightMargin: 5
-                                        //             anchors.topMargin: 6
-                                        //             anchors.bottomMargin: 6
-                                        //             Text {
-                                        //                 id: ability1TypeText
-                                        //                 color: "#c5002a02"
-                                        //                 text: "Ability 1 Type"
-                                        //                 anchors.fill: parent
-                                        //                 horizontalAlignment: Text.AlignHCenter
-                                        //                 verticalAlignment: Text.AlignVCenter
-                                        //                 wrapMode: Text.Wrap
-                                        //                 z: 1
-                                        //                 fontSizeMode: Text.HorizontalFit
-                                        //                 font.styleName: "ExtraBold Italic"
-                                        //             }
-
-                                        //             Text {
-                                        //                 id: ability1TypeDropText
-                                        //                 color: "#095f0c"
-                                        //                 text: ability1TypeText.text
-                                        //                 anchors.fill: parent
-                                        //                 horizontalAlignment: Text.AlignHCenter
-                                        //                 verticalAlignment: Text.AlignVCenter
-                                        //                 wrapMode: Text.Wrap
-                                        //                 fontSizeMode: Text.HorizontalFit
-                                        //                 font.styleName: "ExtraBold Italic"
-                                        //             }
-
-                                        //             Rectangle {
-                                        //                 id: rectangle17
-                                        //                 x: -6
-                                        //                 y: -6
-                                        //                 color: "#00ffffff"
-                                        //                 radius: 4
-                                        //                 border.color: "#25fb2e"
-                                        //                 border.width: 1
-                                        //                 anchors.fill: parent
-                                        //                 anchors.leftMargin: 3
-                                        //                 anchors.rightMargin: 3
-                                        //                 anchors.topMargin: 3
-                                        //                 anchors.bottomMargin: 3
-                                        //             }
-                                        //         }
-                                        //     }
-                                        // }
-
-
-                                        // Rectangle {
-                                        //     id: ability1DescriptionBlock
-                                        //     width: 250
-                                        //     height: 136
-                                        //     color: "#c80d0d"
-                                        //     radius: 8
-                                        //     border.color: "#6c0101"
-                                        //     border.width: 2
-                                        //     Rectangle {
-                                        //         id: ability1DescriptionBezel
-                                        //         color: "#b2b2b2"
-                                        //         radius: 8
-                                        //         border.color: "#616161"
-                                        //         border.width: 2
-                                        //         anchors.fill: parent
-                                        //         anchors.leftMargin: 4
-                                        //         anchors.rightMargin: 4
-                                        //         anchors.topMargin: 4
-                                        //         anchors.bottomMargin: 4
-                                        //         Rectangle {
-                                        //             id: ability1DescriptionScreen
-                                        //             x: 10
-                                        //             y: 4
-                                        //             color: screenColor
-                                        //             radius: 6
-                                        //             border.color: "#128c17"
-                                        //             border.width: 2
-                                        //             anchors.fill: parent
-                                        //             anchors.leftMargin: 6
-                                        //             anchors.rightMargin: 6
-                                        //             anchors.topMargin: 6
-                                        //             anchors.bottomMargin: 6
-                                        //             Text {
-                                        //                 id: ability1DescriptionDropText
-                                        //                 visible: true
-                                        //                 color: "#c5002a02"
-                                        //                 text: "Ability 1 Description"
-                                        //                 anchors.fill: parent
-                                        //                 anchors.leftMargin: 4
-                                        //                 anchors.rightMargin: 4
-                                        //                 anchors.topMargin: 4
-                                        //                 anchors.bottomMargin: 4
-                                        //                 horizontalAlignment: Text.AlignHCenter
-                                        //                 verticalAlignment: Text.AlignVCenter
-                                        //                 wrapMode: Text.Wrap
-                                        //                 z: 1
-                                        //                 minimumPointSize: 6
-                                        //                 minimumPixelSize: 6
-                                        //                 fontSizeMode: Text.Fit
-                                        //                 font.styleName: "ExtraBold Italic"
-                                        //                 font.pointSize: ability1DescriptionText.font.pointSize
-                                        //             }
-
-                                        //             Text {
-                                        //                 id: ability1DescriptionText
-                                        //                 color: "#095f0c"
-                                        //                 text: ability1DescriptionDropText.text
-                                        //                 anchors.fill: parent
-                                        //                 anchors.leftMargin: 4
-                                        //                 anchors.rightMargin: 4
-                                        //                 anchors.topMargin: 4
-                                        //                 anchors.bottomMargin: 4
-                                        //                 horizontalAlignment: Text.AlignHCenter
-                                        //                 verticalAlignment: Text.AlignVCenter
-                                        //                 wrapMode: Text.Wrap
-                                        //                 z: 0
-                                        //                 minimumPointSize: 6
-                                        //                 minimumPixelSize: 6
-                                        //                 fontSizeMode: Text.Fit
-                                        //                 font.styleName: "ExtraBold Italic"
-                                        //                 font.pointSize: ability1DescriptionDropText.font.pointSize
-                                        //             }
-
-                                        //             Rectangle {
-                                        //                 id: rectangle21
-                                        //                 x: -7
-                                        //                 y: 13
-                                        //                 color: "#00ffffff"
-                                        //                 radius: 4
-                                        //                 border.color: "#25fb2e"
-                                        //                 border.width: 1
-                                        //                 anchors.fill: parent
-                                        //                 anchors.leftMargin: 3
-                                        //                 anchors.rightMargin: 3
-                                        //                 anchors.topMargin: 3
-                                        //                 anchors.bottomMargin: 3
-                                        //             }
-                                        //         }
-                                        //     }
-                                        // }
-
-
-                                        // Rectangle {
-                                        //     id: ability2NameBlock
-                                        //     width: 200
-                                        //     height: 45
-                                        //     color: "#c80d0d"
-                                        //     radius: 8
-                                        //     border.color: "#6c0101"
-                                        //     border.width: 2
-                                        //     anchors.horizontalCenter: parent.horizontalCenter
-                                        //     Rectangle {
-                                        //         id: ability2NameBezel
-                                        //         color: "#b2b2b2"
-                                        //         radius: 8
-                                        //         border.color: "#616161"
-                                        //         border.width: 2
-                                        //         anchors.fill: parent
-                                        //         anchors.leftMargin: 4
-                                        //         anchors.rightMargin: 4
-                                        //         anchors.topMargin: 3
-                                        //         anchors.bottomMargin: 3
-                                        //         Rectangle {
-                                        //             id: ability2NameScreen
-                                        //             x: 10
-                                        //             y: 4
-                                        //             color: screenColor
-                                        //             radius: 4
-                                        //             border.color: "#128c17"
-                                        //             border.width: 2
-                                        //             anchors.fill: parent
-                                        //             anchors.leftMargin: 5
-                                        //             anchors.rightMargin: 5
-                                        //             anchors.topMargin: 6
-                                        //             anchors.bottomMargin: 6
-                                        //             Text {
-                                        //                 id: ability2NameText
-                                        //                 color: "#c5002a02"
-                                        //                 text: "Ability 2"
-                                        //                 anchors.fill: parent
-                                        //                 horizontalAlignment: Text.AlignHCenter
-                                        //                 verticalAlignment: Text.AlignVCenter
-                                        //                 wrapMode: Text.Wrap
-                                        //                 minimumPointSize: 10
-                                        //                 minimumPixelSize: 10
-                                        //                 z: 1
-                                        //                 fontSizeMode: Text.HorizontalFit
-                                        //                 font.styleName: "ExtraBold Italic"
-                                        //             }
-
-                                        //             Text {
-                                        //                 id: ability2NameDropText
-                                        //                 color: "#095f0c"
-                                        //                 text: ability2NameText.text
-                                        //                 anchors.fill: parent
-                                        //                 horizontalAlignment: Text.AlignHCenter
-                                        //                 verticalAlignment: Text.AlignVCenter
-                                        //                 wrapMode: Text.Wrap
-                                        //                 minimumPointSize: 10
-                                        //                 minimumPixelSize: 10
-                                        //                 fontSizeMode: Text.HorizontalFit
-                                        //                 font.styleName: "ExtraBold Italic"
-                                        //             }
-
-                                        //             Rectangle {
-                                        //                 id: rectangle18
-                                        //                 x: -6
-                                        //                 y: -6
-                                        //                 color: "#00ffffff"
-                                        //                 radius: 4
-                                        //                 border.color: "#25fb2e"
-                                        //                 border.width: 1
-                                        //                 anchors.fill: parent
-                                        //                 anchors.leftMargin: 3
-                                        //                 anchors.rightMargin: 3
-                                        //                 anchors.topMargin: 3
-                                        //                 anchors.bottomMargin: 3
-                                        //             }
-                                        //         }
-                                        //     }
-                                        // }
-
-
-                                        // Rectangle {
-                                        //     id: ability2TypeBlock
-                                        //     width: 175
-                                        //     height: 45
-                                        //     color: "#c80d0d"
-                                        //     radius: 8
-                                        //     border.color: "#6c0101"
-                                        //     border.width: 2
-                                        //     anchors.horizontalCenter: parent.horizontalCenter
-                                        //     Rectangle {
-                                        //         id: ability2TypeBezel
-                                        //         color: "#b2b2b2"
-                                        //         radius: 8
-                                        //         border.color: "#616161"
-                                        //         border.width: 2
-                                        //         anchors.fill: parent
-                                        //         anchors.leftMargin: 4
-                                        //         anchors.rightMargin: 4
-                                        //         anchors.topMargin: 3
-                                        //         anchors.bottomMargin: 3
-                                        //         Rectangle {
-                                        //             id: ability2TypeScreen
-                                        //             x: 10
-                                        //             y: 4
-                                        //             color: screenColor
-                                        //             radius: 4
-                                        //             border.color: "#128c17"
-                                        //             border.width: 2
-                                        //             anchors.fill: parent
-                                        //             anchors.leftMargin: 5
-                                        //             anchors.rightMargin: 5
-                                        //             anchors.topMargin: 6
-                                        //             anchors.bottomMargin: 6
-                                        //             Text {
-                                        //                 id: ability2TypeText
-                                        //                 color: "#c5002a02"
-                                        //                 text: "Ability 2 Type"
-                                        //                 anchors.fill: parent
-                                        //                 horizontalAlignment: Text.AlignHCenter
-                                        //                 verticalAlignment: Text.AlignVCenter
-                                        //                 wrapMode: Text.Wrap
-                                        //                 z: 1
-                                        //                 fontSizeMode: Text.HorizontalFit
-                                        //                 font.styleName: "ExtraBold Italic"
-                                        //             }
-
-                                        //             Text {
-                                        //                 id: ability2TypeDropText
-                                        //                 color: "#095f0c"
-                                        //                 text: ability2TypeText.text
-                                        //                 anchors.fill: parent
-                                        //                 horizontalAlignment: Text.AlignHCenter
-                                        //                 verticalAlignment: Text.AlignVCenter
-                                        //                 wrapMode: Text.Wrap
-                                        //                 z: 0
-                                        //                 fontSizeMode: Text.HorizontalFit
-                                        //                 font.styleName: "ExtraBold Italic"
-                                        //             }
-
-                                        //             Rectangle {
-                                        //                 id: rectangle19
-                                        //                 x: -6
-                                        //                 y: -6
-                                        //                 color: "#00ffffff"
-                                        //                 radius: 4
-                                        //                 border.color: "#25fb2e"
-                                        //                 border.width: 1
-                                        //                 anchors.fill: parent
-                                        //                 anchors.leftMargin: 3
-                                        //                 anchors.rightMargin: 3
-                                        //                 anchors.topMargin: 3
-                                        //                 anchors.bottomMargin: 3
-                                        //             }
-                                        //         }
-                                        //     }
-                                        // }
-
-
-                                        // Rectangle {
-                                        //     id: ability2DescriptionBlock
-                                        //     width: 250
-                                        //     height: 136
-                                        //     color: "#c80d0d"
-                                        //     radius: 8
-                                        //     border.color: "#6c0101"
-                                        //     border.width: 2
-                                        //     Rectangle {
-                                        //         id: ability2DescriptionBezel
-                                        //         color: "#b2b2b2"
-                                        //         radius: 8
-                                        //         border.color: "#616161"
-                                        //         border.width: 2
-                                        //         anchors.fill: parent
-                                        //         anchors.leftMargin: 4
-                                        //         anchors.rightMargin: 4
-                                        //         anchors.topMargin: 4
-                                        //         anchors.bottomMargin: 4
-                                        //         Rectangle {
-                                        //             id: ability2DescriptionScreen
-                                        //             x: 10
-                                        //             y: 4
-                                        //             color: screenColor
-                                        //             radius: 6
-                                        //             border.color: "#128c17"
-                                        //             border.width: 2
-                                        //             anchors.fill: parent
-                                        //             anchors.leftMargin: 6
-                                        //             anchors.rightMargin: 6
-                                        //             anchors.topMargin: 6
-                                        //             anchors.bottomMargin: 6
-                                        //             Text {
-                                        //                 id: ability2DescriptionDropText
-                                        //                 visible: true
-                                        //                 color: "#c5002a02"
-                                        //                 text: "Ability 2 Description"
-                                        //                 anchors.fill: parent
-                                        //                 anchors.leftMargin: 4
-                                        //                 anchors.rightMargin: 4
-                                        //                 anchors.topMargin: 4
-                                        //                 anchors.bottomMargin: 4
-                                        //                 horizontalAlignment: Text.AlignHCenter
-                                        //                 verticalAlignment: Text.AlignVCenter
-                                        //                 wrapMode: Text.Wrap
-                                        //                 z: 1
-                                        //                 minimumPointSize: 6
-                                        //                 minimumPixelSize: 6
-                                        //                 fontSizeMode: Text.Fit
-                                        //                 font.styleName: "ExtraBold Italic"
-                                        //                 font.pointSize: ability2DescriptionText.font.pointSize
-                                        //             }
-
-                                        //             Text {
-                                        //                 id: ability2DescriptionText
-                                        //                 color: "#095f0c"
-                                        //                 text: ability2DescriptionDropText.text
-                                        //                 anchors.fill: parent
-                                        //                 anchors.leftMargin: 4
-                                        //                 anchors.rightMargin: 4
-                                        //                 anchors.topMargin: 4
-                                        //                 anchors.bottomMargin: 4
-                                        //                 horizontalAlignment: Text.AlignHCenter
-                                        //                 verticalAlignment: Text.AlignVCenter
-                                        //                 wrapMode: Text.Wrap
-                                        //                 z: 0
-                                        //                 minimumPointSize: 6
-                                        //                 minimumPixelSize: 6
-                                        //                 fontSizeMode: Text.Fit
-                                        //                 font.styleName: "ExtraBold Italic"
-                                        //                 font.pointSize: ability2DescriptionDropText.font.pointSize
-                                        //             }
-
-                                        //             Rectangle {
-                                        //                 id: rectangle20
-                                        //                 x: -7
-                                        //                 y: 18
-                                        //                 color: "#00ffffff"
-                                        //                 radius: 4
-                                        //                 border.color: "#25fb2e"
-                                        //                 border.width: 1
-                                        //                 anchors.fill: parent
-                                        //                 anchors.leftMargin: 3
-                                        //                 anchors.rightMargin: 3
-                                        //                 anchors.topMargin: 3
-                                        //                 anchors.bottomMargin: 3
-                                        //             }
-                                        //         }
-                                        //     }
-                                        // }
-
                                     }
                                 }
                                 Flickable {
@@ -4086,10 +3583,6 @@ Window {
         // Page 3: Collection Page
     }
 }
-
-
-
-
 
 /*##^##
 Designer {
