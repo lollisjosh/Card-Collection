@@ -37,7 +37,6 @@ Rectangle {
     property alias sub3Text: subtype3Block.text
     property alias sub4Text: subtype4Block.text
 
-
     function updateSubTypeInfo() {
         if (cards[selectedIndex]) {
             // Set visibility for each subtype based on the card data
@@ -53,15 +52,15 @@ Rectangle {
                 subtype1Block.width = subtypeFlow.width - (2 * margin)
                 subtype1Block.height = subtypeFlow.height - (2 * margin)
 
-            // Case 2: Only subtype1Block and subtype2Block are visible
-            // Each should take full width and half height
+                // Case 2: Only subtype1Block and subtype2Block are visible
+                // Each should take full width and half height
             } else if (subtype1Block.visible && subtype2Block.visible && !subtype3Block.visible && !subtype4Block.visible) {
                 subtype1Block.width = subtypeFlow.width - (2 * margin)
                 subtype2Block.width = subtypeFlow.width - (2 * margin)
                 subtype1Block.height = (subtypeFlow.height / 2) - margin
                 subtype2Block.height = (subtypeFlow.height / 2) - margin
 
-            // Case 3: All four blocks are visible, each should be half width and half height
+                // Case 3: All four blocks are visible, each should be half width and half height
             } else if (subtype1Block.visible && subtype2Block.visible && subtype3Block.visible && subtype4Block.visible) {
                 subtype1Block.width = (subtypeFlow.width / 2) - margin
                 subtype2Block.width = (subtypeFlow.width / 2) - margin
@@ -72,8 +71,8 @@ Rectangle {
                 subtype3Block.height = (subtypeFlow.height / 2) - margin
                 subtype4Block.height = (subtypeFlow.height / 2) - margin
 
-            // Case 4: subtype1Block, subtype2Block, and subtype3Block are visible
-            // subtype1Block should be full width and half height, subtype2Block and subtype3Block should be half width and half height
+                // Case 4: subtype1Block, subtype2Block, and subtype3Block are visible
+                // subtype1Block should be full width and half height, subtype2Block and subtype3Block should be half width and half height
             } else if (subtype1Block.visible && subtype2Block.visible && subtype3Block.visible && !subtype4Block.visible) {
                 subtype1Block.width = subtypeFlow.width - (2 * margin)
                 subtype1Block.height = (subtypeFlow.height / 2) - margin
@@ -82,7 +81,7 @@ Rectangle {
                 subtype2Block.height = (subtypeFlow.height / 2) - margin
                 subtype3Block.height = (subtypeFlow.height / 2) - margin
 
-            // Default width and height when no specific layout applies
+                // Default width and height when no specific layout applies
             } else {
                 subtype1Block.width = defaultSubBlockWidth
                 subtype2Block.width = defaultSubBlockWidth
@@ -98,67 +97,63 @@ Rectangle {
             subtypeFlow.height = defaultBlockHeight * (subtype3Block.visible || subtype4Block.visible ? 2 : 1)
         }
     }
+    Flow {
+        id: subtypeFlow
+        anchors.fill: parent
+        anchors.leftMargin: 2
+        anchors.rightMargin: 2
+        anchors.topMargin: 2
+        anchors.bottomMargin: 2
+        layoutDirection: Qt.LeftToRight
+        spacing: 0
+        flow: Flow.LeftToRight
 
-
-
-
-        Flow {
-            id: subtypeFlow
-            anchors.fill: parent
-            anchors.leftMargin: 2
-            anchors.rightMargin: 2
-            anchors.topMargin: 2
-            anchors.bottomMargin: 2
-            layoutDirection: Qt.LeftToRight
-            spacing: 0
-            flow: Flow.LeftToRight
-
-            Subtype {
-                id: subtype1Block
-                border.color: "#6c0101"
-                border.width: 2
-                color: mainColor
-                height: 60
-                radius: 6
-                visible: true
-                width: 122
-            }
-
-            Subtype {
-                id: subtype2Block
-                border.color: "#6c0101"
-                border.width: 2
-                color: mainColor
-                height: 60
-                radius: 6
-                visible: true
-                width: 122
-            }
-
-            Subtype {
-                id: subtype3Block
-                border.color: "#6c0101"
-                border.width: 2
-                color: mainColor
-                height: 60
-                radius: 6
-                visible: true
-                width: 122
-            }
-
-            Subtype {
-                id: subtype4Block
-                border.color: "#6c0101"
-                border.width: 2
-                color: mainColor
-                height: 60
-                radius: 6
-                visible: true
-                width: 122
-            }
+        Subtype {
+            id: subtype1Block
+            border.color: "#6c0101"
+            border.width: 2
+            color: mainColor
+            height: 60
+            radius: 6
+            visible: true
+            width: 122
         }
 
-        Item {
-            id: __materialLibrary__
+        Subtype {
+            id: subtype2Block
+            border.color: "#6c0101"
+            border.width: 2
+            color: mainColor
+            height: 60
+            radius: 6
+            visible: true
+            width: 122
+        }
+
+        Subtype {
+            id: subtype3Block
+            border.color: "#6c0101"
+            border.width: 2
+            color: mainColor
+            height: 60
+            radius: 6
+            visible: true
+            width: 122
+        }
+
+        Subtype {
+            id: subtype4Block
+            border.color: "#6c0101"
+            border.width: 2
+            color: mainColor
+            height: 60
+            radius: 6
+            visible: true
+            width: 122
         }
     }
+
+    Item {
+        id: __materialLibrary__
+    }
+}
