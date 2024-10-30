@@ -12,6 +12,10 @@ Rectangle {
     width: 250
     height: 125
     color: blockBG
+    radius: 8
+    border.width: 1
+    border.color: borderColor
+
 
     // Exposed properties
     property color blockBG: "#ff0000"

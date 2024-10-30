@@ -17,7 +17,7 @@ Window {
     maximumHeight: 650
 
     visible: true
-    color: "#611b1b"
+    color: borderColor
     property alias btnSearch: btnSearch
 
     title: qsTr("Card Collection")
@@ -403,12 +403,13 @@ Window {
                             Layout.fillWidth: true
                             Layout.preferredHeight: 40
                             Layout.topMargin: 0
-                            contentHeight: 30
+                            toolbarContentHeight: 30
                             height: 60
                             anchors.left: parent.left
                             anchors.right: parent.right
                             anchors.leftMargin: 0
                             anchors.rightMargin: 0
+                            z: 2
                             waterChecked: false
                             darknessChecked: false
                             Layout.preferredWidth: 500
