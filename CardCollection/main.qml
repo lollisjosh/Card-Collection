@@ -1562,147 +1562,19 @@ Window {
                                             sub4Text: "Subtype 4"
                                         }
 
-                                        Rectangle {
+                                        SetLogoBlock {
                                             id: setLogoBlock
-                                            width: 240
-                                            height: 200
-                                            color: "#c80d0d"
-                                            radius: 8
+                                            anchors.horizontalCenter: parent.horizontalCenter
                                             border.color: "#6c0101"
                                             border.width: 2
-                                            anchors.horizontalCenter: parent.horizontalCenter
-
-                                            Rectangle {
-                                                id: setLogoBezel
-                                                color: "#b2b2b2"
-                                                radius: 8
-                                                border.color: "#616161"
-                                                border.width: 2
-                                                anchors.fill: parent
-                                                anchors.leftMargin: 6
-                                                anchors.rightMargin: 6
-                                                anchors.topMargin: 6
-                                                anchors.bottomMargin: 6
-                                                state: "base state4"
-
-                                                Rectangle {
-                                                    id: setLogoScreen
-                                                    x: 8
-                                                    y: -1
-                                                    color: screenColor
-                                                    radius: 6
-                                                    border.color: "#095f0c"
-                                                    border.width: 2
-                                                    anchors.fill: parent
-                                                    anchors.leftMargin: 10
-                                                    anchors.rightMargin: 10
-                                                    anchors.topMargin: 6
-                                                    anchors.bottomMargin: 6
-                                                    clip: true
-
-                                                    Text {
-                                                        id: setLogoText
-                                                        color: "#c5002a02"
-                                                        text: (selectedIndex >= 0
-                                                               && selectedIndex < cards.length) ? "" // Fallback if name is undefined
-                                                                                                : "Set Logo"
-                                                        anchors.fill: parent
-                                                        horizontalAlignment: Text.AlignHCenter
-                                                        verticalAlignment: Text.AlignVCenter
-                                                        lineHeight: 0.8
-                                                        wrapMode: Text.Wrap
-                                                        font.family: "Ubuntu Sans"
-                                                        z: 1
-                                                        font.styleName: "ExtraBold Italic"
-                                                        font.italic: false
-                                                        font.bold: false
-                                                        font.pointSize: 32
-                                                        fontSizeMode: Text.Fit
-                                                    }
-
-                                                    // Apply a DropShadow effect to the image
-                                                    DropShadow {
-                                                        anchors.fill: setLogoText
-                                                        source: setLogoText // The image to which we are applying the shadow
-                                                        horizontalOffset: 5 // Adjust X-axis shadow offset
-                                                        verticalOffset: 5 // Adjust Y-axis shadow offset
-                                                        radius: 3.8 // Blur effect, adjust for smoothness
-                                                        samples: 16 // Higher value for smoother shadows
-                                                        color: "#095f0c" // Color of the shadow
-                                                        opacity: 0.8 // Transparency of the shadow
-                                                    }
-
-                                                    Image {
-                                                        id: setLogoImage
-                                                        anchors.verticalCenter: setLogoText.verticalCenter
-                                                        anchors.right: parent.right
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 6
-                                                        anchors.rightMargin: 6
-                                                        anchors.topMargin: 6
-                                                        anchors.bottomMargin: 6
-                                                        source: (selectedIndex >= 0
-                                                                 && selectedIndex < cards.length) ? cards[selectedIndex].setLogo : ""
-                                                        z: 1
-
-                                                        scale: 1
-                                                        fillMode: Image.PreserveAspectFit
-                                                    }
-                                                    // Apply a DropShadow effect to the image
-                                                    DropShadow {
-                                                        anchors.fill: setLogoImage
-                                                        source: setLogoImage // The image to which we are applying the shadow
-                                                        horizontalOffset: 5 // Adjust X-axis shadow offset
-                                                        verticalOffset: 5 // Adjust Y-axis shadow offset
-                                                        radius: 3.8 // Blur effect, adjust for smoothness
-                                                        samples: 16 // Higher value for smoother shadows
-                                                        color: "#095f0c" // Color of the shadow
-                                                        opacity: 0.8 // Transparency of the shadow
-                                                    }
-
-                                                    Text {
-                                                        id: setLogoDropText
-                                                        x: 1
-                                                        y: 2
-                                                        visible: false
-                                                        color: "#2a7b2d"
-                                                        text: (selectedIndex >= 0
-                                                               && selectedIndex < cards.length) ? "" // Fallback if name is undefined
-                                                                                                : "Set Logo"
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 4
-                                                        anchors.rightMargin: -4
-                                                        anchors.topMargin: 4
-                                                        anchors.bottomMargin: -4
-                                                        horizontalAlignment: Text.AlignHCenter
-                                                        verticalAlignment: Text.AlignVCenter
-                                                        lineHeight: 0.8
-                                                        wrapMode: Text.Wrap
-                                                        z: 0
-                                                        fontSizeMode: Text.Fit
-                                                        font.styleName: "ExtraBold Italic"
-                                                        font.pointSize: 32
-                                                        font.italic: false
-                                                        font.family: "Ubuntu Sans"
-                                                        font.bold: false
-                                                    }
-
-                                                    Rectangle {
-                                                        id: rectangle28
-                                                        x: -13
-                                                        y: -9
-                                                        color: "#00ffffff"
-                                                        radius: 4
-                                                        border.color: "#25fb2e"
-                                                        border.width: 1
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 3
-                                                        anchors.rightMargin: 3
-                                                        anchors.topMargin: 3
-                                                        anchors.bottomMargin: 3
-                                                    }
-                                                }
-                                            }
+                                            color: "#c80d0d"
+                                            height: 200
+                                            radius: 8
+                                            width: 240
+                                            logoSource: (selectedIndex >= 0 && selectedIndex < cards.length) ? cards[selectedIndex].setLogo : ""
+                                            logoScreenText: (selectedIndex >= 0
+                                                             && selectedIndex < cards.length) ? "" // Fallback if name is undefined
+                                                                                              : "Set Logo"
                                         }
 
                                         Row {
