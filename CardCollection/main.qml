@@ -1584,135 +1584,19 @@ Window {
                                             anchors.horizontalCenter: parent.horizontalCenter
                                             spacing: 3
 
-                                            Rectangle {
+                                            SetSymbolBlock {
                                                 id: setSymbolBlock
-                                                width: 75
-                                                height: 65
-                                                color: "#c80d0d"
-                                                radius: 8
                                                 border.color: "#6c0101"
                                                 border.width: 2
-
-                                                Rectangle {
-                                                    id: setSymbolBezel
-                                                    color: "#b2b2b2"
-                                                    radius: 8
-                                                    border.color: "#616161"
-                                                    border.width: 2
-                                                    anchors.fill: parent
-                                                    anchors.leftMargin: 4
-                                                    anchors.rightMargin: 4
-                                                    anchors.topMargin: 3
-                                                    anchors.bottomMargin: 3
-
-                                                    Rectangle {
-                                                        id: setSymbolScreen
-                                                        color: screenColor
-                                                        radius: 6
-                                                        border.color: "#128c17"
-                                                        border.width: 2
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 4
-                                                        anchors.rightMargin: 4
-                                                        anchors.topMargin: 4
-                                                        anchors.bottomMargin: 4
-                                                        clip: true
-
-                                                        Image {
-                                                            id: setSymbolImage
-                                                            anchors.fill: parent
-                                                            anchors.leftMargin: 6
-                                                            anchors.rightMargin: 6
-                                                            anchors.topMargin: 6
-                                                            anchors.bottomMargin: 6
-
-                                                            source: (selectedIndex >= 0
-                                                                     && selectedIndex < cards.length) ? cards[selectedIndex].setSymbol : ""
-                                                            z: 1
-                                                            fillMode: Image.PreserveAspectFit
-                                                        }
-                                                        // Apply a DropShadow effect to the image
-                                                        DropShadow {
-                                                            anchors.fill: setSymbolImage
-                                                            source: setSymbolImage // The image to which we are applying the shadow
-                                                            horizontalOffset: 5 // Adjust X-axis shadow offset
-                                                            verticalOffset: 5 // Adjust Y-axis shadow offset
-                                                            radius: 3.8 // Blur effect, adjust for smoothness
-                                                            samples: 16 // Higher value for smoother shadows
-                                                            color: "#095f0c" // Color of the shadow
-                                                            opacity: 0.8 // Transparency of the shadow
-                                                        }
-
-                                                        Text {
-                                                            id: setSymbolText
-                                                            color: "#c5002a02"
-                                                            text: (selectedIndex >= 0
-                                                                   && selectedIndex < cards.length) ? "" // Fallback if name is undefined
-                                                                                                    : "Set Symbol"
-                                                            anchors.fill: parent
-                                                            anchors.leftMargin: 2
-                                                            anchors.rightMargin: 2
-                                                            anchors.topMargin: 2
-                                                            anchors.bottomMargin: 2
-                                                            horizontalAlignment: Text.AlignHCenter
-                                                            verticalAlignment: Text.AlignVCenter
-                                                            wrapMode: Text.Wrap
-                                                            minimumPointSize: 6
-                                                            minimumPixelSize: 6
-                                                            z: 1
-                                                            font.pointSize: 10
-                                                            font.styleName: "ExtraBold Italic"
-                                                            fontSizeMode: Text.Fit
-                                                        }
-
-                                                        // Apply a DropShadow effect to the image
-                                                        DropShadow {
-                                                            anchors.fill: setSymbolText
-                                                            source: setSymbolText // The image to which we are applying the shadow
-                                                            horizontalOffset: 3 // Adjust X-axis shadow offset
-                                                            verticalOffset: 3 // Adjust Y-axis shadow offset
-                                                            radius: 3.8 // Blur effect, adjust for smoothness
-                                                            samples: 16 // Higher value for smoother shadows
-                                                            color: "#095f0c" // Color of the shadow
-                                                            opacity: 0.8 // Transparency of the shadow
-                                                        }
-
-                                                        Text {
-                                                            id: setSymbolDropText
-                                                            color: "#095f0c"
-                                                            text: setSymbolText.text
-                                                            anchors.fill: parent
-                                                            anchors.leftMargin: 2
-                                                            anchors.rightMargin: 2
-                                                            anchors.topMargin: 2
-                                                            anchors.bottomMargin: 2
-                                                            horizontalAlignment: Text.AlignHCenter
-                                                            verticalAlignment: Text.AlignVCenter
-                                                            wrapMode: Text.Wrap
-                                                            minimumPointSize: 6
-                                                            minimumPixelSize: 6
-                                                            z: 0
-                                                            fontSizeMode: Text.Fit
-                                                            font.styleName: "ExtraBold Italic"
-                                                            font.pointSize: 10
-                                                        }
-
-                                                        Rectangle {
-                                                            id: rectangle27
-                                                            x: -5
-                                                            y: -4
-                                                            color: "#00ffffff"
-                                                            radius: 4
-                                                            border.color: "#25fb2e"
-                                                            border.width: 1
-                                                            anchors.fill: parent
-                                                            anchors.leftMargin: 3
-                                                            anchors.rightMargin: 3
-                                                            anchors.topMargin: 3
-                                                            anchors.bottomMargin: 3
-                                                        }
-                                                    }
-                                                }
+                                                color: "#c80d0d"
+                                                height: 65
+                                                radius: 8
+                                                width: 75
+                                                imageSource: (selectedIndex >= 0
+                                                              && selectedIndex < cards.length) ? cards[selectedIndex].setSymbol : ""
+                                                blockText: (selectedIndex >= 0
+                                                            && selectedIndex < cards.length) ? "" // Fallback if name is undefined
+                                                                                             : "Set Symbol"
                                             }
 
                                             Rectangle {
