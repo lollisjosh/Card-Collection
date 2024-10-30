@@ -6,6 +6,7 @@ class CardProcessor:
             processed_card = {
                 **CardProcessor.process_abilities(card),
                 **CardProcessor.process_attacks(card),
+                **CardProcessor.process_types(card),
                 **CardProcessor.process_subtypes(card),
                 "name": card.name,
                 "id": card.id,
@@ -90,6 +91,20 @@ class CardProcessor:
                 })
 
         return attacks
+
+
+    @staticmethod
+    def process_types(card):
+        types = {
+            "type1": "",
+            "type2": ""
+        }
+
+        if hasattr(card, 'types') and card.types:  # Check if types exists
+            types["type1"] = card.types[0] if len(card.types) > 0 else ""
+            types["type2"] = card.types[1] if len(card.types) > 1 else ""
+
+        return types
 
     @staticmethod
     def process_subtypes(card):
