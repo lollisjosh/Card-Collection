@@ -22,7 +22,6 @@ Window {
 
     title: qsTr("Card Collection")
 
-    //JUMP-TO Window-Level Properties
     property int selectedIndex: -1
     property var cards: [] // List of card objects
     property int selectedTabIndex: 0
@@ -65,8 +64,6 @@ Window {
         }
     }
 
-
-    //JUMP-TO Attack Update Functions
     // Function to update attack information based on selectedIndex
     function updateAttackInfo() {
         if (cards[selectedIndex]) {
@@ -76,8 +73,6 @@ Window {
             const defaultCost3 = "Cost 3";
             const defaultCost4 = "Cost 4";
             const defaultCost5 = "Cost 5";
-
-
 
             // Create costs objects from the selected card for each attack
             const attack1Costs = {
@@ -127,38 +122,6 @@ Window {
     // Function to update ability information based on selectedIndex
     function updateAbilityInfo() {
 
-
-
-        // // console.log("updateAbilityInfo called...");
-        // if (cards[selectedIndex]) {
-        //     // Update ability text fields first
-        //     ability1NameText.text = cards[selectedIndex].ability1Name
-        //             || "Ability 1"
-        //     ability1DescriptionDropText.text = cards[selectedIndex].ability1Text
-        //             || "No description available."
-        //     ability1TypeText.text = cards[selectedIndex].ability1Type || "Ability 1 Type"
-
-        //     ability2NameText.text = cards[selectedIndex].ability2Name
-        //             || "Ability 2"
-        //     ability2DescriptionDropText.text = cards[selectedIndex].ability2Text
-        //             || "No description available."
-        //     ability2TypeText.text = cards[selectedIndex].ability2Type || "Ability 2 Type"
-
-        //     // Set visibility for each ability based on the card data
-        //     ability1NameBlock.visible = cards[selectedIndex].ability1Name !== "Ability 1" && cards[selectedIndex].ability1Name !== ""
-        //     ability1DescriptionBlock.visible = ability1NameBlock.visible
-        //     ability1TypeBlock.visible = ability1NameBlock.visible
-        //     //ability1TypeBlock.visible = ability1NameBlock.visible && ability1DescriptionDropText.text === "No description available." ? 75 : 136
-
-        //     ability2NameBlock.visible = cards[selectedIndex].ability2Name !== "Ability 2"
-        //             && cards[selectedIndex].ability2Name !== ""
-        //     ability2DescriptionBlock.visible = ability2NameBlock.visible
-        //     ability2TypeBlock.visible = ability2NameBlock.visible
-        //     ability2DescriptionBlock.height = ability2DescriptionBlock.visible
-        //             && ability2DescriptionDropText.text === "No description available." ? 75 : 136
-        // }
-
-        // console.log("updateAbilityInfo called...");
         if (cards[selectedIndex]) {
             // Update ability text fields first
             ability1.nameText = cards[selectedIndex].ability1Name
@@ -221,6 +184,7 @@ Window {
             "dragon": "dragonEnergyCropped.png",
             "colorless": "colorlessEnergyCropped.png"
         };
+
         // Check if the card exists
         if (!cards[selectedIndex]) {
             // console.log("cards[selectedIndex] doesn't exist")
@@ -240,7 +204,6 @@ Window {
         type1.type = normalizedType1 || defaultType1;
         type2.type = normalizedType2 || defaultType2;
     }
-
 
     function resetCardRotation() {
         momentumTimer.stop()
@@ -440,7 +403,6 @@ Window {
                             Layout.fillWidth: true
                             Layout.preferredHeight: 40
                             Layout.topMargin: 0
-                            //bottomPadding: 0
                             contentHeight: 30
                             height: 60
                             anchors.left: parent.left
@@ -450,8 +412,6 @@ Window {
                             waterChecked: false
                             darknessChecked: false
                             Layout.preferredWidth: 500
-                            // horizontalPadding: 0
-                            // verticalPadding: 0
 
                             // Dynamic ListModel for sets
                             setsModel: ListModel {
@@ -467,19 +427,7 @@ Window {
                             Layout.preferredWidth: 600
                             Layout.fillHeight: false
                             Layout.fillWidth: true
-                            // anchors.verticalCenter: searchFilterTools.verticalCenter
-                            // anchors.left: parent.left
-                            // anchors.right: parent.right
-                            // anchors.top: parent.top
-                            // anchors.bottom: _item
-                            // anchors.leftMargin: 0
-                            // anchors.rightMargin: 0
-                            // anchors.topMargin: 0
-                            // anchors.bottomMargin: 0
-                            // Layout.preferredHeight: 40
-                            // Layout.preferredWidth: 500
-                            // Layout.fillHeight: true
-                            // Layout.fillWidth: true
+
                             Row {
                                 id: searchRow
                                 x: 0
@@ -1247,13 +1195,13 @@ Window {
                                         height: 1132
                                         anchors.top: parent.top
                                         anchors.topMargin: 4
-                                        spacing: 8
+                                        spacing: 6
 
                                         AttackInfoBlock {
                                             id: attack1Block
                                             width: 250
                                             height: 200
-                                            visible: false
+                                            visible: true
                                             nameText: "Attack 1"
                                             mainColor: window.primaryColor
                                             bezelColor: window.bezelColor
@@ -1269,7 +1217,7 @@ Window {
                                             id: attack2Block
                                             width: 250
                                             height: 200
-                                            visible: false
+                                            visible: true
                                             nameText: "Attack 2"
                                             mainColor: window.primaryColor
                                             bezelColor: window.bezelColor
@@ -1285,7 +1233,7 @@ Window {
                                             id: attack3Block
                                             width: 250
                                             height: 200
-                                            visible: false
+                                            visible: true
                                             nameText: "Attack 3"
                                             mainColor: window.primaryColor
                                             bezelColor: window.bezelColor
@@ -1301,7 +1249,7 @@ Window {
                                             id: attack4Block
                                             width: 250
                                             height: 200
-                                            visible: false
+                                            visible: true
                                             nameText: "Attack 4"
                                             mainColor: window.primaryColor
                                             bezelColor: window.bezelColor
@@ -1345,8 +1293,6 @@ Window {
                                     clip: false
                                     boundsBehavior: Flickable.DragOverBounds
                                     boundsMovement: Flickable.FollowBoundsBehavior
-                                    // Adjust width as needed
-                                    // Set a height that fits your layout
                                     contentHeight: 500 // Set a suitable height for your content
 
                                     Column {
@@ -2347,6 +2293,6 @@ Window {
 
 /*##^##
 Designer {
-    D{i:0}D{i:38;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}D{i:75}D{i:91}
+    D{i:0}D{i:38;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}
 }
 ##^##*/
