@@ -12,7 +12,8 @@ class Backend:
         """
         Constructs a query string from the given search parameters.
         Args:
-            search_parameters (list[tuple[str,str,str]]): A list of tuples representing the search parameters.
+            search_parameters (list[tuple[str,str,str]]):
+            A list of tuples representing the search parameters.
 
         Returns:
             str: The constructed query string.
@@ -93,7 +94,8 @@ class Backend:
     def fetch_data(self, param_list : list[tuple[str,str,str]]) -> list[Card]:
         """
         ### Description
-            Abstracts the logic for constructing a query and using it to query the API for card data.
+            Abstracts the logic for constructing a query
+            and using it to query the API for card data.
 
         ### Args:
             self,
