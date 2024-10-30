@@ -18,6 +18,8 @@
         "MySearchFilterTools.qml",
         "MySearchTools.qml",
         "PagingButtonsToolbar.qml",
-        "AttackInfoBlock.qml"
+        "AttackInfoBlock.qml",
+        "TypeBlock.qml",
+        "AbilityInfoBlock.qml"
     ]
 }
