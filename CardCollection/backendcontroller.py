@@ -1,3 +1,5 @@
+import json
+
 from PySide6.QtCore import QObject, Slot, Signal
 
 from pokemontcgsdk import Card
@@ -6,8 +8,6 @@ from pokemontcgsdk import Type
 from pokemontcgsdk import Supertype
 from pokemontcgsdk import Subtype
 from pokemontcgsdk import Rarity
-
-import json
 
 import inithandler
 import searchhandler
@@ -28,10 +28,10 @@ class BackendController(QObject):
     between signals and slots in the codebase and ensures that the connections are set up correctly.
     """
 
-    setsResults = Signal(str)  # Signal that emits JSON string
-    searchResults = Signal(str)  # Signal that emits JSON string
-    discoverResults = Signal(str)  # Signal that emits JSON string
-    loadResults = Signal(str)  # Signal that emits JSON string
+    sets_results = Signal(str)  # Signal that emits JSON string
+    search_results = Signal(str)  # Signal that emits JSON string
+    discover_results = Signal(str)  # Signal that emits JSON string
+    load_results = Signal(str)  # Signal that emits JSON string
 
     @Slot()
     def request_sets_retrieve(self):
@@ -42,7 +42,7 @@ class BackendController(QObject):
             params none
         """
         try:
-            
+
             initHandler = inithandler.InitHandler()
             
             sets = initHandler.handle_sets_retrieve()
@@ -57,13 +57,23 @@ class BackendController(QObject):
     @Slot(list)
     def request_search(self, params: list[tuple[str, str, str]]):
         """
-        ## Description:
-            Provide an interface for the front end 
-            to make search requests with the given search parameters.
+        Description:
+            Provide an interface for the front end to make search requests with the given search parameters.
         Args:
             params (list[tuple[str, str, str]]): 
-                List of search parameter tuples of the form (category, subcategory, target)
+                List of search parameter tuples of the form (category, subcategory, target).
         """
+        try:
+            cards = searchhandler.SearchHandler.handle_search(params)
+
+            if cards:
+                self.search_results.emit(json.dumps(cards))
+            else:
+                self.search_results.emit(json.dumps({"error": "No results found."}))
+
+        except Exception as e:
+            error_msg = f"Error processing search: {str(e)}"
+            self.search_results.emit(json.dumps({"error": error_msg}))
 
     @Slot(list)
     def request_discover(self, params: list[tuple[str, str, str]]):
