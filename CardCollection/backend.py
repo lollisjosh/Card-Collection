@@ -89,3 +89,20 @@ class Backend:
             list[Set]: A list of Set objects retrieved from the API.
         """
         return Set.all()
+
+    def fetch_data(self, param_list : list[tuple[str,str,str]]) -> list[Card]:
+        """
+        ### Description
+            Abstracts the logic for constructing a query and using it to query the API for card data.
+
+        ### Args:
+            self,
+            param_list (list[tuple[str, str, str]]): 
+                List of tuples of the form (category, subcategory, target)
+        ### Returns:
+            list[Card]
+        """
+        string = self.construct_query(param_list)        
+        card_list = self.query_api(string)
+
+        return card_list
