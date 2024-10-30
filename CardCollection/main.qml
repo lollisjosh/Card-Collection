@@ -41,6 +41,9 @@ Window {
 
     // Add a boolean variable to track the drawer's state
     property bool isDrawerOpen: false // Start with the drawer closed
+
+
+
     function toggleDrawer() {
         if (customDrawer.x < 0) {
 
@@ -124,34 +127,57 @@ Window {
 
     // Function to update ability information based on selectedIndex
     function updateAbilityInfo() {
+
+
+
+        // // console.log("updateAbilityInfo called...");
+        // if (cards[selectedIndex]) {
+        //     // Update ability text fields first
+        //     ability1NameText.text = cards[selectedIndex].ability1Name
+        //             || "Ability 1"
+        //     ability1DescriptionDropText.text = cards[selectedIndex].ability1Text
+        //             || "No description available."
+        //     ability1TypeText.text = cards[selectedIndex].ability1Type || "Ability 1 Type"
+
+        //     ability2NameText.text = cards[selectedIndex].ability2Name
+        //             || "Ability 2"
+        //     ability2DescriptionDropText.text = cards[selectedIndex].ability2Text
+        //             || "No description available."
+        //     ability2TypeText.text = cards[selectedIndex].ability2Type || "Ability 2 Type"
+
+        //     // Set visibility for each ability based on the card data
+        //     ability1NameBlock.visible = cards[selectedIndex].ability1Name !== "Ability 1" && cards[selectedIndex].ability1Name !== ""
+        //     ability1DescriptionBlock.visible = ability1NameBlock.visible
+        //     ability1TypeBlock.visible = ability1NameBlock.visible
+        //     //ability1TypeBlock.visible = ability1NameBlock.visible && ability1DescriptionDropText.text === "No description available." ? 75 : 136
+
+        //     ability2NameBlock.visible = cards[selectedIndex].ability2Name !== "Ability 2"
+        //             && cards[selectedIndex].ability2Name !== ""
+        //     ability2DescriptionBlock.visible = ability2NameBlock.visible
+        //     ability2TypeBlock.visible = ability2NameBlock.visible
+        //     ability2DescriptionBlock.height = ability2DescriptionBlock.visible
+        //             && ability2DescriptionDropText.text === "No description available." ? 75 : 136
+        // }
+
         // console.log("updateAbilityInfo called...");
         if (cards[selectedIndex]) {
             // Update ability text fields first
-            ability1NameText.text = cards[selectedIndex].ability1Name
+            ability1.nameText = cards[selectedIndex].ability1Name
                     || "Ability 1"
-            ability1DescriptionDropText.text = cards[selectedIndex].ability1Text
+            ability1.descText = cards[selectedIndex].ability1Text
                     || "No description available."
-            ability1TypeText.text = cards[selectedIndex].ability1Type || "Ability 1 Type"
+            ability1.typeText = cards[selectedIndex].ability1Type || "Ability 1 Type"
 
-            ability2NameText.text = cards[selectedIndex].ability2Name
+            ability2.nameText = cards[selectedIndex].ability2Name
                     || "Ability 2"
-            ability2DescriptionDropText.text = cards[selectedIndex].ability2Text
+            ability2.descText = cards[selectedIndex].ability2Text
                     || "No description available."
-            ability2TypeText.text = cards[selectedIndex].ability2Type || "Ability 2 Type"
+            ability2.typeText = cards[selectedIndex].ability2Type || "Ability 2 Type"
 
-            // Set visibility for each ability based on the card data
-            ability1NameBlock.visible = cards[selectedIndex].ability1Name !== "Ability 1" && cards[selectedIndex].ability1Name !== ""
-            ability1DescriptionBlock.visible = ability1NameBlock.visible
-            ability1TypeBlock.visible = ability1NameBlock.visible
-            //ability1TypeBlock.visible = ability1NameBlock.visible && ability1DescriptionDropText.text === "No description available." ? 75 : 136
+            ability1.isVisible = cards[selectedIndex].ability1Name !== "Ability 1" && cards[selectedIndex].ability1Name !== ""
 
-            ability2NameBlock.visible = cards[selectedIndex].ability2Name !== "Ability 2"
-                    && cards[selectedIndex].ability2Name !== ""
-            ability2DescriptionBlock.visible = ability2NameBlock.visible
-            ability2TypeBlock.visible = ability2NameBlock.visible
-            ability2DescriptionBlock.height = ability2DescriptionBlock.visible
-                    && ability2DescriptionDropText.text === "No description available." ? 75 : 136
-        }
+            ability2.isVisible = cards[selectedIndex].ability2Name !== "Ability 2" && cards[selectedIndex].ability2Name !== ""
+            }
     }
 
     function updateSubTypeInfo() {
@@ -221,69 +247,63 @@ Window {
         };
         // Check if the card exists
             if (!cards[selectedIndex]) {
-                console.log("cards[selectedIndex] doesn't exist")
+               // console.log("cards[selectedIndex] doesn't exist")
                 // Reset to defaults if no card is selected
-                type1Text.text = defaultType1;
-                type2Text.text = defaultType2;
-                colorless1DummyImage.visible = false;
-                colorless2DummyImage.visible = false;
-                dragon1DummyImage.visible = false;
-                dragon2DummyImage.visible = false;
-                type1Image.visible = false;
-                type2Image.visible = false;
+                type1.type = defaultType1;
                 return; // Exit early if no card is found
             }
             else {
-                console.log(cards[selectedIndex].type1)
+              //  console.log(cards[selectedIndex].type1)
             }
 
         // Set type text values or defaults
-          type1Text.text = cards[selectedIndex]?.type1 || defaultType1;
-          type2Text.text = cards[selectedIndex]?.type2 || defaultType2;
+         // type1Block.type = cards[selectedIndex]?.type1 || defaultType1;
+            type1Text.text = cards[selectedIndex]?.type1 || defaultType1;
+            type2Text.text = cards[selectedIndex]?.type2 || defaultType2;
 
-        console.log(type1Text.text)
-        console.log(type2Text.text)
+        //console.log(type1Text.text)
+        //console.log(type2Text.text)
 
           // Normalize type strings for image source mapping
           const normalizedType1 = cards[selectedIndex]?.type1?.trim().toLowerCase() || "";
           const normalizedType2 = cards[selectedIndex]?.type2?.trim().toLowerCase() || "";
 
           // Set visibility based on whether default text is used
-         // type1Block.visible = type1Text.text !== defaultType1;
-         // type2Block.visible = type2Text.text !== defaultType2;
+         //type1Block.visible = type1Text.text !== defaultType1;
+         //type2Block.visible = type2Text.text !== defaultType2;
 
           // Set widths based on the visibility of Type 2
-         // type1Block.width = type2Block.visible ? 85 : 175;
-            console.log(normalizedType1)
-            console.log(normalizedType2)
+          //type1Block.width = type2Block.visible ? 85 : 175;
+          //  console.log(normalizedType1)
+          //  console.log(normalizedType2)
           // Handle images and special cases for colorless and dragon types
           if (normalizedType1 === "colorless") {
-              colorless1DummyImage.visible = true;
-              dragon1DummyImage.visible = false;
+              colorlessType1DummyImage.visible = true;
+              dragonType1DummyImage.visible = false;
               type1Image.visible = false;  // Hide the normal type image
           } else if (normalizedType1 === "dragon") {
-              dragon1DummyImage.visible = true;
-              colorless1DummyImage.visible = false;
+              dragonType1DummyImage.visible = true;
+              colorlessType1DummyImage.visible = false;
               type1Image.visible = false;  // Hide the normal type image
           } else {
               type1Image.source = typeImageMap[normalizedType1] || ""; // Use the mapped source
-              colorless1DummyImage.visible = false;  // Hide dummy images
-              dragon1DummyImage.visible = false;
+              colorlessType1DummyImage.visible = false;  // Hide dummy images
+              dragonType1DummyImage.visible = false;
               type1Image.visible = true;  // Show the normal type image
           }
 
           if (normalizedType2 === "colorless") {
-              colorless2DummyImage.visible = true;
-              dragon2DummyImage.visible = false;
+              colorlessType2DummyImage.visible = true;
+              dragonType2DummyImage.visible = false;
               type2Image.visible = false;  // Hide the normal type image
           } else if (normalizedType2 === "dragon") {
-              dragon2DummyImage.visible = true;
-              colorless2DummyImage.visible = false;
+              dragonType2DummyImage.visible = true;
+              colorlessType2DummyImage.visible = false;
               type2Image.visible = false;  // Hide the normal type image
           } else {
               type2Image.source = typeImageMap[normalizedType2] || ""; // Use the mapped source
-              colorless2DummyImage.visible = false;  // Hide dummy images
-              dragon2DummyImage.visible = false;
+              colorlessType2DummyImage.visible = false;  // Hide dummy images
+              dragonType2DummyImage.visible = false;
               type2Image.visible = true;  // Show the normal type image
           }
     }
@@ -311,7 +331,7 @@ Window {
             updateAbilityInfo();
             updateSubTypeInfo();
             updateSuperTypeInfo();
-            updateTypeInfo();
+           updateTypeInfo();
             resetLeftColumnScroll();
             resetRightColumnScroll();
             resetCardRotation();
@@ -326,7 +346,7 @@ Window {
             updateAbilityInfo();
             updateSubTypeInfo();
             updateSuperTypeInfo();
-            updateTypeInfo();
+           updateTypeInfo();
             resetLeftColumnScroll();
             resetRightColumnScroll();
             resetCardRotation();
@@ -644,6 +664,7 @@ Window {
                                     x: 111
                                     width: 240
                                     height: 25
+                                    text: "Rayquaza"
                                     anchors.verticalCenter: parent.verticalCenter
                                     anchors.right: btnSearch.left
                                     anchors.rightMargin: 6
@@ -951,19 +972,25 @@ Window {
                                 // Frame that holds the card images on both sides
                                 Frame {
                                     id: frame
+                                    visible: true
                                     anchors.fill: parent
 
                                     View3D {
                                         id: view
                                         anchors.fill: parent
+                                        clip: false
                                         z: 3
                                         visible: false
 
                                         PerspectiveCamera {
                                             y: 0
                                             position: Qt.vector3d(0, 200, 300)
+                                            pivot.z: 0
+                                            pivot.y: 0
+                                            pivot.x: 0
+                                            lookAtNode: cardNode
                                             frustumCullingEnabled: false
-                                            z: 161
+                                            z: 0
                                             eulerRotation.x: 0
                                         }
 
@@ -977,7 +1004,7 @@ Window {
                                             y: 200
                                             z: -25
                                             scale.y: 3
-                                            scale.x: 2
+                                            scale.x: 2.5
 
                                             // Front side of the card
                                             Model {
@@ -1296,6 +1323,7 @@ Window {
                                             id: attack1Block
                                             width: 250
                                             height: 200
+                                            visible: false
                                             nameText: "Attack 1"
                                             mainColor: window.primaryColor
                                             bezelColor: window.bezelColor
@@ -1311,6 +1339,7 @@ Window {
                                             id: attack2Block
                                             width: 250
                                             height: 200
+                                            visible: false
                                             nameText: "Attack 2"
                                             mainColor: window.primaryColor
                                             bezelColor: window.bezelColor
@@ -1326,6 +1355,7 @@ Window {
                                             id: attack3Block
                                             width: 250
                                             height: 200
+                                            visible: false
                                             nameText: "Attack 3"
                                             mainColor: window.primaryColor
                                             bezelColor: window.bezelColor
@@ -1341,6 +1371,7 @@ Window {
                                             id: attack4Block
                                             width: 250
                                             height: 200
+                                            visible: false
                                             nameText: "Attack 4"
                                             mainColor: window.primaryColor
                                             bezelColor: window.bezelColor
@@ -1352,506 +1383,521 @@ Window {
                                             //anchors.horizontalCenter: parent.horizontalCenter
                                         }
 
-                                        Rectangle {
-                                            id: ability1NameBlock
-                                            width: 200
-                                            height: 45
-                                            color: "#c80d0d"
-                                            radius: 8
-                                            border.color: "#6c0101"
-                                            border.width: 2
-                                            anchors.horizontalCenter: parent.horizontalCenter
-                                            Rectangle {
-                                                id: ability1NameBezel
-                                                color: "#b2b2b2"
-                                                radius: 8
-                                                border.color: "#616161"
-                                                border.width: 2
-                                                anchors.fill: parent
-                                                anchors.leftMargin: 4
-                                                anchors.rightMargin: 4
-                                                anchors.topMargin: 3
-                                                anchors.bottomMargin: 3
-                                                Rectangle {
-                                                    id: ability1NameScreen
-                                                    x: 10
-                                                    y: 4
-                                                    color: screenColor
-                                                    radius: 4
-                                                    border.color: "#128c17"
-                                                    border.width: 2
-                                                    anchors.fill: parent
-                                                    anchors.leftMargin: 5
-                                                    anchors.rightMargin: 5
-                                                    anchors.topMargin: 6
-                                                    anchors.bottomMargin: 6
-                                                    Text {
-                                                        id: ability1NameText
-                                                        color: "#c5002a02"
-                                                        text: "Ability 1"
-                                                        anchors.fill: parent
-                                                        horizontalAlignment: Text.AlignHCenter
-                                                        verticalAlignment: Text.AlignVCenter
-                                                        wrapMode: Text.Wrap
-                                                        minimumPointSize: 10
-                                                        minimumPixelSize: 10
-                                                        z: 1
-                                                        fontSizeMode: Text.HorizontalFit
-                                                        font.styleName: "ExtraBold Italic"
-                                                    }
-
-                                                    Text {
-                                                        id: ability1NameDropText
-                                                        color: "#095f0c"
-                                                        text: ability1NameText.text
-                                                        anchors.fill: parent
-                                                        horizontalAlignment: Text.AlignHCenter
-                                                        verticalAlignment: Text.AlignVCenter
-                                                        wrapMode: Text.Wrap
-                                                        minimumPointSize: 10
-                                                        minimumPixelSize: 10
-                                                        z: 0
-                                                        fontSizeMode: Text.HorizontalFit
-                                                        font.styleName: "ExtraBold Italic"
-                                                    }
-
-                                                    Rectangle {
-                                                        id: rectangle16
-                                                        x: -6
-                                                        y: -6
-                                                        color: "#00ffffff"
-                                                        radius: 4
-                                                        border.color: "#25fb2e"
-                                                        border.width: 1
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 3
-                                                        anchors.rightMargin: 3
-                                                        anchors.topMargin: 3
-                                                        anchors.bottomMargin: 3
-                                                    }
-                                                }
-                                            }
-                                        }
-
-
-                                        Rectangle {
-                                            id: ability1TypeBlock
-                                            width: 175
-                                            height: 45
-                                            color: "#c80d0d"
-                                            radius: 8
-                                            border.color: "#6c0101"
-                                            border.width: 2
-                                            anchors.horizontalCenter: parent.horizontalCenter
-                                            Rectangle {
-                                                id: ability1TypeBezel
-                                                color: "#b2b2b2"
-                                                radius: 8
-                                                border.color: "#616161"
-                                                border.width: 2
-                                                anchors.fill: parent
-                                                anchors.leftMargin: 4
-                                                anchors.rightMargin: 4
-                                                anchors.topMargin: 3
-                                                anchors.bottomMargin: 3
-                                                Rectangle {
-                                                    id: ability1TypeScreen
-                                                    x: 10
-                                                    y: 4
-                                                    color: screenColor
-                                                    radius: 4
-                                                    border.color: "#128c17"
-                                                    border.width: 2
-                                                    anchors.fill: parent
-                                                    anchors.leftMargin: 5
-                                                    anchors.rightMargin: 5
-                                                    anchors.topMargin: 6
-                                                    anchors.bottomMargin: 6
-                                                    Text {
-                                                        id: ability1TypeText
-                                                        color: "#c5002a02"
-                                                        text: "Ability 1 Type"
-                                                        anchors.fill: parent
-                                                        horizontalAlignment: Text.AlignHCenter
-                                                        verticalAlignment: Text.AlignVCenter
-                                                        wrapMode: Text.Wrap
-                                                        z: 1
-                                                        fontSizeMode: Text.HorizontalFit
-                                                        font.styleName: "ExtraBold Italic"
-                                                    }
-
-                                                    Text {
-                                                        id: ability1TypeDropText
-                                                        color: "#095f0c"
-                                                        text: ability1TypeText.text
-                                                        anchors.fill: parent
-                                                        horizontalAlignment: Text.AlignHCenter
-                                                        verticalAlignment: Text.AlignVCenter
-                                                        wrapMode: Text.Wrap
-                                                        fontSizeMode: Text.HorizontalFit
-                                                        font.styleName: "ExtraBold Italic"
-                                                    }
-
-                                                    Rectangle {
-                                                        id: rectangle17
-                                                        x: -6
-                                                        y: -6
-                                                        color: "#00ffffff"
-                                                        radius: 4
-                                                        border.color: "#25fb2e"
-                                                        border.width: 1
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 3
-                                                        anchors.rightMargin: 3
-                                                        anchors.topMargin: 3
-                                                        anchors.bottomMargin: 3
-                                                    }
-                                                }
-                                            }
-                                        }
-
-
-                                        Rectangle {
-                                            id: ability1DescriptionBlock
+                                        AbilityInfoBlock {
+                                            id: ability1
                                             width: 250
-                                            height: 136
-                                            color: "#c80d0d"
-                                            radius: 8
-                                            border.color: "#6c0101"
-                                            border.width: 2
-                                            Rectangle {
-                                                id: ability1DescriptionBezel
-                                                color: "#b2b2b2"
-                                                radius: 8
-                                                border.color: "#616161"
-                                                border.width: 2
-                                                anchors.fill: parent
-                                                anchors.leftMargin: 4
-                                                anchors.rightMargin: 4
-                                                anchors.topMargin: 4
-                                                anchors.bottomMargin: 4
-                                                Rectangle {
-                                                    id: ability1DescriptionScreen
-                                                    x: 10
-                                                    y: 4
-                                                    color: screenColor
-                                                    radius: 6
-                                                    border.color: "#128c17"
-                                                    border.width: 2
-                                                    anchors.fill: parent
-                                                    anchors.leftMargin: 6
-                                                    anchors.rightMargin: 6
-                                                    anchors.topMargin: 6
-                                                    anchors.bottomMargin: 6
-                                                    Text {
-                                                        id: ability1DescriptionDropText
-                                                        visible: true
-                                                        color: "#c5002a02"
-                                                        text: "Ability 1 Description"
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 4
-                                                        anchors.rightMargin: 4
-                                                        anchors.topMargin: 4
-                                                        anchors.bottomMargin: 4
-                                                        horizontalAlignment: Text.AlignHCenter
-                                                        verticalAlignment: Text.AlignVCenter
-                                                        wrapMode: Text.Wrap
-                                                        z: 1
-                                                        minimumPointSize: 6
-                                                        minimumPixelSize: 6
-                                                        fontSizeMode: Text.Fit
-                                                        font.styleName: "ExtraBold Italic"
-                                                        font.pointSize: ability1DescriptionText.font.pointSize
-                                                    }
-
-                                                    Text {
-                                                        id: ability1DescriptionText
-                                                        color: "#095f0c"
-                                                        text: ability1DescriptionDropText.text
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 4
-                                                        anchors.rightMargin: 4
-                                                        anchors.topMargin: 4
-                                                        anchors.bottomMargin: 4
-                                                        horizontalAlignment: Text.AlignHCenter
-                                                        verticalAlignment: Text.AlignVCenter
-                                                        wrapMode: Text.Wrap
-                                                        z: 0
-                                                        minimumPointSize: 6
-                                                        minimumPixelSize: 6
-                                                        fontSizeMode: Text.Fit
-                                                        font.styleName: "ExtraBold Italic"
-                                                        font.pointSize: ability1DescriptionDropText.font.pointSize
-                                                    }
-
-                                                    Rectangle {
-                                                        id: rectangle21
-                                                        x: -7
-                                                        y: 13
-                                                        color: "#00ffffff"
-                                                        radius: 4
-                                                        border.color: "#25fb2e"
-                                                        border.width: 1
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 3
-                                                        anchors.rightMargin: 3
-                                                        anchors.topMargin: 3
-                                                        anchors.bottomMargin: 3
-                                                    }
-                                                }
-                                            }
+                                            nameText: "Ability 1"
+                                            typeText: "Ability 1 Type"
+                                            descText: "Ability 1 Description"
                                         }
-
-
-                                        Rectangle {
-                                            id: ability2NameBlock
-                                            width: 200
-                                            height: 45
-                                            color: "#c80d0d"
-                                            radius: 8
-                                            border.color: "#6c0101"
-                                            border.width: 2
-                                            anchors.horizontalCenter: parent.horizontalCenter
-                                            Rectangle {
-                                                id: ability2NameBezel
-                                                color: "#b2b2b2"
-                                                radius: 8
-                                                border.color: "#616161"
-                                                border.width: 2
-                                                anchors.fill: parent
-                                                anchors.leftMargin: 4
-                                                anchors.rightMargin: 4
-                                                anchors.topMargin: 3
-                                                anchors.bottomMargin: 3
-                                                Rectangle {
-                                                    id: ability2NameScreen
-                                                    x: 10
-                                                    y: 4
-                                                    color: screenColor
-                                                    radius: 4
-                                                    border.color: "#128c17"
-                                                    border.width: 2
-                                                    anchors.fill: parent
-                                                    anchors.leftMargin: 5
-                                                    anchors.rightMargin: 5
-                                                    anchors.topMargin: 6
-                                                    anchors.bottomMargin: 6
-                                                    Text {
-                                                        id: ability2NameText
-                                                        color: "#c5002a02"
-                                                        text: "Ability 2"
-                                                        anchors.fill: parent
-                                                        horizontalAlignment: Text.AlignHCenter
-                                                        verticalAlignment: Text.AlignVCenter
-                                                        wrapMode: Text.Wrap
-                                                        minimumPointSize: 10
-                                                        minimumPixelSize: 10
-                                                        z: 1
-                                                        fontSizeMode: Text.HorizontalFit
-                                                        font.styleName: "ExtraBold Italic"
-                                                    }
-
-                                                    Text {
-                                                        id: ability2NameDropText
-                                                        color: "#095f0c"
-                                                        text: ability2NameText.text
-                                                        anchors.fill: parent
-                                                        horizontalAlignment: Text.AlignHCenter
-                                                        verticalAlignment: Text.AlignVCenter
-                                                        wrapMode: Text.Wrap
-                                                        minimumPointSize: 10
-                                                        minimumPixelSize: 10
-                                                        fontSizeMode: Text.HorizontalFit
-                                                        font.styleName: "ExtraBold Italic"
-                                                    }
-
-                                                    Rectangle {
-                                                        id: rectangle18
-                                                        x: -6
-                                                        y: -6
-                                                        color: "#00ffffff"
-                                                        radius: 4
-                                                        border.color: "#25fb2e"
-                                                        border.width: 1
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 3
-                                                        anchors.rightMargin: 3
-                                                        anchors.topMargin: 3
-                                                        anchors.bottomMargin: 3
-                                                    }
-                                                }
-                                            }
-                                        }
-
-
-                                        Rectangle {
-                                            id: ability2TypeBlock
-                                            width: 175
-                                            height: 45
-                                            color: "#c80d0d"
-                                            radius: 8
-                                            border.color: "#6c0101"
-                                            border.width: 2
-                                            anchors.horizontalCenter: parent.horizontalCenter
-                                            Rectangle {
-                                                id: ability2TypeBezel
-                                                color: "#b2b2b2"
-                                                radius: 8
-                                                border.color: "#616161"
-                                                border.width: 2
-                                                anchors.fill: parent
-                                                anchors.leftMargin: 4
-                                                anchors.rightMargin: 4
-                                                anchors.topMargin: 3
-                                                anchors.bottomMargin: 3
-                                                Rectangle {
-                                                    id: ability2TypeScreen
-                                                    x: 10
-                                                    y: 4
-                                                    color: screenColor
-                                                    radius: 4
-                                                    border.color: "#128c17"
-                                                    border.width: 2
-                                                    anchors.fill: parent
-                                                    anchors.leftMargin: 5
-                                                    anchors.rightMargin: 5
-                                                    anchors.topMargin: 6
-                                                    anchors.bottomMargin: 6
-                                                    Text {
-                                                        id: ability2TypeText
-                                                        color: "#c5002a02"
-                                                        text: "Ability 2 Type"
-                                                        anchors.fill: parent
-                                                        horizontalAlignment: Text.AlignHCenter
-                                                        verticalAlignment: Text.AlignVCenter
-                                                        wrapMode: Text.Wrap
-                                                        z: 1
-                                                        fontSizeMode: Text.HorizontalFit
-                                                        font.styleName: "ExtraBold Italic"
-                                                    }
-
-                                                    Text {
-                                                        id: ability2TypeDropText
-                                                        color: "#095f0c"
-                                                        text: ability2TypeText.text
-                                                        anchors.fill: parent
-                                                        horizontalAlignment: Text.AlignHCenter
-                                                        verticalAlignment: Text.AlignVCenter
-                                                        wrapMode: Text.Wrap
-                                                        z: 0
-                                                        fontSizeMode: Text.HorizontalFit
-                                                        font.styleName: "ExtraBold Italic"
-                                                    }
-
-                                                    Rectangle {
-                                                        id: rectangle19
-                                                        x: -6
-                                                        y: -6
-                                                        color: "#00ffffff"
-                                                        radius: 4
-                                                        border.color: "#25fb2e"
-                                                        border.width: 1
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 3
-                                                        anchors.rightMargin: 3
-                                                        anchors.topMargin: 3
-                                                        anchors.bottomMargin: 3
-                                                    }
-                                                }
-                                            }
-                                        }
-
-
-                                        Rectangle {
-                                            id: ability2DescriptionBlock
+                                        AbilityInfoBlock {
+                                            id: ability2
                                             width: 250
-                                            height: 136
-                                            color: "#c80d0d"
-                                            radius: 8
-                                            border.color: "#6c0101"
-                                            border.width: 2
-                                            Rectangle {
-                                                id: ability2DescriptionBezel
-                                                color: "#b2b2b2"
-                                                radius: 8
-                                                border.color: "#616161"
-                                                border.width: 2
-                                                anchors.fill: parent
-                                                anchors.leftMargin: 4
-                                                anchors.rightMargin: 4
-                                                anchors.topMargin: 4
-                                                anchors.bottomMargin: 4
-                                                Rectangle {
-                                                    id: ability2DescriptionScreen
-                                                    x: 10
-                                                    y: 4
-                                                    color: screenColor
-                                                    radius: 6
-                                                    border.color: "#128c17"
-                                                    border.width: 2
-                                                    anchors.fill: parent
-                                                    anchors.leftMargin: 6
-                                                    anchors.rightMargin: 6
-                                                    anchors.topMargin: 6
-                                                    anchors.bottomMargin: 6
-                                                    Text {
-                                                        id: ability2DescriptionDropText
-                                                        visible: true
-                                                        color: "#c5002a02"
-                                                        text: "Ability 2 Description"
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 4
-                                                        anchors.rightMargin: 4
-                                                        anchors.topMargin: 4
-                                                        anchors.bottomMargin: 4
-                                                        horizontalAlignment: Text.AlignHCenter
-                                                        verticalAlignment: Text.AlignVCenter
-                                                        wrapMode: Text.Wrap
-                                                        z: 1
-                                                        minimumPointSize: 6
-                                                        minimumPixelSize: 6
-                                                        fontSizeMode: Text.Fit
-                                                        font.styleName: "ExtraBold Italic"
-                                                        font.pointSize: ability2DescriptionText.font.pointSize
-                                                    }
-
-                                                    Text {
-                                                        id: ability2DescriptionText
-                                                        color: "#095f0c"
-                                                        text: ability2DescriptionDropText.text
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 4
-                                                        anchors.rightMargin: 4
-                                                        anchors.topMargin: 4
-                                                        anchors.bottomMargin: 4
-                                                        horizontalAlignment: Text.AlignHCenter
-                                                        verticalAlignment: Text.AlignVCenter
-                                                        wrapMode: Text.Wrap
-                                                        z: 0
-                                                        minimumPointSize: 6
-                                                        minimumPixelSize: 6
-                                                        fontSizeMode: Text.Fit
-                                                        font.styleName: "ExtraBold Italic"
-                                                        font.pointSize: ability2DescriptionDropText.font.pointSize
-                                                    }
-
-                                                    Rectangle {
-                                                        id: rectangle20
-                                                        x: -7
-                                                        y: 18
-                                                        color: "#00ffffff"
-                                                        radius: 4
-                                                        border.color: "#25fb2e"
-                                                        border.width: 1
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 3
-                                                        anchors.rightMargin: 3
-                                                        anchors.topMargin: 3
-                                                        anchors.bottomMargin: 3
-                                                    }
-                                                }
-                                            }
+                                            nameText: "Ability 2"
+                                            typeText: "Ability 2 Type"
+                                            descText: "Ability 2 Description"
                                         }
+
+                                        // Rectangle {
+                                        //     id: ability1NameBlock
+                                        //     width: 200
+                                        //     height: 45
+                                        //     color: "#c80d0d"
+                                        //     radius: 8
+                                        //     border.color: "#6c0101"
+                                        //     border.width: 2
+                                        //     anchors.horizontalCenter: parent.horizontalCenter
+                                        //     Rectangle {
+                                        //         id: ability1NameBezel
+                                        //         color: "#b2b2b2"
+                                        //         radius: 8
+                                        //         border.color: "#616161"
+                                        //         border.width: 2
+                                        //         anchors.fill: parent
+                                        //         anchors.leftMargin: 4
+                                        //         anchors.rightMargin: 4
+                                        //         anchors.topMargin: 3
+                                        //         anchors.bottomMargin: 3
+                                        //         Rectangle {
+                                        //             id: ability1NameScreen
+                                        //             x: 10
+                                        //             y: 4
+                                        //             color: screenColor
+                                        //             radius: 4
+                                        //             border.color: "#128c17"
+                                        //             border.width: 2
+                                        //             anchors.fill: parent
+                                        //             anchors.leftMargin: 5
+                                        //             anchors.rightMargin: 5
+                                        //             anchors.topMargin: 6
+                                        //             anchors.bottomMargin: 6
+                                        //             Text {
+                                        //                 id: ability1NameText
+                                        //                 color: "#c5002a02"
+                                        //                 text: "Ability 1"
+                                        //                 anchors.fill: parent
+                                        //                 horizontalAlignment: Text.AlignHCenter
+                                        //                 verticalAlignment: Text.AlignVCenter
+                                        //                 wrapMode: Text.Wrap
+                                        //                 minimumPointSize: 10
+                                        //                 minimumPixelSize: 10
+                                        //                 z: 1
+                                        //                 fontSizeMode: Text.HorizontalFit
+                                        //                 font.styleName: "ExtraBold Italic"
+                                        //             }
+
+                                        //             Text {
+                                        //                 id: ability1NameDropText
+                                        //                 color: "#095f0c"
+                                        //                 text: ability1NameText.text
+                                        //                 anchors.fill: parent
+                                        //                 horizontalAlignment: Text.AlignHCenter
+                                        //                 verticalAlignment: Text.AlignVCenter
+                                        //                 wrapMode: Text.Wrap
+                                        //                 minimumPointSize: 10
+                                        //                 minimumPixelSize: 10
+                                        //                 z: 0
+                                        //                 fontSizeMode: Text.HorizontalFit
+                                        //                 font.styleName: "ExtraBold Italic"
+                                        //             }
+
+                                        //             Rectangle {
+                                        //                 id: rectangle16
+                                        //                 x: -6
+                                        //                 y: -6
+                                        //                 color: "#00ffffff"
+                                        //                 radius: 4
+                                        //                 border.color: "#25fb2e"
+                                        //                 border.width: 1
+                                        //                 anchors.fill: parent
+                                        //                 anchors.leftMargin: 3
+                                        //                 anchors.rightMargin: 3
+                                        //                 anchors.topMargin: 3
+                                        //                 anchors.bottomMargin: 3
+                                        //             }
+                                        //         }
+                                        //     }
+                                        // }
+
+
+                                        // Rectangle {
+                                        //     id: ability1TypeBlock
+                                        //     width: 175
+                                        //     height: 45
+                                        //     color: "#c80d0d"
+                                        //     radius: 8
+                                        //     border.color: "#6c0101"
+                                        //     border.width: 2
+                                        //     anchors.horizontalCenter: parent.horizontalCenter
+                                        //     Rectangle {
+                                        //         id: ability1TypeBezel
+                                        //         color: "#b2b2b2"
+                                        //         radius: 8
+                                        //         border.color: "#616161"
+                                        //         border.width: 2
+                                        //         anchors.fill: parent
+                                        //         anchors.leftMargin: 4
+                                        //         anchors.rightMargin: 4
+                                        //         anchors.topMargin: 3
+                                        //         anchors.bottomMargin: 3
+                                        //         Rectangle {
+                                        //             id: ability1TypeScreen
+                                        //             x: 10
+                                        //             y: 4
+                                        //             color: screenColor
+                                        //             radius: 4
+                                        //             border.color: "#128c17"
+                                        //             border.width: 2
+                                        //             anchors.fill: parent
+                                        //             anchors.leftMargin: 5
+                                        //             anchors.rightMargin: 5
+                                        //             anchors.topMargin: 6
+                                        //             anchors.bottomMargin: 6
+                                        //             Text {
+                                        //                 id: ability1TypeText
+                                        //                 color: "#c5002a02"
+                                        //                 text: "Ability 1 Type"
+                                        //                 anchors.fill: parent
+                                        //                 horizontalAlignment: Text.AlignHCenter
+                                        //                 verticalAlignment: Text.AlignVCenter
+                                        //                 wrapMode: Text.Wrap
+                                        //                 z: 1
+                                        //                 fontSizeMode: Text.HorizontalFit
+                                        //                 font.styleName: "ExtraBold Italic"
+                                        //             }
+
+                                        //             Text {
+                                        //                 id: ability1TypeDropText
+                                        //                 color: "#095f0c"
+                                        //                 text: ability1TypeText.text
+                                        //                 anchors.fill: parent
+                                        //                 horizontalAlignment: Text.AlignHCenter
+                                        //                 verticalAlignment: Text.AlignVCenter
+                                        //                 wrapMode: Text.Wrap
+                                        //                 fontSizeMode: Text.HorizontalFit
+                                        //                 font.styleName: "ExtraBold Italic"
+                                        //             }
+
+                                        //             Rectangle {
+                                        //                 id: rectangle17
+                                        //                 x: -6
+                                        //                 y: -6
+                                        //                 color: "#00ffffff"
+                                        //                 radius: 4
+                                        //                 border.color: "#25fb2e"
+                                        //                 border.width: 1
+                                        //                 anchors.fill: parent
+                                        //                 anchors.leftMargin: 3
+                                        //                 anchors.rightMargin: 3
+                                        //                 anchors.topMargin: 3
+                                        //                 anchors.bottomMargin: 3
+                                        //             }
+                                        //         }
+                                        //     }
+                                        // }
+
+
+                                        // Rectangle {
+                                        //     id: ability1DescriptionBlock
+                                        //     width: 250
+                                        //     height: 136
+                                        //     color: "#c80d0d"
+                                        //     radius: 8
+                                        //     border.color: "#6c0101"
+                                        //     border.width: 2
+                                        //     Rectangle {
+                                        //         id: ability1DescriptionBezel
+                                        //         color: "#b2b2b2"
+                                        //         radius: 8
+                                        //         border.color: "#616161"
+                                        //         border.width: 2
+                                        //         anchors.fill: parent
+                                        //         anchors.leftMargin: 4
+                                        //         anchors.rightMargin: 4
+                                        //         anchors.topMargin: 4
+                                        //         anchors.bottomMargin: 4
+                                        //         Rectangle {
+                                        //             id: ability1DescriptionScreen
+                                        //             x: 10
+                                        //             y: 4
+                                        //             color: screenColor
+                                        //             radius: 6
+                                        //             border.color: "#128c17"
+                                        //             border.width: 2
+                                        //             anchors.fill: parent
+                                        //             anchors.leftMargin: 6
+                                        //             anchors.rightMargin: 6
+                                        //             anchors.topMargin: 6
+                                        //             anchors.bottomMargin: 6
+                                        //             Text {
+                                        //                 id: ability1DescriptionDropText
+                                        //                 visible: true
+                                        //                 color: "#c5002a02"
+                                        //                 text: "Ability 1 Description"
+                                        //                 anchors.fill: parent
+                                        //                 anchors.leftMargin: 4
+                                        //                 anchors.rightMargin: 4
+                                        //                 anchors.topMargin: 4
+                                        //                 anchors.bottomMargin: 4
+                                        //                 horizontalAlignment: Text.AlignHCenter
+                                        //                 verticalAlignment: Text.AlignVCenter
+                                        //                 wrapMode: Text.Wrap
+                                        //                 z: 1
+                                        //                 minimumPointSize: 6
+                                        //                 minimumPixelSize: 6
+                                        //                 fontSizeMode: Text.Fit
+                                        //                 font.styleName: "ExtraBold Italic"
+                                        //                 font.pointSize: ability1DescriptionText.font.pointSize
+                                        //             }
+
+                                        //             Text {
+                                        //                 id: ability1DescriptionText
+                                        //                 color: "#095f0c"
+                                        //                 text: ability1DescriptionDropText.text
+                                        //                 anchors.fill: parent
+                                        //                 anchors.leftMargin: 4
+                                        //                 anchors.rightMargin: 4
+                                        //                 anchors.topMargin: 4
+                                        //                 anchors.bottomMargin: 4
+                                        //                 horizontalAlignment: Text.AlignHCenter
+                                        //                 verticalAlignment: Text.AlignVCenter
+                                        //                 wrapMode: Text.Wrap
+                                        //                 z: 0
+                                        //                 minimumPointSize: 6
+                                        //                 minimumPixelSize: 6
+                                        //                 fontSizeMode: Text.Fit
+                                        //                 font.styleName: "ExtraBold Italic"
+                                        //                 font.pointSize: ability1DescriptionDropText.font.pointSize
+                                        //             }
+
+                                        //             Rectangle {
+                                        //                 id: rectangle21
+                                        //                 x: -7
+                                        //                 y: 13
+                                        //                 color: "#00ffffff"
+                                        //                 radius: 4
+                                        //                 border.color: "#25fb2e"
+                                        //                 border.width: 1
+                                        //                 anchors.fill: parent
+                                        //                 anchors.leftMargin: 3
+                                        //                 anchors.rightMargin: 3
+                                        //                 anchors.topMargin: 3
+                                        //                 anchors.bottomMargin: 3
+                                        //             }
+                                        //         }
+                                        //     }
+                                        // }
+
+
+                                        // Rectangle {
+                                        //     id: ability2NameBlock
+                                        //     width: 200
+                                        //     height: 45
+                                        //     color: "#c80d0d"
+                                        //     radius: 8
+                                        //     border.color: "#6c0101"
+                                        //     border.width: 2
+                                        //     anchors.horizontalCenter: parent.horizontalCenter
+                                        //     Rectangle {
+                                        //         id: ability2NameBezel
+                                        //         color: "#b2b2b2"
+                                        //         radius: 8
+                                        //         border.color: "#616161"
+                                        //         border.width: 2
+                                        //         anchors.fill: parent
+                                        //         anchors.leftMargin: 4
+                                        //         anchors.rightMargin: 4
+                                        //         anchors.topMargin: 3
+                                        //         anchors.bottomMargin: 3
+                                        //         Rectangle {
+                                        //             id: ability2NameScreen
+                                        //             x: 10
+                                        //             y: 4
+                                        //             color: screenColor
+                                        //             radius: 4
+                                        //             border.color: "#128c17"
+                                        //             border.width: 2
+                                        //             anchors.fill: parent
+                                        //             anchors.leftMargin: 5
+                                        //             anchors.rightMargin: 5
+                                        //             anchors.topMargin: 6
+                                        //             anchors.bottomMargin: 6
+                                        //             Text {
+                                        //                 id: ability2NameText
+                                        //                 color: "#c5002a02"
+                                        //                 text: "Ability 2"
+                                        //                 anchors.fill: parent
+                                        //                 horizontalAlignment: Text.AlignHCenter
+                                        //                 verticalAlignment: Text.AlignVCenter
+                                        //                 wrapMode: Text.Wrap
+                                        //                 minimumPointSize: 10
+                                        //                 minimumPixelSize: 10
+                                        //                 z: 1
+                                        //                 fontSizeMode: Text.HorizontalFit
+                                        //                 font.styleName: "ExtraBold Italic"
+                                        //             }
+
+                                        //             Text {
+                                        //                 id: ability2NameDropText
+                                        //                 color: "#095f0c"
+                                        //                 text: ability2NameText.text
+                                        //                 anchors.fill: parent
+                                        //                 horizontalAlignment: Text.AlignHCenter
+                                        //                 verticalAlignment: Text.AlignVCenter
+                                        //                 wrapMode: Text.Wrap
+                                        //                 minimumPointSize: 10
+                                        //                 minimumPixelSize: 10
+                                        //                 fontSizeMode: Text.HorizontalFit
+                                        //                 font.styleName: "ExtraBold Italic"
+                                        //             }
+
+                                        //             Rectangle {
+                                        //                 id: rectangle18
+                                        //                 x: -6
+                                        //                 y: -6
+                                        //                 color: "#00ffffff"
+                                        //                 radius: 4
+                                        //                 border.color: "#25fb2e"
+                                        //                 border.width: 1
+                                        //                 anchors.fill: parent
+                                        //                 anchors.leftMargin: 3
+                                        //                 anchors.rightMargin: 3
+                                        //                 anchors.topMargin: 3
+                                        //                 anchors.bottomMargin: 3
+                                        //             }
+                                        //         }
+                                        //     }
+                                        // }
+
+
+                                        // Rectangle {
+                                        //     id: ability2TypeBlock
+                                        //     width: 175
+                                        //     height: 45
+                                        //     color: "#c80d0d"
+                                        //     radius: 8
+                                        //     border.color: "#6c0101"
+                                        //     border.width: 2
+                                        //     anchors.horizontalCenter: parent.horizontalCenter
+                                        //     Rectangle {
+                                        //         id: ability2TypeBezel
+                                        //         color: "#b2b2b2"
+                                        //         radius: 8
+                                        //         border.color: "#616161"
+                                        //         border.width: 2
+                                        //         anchors.fill: parent
+                                        //         anchors.leftMargin: 4
+                                        //         anchors.rightMargin: 4
+                                        //         anchors.topMargin: 3
+                                        //         anchors.bottomMargin: 3
+                                        //         Rectangle {
+                                        //             id: ability2TypeScreen
+                                        //             x: 10
+                                        //             y: 4
+                                        //             color: screenColor
+                                        //             radius: 4
+                                        //             border.color: "#128c17"
+                                        //             border.width: 2
+                                        //             anchors.fill: parent
+                                        //             anchors.leftMargin: 5
+                                        //             anchors.rightMargin: 5
+                                        //             anchors.topMargin: 6
+                                        //             anchors.bottomMargin: 6
+                                        //             Text {
+                                        //                 id: ability2TypeText
+                                        //                 color: "#c5002a02"
+                                        //                 text: "Ability 2 Type"
+                                        //                 anchors.fill: parent
+                                        //                 horizontalAlignment: Text.AlignHCenter
+                                        //                 verticalAlignment: Text.AlignVCenter
+                                        //                 wrapMode: Text.Wrap
+                                        //                 z: 1
+                                        //                 fontSizeMode: Text.HorizontalFit
+                                        //                 font.styleName: "ExtraBold Italic"
+                                        //             }
+
+                                        //             Text {
+                                        //                 id: ability2TypeDropText
+                                        //                 color: "#095f0c"
+                                        //                 text: ability2TypeText.text
+                                        //                 anchors.fill: parent
+                                        //                 horizontalAlignment: Text.AlignHCenter
+                                        //                 verticalAlignment: Text.AlignVCenter
+                                        //                 wrapMode: Text.Wrap
+                                        //                 z: 0
+                                        //                 fontSizeMode: Text.HorizontalFit
+                                        //                 font.styleName: "ExtraBold Italic"
+                                        //             }
+
+                                        //             Rectangle {
+                                        //                 id: rectangle19
+                                        //                 x: -6
+                                        //                 y: -6
+                                        //                 color: "#00ffffff"
+                                        //                 radius: 4
+                                        //                 border.color: "#25fb2e"
+                                        //                 border.width: 1
+                                        //                 anchors.fill: parent
+                                        //                 anchors.leftMargin: 3
+                                        //                 anchors.rightMargin: 3
+                                        //                 anchors.topMargin: 3
+                                        //                 anchors.bottomMargin: 3
+                                        //             }
+                                        //         }
+                                        //     }
+                                        // }
+
+
+                                        // Rectangle {
+                                        //     id: ability2DescriptionBlock
+                                        //     width: 250
+                                        //     height: 136
+                                        //     color: "#c80d0d"
+                                        //     radius: 8
+                                        //     border.color: "#6c0101"
+                                        //     border.width: 2
+                                        //     Rectangle {
+                                        //         id: ability2DescriptionBezel
+                                        //         color: "#b2b2b2"
+                                        //         radius: 8
+                                        //         border.color: "#616161"
+                                        //         border.width: 2
+                                        //         anchors.fill: parent
+                                        //         anchors.leftMargin: 4
+                                        //         anchors.rightMargin: 4
+                                        //         anchors.topMargin: 4
+                                        //         anchors.bottomMargin: 4
+                                        //         Rectangle {
+                                        //             id: ability2DescriptionScreen
+                                        //             x: 10
+                                        //             y: 4
+                                        //             color: screenColor
+                                        //             radius: 6
+                                        //             border.color: "#128c17"
+                                        //             border.width: 2
+                                        //             anchors.fill: parent
+                                        //             anchors.leftMargin: 6
+                                        //             anchors.rightMargin: 6
+                                        //             anchors.topMargin: 6
+                                        //             anchors.bottomMargin: 6
+                                        //             Text {
+                                        //                 id: ability2DescriptionDropText
+                                        //                 visible: true
+                                        //                 color: "#c5002a02"
+                                        //                 text: "Ability 2 Description"
+                                        //                 anchors.fill: parent
+                                        //                 anchors.leftMargin: 4
+                                        //                 anchors.rightMargin: 4
+                                        //                 anchors.topMargin: 4
+                                        //                 anchors.bottomMargin: 4
+                                        //                 horizontalAlignment: Text.AlignHCenter
+                                        //                 verticalAlignment: Text.AlignVCenter
+                                        //                 wrapMode: Text.Wrap
+                                        //                 z: 1
+                                        //                 minimumPointSize: 6
+                                        //                 minimumPixelSize: 6
+                                        //                 fontSizeMode: Text.Fit
+                                        //                 font.styleName: "ExtraBold Italic"
+                                        //                 font.pointSize: ability2DescriptionText.font.pointSize
+                                        //             }
+
+                                        //             Text {
+                                        //                 id: ability2DescriptionText
+                                        //                 color: "#095f0c"
+                                        //                 text: ability2DescriptionDropText.text
+                                        //                 anchors.fill: parent
+                                        //                 anchors.leftMargin: 4
+                                        //                 anchors.rightMargin: 4
+                                        //                 anchors.topMargin: 4
+                                        //                 anchors.bottomMargin: 4
+                                        //                 horizontalAlignment: Text.AlignHCenter
+                                        //                 verticalAlignment: Text.AlignVCenter
+                                        //                 wrapMode: Text.Wrap
+                                        //                 z: 0
+                                        //                 minimumPointSize: 6
+                                        //                 minimumPixelSize: 6
+                                        //                 fontSizeMode: Text.Fit
+                                        //                 font.styleName: "ExtraBold Italic"
+                                        //                 font.pointSize: ability2DescriptionDropText.font.pointSize
+                                        //             }
+
+                                        //             Rectangle {
+                                        //                 id: rectangle20
+                                        //                 x: -7
+                                        //                 y: 18
+                                        //                 color: "#00ffffff"
+                                        //                 radius: 4
+                                        //                 border.color: "#25fb2e"
+                                        //                 border.width: 1
+                                        //                 anchors.fill: parent
+                                        //                 anchors.leftMargin: 3
+                                        //                 anchors.rightMargin: 3
+                                        //                 anchors.topMargin: 3
+                                        //                 anchors.bottomMargin: 3
+                                        //             }
+                                        //         }
+                                        //     }
+                                        // }
 
                                     }
                                 }
@@ -1876,13 +1922,122 @@ Window {
 
                                     Column {
                                         id: rightSideColumn
-                                        x: 0
+                                        x: 33
                                         y: 0
-                                        width: 290
+                                        width: 257
                                         height: 435
 
                                         spacing: 3
 
+
+                                        Rectangle {
+                                            id: supertypeBlock
+                                            width: 200
+                                            height: 40
+                                            color: "#c80d0d"
+                                            radius: 8
+                                            border.color: "#6c0101"
+                                            border.width: 2
+                                            Rectangle {
+                                                id: rectangle30
+                                                color: "#b2b2b2"
+                                                radius: 8
+                                                border.color: "#616161"
+                                                border.width: 2
+                                                anchors.fill: parent
+                                                anchors.leftMargin: 4
+                                                anchors.rightMargin: 4
+                                                anchors.topMargin: 3
+                                                anchors.bottomMargin: 3
+                                            }
+
+                                            Rectangle {
+                                                id: supertypeScreen
+                                                color: screenColor
+                                                radius: 4
+                                                border.color: "#128c17"
+                                                border.width: 2
+                                                anchors.fill: parent
+                                                anchors.leftMargin: 11
+                                                anchors.rightMargin: 11
+                                                anchors.topMargin: 7
+                                                anchors.bottomMargin: 7
+                                                Text {
+                                                    id: supertypeText
+                                                    color: "#c5002a02"
+                                                    text: "Super Type"
+                                                    anchors.left: parent.left
+                                                    anchors.right: parent.right
+                                                    anchors.top: parent.top
+                                                    anchors.bottom: parent.bottom
+                                                    anchors.leftMargin: 4
+                                                    anchors.rightMargin: 4
+                                                    anchors.topMargin: 4
+                                                    anchors.bottomMargin: 4
+                                                    horizontalAlignment: Text.AlignHCenter
+                                                    verticalAlignment: Text.AlignVCenter
+                                                    wrapMode: Text.Wrap
+                                                    z: 1
+                                                    minimumPointSize: 8
+                                                    minimumPixelSize: 8
+                                                    fontSizeMode: Text.Fit
+                                                    font.styleName: "Bold Italic"
+                                                    font.pointSize: 30
+                                                }
+
+                                                DropShadow {
+                                                    opacity: 0.8
+                                                    color: "#095f0c"
+                                                    radius: 3.8
+                                                    anchors.fill: supertypeText
+                                                    source: supertypeText
+                                                    verticalOffset: 3
+                                                    samples: 16
+                                                    horizontalOffset: 3
+                                                }
+
+                                                Text {
+                                                    id: supertypeDropText
+                                                    visible: false
+                                                    color: "#2a7b2d"
+                                                    text: supertypeText.text
+                                                    anchors.left: parent.left
+                                                    anchors.right: parent.right
+                                                    anchors.top: parent.top
+                                                    anchors.bottom: parent.bottom
+                                                    anchors.leftMargin: 6
+                                                    anchors.rightMargin: 2
+                                                    anchors.topMargin: 7
+                                                    anchors.bottomMargin: 1
+                                                    horizontalAlignment: Text.AlignHCenter
+                                                    verticalAlignment: Text.AlignVCenter
+                                                    wrapMode: Text.Wrap
+                                                    z: 0
+                                                    minimumPointSize: 8
+                                                    minimumPixelSize: 8
+                                                    fontSizeMode: Text.Fit
+                                                    font.styleName: "Bold Italic"
+                                                    font.pointSize: 30
+                                                }
+
+                                                Rectangle {
+                                                    id: rectangle31
+                                                    x: -8
+                                                    y: -4
+                                                    color: "#00ffffff"
+                                                    radius: 4
+                                                    border.color: "#25fb2e"
+                                                    border.width: 1
+                                                    anchors.fill: parent
+                                                    anchors.leftMargin: 3
+                                                    anchors.rightMargin: 3
+                                                    anchors.topMargin: 3
+                                                    anchors.bottomMargin: 3
+                                                }
+                                                clip: true
+                                            }
+                                            anchors.horizontalCenter: parent.horizontalCenter
+                                        }
 
                                         Rectangle {
                                             id: nameBlock
@@ -2000,12 +2155,600 @@ Window {
                                         }
 
 
+                                        Rectangle {
+                                            id: typeBlock
+                                            width: 110
+                                            height: 55
+                                            color: "#ff0000"
+                                            radius: 6
+                                            border.color: "#006c0101"
+                                            border.width: 0
+                                            anchors.horizontalCenter: parent.horizontalCenter
+
+                                            Row {
+                                                id: typeFlow
+                                                width: 105
+                                                height: 50
+                                                anchors.verticalCenter: parent.verticalCenter
+                                                anchors.verticalCenterOffset: -1
+                                                anchors.horizontalCenterOffset: 1
+                                                anchors.horizontalCenter: parent.horizontalCenter
+                                                layoutDirection: Qt.LeftToRight
+                                                spacing: 4
+
+                                                Rectangle {
+                                                    id: type1Block
+                                                    width: 50
+                                                    height: 50
+                                                    visible: true
+                                                    color: window.primaryColor
+                                                    radius: 6
+                                                    border.color: "#6c0101"
+                                                    border.width: 2
+                                                    Rectangle {
+                                                        id: type1Bezel
+                                                        visible: true
+                                                        color: "#b2b2b2"
+                                                        radius: 8
+                                                        border.color: window.bezelColor
+                                                        border.width: 2
+                                                        anchors.fill: parent
+                                                        anchors.leftMargin: 2
+                                                        anchors.rightMargin: 2
+                                                        anchors.topMargin: 2
+                                                        anchors.bottomMargin: 2
+                                                        z: 0
+                                                        Rectangle {
+                                                            id: type1Screen
+                                                            x: 7
+                                                            y: 4
+                                                            visible: true
+                                                            color: window.screenColor
+                                                            radius: 4
+                                                            border.color: "#128c17"
+                                                            border.width: 2
+                                                            anchors.fill: parent
+                                                            anchors.leftMargin: 4
+                                                            anchors.rightMargin: 4
+                                                            anchors.topMargin: 4
+                                                            anchors.bottomMargin: 4
+                                                            z: 0
+                                                            Text {
+                                                                id: type1Text
+                                                                visible: true
+                                                                color: window.textColor
+                                                                text: "Type 1"
+                                                                anchors.fill: parent
+                                                                anchors.leftMargin: 2
+                                                                anchors.rightMargin: 2
+                                                                anchors.topMargin: 2
+                                                                anchors.bottomMargin: 2
+                                                                horizontalAlignment: Text.AlignHCenter
+                                                                verticalAlignment: Text.AlignVCenter
+                                                                wrapMode: Text.Wrap
+                                                                z: 0
+                                                                state: "base state4"
+                                                                minimumPointSize: 4
+                                                                minimumPixelSize: 4
+                                                                fontSizeMode: Text.Fit
+                                                                font.styleName: "Bold Italic"
+                                                                font.pointSize: 30
+                                                            }
+
+                                                            DropShadow {
+                                                                id: type1DropShadow
+                                                                opacity: 0.8
+                                                                visible: false
+                                                                color: "#095f0c"
+                                                                radius: 3.8
+                                                                anchors.fill: type1Text
+                                                                source: type1Text
+                                                                verticalOffset: 3
+                                                                samples: 16
+                                                                horizontalOffset: 3
+                                                            }
+
+                                                            Text {
+                                                                id: type1DropText
+                                                                visible: false
+                                                                color: window.dropTextColor
+                                                                text: type1Text.text
+                                                                anchors.fill: parent
+                                                                anchors.leftMargin: 2
+                                                                anchors.rightMargin: 2
+                                                                anchors.topMargin: 2
+                                                                anchors.bottomMargin: 2
+                                                                horizontalAlignment: Text.AlignHCenter
+                                                                verticalAlignment: Text.AlignVCenter
+                                                                wrapMode: Text.Wrap
+                                                                z: 0
+                                                                minimumPointSize: 4
+                                                                minimumPixelSize: 4
+                                                                fontSizeMode: Text.Fit
+                                                                font.styleName: "Bold Italic"
+                                                                font.pointSize: type1Text.font.pointSize
+                                                            }
+
+                                                            Rectangle {
+                                                                id: type1BlockHightlight
+                                                                x: -8
+                                                                y: -4
+                                                                visible: false
+                                                                color: "#00ffffff"
+                                                                radius: 4
+                                                                border.color: "#25fb2e"
+                                                                border.width: 1
+                                                                anchors.fill: parent
+                                                                anchors.leftMargin: 2
+                                                                anchors.rightMargin: 2
+                                                                anchors.topMargin: 2
+                                                                anchors.bottomMargin: 2
+                                                                z: 4
+                                                                clip: true
+                                                            }
+
+                                                            Rectangle {
+                                                                id: type1ImageBlock
+                                                                color: "#00ffffff"
+                                                                radius: 10
+                                                                border.color: "#0002d20b"
+                                                                border.width: 0
+                                                                anchors.fill: parent
+                                                                scale: 0.9
+                                                                Image {
+                                                                    id: type1Image
+                                                                    x: -154
+                                                                    y: -154
+                                                                    width: 350
+                                                                    height: 350
+                                                                    opacity: 1
+                                                                    visible: true
+                                                                    sourceSize.width: 0
+                                                                    sourceSize.height: 0
+                                                                    scale: 0.15
+                                                                    layer.enabled: true
+                                                                    layer.effect: OpacityMask {
+                                                                        width: 34
+                                                                        height: 34
+                                                                        opacity: 0
+                                                                        visible: true
+                                                                        scale: 1
+                                                                        maskSource: type1Mask
+                                                                        layer.textureSize.width: 0
+                                                                        layer.textureSize.height: 0
+                                                                        layer.enabled: true
+                                                                        enabled: true
+                                                                        clip: false
+                                                                    }
+                                                                    fillMode: Image.Pad
+                                                                    Rectangle {
+                                                                        id: type1Dimmer
+                                                                        opacity: 1
+                                                                        visible: false
+                                                                        color: "#83474747"
+                                                                        anchors.fill: parent
+                                                                    }
+                                                                    clip: false
+                                                                }
+
+                                                                Rectangle {
+                                                                    id: type1Mask
+                                                                    x: 0
+                                                                    y: 0
+                                                                    width: 50
+                                                                    height: 50
+                                                                    visible: false
+                                                                    color: "#ffffff"
+                                                                    radius: 46
+                                                                    border.width: 0
+                                                                    scale: 1
+                                                                    layer.textureSize.width: 0
+                                                                    layer.enabled: true
+                                                                    enabled: true
+                                                                    clip: false
+                                                                }
+                                                                clip: true
+                                                            }
+
+                                                            Image {
+                                                                id: colorlessType1DummyImage
+                                                                x: -157
+                                                                y: -157
+                                                                width: 350
+                                                                height: 350
+                                                                opacity: 1
+                                                                visible: false
+                                                                source: "colorlessEnergyCropped.png"
+                                                                z: 0
+                                                                sourceSize.width: 0
+                                                                sourceSize.height: 0
+                                                                scale: 0.95
+                                                                layer.enabled: true
+                                                                layer.effect: OpacityMask {
+                                                                    width: 34
+                                                                    height: 34
+                                                                    opacity: 0
+                                                                    visible: true
+                                                                    scale: 1
+                                                                    maskSource: colorlessType1Mask
+                                                                    layer.textureSize.width: 0
+                                                                    layer.textureSize.height: 0
+                                                                    layer.enabled: true
+                                                                    enabled: true
+                                                                    clip: false
+                                                                }
+                                                                fillMode: Image.Pad
+                                                                clip: true
+                                                            }
+
+                                                            Rectangle {
+                                                                id: colorlessType1Mask
+                                                                x: 0
+                                                                y: 0
+                                                                width: 36
+                                                                height: 36
+                                                                visible: false
+                                                                color: "#ffffff"
+                                                                radius: 46
+                                                                border.width: 0
+                                                                scale: 1
+                                                                layer.textureSize.width: 0
+                                                                layer.enabled: true
+                                                                enabled: true
+                                                                clip: false
+                                                            }
+
+                                                            Image {
+                                                                id: dragonType1DummyImage
+                                                                x: -157
+                                                                y: -157
+                                                                width: 350
+                                                                height: 350
+                                                                opacity: 1
+                                                                visible: false
+                                                                source: "dragonEnergyCropped.png"
+                                                                z: 0
+                                                                sourceSize.width: 0
+                                                                sourceSize.height: 0
+                                                                scale: 1
+                                                                layer.enabled: true
+                                                                layer.effect: OpacityMask {
+                                                                    width: 34
+                                                                    height: 34
+                                                                    opacity: 0
+                                                                    visible: true
+                                                                    scale: 1
+                                                                    maskSource: dragonType1Mask
+                                                                    layer.textureSize.width: 0
+                                                                    layer.textureSize.height: 0
+                                                                    layer.enabled: true
+                                                                    enabled: true
+                                                                    clip: false
+                                                                }
+                                                                fillMode: Image.Pad
+                                                                clip: true
+                                                            }
+
+                                                            Rectangle {
+                                                                id: dragonType1Mask
+                                                                x: 0
+                                                                y: 0
+                                                                width: 36
+                                                                height: 36
+                                                                visible: false
+                                                                color: "#ffffff"
+                                                                radius: 46
+                                                                border.width: 0
+                                                                scale: 1
+                                                                layer.textureSize.width: 0
+                                                                layer.enabled: true
+                                                                enabled: true
+                                                                clip: false
+                                                            }
+                                                            clip: true
+                                                        }
+                                                        clip: true
+                                                        Layout.preferredWidth: 60
+                                                        Layout.preferredHeight: 60
+                                                        Layout.fillWidth: true
+                                                        Layout.fillHeight: true
+                                                    }
+                                                }
+
+                                                Rectangle {
+                                                    id: type2Block
+                                                    width: 50
+                                                    height: 50
+                                                    visible: true
+                                                    color: window.primaryColor
+                                                    radius: 6
+                                                    border.color: "#6c0101"
+                                                    border.width: 2
+
+                                                    Rectangle {
+                                                        id: type2Bezel
+                                                        visible: true
+                                                        color: "#b2b2b2"
+                                                        radius: 8
+                                                        border.color: window.bezelBorderColor
+                                                        border.width: 2
+                                                        anchors.fill: parent
+                                                        anchors.leftMargin: 2
+                                                        anchors.rightMargin: 2
+                                                        anchors.topMargin: 2
+                                                        anchors.bottomMargin: 2
+                                                        z: 0
+                                                        Rectangle {
+                                                            id: type2Screen
+                                                            x: 7
+                                                            y: 4
+                                                            visible: true
+                                                            color: window.screenColor
+                                                            radius: 4
+                                                            border.color: "#128c17"
+                                                            border.width: 2
+                                                            anchors.fill: parent
+                                                            anchors.leftMargin: 4
+                                                            anchors.rightMargin: 4
+                                                            anchors.topMargin: 4
+                                                            anchors.bottomMargin: 4
+                                                            z: 0
+                                                            Text {
+                                                                id: type2Text
+                                                                visible: true
+                                                                color: window.textColor
+                                                                text: "Type 2"
+                                                                anchors.fill: parent
+                                                                anchors.leftMargin: 2
+                                                                anchors.rightMargin: 2
+                                                                anchors.topMargin: 2
+                                                                anchors.bottomMargin: 2
+                                                                horizontalAlignment: Text.AlignHCenter
+                                                                verticalAlignment: Text.AlignVCenter
+                                                                wrapMode: Text.Wrap
+                                                                z: 0
+                                                                state: "base state4"
+                                                                minimumPointSize: 4
+                                                                minimumPixelSize: 4
+                                                                fontSizeMode: Text.Fit
+                                                                font.styleName: "Bold Italic"
+                                                                font.pointSize: 30
+                                                            }
+
+                                                            DropShadow {
+                                                                id: type2DropShadow
+                                                                opacity: 0.8
+                                                                visible: false
+                                                                color: "#095f0c"
+                                                                radius: 3.8
+                                                                anchors.fill: type2Text
+                                                                source: type2Text
+                                                                verticalOffset: 3
+                                                                samples: 16
+                                                                horizontalOffset: 3
+                                                            }
+
+                                                            Text {
+                                                                id: type2DropText
+                                                                visible: false
+                                                                color: window.dropTextColor
+                                                                text: type2Text.text
+                                                                anchors.fill: parent
+                                                                anchors.leftMargin: 2
+                                                                anchors.rightMargin: 2
+                                                                anchors.topMargin: 2
+                                                                anchors.bottomMargin: 2
+                                                                horizontalAlignment: Text.AlignHCenter
+                                                                verticalAlignment: Text.AlignVCenter
+                                                                wrapMode: Text.Wrap
+                                                                z: 0
+                                                                minimumPointSize: 4
+                                                                minimumPixelSize: 4
+                                                                fontSizeMode: Text.Fit
+                                                                font.styleName: "Bold Italic"
+                                                                font.pointSize: type2Text.font.pointSize
+                                                            }
+
+                                                            Rectangle {
+                                                                id: type2BlockHightlight
+                                                                x: -8
+                                                                y: -4
+                                                                visible: false
+                                                                color: "#00ffffff"
+                                                                radius: 4
+                                                                border.color: "#25fb2e"
+                                                                border.width: 1
+                                                                anchors.fill: parent
+                                                                anchors.leftMargin: 2
+                                                                anchors.rightMargin: 2
+                                                                anchors.topMargin: 2
+                                                                anchors.bottomMargin: 2
+                                                                z: 4
+                                                                clip: true
+                                                            }
+
+                                                            Rectangle {
+                                                                id: type2ImageBlock
+                                                                color: "#00ffffff"
+                                                                radius: 10
+                                                                border.color: "#0002d20b"
+                                                                border.width: 0
+                                                                anchors.fill: parent
+                                                                scale: 0.9
+                                                                Image {
+                                                                    id: type2Image
+                                                                    x: -154
+                                                                    y: -154
+                                                                    width: 350
+                                                                    height: 350
+                                                                    opacity: 1
+                                                                    visible: true
+                                                                    sourceSize.width: 0
+                                                                    sourceSize.height: 0
+                                                                    scale: 0.15
+                                                                    layer.enabled: true
+                                                                    layer.effect: OpacityMask {
+                                                                        width: 34
+                                                                        height: 34
+                                                                        opacity: 0
+                                                                        visible: true
+                                                                        scale: 1
+                                                                        maskSource: type2Mask
+                                                                        layer.textureSize.width: 0
+                                                                        layer.textureSize.height: 0
+                                                                        layer.enabled: true
+                                                                        enabled: true
+                                                                        clip: false
+                                                                    }
+                                                                    fillMode: Image.Pad
+
+                                                                    clip: false
+                                                                }
+
+                                                                Rectangle {
+                                                                    id: type2Mask
+                                                                    x: 0
+                                                                    y: 0
+                                                                    width: 50
+                                                                    height: 50
+                                                                    visible: false
+                                                                    color: "#ffffff"
+                                                                    radius: 46
+                                                                    border.width: 0
+                                                                    scale: 1
+                                                                    layer.textureSize.width: 0
+                                                                    layer.enabled: true
+                                                                    enabled: true
+                                                                    clip: false
+                                                                }
+                                                                clip: true
+                                                            }
+
+                                                            Image {
+                                                                id: colorlessType2DummyImage
+                                                                x: -157
+                                                                y: -157
+                                                                width: 350
+                                                                height: 350
+                                                                opacity: 1
+                                                                visible: false
+                                                                source: "colorlessEnergyCropped.png"
+                                                                z: 0
+                                                                sourceSize.width: 0
+                                                                sourceSize.height: 0
+                                                                scale: 0.95
+                                                                layer.enabled: true
+                                                                layer.effect: OpacityMask {
+                                                                    width: 34
+                                                                    height: 34
+                                                                    opacity: 0
+                                                                    visible: true
+                                                                    scale: 1
+                                                                    maskSource: colorlessType2Mask
+                                                                    layer.textureSize.width: 0
+                                                                    layer.textureSize.height: 0
+                                                                    layer.enabled: true
+                                                                    enabled: true
+                                                                    clip: false
+                                                                }
+                                                                fillMode: Image.Pad
+                                                                clip: true
+                                                            }
+
+                                                            Rectangle {
+                                                                id: colorlessType2Mask
+                                                                x: 0
+                                                                y: 0
+                                                                width: 36
+                                                                height: 36
+                                                                visible: false
+                                                                color: "#ffffff"
+                                                                radius: 46
+                                                                border.width: 0
+                                                                scale: 1
+                                                                layer.textureSize.width: 0
+                                                                layer.enabled: true
+                                                                enabled: true
+                                                                clip: false
+                                                            }
+
+                                                            Image {
+                                                                id: dragonType2DummyImage
+                                                                x: -157
+                                                                y: -157
+                                                                width: 350
+                                                                height: 350
+                                                                opacity: 1
+                                                                visible: false
+                                                                source: "dragonEnergyCropped.png"
+                                                                z: 0
+                                                                sourceSize.width: 0
+                                                                sourceSize.height: 0
+                                                                scale: 1
+                                                                layer.enabled: true
+                                                                layer.effect: OpacityMask {
+                                                                    width: 34
+                                                                    height: 34
+                                                                    opacity: 0
+                                                                    visible: true
+                                                                    scale: 1
+                                                                    maskSource: dragonType2Mask
+                                                                    layer.textureSize.width: 0
+                                                                    layer.textureSize.height: 0
+                                                                    layer.enabled: true
+                                                                    enabled: true
+                                                                    clip: false
+                                                                }
+                                                                fillMode: Image.Pad
+                                                                clip: true
+                                                            }
+
+                                                            Rectangle {
+                                                                id: dragonType2Mask
+                                                                x: 0
+                                                                y: 0
+                                                                width: 36
+                                                                height: 36
+                                                                visible: false
+                                                                color: "#ffffff"
+                                                                radius: 46
+                                                                border.width: 0
+                                                                scale: 1
+                                                                layer.textureSize.width: 0
+                                                                layer.enabled: true
+                                                                enabled: true
+                                                                clip: false
+                                                            }
+                                                            clip: true
+                                                        }
+                                                        clip: true
+                                                        Layout.preferredWidth: 60
+                                                        Layout.preferredHeight: 60
+                                                        Layout.fillWidth: true
+                                                        Layout.fillHeight: true
+                                                    }
+                                                }
+                                            }
+                                        }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                                         Rectangle {
                                             id: subtypeBlock
                                             width: 250
                                             height: 125
-                                            color: "#00c80d0d"
+                                            color: window.primaryColor
                                             radius: 6
                                             border.color: "#006c0101"
                                             border.width: 0
@@ -2469,693 +3212,16 @@ Window {
                                             }
                                         }
 
-                                        Rectangle {
-                                            id: typeBlock
-                                            width: 218
-                                            height: type1Block.height
-                                            color: "#00c80d0d"
-                                            radius: 6
-                                            border.color: "#006c0101"
-                                            border.width: 0
-                                            anchors.horizontalCenter: parent.horizontalCenter
 
-                                            Row {
-                                                id: typeFlow
-                                                x: 44
-                                                y: 0
-                                                height: 60
-                                                layoutDirection: Qt.LeftToRight
-                                                spacing: 10
 
-                                                Rectangle {
-                                                    id: type1Block
-                                                    width: 50
-                                                    height: 50
-                                                    visible: true
-                                                    color: window.primaryColor
-                                                    radius: 6
-                                                    border.color: "#6c0101"
-                                                    border.width: 2
-                                                    Rectangle {
-                                                        id: type1Bezel
-                                                        visible: true
-                                                        color: "#b2b2b2"
-                                                        radius: 8
-                                                        border.color: window.bezelColor
-                                                        border.width: 2
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 2
-                                                        anchors.rightMargin: 2
-                                                        anchors.topMargin: 2
-                                                        anchors.bottomMargin: 2
-                                                        z: 0
-                                                        Rectangle {
-                                                            id: type1Screen
-                                                            x: 7
-                                                            y: 4
-                                                            visible: true
-                                                            color: window.screenColor
-                                                            radius: 4
-                                                            border.color: "#128c17"
-                                                            border.width: 2
-                                                            anchors.fill: parent
-                                                            anchors.leftMargin: 4
-                                                            anchors.rightMargin: 4
-                                                            anchors.topMargin: 4
-                                                            anchors.bottomMargin: 4
-                                                            z: 0
-                                                            Text {
-                                                                id: type1Text
-                                                                visible: true
-                                                                color: window.textColor
-                                                                text: "Type 1"
-                                                                anchors.fill: parent
-                                                                anchors.leftMargin: 2
-                                                                anchors.rightMargin: 2
-                                                                anchors.topMargin: 2
-                                                                anchors.bottomMargin: 2
-                                                                horizontalAlignment: Text.AlignHCenter
-                                                                verticalAlignment: Text.AlignVCenter
-                                                                wrapMode: Text.Wrap
-                                                                z: 0
-                                                                state: "base state4"
-                                                                minimumPointSize: 4
-                                                                minimumPixelSize: 4
-                                                                fontSizeMode: Text.Fit
-                                                                font.styleName: "Bold Italic"
-                                                                font.pointSize: 30
-                                                            }
 
-                                                            DropShadow {
-                                                                id: type1DropShadow
-                                                                opacity: 0.8
-                                                                visible: false
-                                                                color: "#095f0c"
-                                                                radius: 3.8
-                                                                anchors.fill: type1Text
-                                                                source: type1Text
-                                                                verticalOffset: 3
-                                                                samples: 16
-                                                                horizontalOffset: 3
-                                                            }
 
-                                                            Text {
-                                                                id: type1DropText
-                                                                visible: false
-                                                                color: window.dropTextColor
-                                                                text: type1Text.text
-                                                                anchors.fill: parent
-                                                                anchors.leftMargin: 2
-                                                                anchors.rightMargin: 2
-                                                                anchors.topMargin: 2
-                                                                anchors.bottomMargin: 2
-                                                                horizontalAlignment: Text.AlignHCenter
-                                                                verticalAlignment: Text.AlignVCenter
-                                                                wrapMode: Text.Wrap
-                                                                z: 0
-                                                                minimumPointSize: 4
-                                                                minimumPixelSize: 4
-                                                                fontSizeMode: Text.Fit
-                                                                font.styleName: "Bold Italic"
-                                                                font.pointSize: type1Text.font.pointSize
-                                                            }
+                                        // TypeBlock {
+                                        //     id: type1Block
+                                        //     type: "Type 1"
+                                        // }
 
-                                                            Rectangle {
-                                                                id: type1BlockHightlight
-                                                                x: -8
-                                                                y: -4
-                                                                visible: false
-                                                                color: "#00ffffff"
-                                                                radius: 4
-                                                                border.color: "#25fb2e"
-                                                                border.width: 1
-                                                                anchors.fill: parent
-                                                                anchors.leftMargin: 2
-                                                                anchors.rightMargin: 2
-                                                                anchors.topMargin: 2
-                                                                anchors.bottomMargin: 2
-                                                                z: 4
-                                                                clip: true
-                                                            }
 
-                                                            Rectangle {
-                                                                id: type1ImageBlock
-                                                                color: "#00ffffff"
-                                                                radius: 10
-                                                                border.color: "#0002d20b"
-                                                                border.width: 0
-                                                                anchors.fill: parent
-                                                                scale: 0.9
-                                                                Image {
-                                                                    id: type1Image
-                                                                    x: -154
-                                                                    y: -154
-                                                                    width: 350
-                                                                    height: 350
-                                                                    opacity: 1
-                                                                    visible: true
-                                                                    sourceSize.width: 0
-                                                                    sourceSize.height: 0
-                                                                    scale: 0.15
-                                                                    layer.enabled: true
-                                                                    layer.effect: OpacityMask {
-                                                                        width: 34
-                                                                        height: 34
-                                                                        opacity: 0
-                                                                        visible: true
-                                                                        scale: 1
-                                                                        maskSource: type1Mask
-                                                                        layer.textureSize.width: 0
-                                                                        layer.textureSize.height: 0
-                                                                        layer.enabled: true
-                                                                        enabled: true
-                                                                        clip: false
-                                                                    }
-                                                                    fillMode: Image.Pad
-                                                                    Rectangle {
-                                                                        id: type1Dimmer
-                                                                        opacity: 1
-                                                                        visible: false
-                                                                        color: "#83474747"
-                                                                        anchors.fill: parent
-                                                                    }
-                                                                    clip: false
-                                                                }
-
-                                                                Rectangle {
-                                                                    id: type1Mask
-                                                                    x: 0
-                                                                    y: 0
-                                                                    width: 50
-                                                                    height: 50
-                                                                    visible: false
-                                                                    color: "#ffffff"
-                                                                    radius: 46
-                                                                    border.width: 0
-                                                                    scale: 1
-                                                                    layer.textureSize.width: 0
-                                                                    layer.enabled: true
-                                                                    enabled: true
-                                                                    clip: false
-                                                                }
-                                                                clip: true
-                                                            }
-
-                                                            Image {
-                                                                id: colorless1DummyImage
-                                                                x: -157
-                                                                y: -157
-                                                                width: 350
-                                                                height: 350
-                                                                opacity: 1
-                                                                visible: false
-                                                                source: "colorlessEnergyCropped.png"
-                                                                z: 0
-                                                                sourceSize.width: 0
-                                                                sourceSize.height: 0
-                                                                scale: 0.95
-                                                                layer.enabled: true
-                                                                layer.effect: OpacityMask {
-                                                                    width: 34
-                                                                    height: 34
-                                                                    opacity: 0
-                                                                    visible: true
-                                                                    scale: 1
-                                                                    maskSource: colorless1Mask
-                                                                    layer.textureSize.width: 0
-                                                                    layer.textureSize.height: 0
-                                                                    layer.enabled: true
-                                                                    enabled: true
-                                                                    clip: false
-                                                                }
-                                                                fillMode: Image.Pad
-                                                                clip: true
-                                                            }
-
-                                                            Rectangle {
-                                                                id: colorless1Mask
-                                                                x: 0
-                                                                y: 0
-                                                                width: 36
-                                                                height: 36
-                                                                visible: false
-                                                                color: "#ffffff"
-                                                                radius: 46
-                                                                border.width: 0
-                                                                scale: 1
-                                                                layer.textureSize.width: 0
-                                                                layer.enabled: true
-                                                                enabled: true
-                                                                clip: false
-                                                            }
-
-                                                            Image {
-                                                                id: dragon1DummyImage
-                                                                x: -157
-                                                                y: -157
-                                                                width: 350
-                                                                height: 350
-                                                                opacity: 1
-                                                                visible: false
-                                                                source: "dragonEnergyCropped.png"
-                                                                z: 0
-                                                                sourceSize.width: 0
-                                                                sourceSize.height: 0
-                                                                scale: 1
-                                                                layer.enabled: true
-                                                                layer.effect: OpacityMask {
-                                                                    width: 34
-                                                                    height: 34
-                                                                    opacity: 0
-                                                                    visible: true
-                                                                    scale: 1
-                                                                    maskSource: dragon1Mask
-                                                                    layer.textureSize.width: 0
-                                                                    layer.textureSize.height: 0
-                                                                    layer.enabled: true
-                                                                    enabled: true
-                                                                    clip: false
-                                                                }
-                                                                fillMode: Image.Pad
-                                                                clip: true
-                                                            }
-
-                                                            Rectangle {
-                                                                id: dragon1Mask
-                                                                x: 0
-                                                                y: 0
-                                                                width: 36
-                                                                height: 36
-                                                                visible: false
-                                                                color: "#ffffff"
-                                                                radius: 46
-                                                                border.width: 0
-                                                                scale: 1
-                                                                layer.textureSize.width: 0
-                                                                layer.enabled: true
-                                                                enabled: true
-                                                                clip: false
-                                                            }
-                                                            clip: true
-                                                        }
-                                                        clip: true
-                                                        Layout.preferredWidth: 60
-                                                        Layout.preferredHeight: 60
-                                                        Layout.fillWidth: true
-                                                        Layout.fillHeight: true
-                                                    }
-                                                }
-
-                                                Rectangle {
-                                                id: type2Block
-                                                width: 50
-                                                height: 50
-                                                visible: true
-                                                color: window.primaryColor
-                                                radius: 6
-                                                border.color: "#6c0101"
-                                                border.width: 2
-
-                                                Rectangle {
-                                                id: type2Bezel
-                                                visible: true
-                                                color: "#b2b2b2"
-                                                radius: 8
-                                                border.color: window.bezelBorderColor
-                                                border.width: 2
-                                                anchors.fill: parent
-                                                anchors.leftMargin: 2
-                                                anchors.rightMargin: 2
-                                                anchors.topMargin: 2
-                                                anchors.bottomMargin: 2
-                                                z: 0
-                                                Rectangle {
-                                                id: type2Screen
-                                                x: 7
-                                                y: 4
-                                                visible: true
-                                                color: window.screenColor
-                                                radius: 4
-                                                border.color: "#128c17"
-                                                border.width: 2
-                                                anchors.fill: parent
-                                                anchors.leftMargin: 4
-                                                anchors.rightMargin: 4
-                                                anchors.topMargin: 4
-                                                anchors.bottomMargin: 4
-                                                z: 0
-                                                Text {
-                                                id: type2Text
-                                                visible: true
-                                                color: window.textColor
-                                                text: "Type 2"
-                                                anchors.fill: parent
-                                                anchors.leftMargin: 2
-                                                anchors.rightMargin: 2
-                                                anchors.topMargin: 2
-                                                anchors.bottomMargin: 2
-                                                horizontalAlignment: Text.AlignHCenter
-                                                verticalAlignment: Text.AlignVCenter
-                                                wrapMode: Text.Wrap
-                                                z: 0
-                                                state: "base state4"
-                                                minimumPointSize: 4
-                                                minimumPixelSize: 4
-                                                fontSizeMode: Text.Fit
-                                                font.styleName: "Bold Italic"
-                                                font.pointSize: 30
-                                                }
-
-                                                DropShadow {
-                                                id: type2DropShadow
-                                                opacity: 0.8
-                                                visible: false
-                                                color: "#095f0c"
-                                                radius: 3.8
-                                                anchors.fill: type2Text
-                                                source: type2Text
-                                                verticalOffset: 3
-                                                samples: 16
-                                                horizontalOffset: 3
-                                                }
-
-                                                Text {
-                                                id: type2DropText
-                                                visible: false
-                                                color: window.dropTextColor
-                                                text: type2Text.text
-                                                anchors.fill: parent
-                                                anchors.leftMargin: 2
-                                                anchors.rightMargin: 2
-                                                anchors.topMargin: 2
-                                                anchors.bottomMargin: 2
-                                                horizontalAlignment: Text.AlignHCenter
-                                                verticalAlignment: Text.AlignVCenter
-                                                wrapMode: Text.Wrap
-                                                z: 0
-                                                minimumPointSize: 4
-                                                minimumPixelSize: 4
-                                                fontSizeMode: Text.Fit
-                                                font.styleName: "Bold Italic"
-                                                font.pointSize: type2Text.font.pointSize
-                                                }
-
-                                                Rectangle {
-                                                id: type2BlockHightlight
-                                                x: -8
-                                                y: -4
-                                                visible: false
-                                                color: "#00ffffff"
-                                                radius: 4
-                                                border.color: "#25fb2e"
-                                                border.width: 1
-                                                anchors.fill: parent
-                                                anchors.leftMargin: 2
-                                                anchors.rightMargin: 2
-                                                anchors.topMargin: 2
-                                                anchors.bottomMargin: 2
-                                                z: 4
-                                                clip: true
-                                                }
-
-                                                Rectangle {
-                                                id: type2ImageBlock
-                                                color: "#00ffffff"
-                                                radius: 10
-                                                border.color: "#0002d20b"
-                                                border.width: 0
-                                                anchors.fill: parent
-                                                scale: 0.9
-                                                Image {
-                                                id: type2Image
-                                                x: -154
-                                                y: -154
-                                                width: 350
-                                                height: 350
-                                                opacity: 1
-                                                visible: true
-                                                sourceSize.width: 0
-                                                sourceSize.height: 0
-                                                scale: 0.15
-                                                layer.enabled: true
-                                                layer.effect: OpacityMask {
-                                                width: 34
-                                                height: 34
-                                                opacity: 0
-                                                visible: true
-                                                scale: 1
-                                                maskSource: type2Mask
-                                                layer.textureSize.width: 0
-                                                layer.textureSize.height: 0
-                                                layer.enabled: true
-                                                enabled: true
-                                                clip: false
-                                                }
-                                                fillMode: Image.Pad
-                                                Rectangle {
-                                                id: type2Dimmer
-                                                opacity: 1
-                                                visible: false
-                                                color: "#83474747"
-                                                anchors.fill: parent
-                                                }
-                                                clip: false
-                                                }
-
-                                                Rectangle {
-                                                id: type2Mask
-                                                x: 0
-                                                y: 0
-                                                width: 50
-                                                height: 50
-                                                visible: false
-                                                color: "#ffffff"
-                                                radius: 46
-                                                border.width: 0
-                                                scale: 1
-                                                layer.textureSize.width: 0
-                                                layer.enabled: true
-                                                enabled: true
-                                                clip: false
-                                                }
-                                                clip: true
-                                                }
-
-                                                Image {
-                                                id: colorless2DummyImage
-                                                x: -157
-                                                y: -157
-                                                width: 350
-                                                height: 350
-                                                opacity: 1
-                                                visible: false
-                                                source: "colorlessEnergyCropped.png"
-                                                z: 0
-                                                sourceSize.width: 0
-                                                sourceSize.height: 0
-                                                scale: 0.95
-                                                layer.enabled: true
-                                                layer.effect: OpacityMask {
-                                                width: 34
-                                                height: 34
-                                                opacity: 0
-                                                visible: true
-                                                scale: 1
-                                                maskSource: colorless2Mask
-                                                layer.textureSize.width: 0
-                                                layer.textureSize.height: 0
-                                                layer.enabled: true
-                                                enabled: true
-                                                clip: false
-                                                }
-                                                fillMode: Image.Pad
-                                                clip: true
-                                                }
-
-                                                Rectangle {
-                                                id: colorless2Mask
-                                                x: 0
-                                                y: 0
-                                                width: 36
-                                                height: 36
-                                                visible: false
-                                                color: "#ffffff"
-                                                radius: 46
-                                                border.width: 0
-                                                scale: 1
-                                                layer.textureSize.width: 0
-                                                layer.enabled: true
-                                                enabled: true
-                                                clip: false
-                                                }
-
-                                                Image {
-                                                id: dragon2DummyImage
-                                                x: -157
-                                                y: -157
-                                                width: 350
-                                                height: 350
-                                                opacity: 1
-                                                visible: false
-                                                source: "dragonEnergyCropped.png"
-                                                z: 0
-                                                sourceSize.width: 0
-                                                sourceSize.height: 0
-                                                scale: 1
-                                                layer.enabled: true
-                                                layer.effect: OpacityMask {
-                                                width: 34
-                                                height: 34
-                                                opacity: 0
-                                                visible: true
-                                                scale: 1
-                                                maskSource: dragon2Mask
-                                                layer.textureSize.width: 0
-                                                layer.textureSize.height: 0
-                                                layer.enabled: true
-                                                enabled: true
-                                                clip: false
-                                                }
-                                                fillMode: Image.Pad
-                                                clip: true
-                                                }
-
-                                                Rectangle {
-                                                id: dragon2Mask
-                                                x: 0
-                                                y: 0
-                                                width: 36
-                                                height: 36
-                                                visible: false
-                                                color: "#ffffff"
-                                                radius: 46
-                                                border.width: 0
-                                                scale: 1
-                                                layer.textureSize.width: 0
-                                                layer.enabled: true
-                                                enabled: true
-                                                clip: false
-                                                }
-                                                clip: true
-                                                }
-                                                clip: true
-                                                Layout.preferredWidth: 60
-                                                Layout.preferredHeight: 60
-                                                Layout.fillWidth: true
-                                                Layout.fillHeight: true
-                                                }
-                                                }
-                                            }
-                                        }
-
-                                        Rectangle {
-                                            id: supertypeBlock
-                                            width: 200
-                                            height: 40
-                                            color: "#c80d0d"
-                                            radius: 8
-                                            border.color: "#6c0101"
-                                            border.width: 2
-                                            Rectangle {
-                                                id: rectangle30
-                                                color: "#b2b2b2"
-                                                radius: 8
-                                                border.color: "#616161"
-                                                border.width: 2
-                                                anchors.fill: parent
-                                                anchors.leftMargin: 4
-                                                anchors.rightMargin: 4
-                                                anchors.topMargin: 3
-                                                anchors.bottomMargin: 3
-                                            }
-
-                                            Rectangle {
-                                                id: supertypeScreen
-                                                color: screenColor
-                                                radius: 4
-                                                border.color: "#128c17"
-                                                border.width: 2
-                                                anchors.fill: parent
-                                                anchors.leftMargin: 11
-                                                anchors.rightMargin: 11
-                                                anchors.topMargin: 7
-                                                anchors.bottomMargin: 7
-                                                Text {
-                                                    id: supertypeText
-                                                    color: "#c5002a02"
-                                                    text: "Super Type"
-                                                    anchors.left: parent.left
-                                                    anchors.right: parent.right
-                                                    anchors.top: parent.top
-                                                    anchors.bottom: parent.bottom
-                                                    anchors.leftMargin: 4
-                                                    anchors.rightMargin: 4
-                                                    anchors.topMargin: 4
-                                                    anchors.bottomMargin: 4
-                                                    horizontalAlignment: Text.AlignHCenter
-                                                    verticalAlignment: Text.AlignVCenter
-                                                    wrapMode: Text.Wrap
-                                                    z: 1
-                                                    minimumPointSize: 8
-                                                    minimumPixelSize: 8
-                                                    fontSizeMode: Text.Fit
-                                                    font.styleName: "Bold Italic"
-                                                    font.pointSize: 30
-                                                }
-
-                                                DropShadow {
-                                                    opacity: 0.8
-                                                    color: "#095f0c"
-                                                    radius: 3.8
-                                                    anchors.fill: supertypeText
-                                                    source: supertypeText
-                                                    verticalOffset: 3
-                                                    samples: 16
-                                                    horizontalOffset: 3
-                                                }
-
-                                                Text {
-                                                    id: supertypeDropText
-                                                    visible: false
-                                                    color: "#2a7b2d"
-                                                    text: supertypeText.text
-                                                    anchors.left: parent.left
-                                                    anchors.right: parent.right
-                                                    anchors.top: parent.top
-                                                    anchors.bottom: parent.bottom
-                                                    anchors.leftMargin: 6
-                                                    anchors.rightMargin: 2
-                                                    anchors.topMargin: 7
-                                                    anchors.bottomMargin: 1
-                                                    horizontalAlignment: Text.AlignHCenter
-                                                    verticalAlignment: Text.AlignVCenter
-                                                    wrapMode: Text.Wrap
-                                                    z: 0
-                                                    minimumPointSize: 8
-                                                    minimumPixelSize: 8
-                                                    fontSizeMode: Text.Fit
-                                                    font.styleName: "Bold Italic"
-                                                    font.pointSize: 30
-                                                }
-
-                                                Rectangle {
-                                                    id: rectangle31
-                                                    x: -8
-                                                    y: -4
-                                                    color: "#00ffffff"
-                                                    radius: 4
-                                                    border.color: "#25fb2e"
-                                                    border.width: 1
-                                                    anchors.fill: parent
-                                                    anchors.leftMargin: 3
-                                                    anchors.rightMargin: 3
-                                                    anchors.topMargin: 3
-                                                    anchors.bottomMargin: 3
-                                                }
-                                                clip: true
-                                            }
-                                            anchors.horizontalCenter: parent.horizontalCenter
-                                        }
 
 
 
@@ -4027,6 +4093,6 @@ Window {
 
 /*##^##
 Designer {
-    D{i:0}D{i:38;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}
+    D{i:0}D{i:38;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}D{i:110}D{i:126}
 }
 ##^##*/
