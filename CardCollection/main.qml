@@ -155,6 +155,13 @@ Window {
                     || "Sub Type 4"
 
             subtypeBlock.updateSubTypeInfo();
+
+            if(!subtypeBlock.visible && !typeBlock.visible) {
+                typesRow.height = 0;
+            }
+            else {
+                typesRow.height = 106;
+            }
         }
 
     }
@@ -163,12 +170,6 @@ Window {
         if(cards[selectedIndex]) {
             supertypeText.text = cards[selectedIndex].supertype
                     || "Super Type"
-
-            if(supertypeText.text === "Trainer") {
-                typeBlock.visible = false;
-            } else {
-                typeBlock.visible = true;
-            }
         }
     }
 
@@ -209,6 +210,28 @@ Window {
 
         typeBlock.type1Type = normalizedType1 || defaultType1;
         typeBlock.type2Type = normalizedType2 || defaultType2;
+
+        if(typeBlock.type1Type === defaultType1 && typeBlock.type2Type === defaultType2) {
+
+            typeBlock.visible = false;
+        }
+        else {
+            typeBlock.visible = true;
+        }
+
+        if(typeBlock.visible && subtypeBlock.visible) {
+
+            typesRow.width = typeBlock.width + subtypeBlock.width
+
+        } else if (typeBlock.visible && !subtypeBlock.visible) {
+
+            typesRow.width = typeBlock.width
+
+        } else if (!typeBlock.visible && subtypeBlock.visible) {
+            typesRow.width = subtypeBlock.width
+        }
+
+
     }
 
     function updateFlavorText() {
@@ -1301,7 +1324,7 @@ Window {
                                     boundsBehavior: Flickable.DragOverBounds
                                     boundsMovement: Flickable.FollowBoundsBehavior
                                     flickableDirection: Flickable.VerticalFlick
-                                    contentHeight: 1630 // Set a suitable height for your content
+                                    contentHeight: 506 // Set a suitable height for your content
 
                                     // First attack
                                     Column {
@@ -1343,6 +1366,7 @@ Window {
 
                                             width: 250
                                             height: 100
+                                            visible: false
                                             //  anchors.top: parent.top
 
                                             descText: "Rule 2"
@@ -1360,6 +1384,7 @@ Window {
 
                                             width: 250
                                             height: 100
+                                            visible: false
                                             //  anchors.top: parent.top
 
                                             descText: "Rule 3"
@@ -1377,6 +1402,7 @@ Window {
 
                                             width: 250
                                             height: 100
+                                            visible: false
                                             //  anchors.top: parent.top
 
                                             descText: "Rule 4"
@@ -1406,7 +1432,7 @@ Window {
                                             id: attack2Block
                                             width: 250
                                             height: 200
-                                            visible: true
+                                            visible: false
                                             nameText: "Attack 2"
                                             mainColor: window.primaryColor
                                             bezelColor: window.bezelColor
@@ -1426,7 +1452,7 @@ Window {
                                             id: attack3Block
                                             width: 250
                                             height: 200
-                                            visible: true
+                                            visible: false
                                             nameText: "Attack 3"
                                             mainColor: window.primaryColor
                                             bezelColor: window.bezelColor
@@ -1446,7 +1472,7 @@ Window {
                                             id: attack4Block
                                             width: 250
                                             height: 200
-                                            visible: true
+                                            visible: false
                                             nameText: "Attack 4"
                                             mainColor: window.primaryColor
                                             bezelColor: window.bezelColor
@@ -1477,6 +1503,7 @@ Window {
                                         AbilityInfoBlock {
                                             id: ability2
                                             width: 250
+                                            visible: false
                                             nameText: "Ability 2"
                                             typeText: "Ability 2 Type"
                                             descText: "Ability 2 Description"
@@ -1493,7 +1520,7 @@ Window {
                                     anchors.left: leftScrollView.right
                                     anchors.right: parent.right
                                     anchors.top: parent.top
-                                    anchors.leftMargin: 4
+                                    anchors.leftMargin: 18
                                     anchors.rightMargin: 4
                                     anchors.topMargin: 4
                                     contentX: 0
@@ -1502,7 +1529,7 @@ Window {
                                     clip: false
                                     boundsBehavior: Flickable.DragOverBounds
                                     boundsMovement: Flickable.FollowBoundsBehavior
-                                    contentHeight: 1000 // Set a suitable height for your content
+                                    contentHeight: 645 // Set a suitable height for your content
 
                                     Column {
                                         id: rightSideColumn
@@ -1790,8 +1817,9 @@ Window {
                                             bezelBorderColor: window.bezelBorderColor
                                             screenHighlightColor: window.screenHighlightColor
 
-                                            width: 250
+                                            width: 225
                                             height: 150
+                                            visible: true
                                             anchors.horizontalCenter: parent.horizontalCenter
                                             //  anchors.top: parent.top
 
@@ -1806,8 +1834,9 @@ Window {
                                             border.width: 2
                                             color: "#c80d0d"
                                             height: 200
+                                            visible: true
                                             radius: 8
-                                            width: 240
+                                            width: 225
                                             logoSource: (selectedIndex >= 0 && selectedIndex < cards.length) ? cards[selectedIndex].setLogo : ""
                                             logoScreenText: (selectedIndex >= 0
                                                              && selectedIndex < cards.length) ? "" // Fallback if name is undefined
@@ -1817,7 +1846,7 @@ Window {
 
                                         Row {
                                             id: setSymbolRow
-                                            width: 240
+                                            width: 200
                                             height: 66
                                             anchors.horizontalCenter: parent.horizontalCenter
                                             spacing: 3
@@ -1839,7 +1868,7 @@ Window {
 
                                             Rectangle {
                                                 id: setBlock
-                                                width: 98
+                                                width: 120
                                                 height: 65
                                                 color: "#c80d0d"
                                                 radius: 8
