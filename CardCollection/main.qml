@@ -170,8 +170,6 @@ Window {
                 typeBlock.visible = true;
             }
         }
-
-
     }
 
     function updateTypeInfo() {
@@ -288,6 +286,45 @@ Window {
         leftScrollView.contentHeight = leftContentHeight; // Set the final content height
     }
 
+    function updateRightScrollView() {
+        let rightContentHeight = 0;
+        let visibleItemsCount = 0; // Counter for visible items
+
+        // Check and add heights for the items in the rightSideColumn
+        if (typesRow.visible) {
+            rightContentHeight += typesRow.height;
+            visibleItemsCount++;
+        }
+        if (supertypeBlock.visible) {
+            rightContentHeight += supertypeBlock.height;
+            visibleItemsCount++;
+        }
+        if (nameBlock.visible) {
+            rightContentHeight += nameBlock.height;
+            visibleItemsCount++;
+        }
+        if (flavorTextBlock.visible) {
+            rightContentHeight += flavorTextBlock.height;
+            visibleItemsCount++;
+        }
+        if (setLogoBlock.visible) {
+            rightContentHeight += setLogoBlock.height;
+            visibleItemsCount++;
+        }
+        if (setSymbolRow.visible) {
+            rightContentHeight += setSymbolRow.height;
+            visibleItemsCount++;
+        }
+
+        // Add spacing for the visible items, if there are any
+        if (visibleItemsCount > 0) {
+            rightContentHeight += (visibleItemsCount - 1) * rightSideColumn.spacing; // Spacing between elements
+        }
+
+        rightScrollView.contentHeight = rightContentHeight; // Set the final content height
+    }
+
+
 
     function resetCardRotation() {
         momentumTimer.stop()
@@ -317,6 +354,7 @@ Window {
             resetRightColumnScroll();
             resetCardRotation();
             updateLeftScrollView();
+            updateRightScrollView();
         }
     }
 
@@ -334,6 +372,7 @@ Window {
             resetRightColumnScroll();
             resetCardRotation();
             updateLeftScrollView();
+            updateRightScrollView();
         }
     }
 
@@ -1701,7 +1740,7 @@ Window {
 
 
                                         Row {
-                                            id: row1
+                                            id: typesRow
                                             width: 221
                                             height: 106
                                             spacing: 4
@@ -1777,7 +1816,7 @@ Window {
 
 
                                         Row {
-                                            id: row
+                                            id: setSymbolRow
                                             width: 240
                                             height: 66
                                             anchors.horizontalCenter: parent.horizontalCenter
@@ -2199,6 +2238,7 @@ Window {
                         resetLeftColumnScroll();
                         resetRightColumnScroll();
                         updateLeftScrollView();
+                        updateRightScrollView();
                         view.visible = true
                     }
                 }
