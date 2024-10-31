@@ -1,6 +1,8 @@
 from pokemontcgsdk import Card
 from backend import Backend
 from cardprocessor import CardProcessor
+import random
+
 
 class DiscoverHandler:
     """
@@ -22,6 +24,7 @@ class DiscoverHandler:
         random_select_type:
             Randomly selects a type from the input list of types.
     """
+
     def handle_discover(self, param_list : list[tuple[str,str,str]]) -> list[dict[str,str]]:
         """
         Summary:
@@ -57,6 +60,7 @@ class DiscoverHandler:
         Return:
             A tuple[str, str, str] representing the randomly selected set.
         """
+
     def random_select_type(self, select_list : list[tuple[str, str, str]]) -> tuple[str,str,str]:
         """
         Summary:
