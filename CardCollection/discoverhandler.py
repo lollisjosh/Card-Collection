@@ -61,6 +61,13 @@ class DiscoverHandler:
             A tuple[str, str, str] representing the randomly selected set.
         """
 
+        temp = [element for sublist in select_list for element in sublist if element[0] == 'set']
+        if temp:
+            return random.choice(temp)
+        else:
+            print("No set found.")
+            return None
+
     def random_select_type(self, select_list : list[tuple[str, str, str]]) -> tuple[str,str,str]:
         """
         Summary:
