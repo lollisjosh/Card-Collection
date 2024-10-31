@@ -4,10 +4,20 @@
         "backendcontroller.py",
         "inithandler.py",
         "searchhandler.py",
+        "cardprocessor.py",
         "main.py",
         "main.qml",
         "qtquickcontrols2.conf",
         "requirements.txt",
-        "resource.qrc"
+        "resource.qrc",
+        "ball.png",
+        "ballsmall.png",
+        "TypeBlock.qml",
+        "AttackInfoBlock.qml",
+        "AbilityInfoBlock.qml",
+        "MySearchFilterTools.qml",
+        "MySearchTools.qml",
+        "ballsmall.png",
+        "Card3D.qml"
     ]
 }
