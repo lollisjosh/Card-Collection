@@ -26,8 +26,8 @@ class SearchHandler:
                 - value: card data string for that attribute
         """
 
-        query = Backend.construct_query(search_parameters)
-        results = Backend.query_api(query)
+        query = Backend.construct_query(self, search_parameters)
+        results = Backend.query_api(self, query)
         return self.handle_card_process(results)
     
     def handle_card_process(self, cards: list[Card]) -> list[dict[str, str]]:
@@ -42,4 +42,5 @@ class SearchHandler:
                 - value: card data string for that attribute
         """
         
-        return CardProcessor.process_cards(self, cards)
+        return CardProcessor.process_cards(cards)
+
