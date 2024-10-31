@@ -1,5 +1,3 @@
-import json
-
 from PySide6.QtCore import QObject, Slot, Signal
 
 from pokemontcgsdk import Card
@@ -9,8 +7,13 @@ from pokemontcgsdk import Supertype
 from pokemontcgsdk import Subtype
 from pokemontcgsdk import Rarity
 
+import json
+
+#from requests.exceptions import RequestException
+
 import inithandler
 import searchhandler
+import cardprocessor
 
 
 class BackendController(QObject):
@@ -28,10 +31,10 @@ class BackendController(QObject):
     between signals and slots in the codebase and ensures that the connections are set up correctly.
     """
 
-    sets_results = Signal(str)  # Signal that emits JSON string
-    search_results = Signal(str)  # Signal that emits JSON string
-    discover_results = Signal(str)  # Signal that emits JSON string
-    load_results = Signal(str)  # Signal that emits JSON string
+    setsResults = Signal(str)  # Signal that emits JSON string
+    searchResults = Signal(str)  # Signal that emits JSON string
+    discoverResults = Signal(str)  # Signal that emits JSON string
+    loadResults = Signal(str)  # Signal that emits JSON string
 
     @Slot()
     def request_sets_retrieve(self):
@@ -44,46 +47,42 @@ class BackendController(QObject):
         try:
 
             initHandler = inithandler.InitHandler()
-            
+
             sets = initHandler.handle_sets_retrieve()
-            
+
             setList = [{"name" : set.name} for set in sets]
-            
+
             self.setsResults.emit(json.dumps(setList))
-        
+
         except Exception as e:
             self.setsResults.emit(json.dump({"error": str(e)}))
 
     @Slot(list)
     def request_search(self, params: list[tuple[str, str, str]]):
-        """
-        Description:
-            Provide an interface for the front end to make search requests with the given search parameters.
-        Args:
-            params (list[tuple[str, str, str]]): 
-                List of search parameter tuples of the form (category, subcategory, target).
-        """
         try:
-            cards = searchhandler.SearchHandler.handle_search(params)
+            search_handler = searchhandler.SearchHandler()
+            cards = search_handler.handle_search(params)
 
-            if cards:
-                self.search_results.emit(json.dumps(cards))
-            else:
-                self.search_results.emit(json.dumps({"error": "No results found."}))
+            if cards is not None:
+                # Process all cards at once
+                processed_cards = cardprocessor.CardProcessor.process_cards(cards)
+                #print(processed_cards)
+                # Emit the result as JSON
+                self.searchResults.emit(json.dumps(processed_cards))
 
         except Exception as e:
-            error_msg = f"Error processing search: {str(e)}"
-            self.search_results.emit(json.dumps({"error": error_msg}))
+            self.searchResults.emit(json.dumps({"error": str(e)}))
+
 
     @Slot(list)
     def request_discover(self, params: list[tuple[str, str, str]]):
         """
         ## Description
-            Provide an interface for the front end 
+            Provide an interface for the front end
             to make discover requests with the given parameters.
 
         Args:
-            params (list[tuple[str, str, str]]): 
+            params (list[tuple[str, str, str]]):
                 List of search parameter tuples of the form (category, subcategory, target)
         """
 
@@ -91,7 +90,7 @@ class BackendController(QObject):
     def request_load_collection(self):
         """
         ## Description
-            Provide an interface for the front end 
+            Provide an interface for the front end
             to request teh back end to load and return the user's collection.
 
         Args:
@@ -102,10 +101,10 @@ class BackendController(QObject):
     def request_save_collection(self, params: list[tuple[str, str, str]]):
         """
         ## Description
-            Provide an interface for the front end 
+            Provide an interface for the front end
             to save users collection to system using the given parameters.
 
         Args:
-            params (list[tuple[str, str, str]]): 
+            params (list[tuple[str, str, str]]):
                 List of tuples of the form (category, subcategory, target)
         """

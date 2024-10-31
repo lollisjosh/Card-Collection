@@ -1,62 +1,6 @@
-"""
-File for CardProcessor class that turns Card objects indo list[dict[str,str]]
-"""
-
-from pokemontcgsdk import Card, Type, Supertype
-
 class CardProcessor:
-    """
-    A utility class for processing Card objects into JSON-serializable formats.
-    
-    The CardProcessor class provides static methods for extracting and formatting key
-    attributes from Card objects, including abilities, attacks, subtypes, and set details. 
-    These methods help structure card data consistently, preparing it for use in frontend 
-    applications or data storage.
-    Methods:
-    --------
-    process_abilities(card: Card) -> dict
-        Extracts ability information from a Card, returning names, descriptions, and types
-        for up to two abilities.
-    
-    process_attacks(card: Card) -> dict
-        Extracts attack information from a Card, including names, descriptions, and up to 
-        five energy costs for each of up to four attacks.
-    
-    process_subtypes(card: Card) -> dict
-        Extracts up to four subtypes from a Card's subtype list.
-    
-    process_cards(cards: list[Card]) -> list[dict]
-        Processes a list of Card objects, combining attributes from abilities, attacks, 
-        subtypes, and other basic card data into a list of JSON-serializable dictionaries.
-    """
-
     @staticmethod
     def process_cards(cards):
-        """
-            Processes a list of Card objects, extracting key attributes and organizing them 
-            into a list of dictionaries formatted for JSON serialization.
-            Parameters:
-            -----------
-            cards : list[Card]
-                A list of Card objects, each containing attributes such as abilities, attacks, 
-                subtypes, name, and set details.
-            Returns:
-            --------
-            list[dict[str, str]]
-                A list of dictionaries, each representing a parsed Card with the following 
-                attributes:
-                    - Ability, attack, and subtype details from process_abilities, process_attacks, 
-                    and process_subtypes.
-                    - 'name': The card's name.
-                    - 'id': The card's unique identifier.
-                    - 'supertype': The card's supertype.
-                    - 'imageUrl': URL to the card's large image.
-                    - 'set': The name of the card's set.
-                    - 'setSymbol': URL to the symbol image of the card's set.
-                    - 'setLogo': URL to the logo image of the card's set.
-                
-                Any missing attributes are defaulted to empty strings by the helper methods.
-            """
         processed_cards = []
         for card in cards:
             processed_card = {
@@ -77,22 +21,6 @@ class CardProcessor:
 
     @staticmethod
     def process_abilities(card):
-        """
-        Processes the abilities of a given card object, returning a dictionary with details \
-            for up to two abilities, including each ability's name, text, and type.
-        Parameters:
-        -----------
-        card : Card
-            The card object containing ability information, where each ability has attributes
-            like 'name', 'text', and 'type'.
-        Returns:
-        --------
-        dict
-            A dictionary with keys for ability names, texts, and types: \
-                - 'ability1Name', 'ability1Text', 'ability1Type' for the first ability. \
-                - 'ability2Name', 'ability2Text', 'ability2Type' for the second ability. \
-            If the card has no abilities, or lacks certain attributes, default values are empty strings.
-        """
         abilities = {
             "ability1Name": "",
             "ability1Text": "",
@@ -116,28 +44,6 @@ class CardProcessor:
 
     @staticmethod
     def process_attacks(card):
-        """
-        Processes the attacks of a given card object, returning a dictionary with \
-        details for up to four attacks. Each attack includes the attack's \
-        name, description, and up to five individual energy costs.\
-        Parameters:
-        -----------
-        card : Card
-            The card object containing attack information, \
-            where each attack has attributes like \
-            'name', 'text', and multiple 'cost' fields.
-        Returns:
-        --------
-        dict
-            A dictionary with keys for each attack's name, description, and energy costs:
-                - 'attack1Name', 'attack1Text', 'attack1Cost1-5'for the 1st attack.
-                - 'attack2Name', 'attack2Text', 'attack2Cost1-5'for the 2nd attack.
-                - 'attack3Name', 'attack3Text', 'attack3Cost1-5'for the 3rd attack.
-                - 'attack4Name', 'attack4Text', 'attack4Cost1-5'for the 4th attack.
-                If the card has no attacks or lacks specific attributes, default values are \
-                    set to empty strings for names and descriptions, or empty strings \
-                        for each of the cost fields.
-        """
         attacks = {}
         if hasattr(card, 'attacks') and card.attacks:  # Ensure attacks exists
             for i in range(4):
@@ -189,9 +95,6 @@ class CardProcessor:
 
     @staticmethod
     def process_types(card):
-        """
-            TODO add docstring
-            """
         types = {
             "type1": "",
             "type2": ""
@@ -205,26 +108,6 @@ class CardProcessor:
 
     @staticmethod
     def process_subtypes(card):
-        """
-        Processes the subtypes of a given card object, returning a dictionary with up to 
-        four subtypes.
-
-        Parameters:
-        -----------
-        card : Card
-            The card object containing subtype information, where subtypes are stored as
-            a list of strings.
-
-        Returns:
-        --------
-        dict
-            A dictionary with keys for up to four subtypes:
-                - 'subtype1' through 'subtype4' corresponding to the first through fourth
-                subtypes in the card's subtype list.
-            
-            If the card has fewer than four subtypes or lacks specific attributes, the 
-            remaining fields default to empty strings.
-        """
         subtypes = {
             "subtype1": "",
             "subtype2": "",

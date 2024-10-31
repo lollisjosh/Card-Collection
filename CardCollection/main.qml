@@ -17,18 +17,18 @@ Window {
     maximumHeight: 650
 
     visible: true
-    color: "#611b1b"
+    color: borderColor
     property alias btnSearch: btnSearch
 
     title: qsTr("Card Collection")
 
-    //JUMP-TO Window-Level Properties
     property int selectedIndex: -1
     property var cards: [] // List of card objects
     property int selectedTabIndex: 0
 
     // Define color scheme properties
     property color primaryColor: "#c80d0d"
+    property color blockBG: "#ff0000"
     property color bezelColor: "#b2b2b2"
     property color bezelBorderColor: "#616161"
     property color screenColor: "#02d20b"
@@ -64,8 +64,6 @@ Window {
         }
     }
 
-
-    //JUMP-TO Attack Update Functions
     // Function to update attack information based on selectedIndex
     function updateAttackInfo() {
         if (cards[selectedIndex]) {
@@ -75,8 +73,6 @@ Window {
             const defaultCost3 = "Cost 3";
             const defaultCost4 = "Cost 4";
             const defaultCost5 = "Cost 5";
-
-
 
             // Create costs objects from the selected card for each attack
             const attack1Costs = {
@@ -126,38 +122,6 @@ Window {
     // Function to update ability information based on selectedIndex
     function updateAbilityInfo() {
 
-
-
-        // // console.log("updateAbilityInfo called...");
-        // if (cards[selectedIndex]) {
-        //     // Update ability text fields first
-        //     ability1NameText.text = cards[selectedIndex].ability1Name
-        //             || "Ability 1"
-        //     ability1DescriptionDropText.text = cards[selectedIndex].ability1Text
-        //             || "No description available."
-        //     ability1TypeText.text = cards[selectedIndex].ability1Type || "Ability 1 Type"
-
-        //     ability2NameText.text = cards[selectedIndex].ability2Name
-        //             || "Ability 2"
-        //     ability2DescriptionDropText.text = cards[selectedIndex].ability2Text
-        //             || "No description available."
-        //     ability2TypeText.text = cards[selectedIndex].ability2Type || "Ability 2 Type"
-
-        //     // Set visibility for each ability based on the card data
-        //     ability1NameBlock.visible = cards[selectedIndex].ability1Name !== "Ability 1" && cards[selectedIndex].ability1Name !== ""
-        //     ability1DescriptionBlock.visible = ability1NameBlock.visible
-        //     ability1TypeBlock.visible = ability1NameBlock.visible
-        //     //ability1TypeBlock.visible = ability1NameBlock.visible && ability1DescriptionDropText.text === "No description available." ? 75 : 136
-
-        //     ability2NameBlock.visible = cards[selectedIndex].ability2Name !== "Ability 2"
-        //             && cards[selectedIndex].ability2Name !== ""
-        //     ability2DescriptionBlock.visible = ability2NameBlock.visible
-        //     ability2TypeBlock.visible = ability2NameBlock.visible
-        //     ability2DescriptionBlock.height = ability2DescriptionBlock.visible
-        //             && ability2DescriptionDropText.text === "No description available." ? 75 : 136
-        // }
-
-        // console.log("updateAbilityInfo called...");
         if (cards[selectedIndex]) {
             // Update ability text fields first
             ability1.nameText = cards[selectedIndex].ability1Name
@@ -180,41 +144,26 @@ Window {
 
     function updateSubTypeInfo() {
         if(cards[selectedIndex]) {
-            subtype1Text.text = cards[selectedIndex].subtype1
+            //subtypeBlock.subtype1
+            subtypeBlock.sub1Text = cards[selectedIndex].subtype1
                     || "Sub Type 1"
-        }
-
-        if(cards[selectedIndex]) {
-            subtype2Text.text = cards[selectedIndex].subtype2
+            subtypeBlock.sub2Text = cards[selectedIndex].subtype2
                     || "Sub Type 2"
-        }
-
-        if(cards[selectedIndex]) {
-            subtype3Text.text = cards[selectedIndex].subtype3
+            subtypeBlock.sub3Text = cards[selectedIndex].subtype3
                     || "Sub Type 3"
-        }
-
-        if(cards[selectedIndex]) {
-            subtype4Text.text = cards[selectedIndex].subtype4
+            subtypeBlock.sub4Text = cards[selectedIndex].subtype4
                     || "Sub Type 4"
+
+            subtypeBlock.updateSubTypeInfo();
+
+            if(!subtypeBlock.visible && !typeBlock.visible) {
+                typesRow.height = 0;
+            }
+            else {
+                typesRow.height = 106;
+            }
         }
 
-        // Set visibility for each ability based on the card data
-        subtype1Block.visible = cards[selectedIndex].subtype1 !== "Sub Type 1" && cards[selectedIndex].subtype1 !== ""
-        subtype2Block.visible = cards[selectedIndex].subtype2 !== "Sub Type 2" && cards[selectedIndex].subtype2 !== ""
-        subtype3Block.visible = cards[selectedIndex].subtype3 !== "Sub Type 3" && cards[selectedIndex].subtype3 !== ""
-        subtype4Block.visible = cards[selectedIndex].subtype4 !== "Sub Type 4" && cards[selectedIndex].subtype4 !== ""
-
-        if (subtype1Block.visible && !subtype2Block.visible && !subtype3Block.visible && !subtype4Block.visible ||
-                subtype1Block.visible && subtype2Block.visible && subtype3Block.visible && !subtype4Block.visible) {
-            subtype1Block.width = 250;
-        } else if (subtype1Block.visible && subtype2Block.visible && !subtype3Block.visible && !subtype4Block.visible) {
-            subtype1Block.width = 122;
-        } else {
-            subtype1Block.width = 122; // Set a fallback width if needed
-        }        //subtype2Block.width = subtype3Block.visible ? 85 : 175
-
-        subtypeBlock.height = subtype3Block.visible ? subtype1Block.height * 2 : subtype1Block.height
     }
 
     function updateSuperTypeInfo() {
@@ -222,7 +171,6 @@ Window {
             supertypeText.text = cards[selectedIndex].supertype
                     || "Super Type"
         }
-
     }
 
     function updateTypeInfo() {
@@ -243,12 +191,13 @@ Window {
             "dragon": "dragonEnergyCropped.png",
             "colorless": "colorlessEnergyCropped.png"
         };
+
         // Check if the card exists
         if (!cards[selectedIndex]) {
             // console.log("cards[selectedIndex] doesn't exist")
             // Reset to defaults if no card is selected
-            type1.type = defaultType1;
-            type2.type = defaultType2;
+            typeBlock.type1Type = defaultType1;
+            typeBlock.type2Type= defaultType2;
             return; // Exit early if no card is found
         }
         else {
@@ -259,9 +208,145 @@ Window {
         const normalizedType1 = cards[selectedIndex]?.type1?.trim().toLowerCase() || "";
         const normalizedType2 = cards[selectedIndex]?.type2?.trim().toLowerCase() || "";
 
-        type1.type = normalizedType1 || defaultType1;
-        type2.type = normalizedType2 || defaultType2;
+        typeBlock.type1Type = normalizedType1 || defaultType1;
+        typeBlock.type2Type = normalizedType2 || defaultType2;
+
+        if(typeBlock.type1Type === defaultType1 && typeBlock.type2Type === defaultType2) {
+
+            typeBlock.visible = false;
+        }
+        else {
+            typeBlock.visible = true;
+        }
+
+        if(typeBlock.visible && subtypeBlock.visible) {
+
+            typesRow.width = typeBlock.width + subtypeBlock.width
+
+        } else if (typeBlock.visible && !subtypeBlock.visible) {
+
+            typesRow.width = typeBlock.width
+
+        } else if (!typeBlock.visible && subtypeBlock.visible) {
+            typesRow.width = subtypeBlock.width
+        }
+
+
     }
+
+    function updateFlavorText() {
+        if(cards[selectedIndex] && cards[selectedIndex].flavorText !== "") {
+            // console.log();
+            flavorTextBlock.descText = cards[selectedIndex].flavorText;
+            rule1TextBlock.descText = cards[selectedIndex].rule1;
+            rule2TextBlock.descText = cards[selectedIndex].rule2;
+            rule3TextBlock.descText = cards[selectedIndex].rule3;
+            rule4TextBlock.descText = cards[selectedIndex].rule4;
+
+            flavorTextBlock.visible = flavorTextBlock.descText !== "" && flavorTextBlock.descText !== "Flavor Text"
+            rule1TextBlock.visible = rule1TextBlock.descText !== "" && rule1TextBlock.descText !== "Rule 1"
+            rule2TextBlock.visible = rule2TextBlock.descText !== "" && rule2TextBlock.descText !== "Rule 2"
+            rule3TextBlock.visible = rule3TextBlock.descText !== "" && rule3TextBlock.descText !== "Rule 3"
+            rule4TextBlock.visible = rule4TextBlock.descText !== "" && rule4TextBlock.descText !== "Rule 4"
+        }
+    }
+
+    function updateLeftScrollView() {
+        let leftContentHeight = 0;
+        let visibleItemsCount = 0; // Counter for visible items
+
+        // Check and add heights for attack blocks
+        if (attack1Block.visible) {
+            leftContentHeight += attack1Block.height;
+            visibleItemsCount++;
+        }
+        if (attack2Block.visible) {
+            leftContentHeight += attack2Block.height;
+            visibleItemsCount++;
+        }
+        if (attack3Block.visible) {
+            leftContentHeight += attack3Block.height;
+            visibleItemsCount++;
+        }
+        if (attack4Block.visible) {
+            leftContentHeight += attack4Block.height;
+            visibleItemsCount++;
+        }
+
+        // Check and add heights for ability blocks
+        if (ability1.visible) {
+            leftContentHeight += ability1.height;
+            visibleItemsCount++;
+        }
+        if (ability2.visible) {
+            leftContentHeight += ability2.height;
+            visibleItemsCount++;
+        }
+
+        // Check and add heights for rule text blocks
+        if (rule1TextBlock.visible) {
+            leftContentHeight += rule1TextBlock.height;
+            visibleItemsCount++;
+        }
+        if (rule2TextBlock.visible) {
+            leftContentHeight += rule2TextBlock.height;
+            visibleItemsCount++;
+        }
+        if (rule3TextBlock.visible) {
+            leftContentHeight += rule3TextBlock.height;
+            visibleItemsCount++;
+        }
+        if (rule4TextBlock.visible) {
+            leftContentHeight += rule4TextBlock.height;
+            visibleItemsCount++;
+        }
+
+        // Add spacing for the visible items, if there are any
+        if (visibleItemsCount > 0) {
+            leftContentHeight += (visibleItemsCount - 1) * leftSideColumn.spacing; // Spacing between elements
+        }
+
+        leftScrollView.contentHeight = leftContentHeight; // Set the final content height
+    }
+
+    function updateRightScrollView() {
+        let rightContentHeight = 0;
+        let visibleItemsCount = 0; // Counter for visible items
+
+        // Check and add heights for the items in the rightSideColumn
+        if (typesRow.visible) {
+            rightContentHeight += typesRow.height;
+            visibleItemsCount++;
+        }
+        if (supertypeBlock.visible) {
+            rightContentHeight += supertypeBlock.height;
+            visibleItemsCount++;
+        }
+        if (nameBlock.visible) {
+            rightContentHeight += nameBlock.height;
+            visibleItemsCount++;
+        }
+        if (flavorTextBlock.visible) {
+            rightContentHeight += flavorTextBlock.height;
+            visibleItemsCount++;
+        }
+        if (setLogoBlock.visible) {
+            rightContentHeight += setLogoBlock.height;
+            visibleItemsCount++;
+        }
+        if (setSymbolRow.visible) {
+            rightContentHeight += setSymbolRow.height;
+            visibleItemsCount++;
+        }
+
+        // Add spacing for the visible items, if there are any
+        if (visibleItemsCount > 0) {
+            rightContentHeight += (visibleItemsCount - 1) * rightSideColumn.spacing; // Spacing between elements
+        }
+
+        rightScrollView.contentHeight = rightContentHeight; // Set the final content height
+    }
+
 
 
     function resetCardRotation() {
@@ -287,9 +372,12 @@ Window {
             updateSubTypeInfo();
             updateSuperTypeInfo();
             updateTypeInfo();
+            updateFlavorText();
             resetLeftColumnScroll();
             resetRightColumnScroll();
             resetCardRotation();
+            updateLeftScrollView();
+            updateRightScrollView();
         }
     }
 
@@ -302,9 +390,12 @@ Window {
             updateSubTypeInfo();
             updateSuperTypeInfo();
             updateTypeInfo();
+            updateFlavorText();
             resetLeftColumnScroll();
             resetRightColumnScroll();
             resetCardRotation();
+            updateLeftScrollView();
+            updateRightScrollView();
         }
     }
 
@@ -365,7 +456,6 @@ Window {
                 }
 
                 hoverEnabled: true
-
                 ToolTip.delay: 800
                 ToolTip.timeout: 5000
                 ToolTip.visible: hovered
@@ -396,7 +486,6 @@ Window {
                 }
 
                 hoverEnabled: true
-
                 ToolTip.delay: 800
                 ToolTip.timeout: 5000
                 ToolTip.visible: hovered
@@ -462,18 +551,16 @@ Window {
                             Layout.fillWidth: true
                             Layout.preferredHeight: 40
                             Layout.topMargin: 0
-                            //bottomPadding: 0
-                            contentHeight: 30
+                            toolbarContentHeight: 30
                             height: 60
                             anchors.left: parent.left
                             anchors.right: parent.right
                             anchors.leftMargin: 0
                             anchors.rightMargin: 0
+                            z: 2
                             waterChecked: false
                             darknessChecked: false
                             Layout.preferredWidth: 500
-                            // horizontalPadding: 0
-                            // verticalPadding: 0
 
                             // Dynamic ListModel for sets
                             setsModel: ListModel {
@@ -489,19 +576,7 @@ Window {
                             Layout.preferredWidth: 600
                             Layout.fillHeight: false
                             Layout.fillWidth: true
-                            // anchors.verticalCenter: searchFilterTools.verticalCenter
-                            // anchors.left: parent.left
-                            // anchors.right: parent.right
-                            // anchors.top: parent.top
-                            // anchors.bottom: _item
-                            // anchors.leftMargin: 0
-                            // anchors.rightMargin: 0
-                            // anchors.topMargin: 0
-                            // anchors.bottomMargin: 0
-                            // Layout.preferredHeight: 40
-                            // Layout.preferredWidth: 500
-                            // Layout.fillHeight: true
-                            // Layout.fillWidth: true
+
                             Row {
                                 id: searchRow
                                 x: 0
@@ -512,17 +587,18 @@ Window {
 
                                 ComboBox {
                                     id: setComboBox
+                                    width: 264
                                     height: 25
                                     anchors.verticalCenter: parent.verticalCenter
-                                    anchors.left: parent.left
-                                    anchors.right: txtSearchBox.left
+                                    //anchors.left: parent.left
+                                    //anchors.right: txtSearchBox.left
                                     anchors.leftMargin: 2
                                     anchors.rightMargin: 6
                                     Layout.leftMargin: 6
                                     Layout.preferredHeight: -1
                                     Layout.preferredWidth: -1
-                                    Layout.fillHeight: false
-                                    Layout.fillWidth: true
+                                    //Layout.fillHeight: false
+                                    //Layout.fillWidth: true
                                     displayText: "Sets"
 
                                     model: setsModel
@@ -619,27 +695,17 @@ Window {
                                     x: 111
                                     width: 240
                                     height: 25
-                                    text: "Rayquaza"
+                                    text: "Deoxys"
                                     anchors.verticalCenter: parent.verticalCenter
-                                    anchors.right: btnSearch.left
-                                    anchors.rightMargin: 6
-                                    Layout.fillHeight: false
-                                    //anchors.verticalCenter: btnSearch.verticalCenter
-                                    //anchors.left: parent.left
-                                    //anchors.left: btnSearch.right
-                                    // anchors.top: parent.top
-                                    // anchors.bottom: parent.bottom
-                                    //anchors.leftMargin: 4
-                                    //anchors.topMargin: 4
-                                    //anchors.bottomMargin: 4
-                                    //anchors.top: parent.top
-                                    //anchors.bottom: parent.bottom
+                                    //anchors.right: btnSearch.left
+                                    //anchors.rightMargin: 6
+                                    //Layout.fillHeight: false
                                     z: 1
-                                    Layout.leftMargin: 6
+                                    //Layout.leftMargin: 6
                                     Layout.preferredHeight: 25
                                     Layout.preferredWidth: 200
                                     placeholderText: qsTr("Enter card name")
-                                    Layout.fillWidth: true
+                                    //Layout.fillWidth: true
 
                                     Rectangle {
                                         id: rectangle7
@@ -663,13 +729,13 @@ Window {
                                     height: 25
                                     text: qsTr("Search")
                                     anchors.verticalCenter: parent.verticalCenter
-                                    anchors.right: parent.right
-                                    anchors.rightMargin: -585
+                                    //   anchors.right: parent.right
+                                    //  anchors.rightMargin: -585
                                     z: 1
                                     font.styleName: "Bold Italic"
-                                    Layout.fillHeight: false
-                                    Layout.rightMargin: 6
-                                    Layout.fillWidth: false
+                                    // Layout.fillHeight: false
+                                    // Layout.rightMargin: 6
+                                    //Layout.fillWidth: false
                                     palette {
                                         button: "blue"
                                     }
@@ -682,7 +748,6 @@ Window {
 
                                     // Change scale when hovered
                                     scale: hovered ? 1.05 : 1.0
-
 
                                     onClicked: {
                                         // Initialize an empty array for the search parameters
@@ -758,7 +823,6 @@ Window {
                                                 var tupleString = "[" + searchParams[paramIndex][0] + ", "
                                                         + searchParams[paramIndex][1] + ", "
                                                         + searchParams[paramIndex][2] + "]"
-                                                console.log(tupleString);
                                             }
                                             backendController.request_search(
                                                         searchParams)
@@ -1248,7 +1312,7 @@ Window {
 
                                 Flickable {
                                     id: leftScrollView
-                                    width: 250
+                                    width: 260
                                     anchors.left: parent.left
                                     anchors.top: parent.top
                                     anchors.bottom: parent.bottom
@@ -1260,23 +1324,95 @@ Window {
                                     boundsBehavior: Flickable.DragOverBounds
                                     boundsMovement: Flickable.FollowBoundsBehavior
                                     flickableDirection: Flickable.VerticalFlick
-                                    contentHeight: 1170 // Set a suitable height for your content
+                                    contentHeight: 506 // Set a suitable height for your content
 
                                     // First attack
                                     Column {
-                                        id: column
-                                        x: 0
-                                        width: 250
-                                        height: 1132
-                                        anchors.top: parent.top
-                                        anchors.topMargin: 4
-                                        spacing: 8
+                                        id: leftSideColumn
+                                        x: 5
+                                        y: 0
+                                        width: 283
+                                        height: 446
+                                        // anchors.verticalCenter: parent.verticalCenter
+                                        // anchors.verticalCenterOffset: -16
+                                        spacing: 4
+
+                                        FlavorTextBlock {
+                                            id: rule1TextBlock
+
+                                            blockBG: window.blockBG
+                                            screenColor: window.screenColor
+                                            screenShadeColor: window.screenShadeColor
+                                            bezelColor: window.bezelColor
+                                            bezelBorderColor: window.bezelBorderColor
+                                            screenHighlightColor: window.screenHighlightColor
+
+                                            width: 250
+                                            height: 100
+                                            //  anchors.top: parent.top
+
+                                            descText: "Rule 1"
+                                        }
+
+                                        FlavorTextBlock {
+                                            id: rule2TextBlock
+
+                                            blockBG: window.blockBG
+                                            screenColor: window.screenColor
+                                            screenShadeColor: window.screenShadeColor
+                                            bezelColor: window.bezelColor
+                                            bezelBorderColor: window.bezelBorderColor
+                                            screenHighlightColor: window.screenHighlightColor
+
+                                            width: 250
+                                            height: 100
+                                            visible: false
+                                            //  anchors.top: parent.top
+
+                                            descText: "Rule 2"
+                                        }
+
+                                        FlavorTextBlock {
+                                            id: rule3TextBlock
+
+                                            blockBG: window.blockBG
+                                            screenColor: window.screenColor
+                                            screenShadeColor: window.screenShadeColor
+                                            bezelColor: window.bezelColor
+                                            bezelBorderColor: window.bezelBorderColor
+                                            screenHighlightColor: window.screenHighlightColor
+
+                                            width: 250
+                                            height: 100
+                                            visible: false
+                                            //  anchors.top: parent.top
+
+                                            descText: "Rule 3"
+                                        }
+
+                                        FlavorTextBlock {
+                                            id: rule4TextBlock
+
+                                            blockBG: window.blockBG
+                                            screenColor: window.screenColor
+                                            screenShadeColor: window.screenShadeColor
+                                            bezelColor: window.bezelColor
+                                            bezelBorderColor: window.bezelBorderColor
+                                            screenHighlightColor: window.screenHighlightColor
+
+                                            width: 250
+                                            height: 100
+                                            visible: false
+                                            //  anchors.top: parent.top
+
+                                            descText: "Rule 4"
+                                        }
 
                                         AttackInfoBlock {
                                             id: attack1Block
                                             width: 250
                                             height: 200
-                                            visible: false
+                                            visible: true
                                             nameText: "Attack 1"
                                             mainColor: window.primaryColor
                                             bezelColor: window.bezelColor
@@ -1287,6 +1423,10 @@ Window {
                                             dropBorderColor: window.dropBorderColor
                                             //anchors.horizontalCenter: parent.anchors.horizontalCenter
                                         }
+
+
+
+
 
                                         AttackInfoBlock {
                                             id: attack2Block
@@ -1304,6 +1444,10 @@ Window {
                                             //anchors.horizontalCenter: parent.horizontalCenter
                                         }
 
+
+
+
+
                                         AttackInfoBlock {
                                             id: attack3Block
                                             width: 250
@@ -1319,6 +1463,10 @@ Window {
                                             dropBorderColor: window.dropBorderColor
                                             //anchors.horizontalCenter: parent.horizontalCenter
                                         }
+
+
+
+
 
                                         AttackInfoBlock {
                                             id: attack4Block
@@ -1336,6 +1484,10 @@ Window {
                                             //anchors.horizontalCenter: parent.horizontalCenter
                                         }
 
+
+
+
+
                                         AbilityInfoBlock {
                                             id: ability1
                                             width: 250
@@ -1344,22 +1496,31 @@ Window {
                                             descText: "Ability 1 Description"
                                         }
 
+
+
+
+
                                         AbilityInfoBlock {
                                             id: ability2
                                             width: 250
+                                            visible: false
                                             nameText: "Ability 2"
                                             typeText: "Ability 2 Type"
                                             descText: "Ability 2 Description"
                                         }
+
+
+
+
                                     }
                                 }
                                 Flickable {
                                     id: rightScrollView
-                                    height: 399
+                                    height: 430
                                     anchors.left: leftScrollView.right
                                     anchors.right: parent.right
                                     anchors.top: parent.top
-                                    anchors.leftMargin: 4
+                                    anchors.leftMargin: 18
                                     anchors.rightMargin: 4
                                     anchors.topMargin: 4
                                     contentX: 0
@@ -1368,23 +1529,21 @@ Window {
                                     clip: false
                                     boundsBehavior: Flickable.DragOverBounds
                                     boundsMovement: Flickable.FollowBoundsBehavior
-                                    // Adjust width as needed
-                                    // Set a height that fits your layout
-                                    contentHeight: 500 // Set a suitable height for your content
+                                    contentHeight: 645 // Set a suitable height for your content
 
                                     Column {
                                         id: rightSideColumn
-                                        x: 33
+                                        x: 0
                                         y: 0
-                                        width: 257
-                                        height: 435
+                                        width: 276
+                                        height: 430
 
                                         spacing: 3
 
 
                                         Rectangle {
                                             id: supertypeBlock
-                                            width: 200
+                                            width: 190
                                             height: 40
                                             color: "#c80d0d"
                                             radius: 8
@@ -1493,12 +1652,12 @@ Window {
 
                                         Rectangle {
                                             id: nameBlock
-                                            width: 250
+                                            width: 240
                                             height: 70
                                             color: "#c80d0d"
                                             radius: 8
-                                            border.color: "#6c0101"
-                                            border.width: 2
+                                            border.color: borderColor
+                                            border.width: 1
                                             anchors.horizontalCenter: parent.horizontalCenter
 
                                             Rectangle {
@@ -1607,790 +1766,109 @@ Window {
                                         }
 
 
-                                        Rectangle {
-                                            id: typeBlock
-                                            width: 110
-                                            height: 55
-                                            color: "#ff0000"
-                                            radius: 6
-                                            border.color: "#006c0101"
-                                            border.width: 0
+                                        Row {
+                                            id: typesRow
+                                            width: 221
+                                            height: 106
+                                            spacing: 4
                                             anchors.horizontalCenter: parent.horizontalCenter
 
-                                            Row {
-                                                id: typeFlow
-                                                width: 105
-                                                height: 50
+                                            TypeBlock {
+                                                id: typeBlock
+                                                border.color: borderColor
+                                                border.width: 1
                                                 anchors.verticalCenter: parent.verticalCenter
-                                                anchors.verticalCenterOffset: -1
-                                                anchors.horizontalCenterOffset: 1
-                                                anchors.horizontalCenter: parent.horizontalCenter
-                                                layoutDirection: Qt.LeftToRight
-                                                spacing: 4
+                                                color: "#ff0000"
+                                                height: 106
+                                                radius: 8
+                                                width: 55
+                                                type1Type: "Type 1"
+                                                type2Type: "Type 2"
 
-                                                TypeBlock{
-                                                    id: type1
-                                                    type: ""
-                                                }
-                                                TypeBlock{
-                                                    id: type2
-                                                    type: ""
-                                                }
+                                            }
+
+                                            SubtypeBlock {
+                                                id: subtypeBlock
+                                                border.color: "#006c0101"
+                                                border.width: 0
+                                                anchors.verticalCenter: parent.verticalCenter
+                                                blockBorderColor: "#6c0101"
+                                                color: window.blockBG
+                                                height: 106
+                                                radius: 6
+                                                width: 164
+
+                                                sub1Text: "Subtype 1"
+                                                sub2Text: "Subtype 2"
+                                                sub3Text: "Subtype 3"
+                                                sub4Text: "Subtype 4"
                                             }
                                         }
 
-                                        Rectangle {
-                                            id: subtypeBlock
-                                            width: 250
-                                            height: 125
-                                            color: window.primaryColor
-                                            radius: 6
-                                            border.color: "#006c0101"
-                                            border.width: 0
+
+
+                                        FlavorTextBlock {
+                                            id: flavorTextBlock
+
+                                            blockBG: window.blockBG
+                                            screenColor: window.screenColor
+                                            screenShadeColor: window.screenShadeColor
+                                            bezelColor: window.bezelColor
+                                            bezelBorderColor: window.bezelBorderColor
+                                            screenHighlightColor: window.screenHighlightColor
+
+                                            width: 225
+                                            height: 150
+                                            visible: true
                                             anchors.horizontalCenter: parent.horizontalCenter
+                                            //  anchors.top: parent.top
 
-                                            Flow {
-                                                id: subtypeFlow
-                                                anchors.left: parent.left
-                                                anchors.right: parent.right
-                                                layoutDirection: Qt.LeftToRight
-                                                spacing: 3
-                                                flow: Flow.LeftToRight
-
-                                                Rectangle {
-                                                    id: subtype1Block
-                                                    width: 122
-                                                    height: 60
-                                                    visible: true
-                                                    color: "#c80d0d"
-                                                    radius: 6
-                                                    border.color: "#6c0101"
-                                                    border.width: 2
-
-                                                    Rectangle {
-                                                        id: subtype1Bezel
-                                                        visible: true
-                                                        color: "#b2b2b2"
-                                                        radius: 8
-                                                        border.color: "#616161"
-                                                        border.width: 2
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 4
-                                                        anchors.rightMargin: 4
-                                                        anchors.topMargin: 4
-                                                        anchors.bottomMargin: 4
-                                                        Layout.preferredHeight: 60
-                                                        Layout.preferredWidth: 60
-                                                        Layout.fillHeight: true
-                                                        Layout.fillWidth: true
-
-                                                        Rectangle {
-                                                            id: subtype1Screen
-                                                            x: 7
-                                                            y: 4
-                                                            color: screenColor
-                                                            radius: 4
-                                                            border.color: "#128c17"
-                                                            border.width: 2
-                                                            anchors.fill: parent
-                                                            anchors.leftMargin: 6
-                                                            anchors.rightMargin: 6
-                                                            anchors.topMargin: 6
-                                                            anchors.bottomMargin: 6
-                                                            Text {
-                                                                id: subtype1Text
-                                                                color: "#c5002a02"
-                                                                text: "Sub Type 1"
-                                                                anchors.fill: parent
-                                                                anchors.leftMargin: 4
-                                                                anchors.rightMargin: 4
-                                                                anchors.topMargin: 4
-                                                                anchors.bottomMargin: 4
-                                                                horizontalAlignment: Text.AlignHCenter
-                                                                verticalAlignment: Text.AlignVCenter
-                                                                wrapMode: Text.Wrap
-                                                                state: "base state4"
-                                                                z: 1
-                                                                minimumPointSize: 6
-                                                                minimumPixelSize: 6
-                                                                fontSizeMode: Text.Fit
-                                                                font.styleName: "Bold Italic"
-                                                                font.pointSize: 30
-                                                            }
-
-                                                            DropShadow {
-                                                                id: subtype1DropShadow
-                                                                opacity: 0.8
-                                                                color: "#095f0c"
-                                                                radius: 3.8
-                                                                anchors.fill: subtype1Text
-                                                                source: subtype1Text
-                                                                verticalOffset: 3
-                                                                samples: 16
-                                                                horizontalOffset: 3
-                                                            }
-
-                                                            Text {
-                                                                id: subtype1DropText
-                                                                visible: false
-                                                                color: "#2a7b2d"
-                                                                text: subtype1Text.text
-                                                                anchors.fill: parent
-                                                                anchors.leftMargin: 4
-                                                                anchors.rightMargin: 4
-                                                                anchors.topMargin: 4
-                                                                anchors.bottomMargin: 4
-                                                                horizontalAlignment: Text.AlignHCenter
-                                                                verticalAlignment: Text.AlignVCenter
-                                                                wrapMode: Text.Wrap
-                                                                z: 0
-                                                                minimumPointSize: 6
-                                                                minimumPixelSize: 6
-                                                                fontSizeMode: Text.Fit
-                                                                font.styleName: "Bold Italic"
-                                                                font.pointSize: 30
-                                                            }
-
-                                                            Rectangle {
-                                                                id: subtype1BlockHighlight
-                                                                x: -8
-                                                                y: -4
-                                                                color: "#00ffffff"
-                                                                radius: 4
-                                                                border.color: "#25fb2e"
-                                                                border.width: 1
-                                                                anchors.fill: parent
-                                                                anchors.leftMargin: 3
-                                                                anchors.rightMargin: 3
-                                                                anchors.topMargin: 3
-                                                                anchors.bottomMargin: 3
-                                                            }
-                                                            clip: true
-                                                        }
-                                                    }
-
-                                                }
-
-                                                Rectangle {
-                                                    id: subtype2Block
-                                                    width: 122
-                                                    height: 60
-                                                    visible: true
-                                                    color: "#c80d0d"
-                                                    radius: 6
-                                                    border.color: "#6c0101"
-                                                    border.width: 2
-                                                    Rectangle {
-                                                        id: subtype2Bezel
-                                                        color: "#b2b2b2"
-                                                        radius: 8
-                                                        border.color: "#616161"
-                                                        border.width: 2
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 4
-                                                        anchors.rightMargin: 4
-                                                        anchors.topMargin: 4
-                                                        anchors.bottomMargin: 4
-                                                        Layout.preferredWidth: 60
-                                                        Layout.preferredHeight: 60
-                                                        Layout.fillHeight: true
-                                                        Layout.fillWidth: true
-                                                        Rectangle {
-                                                            id: subtype2Screen
-                                                            x: 7
-                                                            y: 4
-                                                            color: screenColor
-                                                            radius: 4
-                                                            border.color: "#128c17"
-                                                            border.width: 2
-                                                            anchors.fill: parent
-                                                            anchors.leftMargin: 6
-                                                            anchors.rightMargin: 6
-                                                            anchors.topMargin: 6
-                                                            anchors.bottomMargin: 6
-                                                            Text {
-                                                                id: subtype2Text
-                                                                color: "#c5002a02"
-                                                                text: "Sub Type 2"
-                                                                // anchors.verticalCenter: subtype2DropShadow.verticalCenter
-                                                                //anchors.right: subtype2DropShadow.left
-                                                                anchors.fill: parent
-                                                                anchors.leftMargin: 4
-                                                                anchors.rightMargin: 4
-                                                                anchors.topMargin: 4
-                                                                anchors.bottomMargin: 4
-                                                                horizontalAlignment: Text.AlignHCenter
-                                                                verticalAlignment: Text.AlignVCenter
-                                                                wrapMode: Text.Wrap
-                                                                z: 1
-                                                                minimumPointSize: 6
-                                                                minimumPixelSize: 6
-                                                                fontSizeMode: Text.Fit
-                                                                font.styleName: "Bold Italic"
-                                                                font.pointSize: 30
-                                                            }
-
-                                                            DropShadow {
-                                                                id: subtype2DropShadow
-                                                                opacity: 0.8
-                                                                color: "#095f0c"
-                                                                radius: 3.8
-                                                                anchors.fill: subtype2Text
-                                                                source: subtype2Text
-                                                                verticalOffset: 3
-                                                                samples: 16
-                                                                horizontalOffset: 3
-                                                            }
-
-                                                            Text {
-                                                                id: subtype2DropText
-                                                                visible: false
-                                                                color: "#2a7b2d"
-                                                                text: subtype2Text.text
-                                                                anchors.fill: parent
-                                                                anchors.leftMargin: 4
-                                                                anchors.rightMargin: 4
-                                                                anchors.topMargin: 4
-                                                                anchors.bottomMargin: 4
-                                                                horizontalAlignment: Text.AlignHCenter
-                                                                verticalAlignment: Text.AlignVCenter
-                                                                wrapMode: Text.Wrap
-                                                                z: 0
-                                                                minimumPointSize: 6
-                                                                minimumPixelSize: 6
-                                                                fontSizeMode: Text.Fit
-                                                                font.styleName: "Bold Italic"
-                                                                font.pointSize: 30
-                                                            }
-
-                                                            Rectangle {
-                                                                id: subtype2BlockHighlight
-                                                                x: -8
-                                                                y: -4
-                                                                color: "#00ffffff"
-                                                                radius: 4
-                                                                border.color: "#25fb2e"
-                                                                border.width: 1
-                                                                anchors.fill: parent
-                                                                anchors.leftMargin: 3
-                                                                anchors.rightMargin: 3
-                                                                anchors.topMargin: 3
-                                                                anchors.bottomMargin: 3
-                                                            }
-                                                            clip: true
-                                                        }
-                                                    }
-                                                }
-
-                                                Rectangle {
-                                                    id: subtype3Block
-                                                    width: 122
-                                                    height: 60
-                                                    visible: true
-                                                    color: "#c80d0d"
-                                                    radius: 6
-                                                    border.color: "#6c0101"
-                                                    border.width: 2
-                                                    Rectangle {
-                                                        id: subtype3Bezel
-                                                        color: "#b2b2b2"
-                                                        radius: 8
-                                                        border.color: "#616161"
-                                                        border.width: 2
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 4
-                                                        anchors.rightMargin: 4
-                                                        anchors.topMargin: 4
-                                                        anchors.bottomMargin: 4
-                                                        Rectangle {
-                                                            id: subtype3Screen
-                                                            x: 7
-                                                            y: 4
-                                                            color: screenColor
-                                                            radius: 4
-                                                            border.color: "#128c17"
-                                                            border.width: 2
-                                                            anchors.fill: parent
-                                                            anchors.leftMargin: 6
-                                                            anchors.rightMargin: 6
-                                                            anchors.topMargin: 6
-                                                            anchors.bottomMargin: 6
-                                                            Text {
-                                                                id: subtype3Text
-                                                                color: "#c5002a02"
-                                                                text: "Sub Type 3"
-                                                                //anchors.verticalCenter: subtype3DropShadow.verticalCenter
-                                                                //anchors.right: subtype3DropShadow.left
-                                                                anchors.fill: parent
-                                                                anchors.leftMargin: 4
-                                                                anchors.rightMargin: 4
-                                                                anchors.topMargin: 4
-                                                                anchors.bottomMargin: 4
-                                                                horizontalAlignment: Text.AlignHCenter
-                                                                verticalAlignment: Text.AlignVCenter
-                                                                wrapMode: Text.Wrap
-                                                                z: 1
-                                                                minimumPointSize: 6
-                                                                minimumPixelSize: 6
-                                                                fontSizeMode: Text.Fit
-                                                                font.styleName: "Bold Italic"
-                                                                font.pointSize: 30
-                                                            }
-
-                                                            DropShadow {
-                                                                id: subtype3DropShadow
-                                                                opacity: 0.8
-                                                                color: "#095f0c"
-                                                                radius: 3.8
-                                                                anchors.fill: subtype3Text
-                                                                source: subtype3Text
-                                                                verticalOffset: 3
-                                                                samples: 16
-                                                                horizontalOffset: 3
-                                                            }
-
-                                                            Text {
-                                                                id: subtype3DropText
-                                                                visible: false
-                                                                color: "#2a7b2d"
-                                                                text: "Sub Type 3"
-                                                                anchors.fill: parent
-                                                                anchors.leftMargin: 4
-                                                                anchors.rightMargin: 4
-                                                                anchors.topMargin: 4
-                                                                anchors.bottomMargin: 4
-                                                                horizontalAlignment: Text.AlignHCenter
-                                                                verticalAlignment: Text.AlignVCenter
-                                                                wrapMode: Text.Wrap
-                                                                z: 0
-                                                                minimumPointSize: 6
-                                                                minimumPixelSize: 6
-                                                                fontSizeMode: Text.Fit
-                                                                font.styleName: "Bold Italic"
-                                                                font.pointSize: 30
-                                                            }
-
-                                                            Rectangle {
-                                                                id: subtype3BlockHighlight
-                                                                x: -8
-                                                                y: -4
-                                                                color: "#00ffffff"
-                                                                radius: 4
-                                                                border.color: "#25fb2e"
-                                                                border.width: 1
-                                                                anchors.fill: parent
-                                                                anchors.leftMargin: 3
-                                                                anchors.rightMargin: 3
-                                                                anchors.topMargin: 3
-                                                                anchors.bottomMargin: 3
-                                                            }
-                                                            clip: true
-                                                        }
-                                                        Layout.preferredWidth: 60
-                                                        Layout.preferredHeight: 60
-                                                        Layout.fillWidth: true
-                                                        Layout.fillHeight: true
-                                                    }
-                                                }
-
-                                                Rectangle {
-                                                    id: subtype4Block
-                                                    width: 122
-                                                    height: 60
-                                                    visible: true
-                                                    color: "#c80d0d"
-                                                    radius: 6
-                                                    border.color: "#6c0101"
-                                                    border.width: 2
-
-                                                    Rectangle {
-                                                        id: subtype4Bezel
-                                                        color: "#b2b2b2"
-                                                        radius: 8
-                                                        border.color: "#616161"
-                                                        border.width: 2
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 4
-                                                        anchors.rightMargin: 4
-                                                        anchors.topMargin: 4
-                                                        anchors.bottomMargin: 4
-                                                        Rectangle {
-                                                            id: subtype4Screen
-                                                            x: 7
-                                                            y: 4
-                                                            color: screenColor
-                                                            radius: 4
-                                                            border.color: "#128c17"
-                                                            border.width: 2
-                                                            anchors.fill: parent
-                                                            anchors.leftMargin: 6
-                                                            anchors.rightMargin: 6
-                                                            anchors.topMargin: 6
-                                                            anchors.bottomMargin: 6
-                                                            Text {
-                                                                id: subtype4Text
-                                                                color: "#c5002a02"
-                                                                text: "Sub Type 4"
-                                                                //                                       anchors.right: subtype4DropShadow.left
-                                                                anchors.fill: parent
-                                                                anchors.leftMargin: 4
-                                                                anchors.rightMargin: 4
-                                                                anchors.topMargin: 4
-                                                                anchors.bottomMargin: 4
-                                                                horizontalAlignment: Text.AlignHCenter
-                                                                verticalAlignment: Text.AlignVCenter
-                                                                wrapMode: Text.Wrap
-                                                                z: 1
-                                                                minimumPointSize: 6
-                                                                minimumPixelSize: 6
-                                                                fontSizeMode: Text.Fit
-                                                                font.styleName: "Bold Italic"
-                                                                font.pointSize: 30
-                                                            }
-
-                                                            DropShadow {
-                                                                id: subtype4DropShadow
-                                                                opacity: 0.8
-                                                                color: "#095f0c"
-                                                                radius: 3.8
-                                                                anchors.fill: subtype4Text
-                                                                source: subtype4Text
-                                                                verticalOffset: 3
-                                                                samples: 16
-                                                                horizontalOffset: 3
-                                                            }
-
-                                                            Text {
-                                                                id: subtype4DropText
-                                                                visible: false
-                                                                color: "#2a7b2d"
-                                                                text: "Sub Type 3"
-                                                                anchors.fill: parent
-                                                                anchors.leftMargin: 4
-                                                                anchors.rightMargin: 4
-                                                                anchors.topMargin: 4
-                                                                anchors.bottomMargin: 4
-                                                                horizontalAlignment: Text.AlignHCenter
-                                                                verticalAlignment: Text.AlignVCenter
-                                                                wrapMode: Text.Wrap
-                                                                z: 0
-                                                                minimumPointSize: 6
-                                                                minimumPixelSize: 6
-                                                                fontSizeMode: Text.Fit
-                                                                font.styleName: "Bold Italic"
-                                                                font.pointSize: 30
-                                                            }
-
-                                                            Rectangle {
-                                                                id: subtype4BlockHighlight
-                                                                x: -8
-                                                                y: -4
-                                                                color: "#00ffffff"
-                                                                radius: 4
-                                                                border.color: "#25fb2e"
-                                                                border.width: 1
-                                                                anchors.fill: parent
-                                                                anchors.leftMargin: 3
-                                                                anchors.rightMargin: 3
-                                                                anchors.topMargin: 3
-                                                                anchors.bottomMargin: 3
-                                                            }
-                                                            clip: true
-                                                        }
-                                                        Layout.preferredWidth: 60
-                                                        Layout.preferredHeight: 60
-                                                        Layout.fillWidth: true
-                                                        Layout.fillHeight: true
-                                                    }
-
-                                                }
-                                            }
+                                            descText: "Flavor Text"
                                         }
 
-                                        Rectangle {
+
+                                        SetLogoBlock {
                                             id: setLogoBlock
-                                            width: 250
-                                            height: 200
-                                            color: "#c80d0d"
-                                            radius: 8
+                                            anchors.horizontalCenter: parent.horizontalCenter
                                             border.color: "#6c0101"
                                             border.width: 2
-                                            anchors.horizontalCenter: parent.horizontalCenter
-
-                                            Rectangle {
-                                                id: setLogoBezel
-                                                color: "#b2b2b2"
-                                                radius: 8
-                                                border.color: "#616161"
-                                                border.width: 2
-                                                anchors.fill: parent
-                                                anchors.leftMargin: 6
-                                                anchors.rightMargin: 6
-                                                anchors.topMargin: 6
-                                                anchors.bottomMargin: 6
-                                                state: "base state4"
-
-                                                Rectangle {
-                                                    id: setLogoScreen
-                                                    x: 8
-                                                    y: -1
-                                                    color: screenColor
-                                                    radius: 6
-                                                    border.color: "#095f0c"
-                                                    border.width: 2
-                                                    anchors.fill: parent
-                                                    anchors.leftMargin: 10
-                                                    anchors.rightMargin: 10
-                                                    anchors.topMargin: 6
-                                                    anchors.bottomMargin: 6
-                                                    clip: true
-
-                                                    Text {
-                                                        id: setLogoText
-                                                        color: "#c5002a02"
-                                                        text: (selectedIndex >= 0
-                                                               && selectedIndex < cards.length) ? "" // Fallback if name is undefined
-                                                                                                : "Set Logo"
-                                                        anchors.fill: parent
-                                                        horizontalAlignment: Text.AlignHCenter
-                                                        verticalAlignment: Text.AlignVCenter
-                                                        lineHeight: 0.8
-                                                        wrapMode: Text.Wrap
-                                                        font.family: "Ubuntu Sans"
-                                                        z: 1
-                                                        font.styleName: "ExtraBold Italic"
-                                                        font.italic: false
-                                                        font.bold: false
-                                                        font.pointSize: 32
-                                                        fontSizeMode: Text.Fit
-                                                    }
-
-                                                    // Apply a DropShadow effect to the image
-                                                    DropShadow {
-                                                        anchors.fill: setLogoText
-                                                        source: setLogoText // The image to which we are applying the shadow
-                                                        horizontalOffset: 5 // Adjust X-axis shadow offset
-                                                        verticalOffset: 5 // Adjust Y-axis shadow offset
-                                                        radius: 3.8 // Blur effect, adjust for smoothness
-                                                        samples: 16 // Higher value for smoother shadows
-                                                        color: "#095f0c" // Color of the shadow
-                                                        opacity: 0.8 // Transparency of the shadow
-                                                    }
-
-                                                    Image {
-                                                        id: setLogoImage
-                                                        anchors.verticalCenter: setLogoText.verticalCenter
-                                                        anchors.right: parent.right
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 6
-                                                        anchors.rightMargin: 6
-                                                        anchors.topMargin: 6
-                                                        anchors.bottomMargin: 6
-                                                        source: (selectedIndex >= 0
-                                                                 && selectedIndex < cards.length) ? cards[selectedIndex].setLogo : ""
-                                                        z: 1
-
-                                                        scale: 1
-                                                        fillMode: Image.PreserveAspectFit
-                                                    }
-                                                    // Apply a DropShadow effect to the image
-                                                    DropShadow {
-                                                        anchors.fill: setLogoImage
-                                                        source: setLogoImage // The image to which we are applying the shadow
-                                                        horizontalOffset: 5 // Adjust X-axis shadow offset
-                                                        verticalOffset: 5 // Adjust Y-axis shadow offset
-                                                        radius: 3.8 // Blur effect, adjust for smoothness
-                                                        samples: 16 // Higher value for smoother shadows
-                                                        color: "#095f0c" // Color of the shadow
-                                                        opacity: 0.8 // Transparency of the shadow
-                                                    }
-
-                                                    Text {
-                                                        id: setLogoDropText
-                                                        x: 1
-                                                        y: 2
-                                                        visible: false
-                                                        color: "#2a7b2d"
-                                                        text: (selectedIndex >= 0
-                                                               && selectedIndex < cards.length) ? "" // Fallback if name is undefined
-                                                                                                : "Set Logo"
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 4
-                                                        anchors.rightMargin: -4
-                                                        anchors.topMargin: 4
-                                                        anchors.bottomMargin: -4
-                                                        horizontalAlignment: Text.AlignHCenter
-                                                        verticalAlignment: Text.AlignVCenter
-                                                        lineHeight: 0.8
-                                                        wrapMode: Text.Wrap
-                                                        z: 0
-                                                        fontSizeMode: Text.Fit
-                                                        font.styleName: "ExtraBold Italic"
-                                                        font.pointSize: 32
-                                                        font.italic: false
-                                                        font.family: "Ubuntu Sans"
-                                                        font.bold: false
-                                                    }
-
-                                                    Rectangle {
-                                                        id: rectangle28
-                                                        x: -13
-                                                        y: -9
-                                                        color: "#00ffffff"
-                                                        radius: 4
-                                                        border.color: "#25fb2e"
-                                                        border.width: 1
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 3
-                                                        anchors.rightMargin: 3
-                                                        anchors.topMargin: 3
-                                                        anchors.bottomMargin: 3
-                                                    }
-                                                }
-                                            }
+                                            color: "#c80d0d"
+                                            height: 200
+                                            visible: true
+                                            radius: 8
+                                            width: 225
+                                            logoSource: (selectedIndex >= 0 && selectedIndex < cards.length) ? cards[selectedIndex].setLogo : ""
+                                            logoScreenText: (selectedIndex >= 0
+                                                             && selectedIndex < cards.length) ? "" // Fallback if name is undefined
+                                                                                              : "Set Logo"
                                         }
 
+
                                         Row {
-                                            id: row
-                                            width: 250
+                                            id: setSymbolRow
+                                            width: 200
                                             height: 66
                                             anchors.horizontalCenter: parent.horizontalCenter
                                             spacing: 3
 
-                                            Rectangle {
+                                            SetSymbolBlock {
                                                 id: setSymbolBlock
-                                                width: 75
-                                                height: 65
-                                                color: "#c80d0d"
-                                                radius: 8
                                                 border.color: "#6c0101"
                                                 border.width: 2
-
-                                                Rectangle {
-                                                    id: setSymbolBezel
-                                                    color: "#b2b2b2"
-                                                    radius: 8
-                                                    border.color: "#616161"
-                                                    border.width: 2
-                                                    anchors.fill: parent
-                                                    anchors.leftMargin: 4
-                                                    anchors.rightMargin: 4
-                                                    anchors.topMargin: 3
-                                                    anchors.bottomMargin: 3
-
-                                                    Rectangle {
-                                                        id: setSymbolScreen
-                                                        color: screenColor
-                                                        radius: 6
-                                                        border.color: "#128c17"
-                                                        border.width: 2
-                                                        anchors.fill: parent
-                                                        anchors.leftMargin: 4
-                                                        anchors.rightMargin: 4
-                                                        anchors.topMargin: 4
-                                                        anchors.bottomMargin: 4
-                                                        clip: true
-
-                                                        Image {
-                                                            id: setSymbolImage
-                                                            anchors.fill: parent
-                                                            anchors.leftMargin: 6
-                                                            anchors.rightMargin: 6
-                                                            anchors.topMargin: 6
-                                                            anchors.bottomMargin: 6
-
-                                                            source: (selectedIndex >= 0
-                                                                     && selectedIndex < cards.length) ? cards[selectedIndex].setSymbol : ""
-                                                            z: 1
-                                                            fillMode: Image.PreserveAspectFit
-                                                        }
-                                                        // Apply a DropShadow effect to the image
-                                                        DropShadow {
-                                                            anchors.fill: setSymbolImage
-                                                            source: setSymbolImage // The image to which we are applying the shadow
-                                                            horizontalOffset: 5 // Adjust X-axis shadow offset
-                                                            verticalOffset: 5 // Adjust Y-axis shadow offset
-                                                            radius: 3.8 // Blur effect, adjust for smoothness
-                                                            samples: 16 // Higher value for smoother shadows
-                                                            color: "#095f0c" // Color of the shadow
-                                                            opacity: 0.8 // Transparency of the shadow
-                                                        }
-
-                                                        Text {
-                                                            id: setSymbolText
-                                                            color: "#c5002a02"
-                                                            text: (selectedIndex >= 0
-                                                                   && selectedIndex < cards.length) ? "" // Fallback if name is undefined
-                                                                                                    : "Set Symbol"
-                                                            anchors.fill: parent
-                                                            anchors.leftMargin: 2
-                                                            anchors.rightMargin: 2
-                                                            anchors.topMargin: 2
-                                                            anchors.bottomMargin: 2
-                                                            horizontalAlignment: Text.AlignHCenter
-                                                            verticalAlignment: Text.AlignVCenter
-                                                            wrapMode: Text.Wrap
-                                                            minimumPointSize: 6
-                                                            minimumPixelSize: 6
-                                                            z: 1
-                                                            font.pointSize: 10
-                                                            font.styleName: "ExtraBold Italic"
-                                                            fontSizeMode: Text.Fit
-                                                        }
-
-                                                        // Apply a DropShadow effect to the image
-                                                        DropShadow {
-                                                            anchors.fill: setSymbolText
-                                                            source: setSymbolText // The image to which we are applying the shadow
-                                                            horizontalOffset: 3 // Adjust X-axis shadow offset
-                                                            verticalOffset: 3 // Adjust Y-axis shadow offset
-                                                            radius: 3.8 // Blur effect, adjust for smoothness
-                                                            samples: 16 // Higher value for smoother shadows
-                                                            color: "#095f0c" // Color of the shadow
-                                                            opacity: 0.8 // Transparency of the shadow
-                                                        }
-
-                                                        Text {
-                                                            id: setSymbolDropText
-                                                            color: "#095f0c"
-                                                            text: setSymbolText.text
-                                                            anchors.fill: parent
-                                                            anchors.leftMargin: 2
-                                                            anchors.rightMargin: 2
-                                                            anchors.topMargin: 2
-                                                            anchors.bottomMargin: 2
-                                                            horizontalAlignment: Text.AlignHCenter
-                                                            verticalAlignment: Text.AlignVCenter
-                                                            wrapMode: Text.Wrap
-                                                            minimumPointSize: 6
-                                                            minimumPixelSize: 6
-                                                            z: 0
-                                                            fontSizeMode: Text.Fit
-                                                            font.styleName: "ExtraBold Italic"
-                                                            font.pointSize: 10
-                                                        }
-
-                                                        Rectangle {
-                                                            id: rectangle27
-                                                            x: -5
-                                                            y: -4
-                                                            color: "#00ffffff"
-                                                            radius: 4
-                                                            border.color: "#25fb2e"
-                                                            border.width: 1
-                                                            anchors.fill: parent
-                                                            anchors.leftMargin: 3
-                                                            anchors.rightMargin: 3
-                                                            anchors.topMargin: 3
-                                                            anchors.bottomMargin: 3
-                                                        }
-                                                    }
-                                                }
+                                                color: "#c80d0d"
+                                                height: 65
+                                                radius: 8
+                                                width: 75
+                                                imageSource: (selectedIndex >= 0
+                                                              && selectedIndex < cards.length) ? cards[selectedIndex].setSymbol : ""
+                                                blockText: (selectedIndex >= 0
+                                                            && selectedIndex < cards.length) ? "" // Fallback if name is undefined
+                                                                                             : "Set Symbol"
                                             }
 
                                             Rectangle {
                                                 id: setBlock
-                                                width: 98
+                                                width: 120
                                                 height: 65
                                                 color: "#c80d0d"
                                                 radius: 8
@@ -2498,6 +1976,7 @@ Window {
                                                 }
                                             }
                                         }
+
 
 
 
@@ -2710,6 +2189,13 @@ Window {
                                                       "setSymbol": card.setSymbol,
                                                       "setLogo": card.setLogo,
 
+                                                      "flavorText": card.flavorText,
+
+                                                      "rule1": card.rule1,
+                                                      "rule2": card.rule2,
+                                                      "rule3": card.rule3,
+                                                      "rule4": card.rule4,
+
                                                       // Ability 1
                                                       "ability1Name": card.ability1Name || "",
                                                       "ability1Text": card.ability1Text || "",
@@ -2777,8 +2263,11 @@ Window {
                         updateSubTypeInfo();
                         updateSuperTypeInfo();
                         updateTypeInfo();
+                        updateFlavorText();
                         resetLeftColumnScroll();
                         resetRightColumnScroll();
+                        updateLeftScrollView();
+                        updateRightScrollView();
                         view.visible = true
                     }
                 }
@@ -2822,6 +2311,6 @@ Window {
 
 /*##^##
 Designer {
-    D{i:0}D{i:38;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}D{i:75}D{i:91}
+    D{i:0}D{i:38;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}
 }
 ##^##*/
