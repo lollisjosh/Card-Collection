@@ -11,7 +11,6 @@ from pokemontcgsdk import Rarity
 
 import inithandler
 import searchhandler
-import cardprocessor
 
 
 class BackendController(QObject):
@@ -29,10 +28,10 @@ class BackendController(QObject):
     between signals and slots in the codebase and ensures that the connections are set up correctly.
     """
 
-    setsResults = Signal(str)  # Signal that emits JSON string
-    searchResults = Signal(str)  # Signal that emits JSON string
-    discoverResults = Signal(str)  # Signal that emits JSON string
-    loadResults = Signal(str)  # Signal that emits JSON string
+    sets_results = Signal(str)  # Signal that emits JSON string
+    search_results = Signal(str)  # Signal that emits JSON string
+    discover_results = Signal(str)  # Signal that emits JSON string
+    load_results = Signal(str)  # Signal that emits JSON string
 
     @Slot()
     def request_sets_retrieve(self):

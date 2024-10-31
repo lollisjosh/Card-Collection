@@ -11,6 +11,13 @@
         "requirements.txt",
         "resource.qrc",
         "ball.png",
-        "ballsmall.png"
+        "ballsmall.png",
+        "TypeBlock.qml",
+        "AttackInfoBlock.qml",
+        "AbilityInfoBlock.qml",
+        "MySearchFilterTools.qml",
+        "MySearchTools.qml",
+        "ballsmall.png",
+        "Card3D.qml"
     ]
 }
