@@ -43,11 +43,19 @@ Rectangle {
 
     function updateSubTypeInfo() {
         if (cards[selectedIndex]) {
+
+            let subtype1Visible = sub1Text !== "Sub Type 1" && sub1Text !== "";
+            let subtype2Visible = sub2Text !== "Sub Type 2" && sub2Text !== "";
+            let subtype3Visible = sub3Text !== "Sub Type 3" && sub3Text !== "";
+            let subtype4Visible = sub4Text !== "Sub Type 4" && sub4Text !== "";
+
+            root.visible = subtype1Visible || subtype2Visible || subtype3Visible || subtype4Visible;
             // Set visibility for each subtype based on the card data
-            subtype1Block.visible = sub1Text !== "Sub Type 1" && sub1Text !== ""
-            subtype2Block.visible = sub2Text !== "Sub Type 2" && sub2Text !== ""
-            subtype3Block.visible = sub3Text !== "Sub Type 3" && sub3Text !== ""
-            subtype4Block.visible = sub4Text !== "Sub Type 4" && sub4Text !== ""
+            subtype1Block.visible = subtype1Visible;
+            subtype2Block.visible = subtype2Visible;
+            subtype3Block.visible = subtype3Visible;
+            subtype4Block.visible = subtype4Visible;
+
 
             const margin = 0 // Adjust as needed for spacing
 
