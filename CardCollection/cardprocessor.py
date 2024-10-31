@@ -8,6 +8,7 @@ class CardProcessor:
                 **CardProcessor.process_attacks(card),
                 **CardProcessor.process_types(card),
                 **CardProcessor.process_subtypes(card),
+                **CardProcessor.process_rules(card),
                 "name": card.name,
                 "id": card.id,
                 "supertype": card.supertype,
@@ -15,6 +16,7 @@ class CardProcessor:
                 "set": card.set.name,
                 "setSymbol": card.set.images.symbol,
                 "setLogo": card.set.images.logo,
+                "flavorText": card.flavorText
             }
             processed_cards.append(processed_card)
         return processed_cards
@@ -123,3 +125,20 @@ class CardProcessor:
 
 
         return subtypes
+
+    @staticmethod
+    def process_rules(card):
+        rules = {
+            "rule1": "",
+            "rule2": "",
+            "rule3": "",
+            "rule4": ""
+        }
+
+        if hasattr(card, 'rules') and card.rules:  # Check if rules exists and is a list
+            rules["rule1"] = card.rules[0] if len(card.rules) > 0 else ""
+            rules["rule2"] = card.rules[1] if len(card.rules) > 1 else ""
+            rules["rule3"] = card.rules[2] if len(card.rules) > 2 else ""
+            rules["rule4"] = card.rules[3] if len(card.rules) > 3 else ""
+
+        return rules
