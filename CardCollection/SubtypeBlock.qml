@@ -9,7 +9,7 @@ import QtQuick3D
 
 Rectangle {
     id: root
-    width: 250
+    width: 164
     height: 125
     color: blockBG
     radius: 8
@@ -32,9 +32,9 @@ Rectangle {
     property color borderColor: "#6c0101"
 
     property int defaultBlockHeight: 125
-    property int defaultBlockWidth: 250
+    property int defaultBlockWidth: 164
     property int defaultSubBlockHeight: 60
-    property int defaultSubBlockWidth: 125
+    property int defaultSubBlockWidth: 80
 
     property alias sub1Text: subtype1Block.text
     property alias sub2Text: subtype2Block.text
@@ -120,7 +120,7 @@ Rectangle {
             height: 60
             radius: 6
             visible: true
-            width: 122
+            width: 80
         }
 
         Subtype {
@@ -131,7 +131,7 @@ Rectangle {
             height: 60
             radius: 6
             visible: true
-            width: 122
+            width: 80
         }
 
         Subtype {
@@ -142,7 +142,7 @@ Rectangle {
             height: 60
             radius: 6
             visible: true
-            width: 122
+            width: 80
         }
 
         Subtype {
@@ -153,7 +153,7 @@ Rectangle {
             height: 60
             radius: 6
             visible: true
-            width: 122
+            width: 80
         }
     }
 

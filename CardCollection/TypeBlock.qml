@@ -23,29 +23,31 @@ Rectangle {
     property color dropTextColor: "#c5002a02"
     property color borderColor: "#6c0101"
     property color dropBorderColor: "#25fb2e"
+    width: 55
+    height: 106
 
-    Row {
+    Column {
         id: typeFlow
         anchors.fill: parent
         anchors.leftMargin: 2
         anchors.rightMargin: 2
         anchors.topMargin: 2
         anchors.bottomMargin: 2
-        layoutDirection: Qt.LeftToRight
-        spacing: 6
+        spacing: 2
 
 
 
         Type{
             id: type1
-            anchors.verticalCenter: parent.verticalCenter
+            height: 50
             type: "Type 1"
             blockBG: blockBG
             blockBorderColor: blockBorderColor
         }
+
         Type{
             id: type2
-            anchors.verticalCenter: parent.verticalCenter
+            height: 50
             type: ""
         }
     }

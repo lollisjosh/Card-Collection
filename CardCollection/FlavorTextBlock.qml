@@ -1,19 +1,16 @@
-import QtQuick 2.13
+import QtQuick 2.15
 import QtQuick.Controls 2.15
-import QtQuick.Layouts
-import QtQuick.Window 2.15
-import QtQuick.Controls.Fusion 2.15
+import QtQuick.Layouts 2.15
 import Qt5Compat.GraphicalEffects
-import QtQuick3D
 
 
 Rectangle {
     id: root
 
+    property alias descText: descriptionText.text
+    property alias isVisible: root.visible
+
     // Exposed properties
-
-    property alias text: blockText.text
-
     property color blockBG: "#ff0000"
     property color blockBorderColor:"#00ff0000"
     property color mainColor: "#c80d0d"
@@ -28,48 +25,48 @@ Rectangle {
     property color borderColor: "#6c0101"
     property color dropBorderColor: "#25fb2e"
 
-
-    width: 122
-    height: 60
+    // Width and Height
+    width: 250 // Default value, can be overridden
+    height: 150
     color: blockBG
-    radius: 6
-    border.color: blockBorderColor
-    border.width: 2
+    radius: 8
+    border.color: "#6c0101"
+    border.width: 2 // Default value, can be overridden
+    //anchors.fill: parent
+   // anchors.leftMargin: 2
+    //anchors.rightMargin: 2
+    //anchors.topMargin: 2
+    //anchors.bottomMargin: 2
 
     Rectangle {
-        id: blockBezel
-        visible: true
+        id: descriptionTextBezel
         color: bezelColor
         radius: 8
         border.color: bezelBorderColor
         border.width: 2
         anchors.fill: parent
-        anchors.leftMargin: 2
-        anchors.rightMargin: 2
-        anchors.topMargin: 2
-        anchors.bottomMargin: 2
-        Layout.preferredHeight: 60
-        Layout.preferredWidth: 60
-        Layout.fillHeight: true
-        Layout.fillWidth: true
+        anchors.leftMargin: 4
+        anchors.rightMargin: 4
+        anchors.topMargin: 4
+        anchors.bottomMargin: 4
 
         Rectangle {
-            id: blockScreen
-            x: 7
-            y: 4
+            id: textScreen
             color: screenColor
-            radius: 4
+            radius: 8
             border.color: screenShadeColor
             border.width: 2
             anchors.fill: parent
-            anchors.leftMargin: 6
-            anchors.rightMargin: 6
-            anchors.topMargin: 6
-            anchors.bottomMargin: 6
+            anchors.leftMargin: 4
+            anchors.rightMargin: 4
+            anchors.topMargin: 4
+            anchors.bottomMargin: 4
+
             Text {
-                id: blockText
+                id: descriptionDropText
+                visible: true
                 color: dropTextColor
-                text: "Sub Type 1"
+                text: descriptionText.text
                 anchors.fill: parent
                 anchors.leftMargin: 4
                 anchors.rightMargin: 4
@@ -78,20 +75,19 @@ Rectangle {
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 wrapMode: Text.Wrap
-                state: "base state4"
-                z: 0
-                minimumPointSize: 4
-                minimumPixelSize: 4
+                font.pointSize: descriptionText.font.pointSize
+                minimumPointSize: 6
+                minimumPixelSize: 6
+                z: 1
                 fontSizeMode: Text.Fit
                 font.styleName: "ExtraBold Italic"
-                font.pointSize: 20
             }
 
             Text {
-                id: blockDropText
+                id: descriptionText
                 visible: true
-                color: dropTextColor
-                text: blockText.text
+                color: textColor
+                text: "Flavor Text"
                 anchors.fill: parent
                 anchors.leftMargin: 4
                 anchors.rightMargin: 4
@@ -100,34 +96,27 @@ Rectangle {
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 wrapMode: Text.Wrap
-                font.styleName: blockText.font.styleName
-                font.pointSize: blockText.font.pointSize
-                z: 0
+                font.pointSize: 15
                 minimumPointSize: 6
                 minimumPixelSize: 6
+                z: 0
                 fontSizeMode: Text.Fit
+                font.styleName: "ExtraBold Italic"
             }
 
             Rectangle {
-                id: blockHightlight
-                x: -8
-                y: -4
+                id: highlightBorder
                 color: "#00ffffff"
-                radius: 4
+                radius: 8
                 border.color: screenHighlightColor
-                border.width: 1
+                border.width: 2
                 anchors.fill: parent
-                anchors.leftMargin: 3
-                anchors.rightMargin: 3
-                anchors.topMargin: 3
-                anchors.bottomMargin: 3
+                anchors.leftMargin: 4
+                anchors.rightMargin: 4
+                anchors.topMargin: 4
+                anchors.bottomMargin: 4
             }
-            clip: true
         }
     }
-
-    Item {
-        id: __materialLibrary__
-    }
-
 }
+

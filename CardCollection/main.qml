@@ -163,7 +163,15 @@ Window {
         if(cards[selectedIndex]) {
             supertypeText.text = cards[selectedIndex].supertype
                     || "Super Type"
+
+            if(supertypeText.text === "Trainer") {
+                typeBlock.visible = false;
+            } else {
+                typeBlock.visible = true;
+            }
         }
+
+
     }
 
     function updateTypeInfo() {
@@ -205,6 +213,23 @@ Window {
         typeBlock.type2Type = normalizedType2 || defaultType2;
     }
 
+    function updateFlavorText() {
+        if(cards[selectedIndex] && cards[selectedIndex].flavorText !== "") {
+            // console.log();
+            flavorTextBlock.descText = cards[selectedIndex].flavorText;
+            rule1TextBlock.descText = cards[selectedIndex].rule1;
+            rule2TextBlock.descText = cards[selectedIndex].rule2;
+            rule3TextBlock.descText = cards[selectedIndex].rule3;
+            rule4TextBlock.descText = cards[selectedIndex].rule4;
+
+            flavorTextBlock.visible = flavorTextBlock.descText !== "" && flavorTextBlock.descText !== "Flavor Text"
+            rule1TextBlock.visible = rule1TextBlock.descText !== "" && rule1TextBlock.descText !== "Rule 1"
+            rule2TextBlock.visible = rule2TextBlock.descText !== "" && rule2TextBlock.descText !== "Rule 2"
+            rule3TextBlock.visible = rule3TextBlock.descText !== "" && rule3TextBlock.descText !== "Rule 3"
+            rule4TextBlock.visible = rule4TextBlock.descText !== "" && rule4TextBlock.descText !== "Rule 4"
+        }
+    }
+
     function resetCardRotation() {
         momentumTimer.stop()
         cardNode.eulerRotation.y = 0;
@@ -228,6 +253,7 @@ Window {
             updateSubTypeInfo();
             updateSuperTypeInfo();
             updateTypeInfo();
+            updateFlavorText();
             resetLeftColumnScroll();
             resetRightColumnScroll();
             resetCardRotation();
@@ -243,6 +269,7 @@ Window {
             updateSubTypeInfo();
             updateSuperTypeInfo();
             updateTypeInfo();
+            updateFlavorText();
             resetLeftColumnScroll();
             resetRightColumnScroll();
             resetCardRotation();
@@ -306,7 +333,6 @@ Window {
                 }
 
                 hoverEnabled: true
-
                 ToolTip.delay: 800
                 ToolTip.timeout: 5000
                 ToolTip.visible: hovered
@@ -337,7 +363,6 @@ Window {
                 }
 
                 hoverEnabled: true
-
                 ToolTip.delay: 800
                 ToolTip.timeout: 5000
                 ToolTip.visible: hovered
@@ -439,17 +464,18 @@ Window {
 
                                 ComboBox {
                                     id: setComboBox
+                                    width: 264
                                     height: 25
                                     anchors.verticalCenter: parent.verticalCenter
-                                    anchors.left: parent.left
-                                    anchors.right: txtSearchBox.left
+                                    //anchors.left: parent.left
+                                    //anchors.right: txtSearchBox.left
                                     anchors.leftMargin: 2
                                     anchors.rightMargin: 6
                                     Layout.leftMargin: 6
                                     Layout.preferredHeight: -1
                                     Layout.preferredWidth: -1
-                                    Layout.fillHeight: false
-                                    Layout.fillWidth: true
+                                    //Layout.fillHeight: false
+                                    //Layout.fillWidth: true
                                     displayText: "Sets"
 
                                     model: setsModel
@@ -548,25 +574,15 @@ Window {
                                     height: 25
                                     text: "Deoxys"
                                     anchors.verticalCenter: parent.verticalCenter
-                                    anchors.right: btnSearch.left
-                                    anchors.rightMargin: 6
-                                    Layout.fillHeight: false
-                                    //anchors.verticalCenter: btnSearch.verticalCenter
-                                    //anchors.left: parent.left
-                                    //anchors.left: btnSearch.right
-                                    // anchors.top: parent.top
-                                    // anchors.bottom: parent.bottom
-                                    //anchors.leftMargin: 4
-                                    //anchors.topMargin: 4
-                                    //anchors.bottomMargin: 4
-                                    //anchors.top: parent.top
-                                    //anchors.bottom: parent.bottom
+                                    //anchors.right: btnSearch.left
+                                    //anchors.rightMargin: 6
+                                    //Layout.fillHeight: false
                                     z: 1
-                                    Layout.leftMargin: 6
+                                    //Layout.leftMargin: 6
                                     Layout.preferredHeight: 25
                                     Layout.preferredWidth: 200
                                     placeholderText: qsTr("Enter card name")
-                                    Layout.fillWidth: true
+                                    //Layout.fillWidth: true
 
                                     Rectangle {
                                         id: rectangle7
@@ -590,13 +606,13 @@ Window {
                                     height: 25
                                     text: qsTr("Search")
                                     anchors.verticalCenter: parent.verticalCenter
-                                    anchors.right: parent.right
-                                    anchors.rightMargin: -585
+                                    //   anchors.right: parent.right
+                                    //  anchors.rightMargin: -585
                                     z: 1
                                     font.styleName: "Bold Italic"
-                                    Layout.fillHeight: false
-                                    Layout.rightMargin: 6
-                                    Layout.fillWidth: false
+                                    // Layout.fillHeight: false
+                                    // Layout.rightMargin: 6
+                                    //Layout.fillWidth: false
                                     palette {
                                         button: "blue"
                                     }
@@ -609,7 +625,6 @@ Window {
 
                                     // Change scale when hovered
                                     scale: hovered ? 1.05 : 1.0
-
 
                                     onClicked: {
                                         // Initialize an empty array for the search parameters
@@ -1174,7 +1189,7 @@ Window {
 
                                 Flickable {
                                     id: leftScrollView
-                                    width: 280
+                                    width: 260
                                     anchors.left: parent.left
                                     anchors.top: parent.top
                                     anchors.bottom: parent.bottom
@@ -1193,10 +1208,78 @@ Window {
                                         id: column
                                         x: 5
                                         width: 283
-                                        height: 1132
-                                        anchors.verticalCenter: parent.verticalCenter
-                                        anchors.verticalCenterOffset: -16
+                                        height: 1500
+                                        // anchors.verticalCenter: parent.verticalCenter
+                                        // anchors.verticalCenterOffset: -16
                                         spacing: 4
+
+                                        FlavorTextBlock {
+                                            id: rule1TextBlock
+
+                                            blockBG: window.blockBG
+                                            screenColor: window.screenColor
+                                            screenShadeColor: window.screenShadeColor
+                                            bezelColor: window.bezelColor
+                                            bezelBorderColor: window.bezelBorderColor
+                                            screenHighlightColor: window.screenHighlightColor
+
+                                            width: 250
+                                            height: 100
+                                            //  anchors.top: parent.top
+
+                                            descText: "Rule 1"
+                                        }
+
+                                        FlavorTextBlock {
+                                            id: rule2TextBlock
+
+                                            blockBG: window.blockBG
+                                            screenColor: window.screenColor
+                                            screenShadeColor: window.screenShadeColor
+                                            bezelColor: window.bezelColor
+                                            bezelBorderColor: window.bezelBorderColor
+                                            screenHighlightColor: window.screenHighlightColor
+
+                                            width: 250
+                                            height: 100
+                                            //  anchors.top: parent.top
+
+                                            descText: "Rule 2"
+                                        }
+
+                                        FlavorTextBlock {
+                                            id: rule3TextBlock
+
+                                            blockBG: window.blockBG
+                                            screenColor: window.screenColor
+                                            screenShadeColor: window.screenShadeColor
+                                            bezelColor: window.bezelColor
+                                            bezelBorderColor: window.bezelBorderColor
+                                            screenHighlightColor: window.screenHighlightColor
+
+                                            width: 250
+                                            height: 100
+                                            //  anchors.top: parent.top
+
+                                            descText: "Rule 3"
+                                        }
+
+                                        FlavorTextBlock {
+                                            id: rule4TextBlock
+
+                                            blockBG: window.blockBG
+                                            screenColor: window.screenColor
+                                            screenShadeColor: window.screenShadeColor
+                                            bezelColor: window.bezelColor
+                                            bezelBorderColor: window.bezelBorderColor
+                                            screenHighlightColor: window.screenHighlightColor
+
+                                            width: 250
+                                            height: 100
+                                            //  anchors.top: parent.top
+
+                                            descText: "Rule 4"
+                                        }
 
                                         AttackInfoBlock {
                                             id: attack1Block
@@ -1214,6 +1297,10 @@ Window {
                                             //anchors.horizontalCenter: parent.anchors.horizontalCenter
                                         }
 
+
+
+
+
                                         AttackInfoBlock {
                                             id: attack2Block
                                             width: 250
@@ -1229,6 +1316,10 @@ Window {
                                             dropBorderColor: window.dropBorderColor
                                             //anchors.horizontalCenter: parent.horizontalCenter
                                         }
+
+
+
+
 
                                         AttackInfoBlock {
                                             id: attack3Block
@@ -1246,6 +1337,10 @@ Window {
                                             //anchors.horizontalCenter: parent.horizontalCenter
                                         }
 
+
+
+
+
                                         AttackInfoBlock {
                                             id: attack4Block
                                             width: 250
@@ -1262,6 +1357,10 @@ Window {
                                             //anchors.horizontalCenter: parent.horizontalCenter
                                         }
 
+
+
+
+
                                         AbilityInfoBlock {
                                             id: ability1
                                             width: 250
@@ -1270,6 +1369,10 @@ Window {
                                             descText: "Ability 1 Description"
                                         }
 
+
+
+
+
                                         AbilityInfoBlock {
                                             id: ability2
                                             width: 250
@@ -1277,16 +1380,20 @@ Window {
                                             typeText: "Ability 2 Type"
                                             descText: "Ability 2 Description"
                                         }
+
+
+
+
                                     }
                                 }
                                 Flickable {
                                     id: rightScrollView
-                                    height: 399
+                                    height: 430
                                     anchors.left: leftScrollView.right
                                     anchors.right: parent.right
                                     anchors.top: parent.top
-                                    anchors.leftMargin: -14
-                                    anchors.rightMargin: 22
+                                    anchors.leftMargin: 4
+                                    anchors.rightMargin: 4
                                     anchors.topMargin: 4
                                     contentX: 0
                                     contentWidth: 250
@@ -1294,14 +1401,14 @@ Window {
                                     clip: false
                                     boundsBehavior: Flickable.DragOverBounds
                                     boundsMovement: Flickable.FollowBoundsBehavior
-                                    contentHeight: 650 // Set a suitable height for your content
+                                    contentHeight: 1000 // Set a suitable height for your content
 
                                     Column {
                                         id: rightSideColumn
-                                        x: 26
-                                        y: -1
-                                        width: 242
-                                        height: 435
+                                        x: 0
+                                        y: 0
+                                        width: 276
+                                        height: 430
 
                                         spacing: 3
 
@@ -1531,36 +1638,65 @@ Window {
                                         }
 
 
-                                        TypeBlock {
-                                            id: typeBlock
+                                        Row {
+                                            id: row1
+                                            width: 221
+                                            height: 138
+                                            spacing: 4
                                             anchors.horizontalCenter: parent.horizontalCenter
-                                            border.color: borderColor
-                                            border.width: 1
-                                            color: "#ff0000"
-                                            height: 55
-                                            radius: 8
-                                            width: 110
-                                            type1Type: "Type 1"
-                                            type2Type: "Type 2"
 
+                                            TypeBlock {
+                                                id: typeBlock
+                                                border.color: borderColor
+                                                border.width: 1
+                                                anchors.verticalCenter: parent.verticalCenter
+                                                color: "#ff0000"
+                                                height: 106
+                                                radius: 8
+                                                width: 55
+                                                type1Type: "Type 1"
+                                                type2Type: "Type 2"
+
+                                            }
+
+                                            SubtypeBlock {
+                                                id: subtypeBlock
+                                                border.color: "#006c0101"
+                                                border.width: 0
+                                                anchors.verticalCenter: parent.verticalCenter
+                                                blockBorderColor: "#6c0101"
+                                                color: window.blockBG
+                                                height: 125
+                                                radius: 6
+                                                width: 164
+
+                                                sub1Text: "Subtype 1"
+                                                sub2Text: "Subtype 2"
+                                                sub3Text: "Subtype 3"
+                                                sub4Text: "Subtype 4"
+                                            }
                                         }
 
-                                        SubtypeBlock {
-                                            id: subtypeBlock
-                                            anchors.horizontalCenter: parent.horizontalCenter
-                                            border.color: "#006c0101"
-                                            border.width: 0
-                                            blockBorderColor: "#6c0101"
-                                            color: window.blockBG
-                                            height: 125
-                                            radius: 6
+
+
+                                        FlavorTextBlock {
+                                            id: flavorTextBlock
+
+                                            blockBG: window.blockBG
+                                            screenColor: window.screenColor
+                                            screenShadeColor: window.screenShadeColor
+                                            bezelColor: window.bezelColor
+                                            bezelBorderColor: window.bezelBorderColor
+                                            screenHighlightColor: window.screenHighlightColor
+
                                             width: 250
+                                            height: 150
+                                            anchors.horizontalCenter: parent.horizontalCenter
+                                            //  anchors.top: parent.top
 
-                                            sub1Text: "Subtype 1"
-                                            sub2Text: "Subtype 2"
-                                            sub3Text: "Subtype 3"
-                                            sub4Text: "Subtype 4"
+                                            descText: "Flavor Text"
                                         }
+
 
                                         SetLogoBlock {
                                             id: setLogoBlock
@@ -1576,6 +1712,7 @@ Window {
                                                              && selectedIndex < cards.length) ? "" // Fallback if name is undefined
                                                                                               : "Set Logo"
                                         }
+
 
                                         Row {
                                             id: row
@@ -1709,6 +1846,7 @@ Window {
                                                 }
                                             }
                                         }
+
 
 
 
@@ -1921,6 +2059,13 @@ Window {
                                                       "setSymbol": card.setSymbol,
                                                       "setLogo": card.setLogo,
 
+                                                      "flavorText": card.flavorText,
+
+                                                      "rule1": card.rule1,
+                                                      "rule2": card.rule2,
+                                                      "rule3": card.rule3,
+                                                      "rule4": card.rule4,
+
                                                       // Ability 1
                                                       "ability1Name": card.ability1Name || "",
                                                       "ability1Text": card.ability1Text || "",
@@ -1988,6 +2133,7 @@ Window {
                         updateSubTypeInfo();
                         updateSuperTypeInfo();
                         updateTypeInfo();
+                        updateFlavorText();
                         resetLeftColumnScroll();
                         resetRightColumnScroll();
                         view.visible = true
@@ -2033,6 +2179,6 @@ Window {
 
 /*##^##
 Designer {
-    D{i:0}D{i:38;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}D{i:67}
+    D{i:0}D{i:38;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}
 }
 ##^##*/
