@@ -17,6 +17,9 @@
         "searchhandler.py",
         "MySearchFilterTools.qml",
         "MySearchTools.qml",
-        "PagingButtonsToolbar.qml"
+        "PagingButtonsToolbar.qml",
+        "AttackInfoBlock.qml",
+        "TypeBlock.qml",
+        "AbilityInfoBlock.qml"
     ]
 }

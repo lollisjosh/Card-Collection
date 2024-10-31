@@ -2,12 +2,17 @@ import QtQuick.Controls.Fusion 2.15
 import QtQuick.Layouts
 import QtQuick.Window 2.15
 import QtQuick 2.13
+import Qt5Compat.GraphicalEffects
+import QtQuick3D
 
-ToolBar {
-    id: searchFilterTools
-
-    // Expose setsModel to the outside world
-    property var setsModel
+Rectangle {
+    id: root
+    width: 600
+    height: 60
+    anchors.left: parent.left
+    anchors.right: parent.right
+    z: 2
+    clip: false
 
     property bool grassChecked: grassTypeButton.checked
     property bool fireChecked: fireTypeButton.checked
@@ -21,127 +26,134 @@ ToolBar {
     property bool fairyChecked: fairyTypeButton.checked
     property bool dragonChecked: dragonTypeButton.checked
 
+    // Expose setsModel to the outside world
+    property var setsModel
+
+    property alias toolbarContentHeight: searchFilterTools.contentHeight
 
 
-    RowLayout {
-        id: filtersRow
-        anchors.verticalCenter: parent.verticalCenter
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.top: parent.top
-        z: 2
-        spacing: 2
+    ToolBar {
+        id: searchFilterTools
 
-        ComboBox {
-            id: setComboBox
-            width: 124
-            height: 30
-            Layout.leftMargin: 6
-            Layout.preferredHeight: -1
-            Layout.preferredWidth: -1
-            Layout.fillHeight: false
-            Layout.fillWidth: true
-            displayText: "Sets"
 
-            model: setsModel
 
-            delegate: Item {
-                width: parent ? parent.width : 0
-                height: checkDelegate ? checkDelegate.height : 30
+        anchors.fill: parent
 
-                function toggle() {
-                    checkDelegate.toggle()
-                }
 
-                CheckDelegate {
-                    id: checkDelegate
-                    anchors.fill: parent
-                    text: model.name
-                    highlighted: setComboBox.highlightedIndex == index
-                    checked: model.selected
-                    onCheckedChanged: {
-                        if (model.selected !== checked) {
-                            model.selected = checked;
-                        }
-                    }
-                }
-            }
 
-            // override space key handling to toggle items when the popup is visible
-            Keys.onSpacePressed: {
-                if (setComboBox.popup.visible) {
-                    var currentItem = setComboBox.popup.contentItem.currentItem
-                    if (currentItem) {
-                        currentItem.toggle()
-                        event.accepted = true
-                    }
-                }
-            }
+        Rectangle {
+            id: rectangle4
+            x: -6
+            y: 0
+            width: 600
+            height: 60
+            color: "#00ffffff"
+            radius: 1
+            border.color: "#6c0101"
+            border.width: 2
+            z: 1
+        }
 
-            Keys.onReleased: {
-                if (setComboBox.popup.visible)
-                    event.accepted = (event.key === Qt.Key_Space)
-            }
+        Rectangle {
+            id: rectangle8
+            x: -6
+            y: 0
+            width: 600
+            height: 60
+            color: "#cc1c1c"
+            border.color: "#00000000"
 
-            Component.onCompleted: {
-                // Request All Sets to populate combo box
-                //console.log("Requesting sets from backend...")
-                backendController.request_sets_retrieve()
-            }
-
-            Connections {
-                target: backendController
-
-                function onSetsResults(response) {
-                    var data = JSON.parse(response)
-                    setsModel.clear(
-                                ) // Clear existing items in the model
-
-                    if (data.error) {
-                        sets = [] // Clear the array of sets
-                        console.log("Error in the data received from backend.")
-                    } else {
-                        // Collect sets into an array
-                        var tempSets = []
-
-                        data.forEach(function (set) {
-                            // Collect each set object
-                            tempSets.push({
-                                              "name": set.name,
-                                              "selected": false
-                                          })
-                        })
-
-                        // Sort the array alphabetically by name
-                        tempSets.sort(function (a, b) {
-                            return a.name.localeCompare(
-                                        b.name) // Sort using localeCompare for proper alphabetical order
-                        })
-
-                        // Append sorted sets to the model
-                        tempSets.forEach(
-                                    function (sortedSet) {
-                                        setsModel.append(
-                                                    sortedSet)
-                                        //console.log("Appending set: ", sortedSet.name); // Debugging each appended set
-                                    })
-
-                        //console.log("SetsModel updated with new sets: ", setsModel.count); // Check the number of elements
-                    }
-                }
+            Rectangle {
+                id: rectangle32
+                color: "#00ffffff"
+                radius: 4
+                border.color: "#ee0000"
+                border.width: 2
+                anchors.fill: parent
             }
         }
+
         Row {
             id: typesRow
-            width: 300
-            height: 30
+            height: 50
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.leftMargin: -2
+            anchors.rightMargin: -2
             Layout.leftMargin: 6
-            spacing: 2
+            spacing: 4
             Layout.preferredWidth: -1
             Layout.preferredHeight: -1
             Layout.fillHeight: false
             Layout.fillWidth: false
             Layout.rightMargin: 6
+
+            Component.onCompleted: {
+                const typeImageMap = {
+                    "grass": "https://images.pokemontcg.io/sm1/164_hires.png",
+                    "fire": "https://images.pokemontcg.io/sm1/165_hires.png",
+                    "water": "https://images.pokemontcg.io/sm1/166_hires.png",
+                    "lightning": "https://images.pokemontcg.io/sm1/167_hires.png",
+                    "psychic": "https://images.pokemontcg.io/sm1/168_hires.png",
+                    "fighting": "https://images.pokemontcg.io/sm1/169_hires.png",
+                    "darkness": "https://images.pokemontcg.io/sm1/170_hires.png",
+                    "metal": "https://images.pokemontcg.io/sm1/171_hires.png",
+                    "fairy": "https://images.pokemontcg.io/sm1/172_hires.png",
+                    "dragon": "https://images.pokemontcg.io/xy6/97_hires.png",
+                    "colorless": "https://images.pokemontcg.io/swsh3/176_hires.png"
+                };
+
+                // Update cost images for cost1, cost2, cost3, cost4, and cost5
+                grassImage.source = typeImageMap["grass"];
+                fireImage.source = typeImageMap["fire"];
+                waterImage.source = typeImageMap["water"];
+                lightningImage.source = typeImageMap["lightning"];
+                psychicImage.source = typeImageMap["psychic"];
+                fightingImage.source = typeImageMap["fighting"];
+                darknessImage.source = typeImageMap["darkness"];
+                metalImage.source = typeImageMap["metal"];
+                fairyImage.source = typeImageMap["fairy"];
+                //dragonImage.source = typeImageMap["dragon"];
+                // colorlessImage.source = typeImageMap["colorless"];
+
+                // grassTypeButton.checked = true;
+                // fireTypeButton.checked = true;
+                // waterTypeButton.checked = true;
+                // lightningTypeButton.checked = true;
+                // psychicTypeButton.checked = true;
+                // fightingTypeButton.checked = true;
+                // darknessTypeButton.checked = true;
+                // metalTypeButton.checked = true;
+                // fairyTypeButton.checked = true;
+                // dragonTypeButton.checked = true;
+                // colorlessTypeButton.checked = true;
+
+                grassTypeButton.checked = false;
+                fireTypeButton.checked = false;
+                waterTypeButton.checked = false;
+                lightningTypeButton.checked = false;
+                psychicTypeButton.checked = false;
+                fightingTypeButton.checked = false;
+                darknessTypeButton.checked = false;
+                metalTypeButton.checked = false;
+                fairyTypeButton.checked = false;
+                dragonTypeButton.checked = false;
+                colorlessTypeButton.checked = false;
+
+                grassDimmer.visible = !grassTypeButton.checked;
+                fireDimmer.visible = !fireTypeButton.checked;
+                waterDimmer.visible = !waterTypeButton.checked;
+                lightningDimmer.visible = !lightningTypeButton.checked;
+                psychicDimmer.visible = !psychicTypeButton.checked;
+                fightingDimmer.visible = !fightingTypeButton.checked;
+                darknessDimmer.visible = !darknessTypeButton.checked;
+                metalDimmer.visible = !metalTypeButton.checked;
+                fairyDimmer.visible = !fairyTypeButton.checked;
+                dragonDummyImage.visible = !dragonTypeButton.checked;
+                colorlessDummyImage.visible = !colorlessTypeButton.checked;
+
+            }
 
             RoundButton {
                 id: grassTypeButton
@@ -153,28 +165,108 @@ ToolBar {
                 ToolTip.timeout: 5000
                 ToolTip.visible: hovered
                 checkable: true
-                checked: false
+                checked: true
                 flat: false
-                height: 24
+                height: 50
+                anchors.verticalCenter: parent.verticalCenter
+                z: 3
                 highlighted: grassTypeButton.checked
                 hoverEnabled: true
+                // Change scale when hovered
+                scale: hovered ? 1.2 : 1.0
+                ToolTip.text: qsTr("Grass")
                 palette {
                     button: "green"
                 }
-                width: 24
+                onClicked: {
+                    grassDimmer.visible = !grassTypeButton.checked
+                }
+
+                width: 50
+                padding: 0
+
+                Rectangle {
+                    id: grassImageBlock
+                    x: -6
+                    y: -6
+                    visible: true
+                    color: "#00128c17"
+                    radius: 10
+                    border.color: "#0002d20b"
+                    border.width: 0
+                    anchors.fill: parent
+                    scale: 0.9
+                    Image {
+                        id: grassImage
+                        x: -150
+                        y: -150
+                        width: 350
+                        height: 350
+                        opacity: 1
+                        visible: true
+                        source: "https://images.pokemontcg.io/sm1/164_hires.png"
+                        sourceSize.width: 0
+                        sourceSize.height: 0
+                        scale: 0.15
+                        layer.enabled: true
+                        layer.effect: OpacityMask {
+                            width: 34
+                            height: 34
+                            opacity: 0
+                            visible: true
+                            scale: 1
+                            maskSource: grassMask
+                            layer.textureSize.width: 0
+                            layer.textureSize.height: 0
+                            layer.enabled: true
+                            enabled: true
+                            clip: false
+                        }
+                        fillMode: Image.Pad
+                        clip: false
+
+                        Rectangle {
+                            id: grassDimmer
+                            opacity: 1
+                            color: "#83474747"
+                            anchors.fill: parent
+                        }
+                    }
+
+                    Rectangle {
+                        id: grassMask
+                        x: 0
+                        y: 0
+                        width: 50
+                        height: 50
+                        visible: false
+                        color: "#ffffff"
+                        radius: 46
+                        border.width: 0
+                        scale: 1
+                        layer.textureSize.width: 0
+                        layer.enabled: true
+                        enabled: true
+                        clip: false
+                    }
+                    clip: false
+                }
+
             }
 
             RoundButton {
                 id: fireTypeButton
-                width: 24
-                height: 24
+                width: 50
+                height: 50
                 text: ""
+                anchors.verticalCenter: parent.verticalCenter
+                z: 3
                 Layout.preferredHeight: 24
                 Layout.preferredWidth: 24
                 Layout.rowSpan: 1
                 highlighted: fireTypeButton.checked
                 flat: false
-                checked: false
+                checked: true
                 checkable: true
                 Layout.fillWidth: false
                 Layout.fillHeight: false
@@ -188,21 +280,98 @@ ToolBar {
                 ToolTip.visible: hovered
                 ToolTip.text: qsTr("Fire")
 
+                padding: 0
+
                 // Change scale when hovered
                 scale: hovered ? 1.2 : 1.0
+
+                onClicked: {
+                    fireDimmer.visible = !fireTypeButton.checked
+                }
+                Rectangle {
+                    id: fireImageBlock
+                    x: -6
+                    y: -6
+                    visible: true
+                    color: "#00ffffff"
+                    radius: 10
+                    border.color: "#0002d20b"
+                    border.width: 0
+                    anchors.fill: parent
+                    scale: 0.9
+                    Image {
+                        id: fireImage
+                        x: -150
+                        y: -150
+                        width: 350
+                        height: 350
+                        opacity: 1
+                        visible: true
+                        source: "https://images.pokemontcg.io/sm1/165_hires.png"
+                        sourceSize.width: 0
+                        sourceSize.height: 0
+                        scale: 0.15
+                        layer.enabled: true
+                        layer.effect: OpacityMask {
+                            width: 34
+                            height: 34
+                            opacity: 0
+                            visible: true
+                            scale: 1
+                            maskSource: fireMask
+                            layer.textureSize.width: 0
+                            layer.textureSize.height: 0
+                            layer.enabled: true
+                            enabled: true
+                            clip: false
+                        }
+                        fillMode: Image.Pad
+                        clip: false
+
+                        Rectangle {
+                            id: fireDimmer
+                            x: -10
+                            y: -10
+                            opacity: 1
+                            color: "#83474747"
+                            anchors.fill: parent
+                        }
+                    }
+
+                    Rectangle {
+                        id: fireMask
+                        x: 0
+                        y: 0
+                        width: 50
+                        height: 50
+                        visible: false
+                        color: "#ffffff"
+                        radius: 46
+                        border.width: 0
+                        scale: 1
+                        layer.textureSize.width: 0
+                        layer.enabled: true
+                        enabled: true
+                        clip: false
+                    }
+                    clip: true
+                }
+
             }
 
             RoundButton {
                 id: waterTypeButton
-                width: 24
-                height: 24
+                width: 50
+                height: 50
                 text: ""
+                anchors.verticalCenter: parent.verticalCenter
+                z: 3
                 Layout.preferredHeight: 24
                 Layout.preferredWidth: 24
                 Layout.rowSpan: 1
                 highlighted: waterTypeButton.checked
                 flat: false
-                checked: false
+                checked: true
                 checkable: true
                 Layout.fillWidth: false
                 Layout.fillHeight: false
@@ -216,21 +385,98 @@ ToolBar {
                 ToolTip.visible: hovered
                 ToolTip.text: qsTr("Water")
 
+                padding: 0
+
                 // Change scale when hovered
                 scale: hovered ? 1.2 : 1.0
+
+                onClicked: {
+                    waterDimmer.visible = !waterTypeButton.checked
+                }
+                Rectangle {
+                    id: waterImageBlock
+                    x: -6
+                    y: -6
+                    visible: true
+                    color: "#00ffffff"
+                    radius: 10
+                    border.color: "#0002d20b"
+                    border.width: 0
+                    anchors.fill: parent
+                    scale: 0.9
+                    Image {
+                        id: waterImage
+                        x: -150
+                        y: -150
+                        width: 350
+                        height: 350
+                        opacity: 1
+                        visible: true
+                        source: "https://images.pokemontcg.io/sm1/166_hires.png"
+                        sourceSize.width: 0
+                        sourceSize.height: 0
+                        scale: 0.15
+                        layer.enabled: true
+                        layer.effect: OpacityMask {
+                            width: 34
+                            height: 34
+                            opacity: 0
+                            visible: true
+                            scale: 1
+                            maskSource: waterMask
+                            layer.textureSize.width: 0
+                            layer.textureSize.height: 0
+                            layer.enabled: true
+                            enabled: true
+                            clip: false
+                        }
+                        fillMode: Image.Pad
+                        clip: false
+
+                        Rectangle {
+                            id: waterDimmer
+                            x: -10
+                            y: -10
+                            opacity: 1
+                            color: "#83474747"
+                            anchors.fill: parent
+                        }
+                    }
+
+                    Rectangle {
+                        id: waterMask
+                        x: 0
+                        y: 0
+                        width: 50
+                        height: 50
+                        visible: false
+                        color: "#ffffff"
+                        radius: 46
+                        border.width: 0
+                        scale: 1
+                        layer.textureSize.width: 0
+                        layer.enabled: true
+                        enabled: true
+                        clip: false
+                    }
+                    clip: true
+                }
+
             }
 
             RoundButton {
                 id: lightningTypeButton
-                width: 24
-                height: 24
+                width: 50
+                height: 50
                 text: ""
+                anchors.verticalCenter: parent.verticalCenter
+                z: 3
                 Layout.preferredHeight: 24
                 Layout.preferredWidth: 24
                 Layout.rowSpan: 1
                 highlighted: lightningTypeButton.checked
                 flat: false
-                checked: false
+                checked: true
                 checkable: true
                 Layout.fillWidth: false
                 Layout.fillHeight: false
@@ -244,20 +490,97 @@ ToolBar {
                 ToolTip.visible: hovered
                 ToolTip.text: qsTr("Lightning")
 
+                padding: 0
+
                 // Change scale when hovered
                 scale: hovered ? 1.2 : 1.0
+
+                onClicked: {
+                    lightningDimmer.visible = !lightningTypeButton.checked
+                }
+                Rectangle {
+                    id: lightningImageBlock
+                    x: -6
+                    y: -6
+                    visible: true
+                    color: "#00ffffff"
+                    radius: 10
+                    border.color: "#0002d20b"
+                    border.width: 0
+                    anchors.fill: parent
+                    scale: 0.9
+                    Image {
+                        id: lightningImage
+                        x: -150
+                        y: -150
+                        width: 350
+                        height: 350
+                        opacity: 1
+                        visible: true
+                        source: "https://images.pokemontcg.io/sm1/167_hires.png"
+                        sourceSize.width: 0
+                        sourceSize.height: 0
+                        scale: 0.15
+                        layer.enabled: true
+                        layer.effect: OpacityMask {
+                            width: 34
+                            height: 34
+                            opacity: 0
+                            visible: true
+                            scale: 1
+                            maskSource: lightningMask
+                            layer.textureSize.width: 0
+                            layer.textureSize.height: 0
+                            layer.enabled: true
+                            enabled: true
+                            clip: false
+                        }
+                        fillMode: Image.Pad
+                        clip: false
+
+                        Rectangle {
+                            id: lightningDimmer
+                            x: -10
+                            y: -10
+                            opacity: 1
+                            color: "#83474747"
+                            anchors.fill: parent
+                        }
+                    }
+
+                    Rectangle {
+                        id: lightningMask
+                        x: 0
+                        y: 0
+                        width: 50
+                        height: 50
+                        visible: false
+                        color: "#ffffff"
+                        radius: 46
+                        border.width: 0
+                        scale: 1
+                        layer.textureSize.width: 0
+                        layer.enabled: true
+                        enabled: true
+                        clip: false
+                    }
+                    clip: false
+                }
+
             }
 
             RoundButton {
                 id: psychicTypeButton
-                width: 24
-                height: 24
+                width: 50
+                height: 50
                 text: ""
+                anchors.verticalCenter: parent.verticalCenter
+                z: 3
                 Layout.preferredHeight: 24
                 Layout.preferredWidth: 24
                 Layout.rowSpan: 1
                 highlighted: psychicTypeButton.checked
-                checked: false
+                checked: true
                 checkable: true
                 Layout.fillWidth: false
                 Layout.fillHeight: false
@@ -271,19 +594,98 @@ ToolBar {
                 ToolTip.visible: hovered
                 ToolTip.text: qsTr("Psychic")
 
+                padding: 0
+
                 // Change scale when hovered
                 scale: hovered ? 1.2 : 1.0
+
+                onClicked: {
+                    psychicDimmer.visible = !psychicTypeButton.checked
+                }
+                Rectangle {
+                    id: psychicImageBlock
+                    x: -6
+                    y: -6
+                    visible: true
+                    color: "#00ffffff"
+                    radius: 10
+                    border.color: "#0002d20b"
+                    border.width: 0
+                    anchors.fill: parent
+                    scale: 0.9
+                    Image {
+                        id: psychicImage
+                        x: -150
+                        y: -150
+                        width: 350
+                        height: 350
+                        opacity: 1
+                        visible: true
+                        source: "https://images.pokemontcg.io/sm1/168_hires.png"
+                        sourceSize.width: 0
+                        sourceSize.height: 0
+                        scale: 0.15
+                        layer.enabled: true
+                        layer.effect: OpacityMask {
+                            width: 34
+                            height: 34
+                            opacity: 0
+                            visible: true
+                            scale: 1
+                            maskSource: psychicMask
+                            layer.textureSize.width: 0
+                            layer.textureSize.height: 0
+                            layer.enabled: true
+                            enabled: true
+                            clip: false
+                        }
+                        fillMode: Image.Pad
+                        clip: false
+
+                        Rectangle {
+                            id: psychicDimmer
+                            x: -10
+                            y: -10
+                            opacity: 1
+                            color: "#83474747"
+                            anchors.fill: parent
+                        }
+                    }
+
+                    Rectangle {
+                        id: psychicMask
+                        x: 0
+                        y: 0
+                        width: 50
+                        height: 50
+                        visible: false
+                        color: "#ffffff"
+                        radius: 46
+                        border.width: 0
+                        scale: 1
+                        layer.textureSize.width: 0
+                        layer.enabled: true
+                        enabled: true
+                        clip: false
+                    }
+                    clip: false
+                }
+
+
+
             }
 
             RoundButton {
                 id: fightingTypeButton
-                width: 24
-                height: 24
+                width: 50
+                height: 50
                 text: ""
+                anchors.verticalCenter: parent.verticalCenter
+                z: 3
                 Layout.preferredHeight: 24
                 Layout.preferredWidth: 24
                 Layout.rowSpan: 1
-                highlighted: fightingTypeButton.checked
+                // highlighted: fightingTypeButton.checked
                 flat: false
                 checked: false
                 checkable: true
@@ -301,19 +703,96 @@ ToolBar {
 
                 // Change scale when hovered
                 scale: hovered ? 1.2 : 1.0
+
+                onClicked: {
+                    fightingDimmer.visible = !fightingTypeButton.checked
+                }
+
+                padding: 0
+                Rectangle {
+                    id: fightingImageBlock
+                    x: -6
+                    y: -6
+                    visible: true
+                    color: "#00ffffff"
+                    radius: 10
+                    border.color: "#0002d20b"
+                    border.width: 0
+                    anchors.fill: parent
+                    scale: 0.9
+                    Image {
+                        id: fightingImage
+                        x: -150
+                        y: -150
+                        width: 350
+                        height: 350
+                        opacity: 1
+                        visible: true
+                        source: "https://images.pokemontcg.io/sm1/169_hires.png"
+                        sourceSize.width: 0
+                        sourceSize.height: 0
+                        scale: 0.15
+                        layer.enabled: true
+                        layer.effect: OpacityMask {
+                            width: 34
+                            height: 34
+                            opacity: 0
+                            visible: true
+                            scale: 1
+                            maskSource: fightingMask
+                            layer.textureSize.width: 0
+                            layer.textureSize.height: 0
+                            layer.enabled: true
+                            enabled: true
+                            clip: false
+                        }
+                        fillMode: Image.Pad
+                        clip: false
+
+                        Rectangle {
+                            id: fightingDimmer
+                            x: -10
+                            y: -10
+                            opacity: 1
+                            color: "#83474747"
+                            anchors.fill: parent
+                        }
+                    }
+
+                    Rectangle {
+                        id: fightingMask
+                        x: 0
+                        y: 0
+                        width: 50
+                        height: 50
+                        visible: false
+                        color: "#ffffff"
+                        radius: 46
+                        border.width: 0
+                        scale: 1
+                        layer.textureSize.width: 0
+                        layer.enabled: true
+                        enabled: true
+                        clip: false
+                    }
+                    clip: false
+                }
+
             }
 
             RoundButton {
                 id: darknessTypeButton
-                width: 24
-                height: 24
+                width: 50
+                height: 50
                 text: ""
+                anchors.verticalCenter: parent.verticalCenter
+                z: 3
                 Layout.preferredHeight: 24
                 Layout.preferredWidth: 24
                 Layout.rowSpan: 1
                 highlighted: darknessTypeButton.checked
                 flat: false
-                checked: false
+                checked: true
                 checkable: true
                 Layout.fillWidth: false
                 Layout.fillHeight: false
@@ -327,21 +806,98 @@ ToolBar {
                 ToolTip.visible: hovered
                 ToolTip.text: qsTr("Darkness")
 
+                padding: 0
+
                 // Change scale when hovered
                 scale: hovered ? 1.2 : 1.0
+
+                onClicked: {
+                    darknessDimmer.visible = !darknessTypeButton.checked
+                }
+                Rectangle {
+                    id: darknessImageBlock
+                    x: -6
+                    y: -6
+                    visible: true
+                    color: "#00ffffff"
+                    radius: 10
+                    border.color: "#0002d20b"
+                    border.width: 0
+                    anchors.fill: parent
+                    scale: 0.9
+                    Image {
+                        id: darknessImage
+                        x: -150
+                        y: -150
+                        width: 350
+                        height: 350
+                        opacity: 1
+                        visible: true
+                        source: "https://images.pokemontcg.io/sm1/170_hires.png"
+                        sourceSize.width: 0
+                        sourceSize.height: 0
+                        scale: 0.15
+                        layer.enabled: true
+                        layer.effect: OpacityMask {
+                            width: 34
+                            height: 34
+                            opacity: 0
+                            visible: true
+                            scale: 1
+                            maskSource: darknessMask
+                            layer.textureSize.width: 0
+                            layer.textureSize.height: 0
+                            layer.enabled: true
+                            enabled: true
+                            clip: false
+                        }
+                        fillMode: Image.Pad
+                        clip: false
+
+                        Rectangle {
+                            id: darknessDimmer
+                            x: -10
+                            y: -10
+                            opacity: 1
+                            color: "#83474747"
+                            anchors.fill: parent
+                        }
+                    }
+
+                    Rectangle {
+                        id: darknessMask
+                        x: 0
+                        y: 0
+                        width: 50
+                        height: 50
+                        visible: false
+                        color: "#ffffff"
+                        radius: 46
+                        border.width: 0
+                        scale: 1
+                        layer.textureSize.width: 0
+                        layer.enabled: true
+                        enabled: true
+                        clip: false
+                    }
+                    clip: false
+                }
+
             }
 
             RoundButton {
                 id: metalTypeButton
-                width: 24
-                height: 24
+                width: 50
+                height: 50
                 text: ""
+                anchors.verticalCenter: parent.verticalCenter
+                z: 3
                 Layout.preferredHeight: 24
                 Layout.preferredWidth: 24
                 Layout.rowSpan: 1
                 highlighted: metalTypeButton.checked
                 flat: false
-                checked: false
+                checked: true
                 checkable: true
                 Layout.fillWidth: false
                 Layout.fillHeight: false
@@ -357,19 +913,97 @@ ToolBar {
 
                 // Change scale when hovered
                 scale: hovered ? 1.2 : 1.0
+
+                onClicked: {
+                    metalDimmer.visible = !metalTypeButton.checked
+                }
+
+                padding: 0
+                Rectangle {
+                    id: metalImageBlock
+                    x: -6
+                    y: -6
+                    visible: true
+                    color: "#00ffffff"
+                    radius: 10
+                    border.color: "#0002d20b"
+                    border.width: 0
+                    anchors.fill: parent
+                    scale: 0.9
+                    Image {
+                        id: metalImage
+                        x: -150
+                        y: -150
+                        width: 350
+                        height: 350
+                        opacity: 1
+                        visible: true
+                        source: "https://images.pokemontcg.io/sm1/171_hires.png"
+                        sourceSize.width: 0
+                        sourceSize.height: 0
+                        scale: 0.15
+                        layer.enabled: true
+                        layer.effect: OpacityMask {
+                            width: 34
+                            height: 34
+                            opacity: 0
+                            visible: true
+                            scale: 1
+                            maskSource: metalMask
+                            layer.textureSize.width: 0
+                            layer.textureSize.height: 0
+                            layer.enabled: true
+                            enabled: true
+                            clip: false
+                        }
+                        fillMode: Image.Pad
+                        clip: false
+
+                        Rectangle {
+                            id: metalDimmer
+                            x: -10
+                            y: -10
+                            opacity: 1
+                            color: "#83474747"
+                            anchors.fill: parent
+                        }
+                    }
+
+                    Rectangle {
+                        id: metalMask
+                        x: 0
+                        y: 0
+                        width: 50
+                        height: 50
+                        visible: false
+                        color: "#ffffff"
+                        radius: 46
+                        border.width: 0
+                        scale: 1
+                        layer.textureSize.width: 0
+                        layer.enabled: true
+                        enabled: true
+                        clip: false
+                    }
+                    clip: false
+                }
+
             }
 
             RoundButton {
                 id: fairyTypeButton
-                width: 24
-                height: 24
+                width: 50
+                height: 50
                 text: ""
+                anchors.verticalCenter: parent.verticalCenter
+                z: 3
+                clip: false
                 Layout.preferredHeight: 24
                 Layout.preferredWidth: 24
                 Layout.rowSpan: 1
                 highlighted: fairyTypeButton.checked
                 flat: false
-                checked: false
+                checked: true
                 checkable: true
                 Layout.fillWidth: false
                 Layout.fillHeight: false
@@ -377,6 +1011,7 @@ ToolBar {
                     button: "hotpink"
                 }
                 hoverEnabled: true
+                padding: 0
 
                 ToolTip.delay: 800
                 ToolTip.timeout: 5000
@@ -385,17 +1020,93 @@ ToolBar {
 
                 // Change scale when hovered
                 scale: hovered ? 1.2 : 1.0
+                onClicked: {
+                    fairyDimmer.visible = !fairyTypeButton.checked
+                }
+
+                Rectangle {
+                    id: fairyImageBlock
+                    x: -6
+                    y: -6
+                    visible: true
+                    color: "#00ffffff"
+                    radius: 10
+                    border.color: "#0002d20b"
+                    border.width: 0
+                    anchors.fill: parent
+                    scale: 0.9
+                    Image {
+                        id: fairyImage
+                        x: -150
+                        y: -150
+                        width: 350
+                        height: 350
+                        opacity: 1
+                        visible: true
+                        source: "https://images.pokemontcg.io/sm1/172_hires.png"
+                        sourceSize.width: 0
+                        sourceSize.height: 0
+                        scale: 0.15
+                        layer.enabled: true
+                        layer.effect: OpacityMask {
+                            width: 34
+                            height: 34
+                            opacity: 0
+                            visible: true
+                            scale: 1
+                            maskSource: fairyMask
+                            layer.textureSize.width: 0
+                            layer.textureSize.height: 0
+                            layer.enabled: true
+                            enabled: true
+                            clip: false
+                        }
+                        fillMode: Image.Pad
+                        clip: false
+
+                        Rectangle {
+                            id: fairyDimmer
+                            x: -10
+                            y: -10
+                            opacity: 1
+                            color: "#83474747"
+                            anchors.fill: parent
+                        }
+                    }
+
+                    Rectangle {
+                        id: fairyMask
+                        x: 0
+                        y: 0
+                        width: 50
+                        height: 50
+                        visible: false
+                        color: "#ffffff"
+                        radius: 46
+                        border.width: 0
+                        scale: 1
+                        layer.textureSize.width: 0
+                        layer.enabled: true
+                        enabled: true
+                        clip: false
+                    }
+                    clip: false
+                }
+
             }
 
             RoundButton {
                 id: dragonTypeButton
-                width: 24
-                height: 24
+                width: 50
+                height: 50
                 text: ""
+                anchors.verticalCenter: parent.verticalCenter
+                z: 3
+                clip: false
                 Layout.preferredHeight: 24
                 Layout.preferredWidth: 24
                 Layout.rowSpan: 1
-                highlighted: dragonTypeButton.checked
+                //highlighted: dragonTypeButton.checked
                 flat: false
                 checked: false
                 checkable: true
@@ -403,6 +1114,66 @@ ToolBar {
                 Layout.fillHeight: false
                 palette {
                     button: "goldenrod"
+                }
+                onClicked: {
+                    dragonDummyImage.visible = !dragonTypeButton.checked
+                }
+
+                Image {
+                    id: dragonDummyImage
+                    x: -150
+                    y: -150
+                    width: 350
+                    height: 350
+                    opacity: 1
+                    visible: true
+                    z: 1
+                    sourceSize.width: 0
+                    sourceSize.height: 0
+                    scale: 0.15
+                    layer.enabled: true
+                    layer.effect: OpacityMask {
+                        width: 34
+                        height: 34
+                        opacity: 0
+                        visible: true
+                        scale: 1
+                        maskSource: dragonMask
+                        layer.textureSize.width: 0
+                        layer.textureSize.height: 0
+                        layer.enabled: true
+                        enabled: true
+                        clip: false
+                    }
+                    fillMode: Image.Pad
+                    Rectangle {
+                        id: dragonDimmer
+                        x: -10
+                        y: -10
+                        opacity: 1
+                        color: "#83474747"
+                        anchors.fill: parent
+                        layer.enabled: true
+                        z: 0
+                    }
+                    clip: false
+                }
+
+                Rectangle {
+                    id: dragonMask
+                    x: 0
+                    y: 0
+                    width: 50
+                    height: 50
+                    visible: false
+                    color: "#ffffff"
+                    radius: 46
+                    border.width: 0
+                    scale: 1
+                    layer.textureSize.width: 0
+                    layer.enabled: true
+                    enabled: true
+                    clip: false
                 }
                 hoverEnabled: true
 
@@ -413,17 +1184,27 @@ ToolBar {
 
                 // Change scale when hovered
                 scale: hovered ? 1.2 : 1.0
+
+                icon.source: "dragonEnergyCropped.png"
+                icon.height: 50
+                icon.width: 50
+                padding: 0
+
+
+
             }
 
             RoundButton {
                 id: colorlessTypeButton
-                width: 24
-                height: 24
+                width: 50
+                height: 50
                 text: ""
+                anchors.verticalCenter: parent.verticalCenter
+                z: 3
+                highlighted: false
                 Layout.preferredHeight: 24
                 Layout.preferredWidth: 24
                 Layout.rowSpan: 1
-                highlighted: colorlessTypeButton.checked
                 flat: false
                 checked: false
                 checkable: true
@@ -440,39 +1221,87 @@ ToolBar {
                 ToolTip.visible: hovered
                 ToolTip.text: qsTr("Colorless")
 
+                padding: 0
+                icon.source: "colorlessEnergyCropped.png"
+                icon.height: 50
+                icon.width: 50
                 // Change scale when hovered
                 scale: hovered ? 1.2 : 1.0
+                onClicked: {
+                    colorlessDummyImage.visible = !colorlessTypeButton.checked
+                }
+
+                Image {
+                    id: colorlessDummyImage
+                    x: -150
+                    y: -150
+                    width: 350
+                    height: 350
+                    opacity: 1
+                    visible: true
+                    z: 1
+                    sourceSize.width: 0
+                    sourceSize.height: 0
+                    scale: 0.15
+                    layer.enabled: true
+                    layer.effect: OpacityMask {
+                        width: 34
+                        height: 34
+                        opacity: 0
+                        visible: true
+                        scale: 1
+                        maskSource: colorlessMask
+                        layer.textureSize.width: 0
+                        layer.textureSize.height: 0
+                        layer.enabled: true
+                        enabled: true
+                        clip: false
+                    }
+                    fillMode: Image.Pad
+                    Rectangle {
+                        id: colorlessDimmer
+                        x: -10
+                        y: -10
+                        opacity: 1
+                        color: "#83474747"
+                        anchors.fill: parent
+                        layer.enabled: true
+                        z: 0
+                    }
+                    clip: false
+                }
+
+                Rectangle {
+                    id: colorlessMask
+                    x: 0
+                    y: 0
+                    width: 50
+                    height: 50
+                    visible: false
+                    color: "#ffffff"
+                    radius: 46
+                    border.width: 0
+                    scale: 1
+                    layer.textureSize.width: 0
+                    layer.enabled: true
+                    enabled: true
+                    clip: false
+                }
+
+
+
+                clip: false
             }
+
         }
-    }
 
-    Rectangle {
-        id: rectangle4
-        color: "#00ffffff"
-        radius: 1
-        border.color: "#6c0101"
-        border.width: 2
-        anchors.fill: parent
-        z: 1
-    }
+        Item {
+            id: __materialLibrary__
 
-    Rectangle {
-        id: rectangle8
-        color: "#cc1c1c"
-        border.color: "#00000000"
-        anchors.fill: parent
-
-        Rectangle {
-            id: rectangle32
-            color: "#00ffffff"
-            radius: 4
-            border.color: "#ee0000"
-            border.width: 2
-            anchors.fill: parent
-            anchors.leftMargin: 3
-            anchors.rightMargin: 3
-            anchors.topMargin: 3
-            anchors.bottomMargin: 3
+            PrincipledMaterial {
+                id: principledMaterial
+                objectName: "New Material"
+            }
         }
     }
 }
