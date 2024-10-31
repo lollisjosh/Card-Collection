@@ -1,6 +1,9 @@
 """
 File for CardProcessor class that turns Card objects indo list[dict[str,str]]
 """
+
+from pokemontcgsdk import Card, Type, Supertype
+
 class CardProcessor:
     """
     A utility class for processing Card objects into JSON-serializable formats.
@@ -186,7 +189,9 @@ class CardProcessor:
 
     @staticmethod
     def process_types(card):
-        
+        """
+            TODO add docstring
+            """
         types = {
             "type1": "",
             "type2": ""
