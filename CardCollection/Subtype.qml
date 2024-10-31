@@ -30,7 +30,7 @@ Rectangle {
 
 
     width: 122
-    height: 60
+    height: 51
     color: blockBG
     radius: 6
     border.color: blockBorderColor

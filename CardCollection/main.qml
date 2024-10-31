@@ -230,6 +230,65 @@ Window {
         }
     }
 
+    function updateLeftScrollView() {
+        let leftContentHeight = 0;
+        let visibleItemsCount = 0; // Counter for visible items
+
+        // Check and add heights for attack blocks
+        if (attack1Block.visible) {
+            leftContentHeight += attack1Block.height;
+            visibleItemsCount++;
+        }
+        if (attack2Block.visible) {
+            leftContentHeight += attack2Block.height;
+            visibleItemsCount++;
+        }
+        if (attack3Block.visible) {
+            leftContentHeight += attack3Block.height;
+            visibleItemsCount++;
+        }
+        if (attack4Block.visible) {
+            leftContentHeight += attack4Block.height;
+            visibleItemsCount++;
+        }
+
+        // Check and add heights for ability blocks
+        if (ability1.visible) {
+            leftContentHeight += ability1.height;
+            visibleItemsCount++;
+        }
+        if (ability2.visible) {
+            leftContentHeight += ability2.height;
+            visibleItemsCount++;
+        }
+
+        // Check and add heights for rule text blocks
+        if (rule1TextBlock.visible) {
+            leftContentHeight += rule1TextBlock.height;
+            visibleItemsCount++;
+        }
+        if (rule2TextBlock.visible) {
+            leftContentHeight += rule2TextBlock.height;
+            visibleItemsCount++;
+        }
+        if (rule3TextBlock.visible) {
+            leftContentHeight += rule3TextBlock.height;
+            visibleItemsCount++;
+        }
+        if (rule4TextBlock.visible) {
+            leftContentHeight += rule4TextBlock.height;
+            visibleItemsCount++;
+        }
+
+        // Add spacing for the visible items, if there are any
+        if (visibleItemsCount > 0) {
+            leftContentHeight += (visibleItemsCount - 1) * leftSideColumn.spacing; // Spacing between elements
+        }
+
+        leftScrollView.contentHeight = leftContentHeight; // Set the final content height
+    }
+
+
     function resetCardRotation() {
         momentumTimer.stop()
         cardNode.eulerRotation.y = 0;
@@ -257,6 +316,7 @@ Window {
             resetLeftColumnScroll();
             resetRightColumnScroll();
             resetCardRotation();
+            updateLeftScrollView();
         }
     }
 
@@ -273,6 +333,7 @@ Window {
             resetLeftColumnScroll();
             resetRightColumnScroll();
             resetCardRotation();
+            updateLeftScrollView();
         }
     }
 
@@ -1201,14 +1262,15 @@ Window {
                                     boundsBehavior: Flickable.DragOverBounds
                                     boundsMovement: Flickable.FollowBoundsBehavior
                                     flickableDirection: Flickable.VerticalFlick
-                                    contentHeight: 1170 // Set a suitable height for your content
+                                    contentHeight: 1630 // Set a suitable height for your content
 
                                     // First attack
                                     Column {
-                                        id: column
+                                        id: leftSideColumn
                                         x: 5
+                                        y: 0
                                         width: 283
-                                        height: 1500
+                                        height: 446
                                         // anchors.verticalCenter: parent.verticalCenter
                                         // anchors.verticalCenterOffset: -16
                                         spacing: 4
@@ -1641,7 +1703,7 @@ Window {
                                         Row {
                                             id: row1
                                             width: 221
-                                            height: 138
+                                            height: 106
                                             spacing: 4
                                             anchors.horizontalCenter: parent.horizontalCenter
 
@@ -1666,7 +1728,7 @@ Window {
                                                 anchors.verticalCenter: parent.verticalCenter
                                                 blockBorderColor: "#6c0101"
                                                 color: window.blockBG
-                                                height: 125
+                                                height: 106
                                                 radius: 6
                                                 width: 164
 
@@ -2136,6 +2198,7 @@ Window {
                         updateFlavorText();
                         resetLeftColumnScroll();
                         resetRightColumnScroll();
+                        updateLeftScrollView();
                         view.visible = true
                     }
                 }

@@ -10,7 +10,7 @@ import QtQuick3D
 Rectangle {
     id: root
     width: 164
-    height: 125
+    height: 106
     color: blockBG
     radius: 8
     border.width: 1
@@ -117,7 +117,7 @@ Rectangle {
             border.color: "#6c0101"
             border.width: 2
             color: mainColor
-            height: 60
+            height: 51
             radius: 6
             visible: true
             width: 80
@@ -128,7 +128,7 @@ Rectangle {
             border.color: "#6c0101"
             border.width: 2
             color: mainColor
-            height: 60
+            height: 51
             radius: 6
             visible: true
             width: 80
@@ -139,7 +139,7 @@ Rectangle {
             border.color: "#6c0101"
             border.width: 2
             color: mainColor
-            height: 60
+            height: 51
             radius: 6
             visible: true
             width: 80
@@ -150,7 +150,7 @@ Rectangle {
             border.color: "#6c0101"
             border.width: 2
             color: mainColor
-            height: 60
+            height: 51
             radius: 6
             visible: true
             width: 80
