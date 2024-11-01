@@ -22,13 +22,14 @@ Window {
 
     title: qsTr("Card Collection")
 
-    property int selectedIndex: -1
+    property int selectedIndex: 0
     property var cards: [] // List of card objects
-    property int selectedTabIndex: 0
+    property int selectedTabIndex: 1
 
     // Define color scheme properties
     property color primaryColor: "#c80d0d"
     property color blockBG: "#ff0000"
+    property color blockBorderHightlight: "#ee0000"
     property color bezelColor: "#b2b2b2"
     property color bezelBorderColor: "#616161"
     property color screenColor: "#02d20b"
@@ -399,10 +400,9 @@ Window {
         }
     }
 
-    Column {
+    Rectangle {
         id: columnLayout1
         anchors.fill: parent
-        spacing: 0
 
         // TabBar for navigation
         TabBar {
@@ -508,10 +508,12 @@ Window {
 
         StackLayout {
             id: stackLayout
-            y: 50
             width: 600
             height: 600
             visible: true
+            anchors.top: tabBar.bottom
+            anchors.topMargin: 0
+            z: 1
             Layout.fillHeight: true
             Layout.fillWidth: true
             currentIndex: selectedTabIndex
@@ -551,7 +553,7 @@ Window {
                             Layout.fillWidth: true
                             Layout.preferredHeight: 40
                             Layout.topMargin: 0
-                            toolbarContentHeight: 30
+                            //toolbarContentHeight: 30
                             height: 60
                             anchors.left: parent.left
                             anchors.right: parent.right
@@ -960,6 +962,7 @@ Window {
                                 width: 300
                                 height: 438
                                 opacity: 1
+                                visible: true
                                 // Start hidden
                                 color: screenColor
                                 radius: 4
@@ -1292,6 +1295,8 @@ Window {
                                 id: drawerAnimation
                                 target: customDrawer
                                 property: "x"
+                                alwaysRunToEnd: false
+                                running: false
                                 duration: 200  // Duration of the animation in milliseconds
                                 easing.type: Easing.InOutQuad  // Easing function for smoothness
                             }
@@ -2293,8 +2298,287 @@ Window {
             Item { // Page 2: Browse Page
 
                 id: discoverPage
-                width: parent.width
-                height: parent.height
+                width: 600
+                height: 600
+                Layout.alignment: Qt.AlignLeft | Qt.AlignBottom
+                Layout.preferredWidth: 600
+                Layout.preferredHeight: 600
+                Layout.fillHeight: false
+                Layout.fillWidth: false
+
+                Column {
+                    id: column
+                    x: 0
+                    y: 0
+                    width: 600
+                    height: 600
+                    z: 1
+
+
+                    Rectangle {
+                        id: rectangle4
+                        height: 470
+                        color: primaryColor
+                        radius: 0
+                        border.color: borderColor
+                        border.width: 2
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        anchors.leftMargin: 0
+                        anchors.rightMargin: 0
+                    }
+
+
+
+
+
+
+
+
+
+
+
+                    Rectangle {
+                        id: rectangle6
+                        height: 70
+                        opacity: 1
+                        color: window.blockBG
+                        border.color: "#00000000"
+                        border.width: 2
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        anchors.leftMargin: 0
+                        anchors.rightMargin: 0
+
+                        MySearchFilterTools {
+                            id: mySearchFilterTools
+                            width: 600
+                            height: 60
+                            color: window.blockBG
+                            radius: 0
+                            border.color: window.bezelBorderColor
+                            border.width: 0
+                            anchors.verticalCenter: parent.verticalCenter
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            transparentColor: "#00000000"
+                            textColor: window.textColor
+                            screenShadeColor: window.screenShadeColor
+                            screenHighlightColor: window.screenHighlightColor
+                            screenColor: window.screenColor
+                            mainColor: window.mainColor
+                            dropTextColor: window.dropTextColor
+                            dropBorderColor: window.dropBorderColor
+                            dimScreenColor: "dark green"
+                            borderColor: window.borderColor
+                            bezelColor: window.bezelColor
+                            bezelBorderColor: window.bezelBorderColor
+                            blockBorderColor: window.borderColor
+                            blockBG: window.blockBG
+
+                            z: 0
+                            //toolbarContentHeight: 60
+                        }
+                    }
+                    Rectangle {
+                        id: rectangle13
+                        height: 60
+                        color: window.primaryColor
+                        border.width: 0
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        anchors.leftMargin: 0
+                        anchors.rightMargin: 0
+
+                        Rectangle {
+                            id: rectangle5
+                            width: 354
+                            color: window.blockBG
+                            border.color: window.borderColor
+                            radius: 8
+                            border.width: 2
+                            anchors.left: parent.left
+                            anchors.top: parent.top
+                            anchors.bottom: parent.bottom
+                            anchors.leftMargin: 6
+                            anchors.topMargin: 4
+                            anchors.bottomMargin: 4
+
+                            ComboBox {
+                                id: setComboBox1
+                                x: 16
+                                height: 30
+                                anchors.verticalCenter: parent.verticalCenter
+                                anchors.left: parent.left
+                                anchors.right: parent.right
+                                anchors.leftMargin: 6
+                                anchors.rightMargin: 6
+                                model: setsModel
+                                displayText: "Sets"
+                                delegate: Item {
+                                    width: parent ? parent.width : 0
+                                    height: checkDelegate1 ? checkDelegate1.height : 30
+                                    CheckDelegate {
+                                        id: checkDelegate1
+                                        text: model.name
+                                        anchors.fill: parent
+                                        onCheckedChanged: {
+                                            if (model.selected !== checked) {
+                                                model.selected = checked;
+                                            }
+                                        }
+                                        highlighted: setComboBox1.highlightedIndex == index
+                                        checked: model.selected
+                                    }
+                                }
+                                Connections {
+                                    target: backendController
+                                }
+                                Layout.preferredWidth: -1
+                                Layout.preferredHeight: -1
+                                Layout.leftMargin: 6
+                            }
+
+                            Rectangle {
+                                id: rectangle8
+                                x: 6
+                                y: 10
+                                width: 315
+                                height: 32
+                                color: "#00ffffff"
+                                radius: 2
+                                border.color: borderColor
+                                border.width: 2
+                                anchors.right: rectangle5.right
+                                anchors.leftMargin: 6
+                                anchors.rightMargin: 6
+                                anchors.left: rectangle5.left
+
+                            }
+                        }
+
+                        Button {
+                            id: btnDiscover
+                            height: 25
+                            text: qsTr("Discover")
+                            anchors.verticalCenter: parent.verticalCenter
+                            anchors.left: rectangle5.right
+                            anchors.right: parent.right
+                            anchors.leftMargin: 40
+                            anchors.rightMargin: 30
+                            //   anchors.right: parent.right
+                            //  anchors.rightMargin: -585
+                            z: 1
+                            font.styleName: "Bold Italic"
+                            // Layout.fillHeight: false
+                            // Layout.rightMargin: 6
+                            //Layout.fillWidth: false
+                            palette {
+                                button: "blue"
+                            }
+                            hoverEnabled: true
+
+                            ToolTip.delay: 800
+                            ToolTip.timeout: 5000
+                            ToolTip.visible: hovered
+                            ToolTip.text: qsTr("Search the database with the selected filters")
+
+                            // Change scale when hovered
+                            scale: hovered ? 1.05 : 1.0
+
+                            onClicked: {
+                                // Initialize an empty array for the search parameters
+                                var searchParams = []
+
+                                // Check if the search box is not empty
+                                if (txtSearchBox.text.trim() !== "") {
+                                    // Create a tuple with the entered name
+                                    searchParams.push(
+                                                ['', 'name', txtSearchBox.text])
+                                }
+
+                                // Collecting selected items from the ComboBox
+                                for (var i = 0; i < setsModel.count; i++) {
+                                    var item = setsModel.get(i)
+                                    if (item.selected) {
+                                        // Build the tuple for each selected set item
+                                        searchParams.push(
+                                                    ['set', 'name', item.name])
+                                    }
+                                }
+
+                                // Check the state of each Pokémon TCG type button and add to search parameters if checked
+                                if (searchFilterTools.fireChecked) {
+                                    searchParams.push(
+                                                ['types', '', 'fire'])
+                                }
+                                if (searchFilterTools.waterChecked) {
+                                    searchParams.push(
+                                                ['types', '', 'water'])
+                                }
+                                if (searchFilterTools.grassChecked) {
+                                    searchParams.push(
+                                                ['types', '', 'grass'])
+                                }
+                                if (searchFilterTools.lightningChecked) {
+                                    searchParams.push(
+                                                ['types', '', 'lightning'])
+                                }
+                                if (searchFilterTools.psychicChecked) {
+                                    searchParams.push(
+                                                ['types', '', 'psychic'])
+                                }
+                                if (searchFilterTools.fightingChecked) {
+                                    searchParams.push(
+                                                ['types', '', 'fighting'])
+                                }
+                                if (searchFilterTools.darknessChecked) {
+                                    searchParams.push(
+                                                ['types', '', 'darkness'])
+                                }
+                                if (searchFilterTools.fairyChecked) {
+                                    searchParams.push(
+                                                ['types', '', 'fairy'])
+                                }
+                                if (searchFilterTools.dragonChecked) {
+                                    searchParams.push(
+                                                ['types', '', 'dragon'])
+                                }
+                                if (searchFilterTools.metalChecked) {
+                                    searchParams.push(
+                                                ['types', '', 'metal'])
+                                }
+                                if (searchFilterTools.colorlessChecked) {
+                                    searchParams.push(
+                                                ['types', '', 'colorless'])
+                                }
+
+                                // Call the request_search function with the built tuples if there are any
+                                if (searchParams.length > 0) {
+                                    //Print each tuple as a string to the console
+                                    for (var paramIndex = 0; paramIndex < searchParams.length; paramIndex++) {
+                                        var tupleString = "[" + searchParams[paramIndex][0] + ", "
+                                                + searchParams[paramIndex][1] + ", "
+                                                + searchParams[paramIndex][2] + "]"
+                                    }
+                                    backendController.request_search(
+                                                searchParams)
+                                    resetLeftColumnScroll()
+                                }
+                            }
+                        }
+                    }
+                }
+
+                Rectangle {
+                    id: rectangle14
+                    y: 0
+                    height: 600
+                    color: window.blockBG
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.leftMargin: 0
+                    anchors.rightMargin: 0
+                }
                 // Page content for browsePage
             }
 
@@ -2311,6 +2595,7 @@ Window {
 
 /*##^##
 Designer {
-    D{i:0}D{i:38;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}
+    D{i:0}D{i:9}D{i:38;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}D{i:125}D{i:126}D{i:127}
+D{i:128}D{i:129}D{i:130}D{i:134}D{i:135}D{i:136}
 }
 ##^##*/

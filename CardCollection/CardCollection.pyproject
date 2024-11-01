@@ -17,14 +17,13 @@
         "AbilityInfoBlock.qml",
         "MySearchFilterTools.qml",
         "MySearchTools.qml",
-        "ballsmall.png",
         "Card3D.qml",
         "SetLogoBlock.qml",
         "SetSymbolBlock.qml",
         "SubtypeBlock.qml",
         "Subtype.qml",
         "FlavorTextBlock.qml",
-        "TypeBlock.qml",
-        "Type.qml"
+        "Type.qml",
+        "ViewingArea.qml"
     ]
 }

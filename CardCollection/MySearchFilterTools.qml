@@ -9,10 +9,33 @@ Rectangle {
     id: root
     width: 600
     height: 60
-    anchors.left: parent.left
-    anchors.right: parent.right
-    z: 2
+    color: blockBG
+    border.color: borderColor
+    border.width: 2
+    //anchors.left: parent.left
+    //anchors.right: parent.right
+    z: 0
     clip: false
+
+
+
+    // Exposed properties
+    property color blockBG: "#ff0000"
+    property color blockBorderColor:"#00ff0000"
+    property color blockBorderHightlight: "#ee0000"
+
+    property color mainColor: "#c80d0d"
+    property color bezelColor: "#b2b2b2"
+    property color bezelBorderColor: "#616161"
+    property color screenColor: "#02d20b"
+    property color dimScreenColor: "#1c3e1d"
+    property color screenShadeColor: "#128c17"
+    property color screenHighlightColor: "#25fb2e"
+    property color textColor: "#095f0c"
+    property color dropTextColor: "#c5002a02"
+    property color borderColor: "#6c0101"
+    property color dropBorderColor: "#25fb2e"
+    property color transparentColor: "#00ff0000"
 
     property bool grassChecked: grassTypeButton.checked
     property bool fireChecked: fireTypeButton.checked
@@ -26,61 +49,30 @@ Rectangle {
     property bool fairyChecked: fairyTypeButton.checked
     property bool dragonChecked: dragonTypeButton.checked
 
+
     // Expose setsModel to the outside world
     property var setsModel
 
-    property alias toolbarContentHeight: searchFilterTools.contentHeight
+   // property alias toolbarContentHeight: searchFilterToolbar.contentHeight
 
 
-    ToolBar {
-        id: searchFilterTools
+    Rectangle {
+        id: searchFilterToolbar
+        color: "#00000000"
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: parent.top
 
 
 
-        anchors.fill: parent
-
-
-
-        Rectangle {
-            id: rectangle4
-            x: -6
-            y: 0
-            width: 600
-            height: 60
-            color: "#00ffffff"
-            radius: 1
-            border.color: "#6c0101"
-            border.width: 2
-            z: 1
-        }
-
-        Rectangle {
-            id: rectangle8
-            x: -6
-            y: 0
-            width: 600
-            height: 60
-            color: "#cc1c1c"
-            border.color: "#00000000"
-
-            Rectangle {
-                id: rectangle32
-                color: "#00ffffff"
-                radius: 4
-                border.color: "#ee0000"
-                border.width: 2
-                anchors.fill: parent
-            }
-        }
+        z: 0
 
         Row {
             id: typesRow
+            x: 5
+            y: 5
             height: 50
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.leftMargin: -2
-            anchors.rightMargin: -2
             Layout.leftMargin: 6
             spacing: 4
             Layout.preferredWidth: -1
@@ -334,6 +326,7 @@ Rectangle {
                             y: -10
                             opacity: 1
                             color: "#83474747"
+                            border.width: 0
                             anchors.fill: parent
                         }
                     }
@@ -1302,6 +1295,44 @@ Rectangle {
                 id: principledMaterial
                 objectName: "New Material"
             }
+        }
+    }
+
+    Rectangle {
+        id: rectangle8
+        visible: false
+        color: "#00ff0000"
+        radius: 8
+        border.color: blockBorderHightlight
+        border.width: 2
+        anchors.fill: parent
+        anchors.leftMargin: 3
+        anchors.rightMargin: 3
+        anchors.topMargin: 3
+        anchors.bottomMargin: 3
+
+        Rectangle {
+            id: rectangle32
+            visible: false
+            color: transparentColor
+            radius: 8
+            border.color: borderColor
+            border.width: 2
+            anchors.fill: parent
+        }
+
+        Rectangle {
+            id: rectangle4
+            width: 597
+            height: 57
+            visible: false
+            color: transparentColor
+            radius: 0
+            border.color: blockBorderColor
+            border.width: 0
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.horizontalCenter: parent.horizontalCenter
+            z: 1
         }
     }
 }
