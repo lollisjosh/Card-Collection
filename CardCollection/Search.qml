@@ -18,6 +18,25 @@ Item {
     Layout.fillHeight: false
     Layout.fillWidth: false
 
+
+    property int selectedIndex: 0
+    property var cards: [] // List of card objects
+    //property int selectedTabIndex: 0
+
+    // Define color scheme properties
+    property color primaryColor: "#c80d0d"
+    property color blockBG: "#ff0000"
+    property color blockBorderHightlight: "#ee0000"
+    property color bezelColor: "#b2b2b2"
+    property color bezelBorderColor: "#616161"
+    property color screenColor: "#02d20b"
+    property color screenShadeColor: "#128c17"
+    property color screenHighlightColor: "#25fb2e"
+    property color textColor: "#095f0c"
+    property color dropTextColor: "#c5002a02"
+    property color borderColor: "#6c0101"
+    property color dropBorderColor: "#25fb2e"
+
     // Add a boolean variable to track the drawer's state
     property bool isDrawerOpen: false // Start with the drawer closed
 
