@@ -25,29 +25,32 @@ class DiscoverHandler:
             Randomly selects a type from the input list of types.
     """
 
-    def handle_discover(self, param_list : list[tuple[str,str,str]]) -> list[dict[str,str]]:
-        """
-        Summary:
-            The main function in the `DiscoverHandler` that utilizes the 
-                `Backend.fetch_data` function \
-                `CardProcessor.process_cards` functions, 
-                along with its internal `random_select_set` \
-                and `random_select_type` functions, in order to return a randomized result back \
-                to the calling client in the form of a list[dict[str, str]] \
-                that should only contain 1 `Card` object.
+    def handle_discover(self, param_list: list[tuple[str, str, str]]) -> list[dict[str, str]]:
+        print([element for element in param_list if element[0] != 'set'])
 
-        Args:
-            self : The self object
-            param_list : A list[tuple[str, str, str]] from which to 
-                generate a randomized search result.
+        randomSet = DiscoverHandler.random_select_set(param_list)
 
-        Return:
-            discover_result : list[dict[str, str]] representing the randomly discovered card. 
-                This list actually only has one element  for 
-                    compatibility purposes it should still be a list.
-        """
+        # Initialize tempList with tuples from param_list not starting with 'set'
+        tempList = [element for element in param_list if element[0] != 'set']
 
-    def random_select_set(self, select_list : list[tuple[str,str,str]]) -> tuple[str,str,str]:
+        # Append randomSet to tempList if randomSet is not None
+        if randomSet is not None:
+            tempList.append(randomSet)
+
+        query = Backend.construct_query(self, tempList)
+
+        print("Query: " + query)
+
+        results = Backend.query_api(self, query)
+
+        processed_cards = CardProcessor.process_cards(results)
+
+        randomChoice = []
+        randomChoice.append(random.choice(processed_cards))
+
+        return randomChoice
+
+    def random_select_set(select_list : list[tuple[str,str,str]]) -> tuple[str,str,str]:
         """
         Summary:
             Randomly selects a set from the provided list of sets.
@@ -60,6 +63,15 @@ class DiscoverHandler:
         Return:
             A tuple[str, str, str] representing the randomly selected set.
         """
+
+        temp = [element for element in select_list if element[0] == 'set']
+        if temp:
+            randomChoice = random.choice(temp)
+            print(randomChoice)
+            return randomChoice
+        else:
+            #print("No set found.")
+            return None
 
     def random_select_type(self, select_list : list[tuple[str, str, str]]) -> tuple[str,str,str]:
         """

@@ -1,6 +1,9 @@
 import QtQuick 2.13
 import QtQuick.Controls
 import QtQuick.Layouts
+import QtQuick3D
+import Qt5Compat.GraphicalEffects
+
 
 Item { // Page 2: Discover Page
 
@@ -28,6 +31,370 @@ Item { // Page 2: Discover Page
     property color dropTextColor: "#c5002a02"
     property color borderColor: "#6c0101"
     property color dropBorderColor: "#25fb2e"
+
+    // Add a boolean variable to track the drawer's state
+    property bool isDrawerOpen: false // Start with the drawer closed
+    property int selectedIndex: 0
+    property var cards: [] // List of card objects
+
+
+    function toggleDrawer() {
+        if (customDrawer.x < 0) {
+
+            customDrawer.x = 8
+            isDrawerOpen = true
+
+            // Animate ball button rotation on drawer open
+            rotateAnimation.from = ballButton.rotation
+            rotateAnimation.to = 270 // Rotate by 90 degrees
+            rotateAnimation.start()
+        } else {
+
+            customDrawer.x = -customDrawer.width + 6 // hide drawer
+            isDrawerOpen = false
+
+            // Animate rotation on drawer close
+            rotateAnimation.from = ballButton.rotation
+            rotateAnimation.to = 90 // Reset to 0 degrees rotation
+            rotateAnimation.start()
+        }
+    }
+
+    // Function to update attack information based on selectedIndex
+    function updateAttackInfo() {
+        if (cards[selectedIndex]) {
+
+            const defaultCost1 = "Cost 1";
+            const defaultCost2 = "Cost 2";
+            const defaultCost3 = "Cost 3";
+            const defaultCost4 = "Cost 4";
+            const defaultCost5 = "Cost 5";
+
+            // Create costs objects from the selected card for each attack
+            const attack1Costs = {
+                cost1: cards[selectedIndex].attack1Cost1 || defaultCost1,
+                cost2: cards[selectedIndex].attack1Cost2 || defaultCost2,
+                cost3: cards[selectedIndex].attack1Cost3 || defaultCost3,
+                cost4: cards[selectedIndex].attack1Cost4 || defaultCost4,
+                cost5: cards[selectedIndex].attack1Cost5 || defaultCost5
+            };
+
+            const attack2Costs = {
+                cost1: cards[selectedIndex].attack2Cost1 || defaultCost1,
+                cost2: cards[selectedIndex].attack2Cost2 || defaultCost2,
+                cost3: cards[selectedIndex].attack2Cost3 || defaultCost3,
+                cost4: cards[selectedIndex].attack2Cost4 || defaultCost4,
+                cost5: cards[selectedIndex].attack2Cost5 || defaultCost5
+
+            };
+
+            const attack3Costs = {
+                cost1: cards[selectedIndex].attack3Cost1 || defaultCost1,
+                cost2: cards[selectedIndex].attack3Cost2 || defaultCost2,
+                cost3: cards[selectedIndex].attack3Cost3 || defaultCost3,
+                cost4: cards[selectedIndex].attack3Cost4 || defaultCost4,
+                cost5: cards[selectedIndex].attack3Cost5 || defaultCost5
+
+            };
+
+            const attack4Costs = {
+                cost1: cards[selectedIndex].attack4Cost1 || defaultCost1,
+                cost2: cards[selectedIndex].attack4Cost2 || defaultCost2,
+                cost3: cards[selectedIndex].attack4Cost3 || defaultCost3,
+                cost4: cards[selectedIndex].attack4Cost4 || defaultCost4,
+                cost5: cards[selectedIndex].attack4Cost5 || defaultCost5
+
+            };
+
+            // Update attack blocks
+            attack1Block.updateAttack(cards[selectedIndex].attack1Name, cards[selectedIndex].attack1Text, 0, attack1Costs);
+            attack2Block.updateAttack(cards[selectedIndex].attack2Name, cards[selectedIndex].attack2Text, 1, attack2Costs);
+            attack3Block.updateAttack(cards[selectedIndex].attack3Name, cards[selectedIndex].attack3Text, 2, attack3Costs);
+            attack4Block.updateAttack(cards[selectedIndex].attack4Name, cards[selectedIndex].attack4Text, 3, attack4Costs);
+
+        }
+    }
+
+    // Function to update ability information based on selectedIndex
+    function updateAbilityInfo() {
+
+        if (cards[selectedIndex]) {
+            // Update ability text fields first
+            ability1.nameText = cards[selectedIndex].ability1Name
+                    || "Ability 1"
+            ability1.descText = cards[selectedIndex].ability1Text
+                    || "No description available."
+            ability1.typeText = cards[selectedIndex].ability1Type || "Ability 1 Type"
+
+            ability2.nameText = cards[selectedIndex].ability2Name
+                    || "Ability 2"
+            ability2.descText = cards[selectedIndex].ability2Text
+                    || "No description available."
+            ability2.typeText = cards[selectedIndex].ability2Type || "Ability 2 Type"
+
+            ability1.isVisible = cards[selectedIndex].ability1Name !== "Ability 1" && cards[selectedIndex].ability1Name !== ""
+
+            ability2.isVisible = cards[selectedIndex].ability2Name !== "Ability 2" && cards[selectedIndex].ability2Name !== ""
+        }
+    }
+
+    function updateSubTypeInfo() {
+        if(cards[selectedIndex]) {
+            //subtypeBlock.subtype1
+            subtypeBlock.sub1Text = cards[selectedIndex].subtype1
+                    || "Sub Type 1"
+            subtypeBlock.sub2Text = cards[selectedIndex].subtype2
+                    || "Sub Type 2"
+            subtypeBlock.sub3Text = cards[selectedIndex].subtype3
+                    || "Sub Type 3"
+            subtypeBlock.sub4Text = cards[selectedIndex].subtype4
+                    || "Sub Type 4"
+
+            subtypeBlock.updateSubTypeInfo();
+
+            if(!subtypeBlock.visible && !typeBlock.visible) {
+                typesRow.height = 0;
+            }
+            else {
+                typesRow.height = 106;
+            }
+        }
+
+    }
+
+    function updateSuperTypeInfo() {
+        if(cards[selectedIndex]) {
+            supertypeText.text = cards[selectedIndex].supertype
+                    || "Super Type"
+        }
+    }
+
+    function updateTypeInfo() {
+        const defaultType1 = "Type 1";
+        const defaultType2 = "Type 2";
+
+        // Type mapping for potential image sources (update URLs if needed)
+        const typeImageMap = {
+            "grass": "https://images.pokemontcg.io/sm1/164_hires.png",
+            "fire": "https://images.pokemontcg.io/sm1/165_hires.png",
+            "water": "https://images.pokemontcg.io/sm1/166_hires.png",
+            "lightning": "https://images.pokemontcg.io/sm1/167_hires.png",
+            "psychic": "https://images.pokemontcg.io/sm1/168_hires.png",
+            "fighting": "https://images.pokemontcg.io/sm1/169_hires.png",
+            "darkness": "https://images.pokemontcg.io/sm1/170_hires.png",
+            "metal": "https://images.pokemontcg.io/sm1/171_hires.png",
+            "fairy": "https://images.pokemontcg.io/sm1/172_hires.png",
+            "dragon": "dragonEnergyCropped.png",
+            "colorless": "colorlessEnergyCropped.png"
+        };
+
+        // Check if the card exists
+        if (!cards[selectedIndex]) {
+            // console.log("cards[selectedIndex] doesn't exist")
+            // Reset to defaults if no card is selected
+            typeBlock.type1Type = defaultType1;
+            typeBlock.type2Type= defaultType2;
+            return; // Exit early if no card is found
+        }
+        else {
+            //  console.log(cards[selectedIndex].type1)
+        }
+
+        // Normalize type strings for image source mapping
+        const normalizedType1 = cards[selectedIndex]?.type1?.trim().toLowerCase() || "";
+        const normalizedType2 = cards[selectedIndex]?.type2?.trim().toLowerCase() || "";
+
+        typeBlock.type1Type = normalizedType1 || defaultType1;
+        typeBlock.type2Type = normalizedType2 || defaultType2;
+
+        if(typeBlock.type1Type === defaultType1 && typeBlock.type2Type === defaultType2) {
+
+            typeBlock.visible = false;
+        }
+        else {
+            typeBlock.visible = true;
+        }
+
+        if(typeBlock.visible && subtypeBlock.visible) {
+
+            typesRow.width = typeBlock.width + subtypeBlock.width
+
+        } else if (typeBlock.visible && !subtypeBlock.visible) {
+
+            typesRow.width = typeBlock.width
+
+        } else if (!typeBlock.visible && subtypeBlock.visible) {
+            typesRow.width = subtypeBlock.width
+        }
+
+
+    }
+
+    function updateFlavorText() {
+        if(cards[selectedIndex] && cards[selectedIndex].flavorText !== "") {
+            // console.log();
+            flavorTextBlock.descText = cards[selectedIndex].flavorText;
+            rule1TextBlock.descText = cards[selectedIndex].rule1;
+            rule2TextBlock.descText = cards[selectedIndex].rule2;
+            rule3TextBlock.descText = cards[selectedIndex].rule3;
+            rule4TextBlock.descText = cards[selectedIndex].rule4;
+
+            flavorTextBlock.visible = flavorTextBlock.descText !== "" && flavorTextBlock.descText !== "Flavor Text"
+            rule1TextBlock.visible = rule1TextBlock.descText !== "" && rule1TextBlock.descText !== "Rule 1"
+            rule2TextBlock.visible = rule2TextBlock.descText !== "" && rule2TextBlock.descText !== "Rule 2"
+            rule3TextBlock.visible = rule3TextBlock.descText !== "" && rule3TextBlock.descText !== "Rule 3"
+            rule4TextBlock.visible = rule4TextBlock.descText !== "" && rule4TextBlock.descText !== "Rule 4"
+        }
+    }
+
+    function updateLeftScrollView() {
+        let leftContentHeight = 0;
+        let visibleItemsCount = 0; // Counter for visible items
+
+        // Check and add heights for attack blocks
+        if (attack1Block.visible) {
+            leftContentHeight += attack1Block.height;
+            visibleItemsCount++;
+        }
+        if (attack2Block.visible) {
+            leftContentHeight += attack2Block.height;
+            visibleItemsCount++;
+        }
+        if (attack3Block.visible) {
+            leftContentHeight += attack3Block.height;
+            visibleItemsCount++;
+        }
+        if (attack4Block.visible) {
+            leftContentHeight += attack4Block.height;
+            visibleItemsCount++;
+        }
+
+        // Check and add heights for ability blocks
+        if (ability1.visible) {
+            leftContentHeight += ability1.height;
+            visibleItemsCount++;
+        }
+        if (ability2.visible) {
+            leftContentHeight += ability2.height;
+            visibleItemsCount++;
+        }
+
+        // Check and add heights for rule text blocks
+        if (rule1TextBlock.visible) {
+            leftContentHeight += rule1TextBlock.height;
+            visibleItemsCount++;
+        }
+        if (rule2TextBlock.visible) {
+            leftContentHeight += rule2TextBlock.height;
+            visibleItemsCount++;
+        }
+        if (rule3TextBlock.visible) {
+            leftContentHeight += rule3TextBlock.height;
+            visibleItemsCount++;
+        }
+        if (rule4TextBlock.visible) {
+            leftContentHeight += rule4TextBlock.height;
+            visibleItemsCount++;
+        }
+
+        // Add spacing for the visible items, if there are any
+        if (visibleItemsCount > 0) {
+            leftContentHeight += (visibleItemsCount - 1) * leftSideColumn.spacing; // Spacing between elements
+        }
+
+        leftScrollView.contentHeight = leftContentHeight; // Set the final content height
+    }
+
+    function updateRightScrollView() {
+        let rightContentHeight = 0;
+        let visibleItemsCount = 0; // Counter for visible items
+
+        // Check and add heights for the items in the rightSideColumn
+        if (typesRow.visible) {
+            rightContentHeight += typesRow.height;
+            visibleItemsCount++;
+        }
+        if (supertypeBlock.visible) {
+            rightContentHeight += supertypeBlock.height;
+            visibleItemsCount++;
+        }
+        if (nameBlock.visible) {
+            rightContentHeight += nameBlock.height;
+            visibleItemsCount++;
+        }
+        if (flavorTextBlock.visible) {
+            rightContentHeight += flavorTextBlock.height;
+            visibleItemsCount++;
+        }
+        if (setLogoBlock.visible) {
+            rightContentHeight += setLogoBlock.height;
+            visibleItemsCount++;
+        }
+        if (setSymbolRow.visible) {
+            rightContentHeight += setSymbolRow.height;
+            visibleItemsCount++;
+        }
+
+        // Add spacing for the visible items, if there are any
+        if (visibleItemsCount > 0) {
+            rightContentHeight += (visibleItemsCount - 1) * rightSideColumn.spacing; // Spacing between elements
+        }
+
+        rightScrollView.contentHeight = rightContentHeight; // Set the final content height
+    }
+
+
+
+    function resetCardRotation() {
+        momentumTimer.stop()
+        cardNode.eulerRotation.y = 0;
+    }
+    function resetLeftColumnScroll() {
+        leftScrollView.contentX = 0;
+        leftScrollView.contentY = 0;
+    }
+
+    function resetRightColumnScroll() {
+        rightScrollView.contentX = 0;
+        rightScrollView.contentY = 0;
+    }
+
+    // Function to handle next button click
+    function onNextCard() {
+        if (selectedIndex < cards.length - 1) {
+            selectedIndex++
+            updateAttackInfo(); // Update UI for the new selectedIndex
+            updateAbilityInfo();
+            updateSubTypeInfo();
+            updateSuperTypeInfo();
+            updateTypeInfo();
+            updateFlavorText();
+            resetLeftColumnScroll();
+            resetRightColumnScroll();
+            resetCardRotation();
+            updateLeftScrollView();
+            updateRightScrollView();
+        }
+    }
+
+    // Function to handle next button click
+    function onPrevCard() {
+        if (selectedIndex >= 0) {
+            selectedIndex--
+            updateAttackInfo(); // Update UI for the new selectedIndex
+            updateAbilityInfo();
+            updateSubTypeInfo();
+            updateSuperTypeInfo();
+            updateTypeInfo();
+            updateFlavorText();
+            resetLeftColumnScroll();
+            resetRightColumnScroll();
+            resetCardRotation();
+            updateLeftScrollView();
+            updateRightScrollView();
+        }
+    }
+
 
     Column {
         id: column
@@ -110,13 +477,965 @@ Item { // Page 2: Discover Page
             visible: true
             color: deepBG
             radius: 0
-            border.color: primaryColor
-            border.width: 8
+            border.color: borderColor
+            border.width: 4
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.leftMargin: 0
             anchors.rightMargin: 0
             z: 0
+
+            Pane {
+                id: viewPane
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.top: parent.top
+                verticalPadding: 6
+                topPadding: 0
+                rightPadding: 0
+                leftPadding: 0
+                horizontalPadding: 6
+                contentWidth: 468
+                contentHeight: 300
+                Rectangle {
+                    visible: true
+                    color: dataFlow.color
+                    radius: 0
+                    border.color: "#00255864"
+                    border.width: 0
+                    anchors.fill: parent
+                    anchors.leftMargin: 0
+                    anchors.rightMargin: 0
+                    anchors.topMargin: 0
+                    anchors.bottomMargin: 0
+                    z: 0
+                }
+
+                Rectangle {
+                    id: customDrawer
+                    x: -298
+                    width: 300
+                    height: 438
+                    opacity: 1
+                    visible: true
+                    color: screenColor
+                    radius: 4
+                    border.color: "#25fb2e"
+                    border.width: 6
+                    anchors.verticalCenter: parent.verticalCenter
+                    z: 1
+                    scale: 1
+                    Behavior {
+                        NumberAnimation {
+                            duration: 500
+                        }
+                    }
+
+                    MouseArea {
+                        visible: true
+                        anchors.fill: parent
+                        anchors.leftMargin: 1
+                        anchors.rightMargin: -1
+                        anchors.topMargin: 0
+                        anchors.bottomMargin: 0
+                    }
+
+                    Frame {
+                        id: frame
+                        visible: true
+                        anchors.fill: parent
+                        View3D {
+                            id: view
+                            anchors.fill: parent
+                            clip: false
+                            z: 3
+                            visible: false
+
+                            PerspectiveCamera {
+                                y: 0
+                                position: Qt.vector3d(0, 200, 300)
+                                pivot.z: 0
+                                pivot.y: 0
+                                pivot.x: 0
+                                lookAtNode: cardNode
+                                frustumCullingEnabled: false
+                                z: 0
+                                eulerRotation.x: 0
+                            }
+
+                            DirectionalLight {
+                                eulerRotation.x: -30
+                            }
+
+                            Node {
+                                id: cardNode
+                                x: 0
+                                y: 200
+                                z: -25
+                                scale.y: 3
+                                scale.x: 2.5
+
+                                // Front side of the card
+                                Model {
+                                    id: frontCard
+                                    source: "#Rectangle"
+                                    receivesShadows: false
+                                    castsShadows: false
+                                    scale: Qt.vector3d(1, 1, 1) // Adjust dimensions for card thickness
+                                    eulerRotation.y: 0
+
+                                    materials: [
+                                        DefaultMaterial {
+                                            diffuseMap: Texture {
+                                                sourceItem: Image {
+                                                    anchors.centerIn: parent
+                                                    width: 413
+                                                    height: 577
+                                                    source: (selectedIndex >= 0 && selectedIndex < cards.length) ? cards[selectedIndex].imageUrl : ""
+                                                    sourceSize: Qt.size(width, height)
+                                                    cache: false
+                                                }
+                                            }
+                                        }
+                                    ]
+
+                                }
+
+                                // Back side of the card, rotated 180 degrees
+                                Model {
+                                    id: backCard
+                                    source: "#Rectangle"
+                                    scale: Qt.vector3d(1, 1, 1)
+                                    eulerRotation.y: 180 // Rotated to face the opposite direction
+
+                                    materials: [
+                                        DefaultMaterial {
+                                            diffuseColor: "#ffffff"
+                                            diffuseMap: Texture {
+                                                sourceItem: Image {
+                                                    anchors.centerIn: parent
+                                                    width: 413
+                                                    height: 577
+                                                    source: "cardback.png" // URL for the back image
+                                                    sourceSize: Qt.size(width, height)
+                                                    cache: false
+                                                }
+                                            }
+                                        }
+                                    ]
+
+                                }
+                            }
+
+                            MouseArea {
+                                id: dragArea
+                                anchors.fill: parent
+                                anchors.leftMargin: 0
+                                anchors.rightMargin: 0
+                                anchors.topMargin: 0
+                                anchors.bottomMargin: 0
+                                property real previousX: 0
+                                property real velocityY: 0
+                                property real dragSensitivity: 0.2
+                                property real momentumDecay: 0.98 // Controls how quickly momentum fades
+
+                                onPressed: {
+                                    previousX = mouse.x
+                                    velocityY = 0
+                                    momentumTimer.stop()
+                                }
+
+                                onPositionChanged: {
+                                    var deltaX = mouse.x - previousX
+                                    velocityY = deltaX * dragSensitivity
+                                    cardNode.eulerRotation.y += velocityY
+                                    previousX = mouse.x
+                                }
+
+                                onReleased: {
+                                    momentumTimer.start()
+                                }
+                            }
+
+                            // Timer for applying momentum after drag release
+                            Timer {
+                                id: momentumTimer
+                                interval: 16 // About 60 FPS
+                                repeat: true
+                                onTriggered: {
+                                    if (Math.abs(dragArea.velocityY) < 0.1) {
+                                        momentumTimer.stop()
+                                    } else {
+                                        cardNode.eulerRotation.y += dragArea.velocityY
+                                        dragArea.velocityY *= dragArea.momentumDecay
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    Rectangle {
+                        id: rectangle2
+                        x: -290
+                        width: 300
+                        height: 438
+                        visible: true
+                        color: "#00ffffff"
+                        radius: 3
+                        border.color: "#128c17"
+                        border.width: 4
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.right: parent.right
+                        anchors.horizontalCenter: parent.horizontalCenter
+                    }
+                    clip: true
+                    anchors.verticalCenterOffset: 0
+                }
+
+                MouseArea {
+                    id: openButton
+                    width: 28
+                    height: parent.height
+                    opacity: 1
+                    anchors.verticalCenter: customDrawer.verticalCenter
+                    anchors.left: customDrawer.right
+                    anchors.leftMargin: -1
+                    z: 1
+                    onExited: {
+                        // Scale down when not hovered
+                        ballButton.scale = 0.6
+                    }
+                    onEntered: {
+                        // Scale up on hover
+                        ballButton.scale = 0.7
+                    }
+                    onClicked: {
+                        toggleDrawer();
+                    }
+                    hoverEnabled: true
+                    Rectangle {
+                        id: buttonBackground
+                        color: "#ee1414"
+                        radius: 0
+                        border.color: "#620808"
+                        border.width: 2
+                        anchors.fill: parent
+                        MouseArea {
+                            onClicked: {
+                                toggleDrawer();
+                            }
+                        }
+
+                        Rectangle {
+                            id: rectangle32
+                            color: "#00ffffff"
+                            radius: 3
+                            border.color: "#ee0000"
+                            border.width: 2
+                            anchors.fill: parent
+                            anchors.leftMargin: 5
+                            anchors.rightMargin: 5
+                            anchors.topMargin: 10
+                            anchors.bottomMargin: 10
+                        }
+                    }
+
+                    Rectangle {
+                        id: drawerCircle
+                        x: 8
+                        width: 26
+                        height: 26
+                        visible: false
+                        color: "#6c0101"
+                        radius: 9
+                        border.color: "#c80d0d"
+                        border.width: 2
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.right: parent.right
+                        anchors.rightMargin: -10
+                        Behavior {
+                            NumberAnimation {
+                                duration: 200
+                            }
+                        }
+
+                        MouseArea {
+                            id: mouseArea
+                            anchors.fill: parent
+                            onExited: {
+                                // Scale down when not hovered
+                                drawerCircle.scale = 1
+                            }
+                            onEntered: {
+                                // Scale up on hover
+                                drawerCircle.scale = 1.2
+                            }
+                            onClicked: {
+                                toggleDrawer();
+                            }
+                            hoverEnabled: true
+                            cursorShape: Qt.PointingHandCursor
+                        }
+                    }
+
+                    Image {
+                        id: ballButton
+                        x: -4
+                        width: 60
+                        height: 60
+                        anchors.verticalCenter: parent.verticalCenter
+                        source: "ball.png"
+                        sourceSize.height: 50
+                        scale: 0.6
+                        rotation: 90
+                        mirror: false
+                        mipmap: false
+                        fillMode: Image.Stretch
+                        NumberAnimation {
+                            id: rotateAnimation
+                            target: ballButton
+                            property: "rotation"
+                            duration: 500
+                        }
+
+                        MouseArea {
+                            id: ballMouseArea
+                            anchors.fill: parent
+                            onExited: {
+                                // Scale down when not hovered
+                                ballButton.scale = 0.6
+                            }
+                            onEntered: {
+                                // Scale up on hover
+                                ballButton.scale = 0.7
+                            }
+                            onClicked: {
+                                toggleDrawer();
+                            }
+                            hoverEnabled: true
+                            cursorShape: Qt.PointingHandCursor
+                        }
+                        autoTransform: false
+                        anchors.verticalCenterOffset: 0
+                    }
+                    cursorShape: Qt.PointingHandCursor
+                }
+
+                PropertyAnimation {
+                    id: drawerAnimation
+                    target: customDrawer
+                    property: "x"
+                    running: false
+                    duration: 200
+                    alwaysRunToEnd: false
+                }
+
+                Rectangle {
+                    id: dataFlow
+                    opacity: 1
+                    visible: true
+                    color: "#541515"
+                    border.width: 0
+                    anchors.fill: parent
+                    anchors.leftMargin: 35
+                    anchors.rightMargin: 6
+                    anchors.topMargin: 5
+                    anchors.bottomMargin: 6
+                    Flickable {
+                        id: leftScrollView
+                        width: 260
+                        anchors.left: parent.left
+                        anchors.top: parent.top
+                        anchors.bottom: parent.bottom
+                        anchors.leftMargin: 15
+                        anchors.topMargin: 4
+                        anchors.bottomMargin: 4
+                        flickableDirection: Flickable.VerticalFlick
+                        Column {
+                            id: leftSideColumn
+                            x: 5
+                            y: 0
+                            width: 283
+                            height: 446
+                            spacing: 4
+                            FlavorTextBlock {
+                                id: rule1TextBlock
+                                width: 250
+                                height: 100
+                                screenShadeColor: window.screenShadeColor
+                                screenHighlightColor: window.screenHighlightColor
+                                screenColor: window.screenColor
+                                descText: "Rule 1"
+                                blockBG: window.blockBG
+                                bezelColor: window.bezelColor
+                                bezelBorderColor: window.bezelBorderColor
+                            }
+
+                            FlavorTextBlock {
+                                id: rule2TextBlock
+                                width: 250
+                                height: 100
+                                visible: false
+                                screenShadeColor: window.screenShadeColor
+                                screenHighlightColor: window.screenHighlightColor
+                                screenColor: window.screenColor
+                                descText: "Rule 2"
+                                blockBG: window.blockBG
+                                bezelColor: window.bezelColor
+                                bezelBorderColor: window.bezelBorderColor
+                            }
+
+                            FlavorTextBlock {
+                                id: rule3TextBlock
+                                width: 250
+                                height: 100
+                                visible: false
+                                screenShadeColor: window.screenShadeColor
+                                screenHighlightColor: window.screenHighlightColor
+                                screenColor: window.screenColor
+                                descText: "Rule 3"
+                                blockBG: window.blockBG
+                                bezelColor: window.bezelColor
+                                bezelBorderColor: window.bezelBorderColor
+                            }
+
+                            FlavorTextBlock {
+                                id: rule4TextBlock
+                                width: 250
+                                height: 100
+                                visible: false
+                                screenShadeColor: window.screenShadeColor
+                                screenHighlightColor: window.screenHighlightColor
+                                screenColor: window.screenColor
+                                descText: "Rule 4"
+                                blockBG: window.blockBG
+                                bezelColor: window.bezelColor
+                                bezelBorderColor: window.bezelBorderColor
+                            }
+
+                            AttackInfoBlock {
+                                id: attack1Block
+                                width: 250
+                                height: 200
+                                visible: true
+                                textColor: window.textColor
+                                screenColor: window.screenColor
+                                nameText: "Attack 1"
+                                mainColor: window.primaryColor
+                                dropTextColor: window.dropTextColor
+                                dropBorderColor: window.dropBorderColor
+                                borderColor: window.borderColor
+                                bezelColor: window.bezelColor
+                            }
+
+                            AttackInfoBlock {
+                                id: attack2Block
+                                width: 250
+                                height: 200
+                                visible: false
+                                textColor: window.textColor
+                                screenColor: window.screenColor
+                                nameText: "Attack 2"
+                                mainColor: window.primaryColor
+                                dropTextColor: window.dropTextColor
+                                dropBorderColor: window.dropBorderColor
+                                borderColor: window.borderColor
+                                bezelColor: window.bezelColor
+                            }
+
+                            AttackInfoBlock {
+                                id: attack3Block
+                                width: 250
+                                height: 200
+                                visible: false
+                                textColor: window.textColor
+                                screenColor: window.screenColor
+                                nameText: "Attack 3"
+                                mainColor: window.primaryColor
+                                dropTextColor: window.dropTextColor
+                                dropBorderColor: window.dropBorderColor
+                                borderColor: window.borderColor
+                                bezelColor: window.bezelColor
+                            }
+
+                            AttackInfoBlock {
+                                id: attack4Block
+                                width: 250
+                                height: 200
+                                visible: false
+                                textColor: window.textColor
+                                screenColor: window.screenColor
+                                nameText: "Attack 4"
+                                mainColor: window.primaryColor
+                                dropTextColor: window.dropTextColor
+                                dropBorderColor: window.dropBorderColor
+                                borderColor: window.borderColor
+                                bezelColor: window.bezelColor
+                            }
+
+                            AbilityInfoBlock {
+                                id: ability1
+                                width: 250
+                                typeText: "Ability 1 Type"
+                                nameText: "Ability 1"
+                                descText: "Ability 1 Description"
+                            }
+
+                            AbilityInfoBlock {
+                                id: ability2
+                                width: 250
+                                visible: false
+                                typeText: "Ability 2 Type"
+                                nameText: "Ability 2"
+                                descText: "Ability 2 Description"
+                            }
+                        }
+                        contentWidth: 250
+                        contentHeight: 506
+                        clip: false
+                        boundsMovement: Flickable.FollowBoundsBehavior
+                        boundsBehavior: Flickable.DragOverBounds
+                    }
+
+                    Flickable {
+                        id: rightScrollView
+                        height: 430
+                        anchors.left: leftScrollView.right
+                        anchors.right: parent.right
+                        anchors.top: parent.top
+                        anchors.leftMargin: 18
+                        anchors.rightMargin: 4
+                        anchors.topMargin: 4
+                        flickableDirection: Flickable.VerticalFlick
+                        Column {
+                            id: rightSideColumn
+                            x: 0
+                            y: 0
+                            width: 276
+                            height: 430
+                            spacing: 3
+                            Rectangle {
+                                id: supertypeBlock
+                                width: 190
+                                height: 40
+                                color: "#c80d0d"
+                                radius: 8
+                                border.color: "#6c0101"
+                                border.width: 2
+                                Rectangle {
+                                    id: rectangle33
+                                    color: "#b2b2b2"
+                                    radius: 8
+                                    border.color: "#616161"
+                                    border.width: 2
+                                    anchors.fill: parent
+                                    anchors.leftMargin: 4
+                                    anchors.rightMargin: 4
+                                    anchors.topMargin: 3
+                                    anchors.bottomMargin: 3
+                                }
+
+                                Rectangle {
+                                    id: supertypeScreen
+                                    color: screenColor
+                                    radius: 4
+                                    border.color: "#128c17"
+                                    border.width: 2
+                                    anchors.fill: parent
+                                    anchors.leftMargin: 11
+                                    anchors.rightMargin: 11
+                                    anchors.topMargin: 7
+                                    anchors.bottomMargin: 7
+                                    Text {
+                                        id: supertypeText
+                                        color: "#c5002a02"
+                                        text: "Super Type"
+                                        anchors.left: parent.left
+                                        anchors.right: parent.right
+                                        anchors.top: parent.top
+                                        anchors.bottom: parent.bottom
+                                        anchors.leftMargin: 4
+                                        anchors.rightMargin: 4
+                                        anchors.topMargin: 4
+                                        anchors.bottomMargin: 4
+                                        horizontalAlignment: Text.AlignHCenter
+                                        verticalAlignment: Text.AlignVCenter
+                                        wrapMode: Text.Wrap
+                                        z: 1
+                                        minimumPointSize: 8
+                                        minimumPixelSize: 8
+                                        fontSizeMode: Text.Fit
+                                        font.styleName: "Bold Italic"
+                                        font.pointSize: 30
+                                    }
+
+                                    DropShadow {
+                                        opacity: 0.8
+                                        color: "#095f0c"
+                                        radius: 3.8
+                                        verticalOffset: 3
+                                        samples: 16
+                                        horizontalOffset: 3
+                                    }
+
+                                    Text {
+                                        id: supertypeDropText
+                                        visible: false
+                                        color: "#2a7b2d"
+                                        text: supertypeText.text
+                                        anchors.left: parent.left
+                                        anchors.right: parent.right
+                                        anchors.top: parent.top
+                                        anchors.bottom: parent.bottom
+                                        anchors.leftMargin: 6
+                                        anchors.rightMargin: 2
+                                        anchors.topMargin: 7
+                                        anchors.bottomMargin: 1
+                                        horizontalAlignment: Text.AlignHCenter
+                                        verticalAlignment: Text.AlignVCenter
+                                        wrapMode: Text.Wrap
+                                        z: 0
+                                        minimumPointSize: 8
+                                        minimumPixelSize: 8
+                                        fontSizeMode: Text.Fit
+                                        font.styleName: "Bold Italic"
+                                        font.pointSize: 30
+                                    }
+
+                                    Rectangle {
+                                        id: rectangle34
+                                        x: -8
+                                        y: -4
+                                        color: "#00ffffff"
+                                        radius: 4
+                                        border.color: "#25fb2e"
+                                        border.width: 1
+                                        anchors.fill: parent
+                                        anchors.leftMargin: 3
+                                        anchors.rightMargin: 3
+                                        anchors.topMargin: 3
+                                        anchors.bottomMargin: 3
+                                    }
+                                    clip: true
+                                }
+                                anchors.horizontalCenter: parent.horizontalCenter
+                            }
+
+                            Rectangle {
+                                id: nameBlock
+                                width: 240
+                                height: 70
+                                color: "#c80d0d"
+                                radius: 8
+                                border.color: borderColor
+                                border.width: 1
+                                Rectangle {
+                                    id: rectangle12
+                                    color: "#b2b2b2"
+                                    radius: 8
+                                    border.color: "#616161"
+                                    border.width: 2
+                                    anchors.fill: parent
+                                    anchors.leftMargin: 4
+                                    anchors.rightMargin: 4
+                                    anchors.topMargin: 3
+                                    anchors.bottomMargin: 3
+                                }
+
+                                Rectangle {
+                                    id: nameScreen
+                                    color: screenColor
+                                    radius: 4
+                                    border.color: "#128c17"
+                                    border.width: 2
+                                    anchors.fill: parent
+                                    anchors.leftMargin: 11
+                                    anchors.rightMargin: 11
+                                    anchors.topMargin: 7
+                                    anchors.bottomMargin: 7
+                                    Text {
+                                        id: nameText
+                                        color: "#c5002a02"
+                                        text: (selectedIndex >= 0
+                                               && selectedIndex < cards.length) ? cards[selectedIndex].name || "No Name Available" // Fallback if name is undefined
+                                                                                : "Name"
+                                        anchors.left: parent.left
+                                        anchors.right: parent.right
+                                        anchors.top: parent.top
+                                        anchors.bottom: parent.bottom
+                                        anchors.leftMargin: 4
+                                        anchors.rightMargin: 4
+                                        anchors.topMargin: 4
+                                        anchors.bottomMargin: 4
+                                        horizontalAlignment: Text.AlignHCenter
+                                        verticalAlignment: Text.AlignVCenter
+                                        wrapMode: Text.Wrap
+                                        z: 1
+                                        minimumPointSize: 8
+                                        minimumPixelSize: 8
+                                        fontSizeMode: Text.Fit
+                                        font.styleName: "Bold Italic"
+                                        font.pointSize: 30
+                                    }
+
+                                    DropShadow {
+                                        opacity: 0.8
+                                        color: "#095f0c"
+                                        radius: 3.8
+                                        verticalOffset: 3
+                                        samples: 16
+                                        horizontalOffset: 3
+                                    }
+
+                                    Text {
+                                        id: nameDropText
+                                        visible: false
+                                        color: "#2a7b2d"
+                                        text: nameText.text
+                                        anchors.left: parent.left
+                                        anchors.right: parent.right
+                                        anchors.top: parent.top
+                                        anchors.bottom: parent.bottom
+                                        anchors.leftMargin: 6
+                                        anchors.rightMargin: 2
+                                        anchors.topMargin: 7
+                                        anchors.bottomMargin: 1
+                                        horizontalAlignment: Text.AlignHCenter
+                                        verticalAlignment: Text.AlignVCenter
+                                        wrapMode: Text.Wrap
+                                        z: 0
+                                        minimumPointSize: 8
+                                        minimumPixelSize: 8
+                                        fontSizeMode: Text.Fit
+                                        font.styleName: "Bold Italic"
+                                        font.pointSize: 30
+                                    }
+
+                                    Rectangle {
+                                        id: rectangle35
+                                        x: -8
+                                        y: -4
+                                        color: "#00ffffff"
+                                        radius: 4
+                                        border.color: "#25fb2e"
+                                        border.width: 1
+                                        anchors.fill: parent
+                                        anchors.leftMargin: 3
+                                        anchors.rightMargin: 3
+                                        anchors.topMargin: 3
+                                        anchors.bottomMargin: 3
+                                    }
+                                    clip: true
+                                }
+                                anchors.horizontalCenter: parent.horizontalCenter
+                            }
+
+                            Row {
+                                id: typesRow
+                                width: 221
+                                height: 106
+                                spacing: 4
+                                TypeBlock {
+                                    id: typeBlock
+                                    width: 55
+                                    height: 106
+                                    color: "#ff0000"
+                                    radius: 8
+                                    border.color: borderColor
+                                    border.width: 1
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    type2Type: "Type 2"
+                                    type1Type: "Type 1"
+                                }
+
+                                SubtypeBlock {
+                                    id: subtypeBlock
+                                    width: 164
+                                    height: 106
+                                    color: window.blockBG
+                                    radius: 6
+                                    border.color: "#006c0101"
+                                    border.width: 0
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    sub4Text: "Subtype 4"
+                                    sub3Text: "Subtype 3"
+                                    sub2Text: "Subtype 2"
+                                    sub1Text: "Subtype 1"
+                                    blockBorderColor: "#6c0101"
+                                }
+                                anchors.horizontalCenter: parent.horizontalCenter
+                            }
+
+                            FlavorTextBlock {
+                                id: flavorTextBlock
+                                width: 225
+                                height: 150
+                                visible: true
+                                screenShadeColor: window.screenShadeColor
+                                screenHighlightColor: window.screenHighlightColor
+                                screenColor: window.screenColor
+                                descText: "Flavor Text"
+                                blockBG: window.blockBG
+                                bezelColor: window.bezelColor
+                                bezelBorderColor: window.bezelBorderColor
+                                anchors.horizontalCenter: parent.horizontalCenter
+                            }
+
+                            SetLogoBlock {
+                                id: setLogoBlock
+                                width: 225
+                                height: 200
+                                visible: true
+                                color: "#c80d0d"
+                                radius: 8
+                                border.color: "#6c0101"
+                                border.width: 2
+                                logoSource: (selectedIndex >= 0 && selectedIndex < cards.length) ? cards[selectedIndex].setLogo : ""
+                                logoScreenText: (selectedIndex >= 0
+                                                 && selectedIndex < cards.length) ? "" // Fallback if name is undefined
+                                                                                  : "Set Logo"
+                                anchors.horizontalCenter: parent.horizontalCenter
+                            }
+
+                            Row {
+                                id: setSymbolRow
+                                width: 200
+                                height: 66
+                                spacing: 3
+                                SetSymbolBlock {
+                                    id: setSymbolBlock
+                                    width: 75
+                                    height: 65
+                                    color: "#c80d0d"
+                                    radius: 8
+                                    border.color: "#6c0101"
+                                    border.width: 2
+                                    imageSource: (selectedIndex >= 0
+                                                  && selectedIndex < cards.length) ? cards[selectedIndex].setSymbol : ""
+                                    blockText: (selectedIndex >= 0
+                                                && selectedIndex < cards.length) ? "" // Fallback if name is undefined
+                                                                                 : "Set Symbol"
+                                }
+
+                                Rectangle {
+                                    id: setBlock
+                                    width: 120
+                                    height: 65
+                                    color: "#c80d0d"
+                                    radius: 8
+                                    border.color: "#6c0101"
+                                    border.width: 2
+                                    Rectangle {
+                                        id: setNameBezel
+                                        color: "#b2b2b2"
+                                        radius: 8
+                                        border.color: "#6c0101"
+                                        border.width: 2
+                                        anchors.fill: parent
+                                        anchors.leftMargin: 4
+                                        anchors.rightMargin: 4
+                                        anchors.topMargin: 3
+                                        anchors.bottomMargin: 3
+                                        Rectangle {
+                                            id: setNameScreen
+                                            x: 10
+                                            y: 4
+                                            color: screenColor
+                                            radius: 6
+                                            border.color: "#128c17"
+                                            border.width: 2
+                                            anchors.fill: parent
+                                            anchors.leftMargin: 6
+                                            anchors.rightMargin: 6
+                                            anchors.topMargin: 4
+                                            anchors.bottomMargin: 4
+                                            Text {
+                                                id: setNameText
+                                                color: "#c5002a02"
+                                                text: (selectedIndex >= 0
+                                                       && selectedIndex < cards.length) ? cards[selectedIndex].set || "No Name Available" // Fallback if name is undefined
+                                                                                        : "Set Name"
+                                                anchors.fill: parent
+                                                anchors.leftMargin: 4
+                                                anchors.rightMargin: 4
+                                                anchors.topMargin: 4
+                                                anchors.bottomMargin: 4
+                                                horizontalAlignment: Text.AlignHCenter
+                                                verticalAlignment: Text.AlignVCenter
+                                                wrapMode: Text.Wrap
+                                                z: 1
+                                                minimumPointSize: 6
+                                                minimumPixelSize: 6
+                                                fontSizeMode: Text.Fit
+                                                font.styleName: "ExtraBold Italic"
+                                                font.pointSize: 13
+                                            }
+
+                                            DropShadow {
+                                                opacity: 0.8
+                                                color: "#095f0c"
+                                                radius: 3.8
+                                                verticalOffset: 5
+                                                samples: 16
+                                                horizontalOffset: 5
+                                            }
+
+                                            Text {
+                                                id: setNameDropText
+                                                color: "#095f0c"
+                                                text: setNameText.text
+                                                anchors.fill: parent
+                                                anchors.leftMargin: 4
+                                                anchors.rightMargin: 4
+                                                anchors.topMargin: 4
+                                                anchors.bottomMargin: 4
+                                                horizontalAlignment: Text.AlignHCenter
+                                                verticalAlignment: Text.AlignVCenter
+                                                wrapMode: Text.Wrap
+                                                z: 0
+                                                minimumPointSize: 6
+                                                minimumPixelSize: 6
+                                                fontSizeMode: Text.Fit
+                                                font.styleName: "ExtraBold Italic"
+                                                font.pointSize: 13
+                                            }
+
+                                            Rectangle {
+                                                id: rectangle36
+                                                x: -7
+                                                y: -4
+                                                color: "#00ffffff"
+                                                radius: 4
+                                                border.color: "#25fb2e"
+                                                border.width: 1
+                                                anchors.fill: parent
+                                                anchors.leftMargin: 3
+                                                anchors.rightMargin: 3
+                                                anchors.topMargin: 3
+                                                anchors.bottomMargin: 3
+                                            }
+                                            clip: true
+                                        }
+                                    }
+                                }
+                                anchors.horizontalCenter: parent.horizontalCenter
+                            }
+                        }
+                        contentX: 0
+                        contentWidth: 250
+                        contentHeight: 645
+                        clip: false
+                        boundsMovement: Flickable.FollowBoundsBehavior
+                        boundsBehavior: Flickable.DragOverBounds
+                    }
+                    clip: true
+                }
+                bottomPadding: 0
+                Layout.margins: 0
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+            }
         }
 
 
@@ -141,6 +1460,7 @@ Item { // Page 2: Discover Page
                 height: 70
                 color: "#00ff0000"
                 border.color: "#006c0101"
+                border.width: 2
                 blockBorderWidth: 4
                 anchors.left: parent.left
                 anchors.right: parent.right
@@ -148,7 +1468,7 @@ Item { // Page 2: Discover Page
                 anchors.rightMargin: 0
                 toolsFillColor: deepBG
                 mainColor: "#790000"
-                toolsBorderColor: primaryColor
+                toolsBorderColor: borderColor
                 z: 2
                 Layout.preferredWidth: 500
 
@@ -413,12 +1733,7 @@ Item { // Page 2: Discover Page
                     // Initialize an empty array for the search parameters
                     var searchParams = []
 
-                    // Check if the search box is not empty
-                    if (txtSearchBox.text.trim() !== "") {
-                        // Create a tuple with the entered name
-                        searchParams.push(
-                                    ['', 'name', txtSearchBox.text])
-                    }
+
 
                     // Collecting selected items from the ComboBox
                     for (var i = 0; i < setsModel.count; i++) {
@@ -478,15 +1793,15 @@ Item { // Page 2: Discover Page
 
                     // Call the request_search function with the built tuples if there are any
                     if (searchParams.length > 0) {
-                        //Print each tuple as a string to the console
                         for (var paramIndex = 0; paramIndex < searchParams.length; paramIndex++) {
                             var tupleString = "[" + searchParams[paramIndex][0] + ", "
                                     + searchParams[paramIndex][1] + ", "
                                     + searchParams[paramIndex][2] + "]"
                         }
-                        backendController.request_search(
+                        backendController.request_discover(
                                     searchParams)
-                        resetLeftColumnScroll()
+                        // resetLeftColumnScroll()
+                        // resetRightColumnScroll()
                     }
                 }
             }
@@ -571,246 +1886,118 @@ Item { // Page 2: Discover Page
                 z: 0
             }
         }
-
-
-
-
-
-        // Rectangle {
-        //     id: rectangle13
-        //     height: 60
-        //     color: window.primaryColor
-        //     border.width: 0
-        //     anchors.left: parent.left
-        //     anchors.right: parent.right
-        //     anchors.leftMargin: 0
-        //     anchors.rightMargin: 0
-
-        //     Rectangle {
-        //         id: rectangle5
-        //         width: 354
-        //         color: window.blockBG
-        //         border.color: window.borderColor
-        //         radius: 8
-        //         border.width: 2
-        //         anchors.left: parent.left
-        //         anchors.top: parent.top
-        //         anchors.bottom: parent.bottom
-        //         anchors.leftMargin: 6
-        //         anchors.topMargin: 4
-        //         anchors.bottomMargin: 4
-
-        //         ComboBox {
-        //             id: setComboBox1
-        //             x: 16
-        //             height: 30
-        //             anchors.verticalCenter: parent.verticalCenter
-        //             anchors.left: parent.left
-        //             anchors.right: parent.right
-        //             anchors.leftMargin: 6
-        //             anchors.rightMargin: 6
-        //             model: mySearchFilterTools.setsModel
-        //             displayText: "Sets"
-        //             delegate: Item {
-        //                 width: parent ? parent.width : 0
-        //                 height: checkDelegate1 ? checkDelegate1.height : 30
-        //                 CheckDelegate {
-        //                     id: checkDelegate1
-        //                     text: model.name
-        //                     anchors.fill: parent
-        //                     onCheckedChanged: {
-        //                         if (model.selected !== checked) {
-        //                             model.selected = checked;
-        //                         }
-        //                     }
-        //                     highlighted: setComboBox1.highlightedIndex == index
-        //                     checked: model.selected
-        //                 }
-        //             }
-        //             Connections {
-        //                 target: backendController
-        //             }
-        //             Layout.preferredWidth: -1
-        //             Layout.preferredHeight: -1
-        //             Layout.leftMargin: 6
-        //         }
-
-        //         Rectangle {
-        //             id: rectangle8
-        //             x: 6
-        //             y: 10
-        //             width: 315
-        //             height: 32
-        //             color: "#00ffffff"
-        //             radius: 2
-        //             border.color: borderColor
-        //             border.width: 2
-        //             anchors.right: rectangle5.right
-        //             anchors.leftMargin: 6
-        //             anchors.rightMargin: 6
-        //             anchors.left: rectangle5.left
-
-        //         }
-        //     }
-
-        //     Button {
-        //         id: btnDiscover
-        //         height: 25
-        //         text: qsTr("Discover")
-        //         anchors.verticalCenter: parent.verticalCenter
-        //         anchors.left: rectangle5.right
-        //         anchors.right: parent.right
-        //         anchors.leftMargin: 40
-        //         anchors.rightMargin: 30
-        //         //   anchors.right: parent.right
-        //         //  anchors.rightMargin: -585
-        //         z: 1
-        //         font.styleName: "Bold Italic"
-        //         // Layout.fillHeight: false
-        //         // Layout.rightMargin: 6
-        //         //Layout.fillWidth: false
-        //         palette {
-        //             button: "blue"
-        //         }
-        //         hoverEnabled: true
-
-        //         ToolTip.delay: 800
-        //         ToolTip.timeout: 5000
-        //         ToolTip.visible: hovered
-        //         ToolTip.text: qsTr("Search the database with the selected filters")
-
-        //         // Change scale when hovered
-        //         scale: hovered ? 1.05 : 1.0
-
-        //         onClicked: {
-        //             // Initialize an empty array for the search parameters
-        //             var searchParams = []
-
-        //             var setsParams = [];
-        //             // Collecting selected items from the ComboBox
-        //             for (var i = 0; i < mySearchFilterTools.setsModel.count; i++) {
-        //                 var item = mySearchFilterTools.setsModel.get(i)
-        //                 if (item.selected) {
-        //                     // Build the tuple for each selected set item
-        //                     setsParams.push(
-        //                                 ['set', 'name', item.name])
-        //                 }
-        //             }
-
-        //             if(setsParams.length === 0) {
-        //                 for (var setIdx = 0; setIdx < mySearchFilterTools.setsModel.count; setIdx++) {
-        //                     var setItem = mySearchFilterTools.setsModel.get(setIdx)
-        //                     setsParams.push(
-        //                                 ['set', 'name', setItem.name])
-
-        //                 }
-        //             }
-
-        //             var typesParams = [];
-        //             // Check the state of each Pokémon TCG type button and add to search parameters if checked
-        //             if (searchFilterTools.fireChecked) {
-        //                 typesParams.push(
-        //                             ['types', '', 'fire'])
-        //             }
-        //             if (searchFilterTools.waterChecked) {
-        //                 typesParams.push(
-        //                             ['types', '', 'water'])
-        //             }
-        //             if (searchFilterTools.grassChecked) {
-        //                 typesParams.push(
-        //                             ['types', '', 'grass'])
-        //             }
-        //             if (searchFilterTools.lightningChecked) {
-        //                 typesParams.push(
-        //                             ['types', '', 'lightning'])
-        //             }
-        //             if (searchFilterTools.psychicChecked) {
-        //                 typesParams.push(
-        //                             ['types', '', 'psychic'])
-        //             }
-        //             if (searchFilterTools.fightingChecked) {
-        //                 typesParams.push(
-        //                             ['types', '', 'fighting'])
-        //             }
-        //             if (searchFilterTools.darknessChecked) {
-        //                 typesParams.push(
-        //                             ['types', '', 'darkness'])
-        //             }
-        //             if (searchFilterTools.fairyChecked) {
-        //                 typesParams.push(
-        //                             ['types', '', 'fairy'])
-        //             }
-        //             if (searchFilterTools.dragonChecked) {
-        //                 typesParams.push(
-        //                             ['types', '', 'dragon'])
-        //             }
-        //             if (searchFilterTools.metalChecked) {
-        //                 typesParams.push(
-        //                             ['types', '', 'metal'])
-        //             }
-        //             if (searchFilterTools.colorlessChecked) {
-        //                 typesParams.push(
-        //                             ['types', '', 'colorless'])
-        //             }
-
-        //             if(typesParams.length === 0) {
-        //                 typesParams.push(['types', '', 'fire']);
-        //                 typesParams.push(['types', '', 'grass']);
-        //                 typesParams.push(['types', '', 'water']);
-        //                 typesParams.push(['types', '', 'lightning']);
-        //                 typesParams.push(['types', '', 'fighting']);
-        //                 typesParams.push(['types', '', 'psychic']);
-        //                 typesParams.push(['types', '', 'darkness']);
-        //                 typesParams.push(['types', '', 'metal']);
-        //                 typesParams.push(['types', '', 'fairy']);
-        //                 typesParams.push(['types', '', 'dragon']);
-        //                 typesParams.push(['types', '', 'colorless']);
-        //             }
-
-        //             // console.log(nameParams);
-        //             // console.log(setsParams);
-        //             // console.log(typesParams)
-
-        //             searchParams = searchParams.concat(typesParams);
-        //             searchParams = searchParams.concat(setsParams);
-
-        //             //console.log(searchParams)
-
-
-        //             // Call the request_search function with the built tuples if there are any
-        //             if (searchParams.length > 0) {
-        //                 //Print each tuple as a string to the console
-        //                 for (var paramIndex = 0; paramIndex < searchParams.length; paramIndex++) {
-        //                     var tupleString = "[" + searchParams[paramIndex][0] + ", "
-        //                             + searchParams[paramIndex][1] + ", "
-        //                             + searchParams[paramIndex][2] + "]"
-        //                 }
-        //                 backendController.request_discover(
-        //                             searchParams)
-        //             }
-        //         }
-        //     }
-        // }
-
-
     }
 
     Connections {
         target: backendController
-        function discoverResults(response) {
+        function onDiscoverResults(response) {
+
             var data = JSON.parse(response)
+
             if (data.error) {
+                console.log("Error in response:",
+                            data.error) // Log the error message
                 cards = []
             } else {
                 cards = data.map(card => ({
                                               "name": card.name,
+                                              "id": card.id,
+                                              "supertype": card.supertype,
+                                              "type1": card.type1,
+                                              "type2": card.type2,
+
+                                              // Card Scan Image Hi-Res
                                               "imageUrl": card.imageUrl
-                                                          || ""
+                                                          || "",
+
+                                              "set": card.set,
+                                              "setSymbol": card.setSymbol,
+                                              "setLogo": card.setLogo,
+
+                                              "flavorText": card.flavorText,
+
+                                              "rule1": card.rule1,
+                                              "rule2": card.rule2,
+                                              "rule3": card.rule3,
+                                              "rule4": card.rule4,
+
+                                              // Ability 1
+                                              "ability1Name": card.ability1Name || "",
+                                              "ability1Text": card.ability1Text || "",
+                                              "ability1Type": card.ability1Type || "",
+
+                                              // Ability 2
+                                              "ability2Name": card.ability2Name || "",
+                                              "ability2Text": card.ability2Text || "",
+                                              "ability2Type": card.ability2Type || "",
+
+                                              // Attack 1
+                                              "attack1Name": card.attack1Name || "",
+                                              "attack1Text": card.attack1Text || "",
+                                              "attack1Damage": card.attack1Damage || "",
+                                              "attack1ConvertedEnergyCost": card.attack1ConvertedEnergyCost || 0,
+                                              "attack1Cost1": card.attack1Cost1 || "Cost 1",
+                                              "attack1Cost2": card.attack1Cost2 || "Cost 2",
+                                              "attack1Cost3": card.attack1Cost3 || "Cost 3",
+                                              "attack1Cost4": card.attack1Cost4 || "Cost 4",
+                                              "attack1Cost5": card.attack1Cost5 || "Cost 5",
+
+                                              // Attack 2
+                                              "attack2Name": card.attack2Name || "",
+                                              "attack2Text": card.attack2Text || "",
+                                              "attack2Damage": card.attack2Damage || "",
+                                              "attack2ConvertedEnergyCost": card.attack2ConvertedEnergyCost || 0,
+                                              "attack2Cost1": card.attack2Cost1 || "Cost 1",
+                                              "attack2Cost2": card.attack2Cost2 || "Cost 2",
+                                              "attack2Cost3": card.attack2Cost3 || "Cost 3",
+                                              "attack2Cost4": card.attack2Cost4 || "Cost 4",
+                                              "attack2Cost5": card.attack2Cost5 || "",
+
+                                              // Attack 3
+                                              "attack3Name": card.attack3Name || "",
+                                              "attack3Text": card.attack3Text || "",
+                                              "attack3Damage": card.attack3Damage || "",
+                                              "attack3ConvertedEnergyCost": card.attack3ConvertedEnergyCost || 0,
+                                              "attack3Cost1": card.attack3Cost1 || "Cost 1",
+                                              "attack3Cost2": card.attack3Cost2 || "Cost 2",
+                                              "attack3Cost3": card.attack3Cost3 || "Cost 3",
+                                              "attack3Cost4": card.attack3Cost4 || "Cost 4",
+                                              "attack3Cost5": card.attack3Cost5 || "",
+
+                                              // Attack 4
+                                              "attack4Name": card.attack4Name || "",
+                                              "attack4Text": card.attack4Text || "",
+                                              "attack4Damage": card.attack4Damage || "",
+                                              "attack4ConvertedEnergyCost": card.attack4ConvertedEnergyCost || 0,
+                                              "attack4Cost1": card.attack4Cost1 || "Cost 1",
+                                              "attack4Cost2": card.attack4Cost2 || "Cost 2",
+                                              "attack4Cost3": card.attack4Cost3 || "Cost 3",
+                                              "attack4Cost4": card.attack4Cost4 || "Cost 4",
+                                              "attack4Cost5": card.attack4Cost5 || "",
+
+                                              // Subtypes
+                                              "subtype1" : card.subtype1 || "",
+                                              "subtype2": card.subtype2 || "",
+                                              "subtype3": card.subtype3 || "",
+                                              "subtype4": card.subtype4 || ""
                                           }))
-                selectedIndex = 0 // Start with the first card
+
+                selectedIndex = 0; // Start with the first card
+                updateAttackInfo();
+                updateAbilityInfo();
+                updateSubTypeInfo();
+                updateSuperTypeInfo();
+                updateTypeInfo();
+                updateFlavorText();
+                resetLeftColumnScroll();
+                resetRightColumnScroll();
+                updateLeftScrollView();
+                updateRightScrollView();
+                view.visible = true
             }
         }
     }
+
 
 
     Rectangle {
@@ -819,6 +2006,19 @@ Item { // Page 2: Discover Page
         anchors.fill: parent
         border.color: borderColor
     }
+
+    Item {
+        id: __materialLibrary__
+    }
     // Page content for browsePage
 }
 
+
+
+
+/*##^##
+Designer {
+    D{i:0}D{i:2}D{i:8}D{i:15;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}D{i:88}D{i:90}
+D{i:92}D{i:96}D{i:97}D{i:102}D{i:109}
+}
+##^##*/

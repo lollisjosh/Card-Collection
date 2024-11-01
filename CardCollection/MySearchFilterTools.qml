@@ -6,7 +6,7 @@ import Qt5Compat.GraphicalEffects
 import QtQuick3D
 
 Rectangle {
-    id: root
+    id: _root
     width: 600
     height: 60
     color: blockBG
@@ -17,9 +17,14 @@ Rectangle {
     z: 0
     clip: false
 
-    property alias blockBorderWidth: root.border.width
-    property alias toolsBorderColor: root.border.color
-    property alias toolsFillColor: root.color
+    property alias blockBorderWidth: _root.border.width
+    property alias toolsBorderColor: _root.border.color
+    property alias toolsFillColor: _root.color
+    property alias leftButtonsMargin: typesRow.anchors.left
+    property alias rightButtonsMargin: typesRow.anchors.right
+    property alias topButtonsMargin: typesRow.anchors.top
+    property alias bottomButtonsMargin: typesRow.anchors.bottom
+
 
     // Exposed properties
     property color blockBG: "#ff0000"
