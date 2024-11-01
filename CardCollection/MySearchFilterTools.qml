@@ -11,13 +11,15 @@ Rectangle {
     height: 60
     color: blockBG
     border.color: borderColor
-    border.width: 2
+    border.width: 0
     //anchors.left: parent.left
     //anchors.right: parent.right
     z: 0
     clip: false
 
-
+    property alias blockBorderWidth: root.border.width
+    property alias toolsBorderColor: root.border.color
+    property alias toolsFillColor: root.color
 
     // Exposed properties
     property color blockBG: "#ff0000"
@@ -59,6 +61,8 @@ Rectangle {
     Rectangle {
         id: searchFilterToolbar
         color: "#00000000"
+        border.color: "#00000000"
+        border.width: 0
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left
         anchors.right: parent.right
@@ -70,9 +74,15 @@ Rectangle {
 
         Row {
             id: typesRow
-            x: 5
-            y: 5
-            height: 50
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            anchors.leftMargin: 5
+            anchors.rightMargin: 5
+            anchors.topMargin: 5
+            anchors.bottomMargin: 5
+            z: 1
             Layout.leftMargin: 6
             spacing: 4
             Layout.preferredWidth: -1
@@ -1316,7 +1326,7 @@ Rectangle {
             visible: false
             color: transparentColor
             radius: 8
-            border.color: borderColor
+            border.color: blockBorderColor
             border.width: 2
             anchors.fill: parent
         }
