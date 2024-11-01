@@ -427,8 +427,6 @@ Item {
                 anchors.leftMargin: 0
                 anchors.rightMargin: 0
                 z: 2
-                waterChecked: false
-                darknessChecked: false
                 Layout.preferredWidth: 500
 
                 // Dynamic ListModel for sets
