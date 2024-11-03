@@ -27,7 +27,8 @@
         "ViewingArea.qml",
         "Discover.qml",
         "topBall.png",
-        "bottomBall.png"
+        "bottomBall.png",
+        "Search.qml"
 
     ]
 }
