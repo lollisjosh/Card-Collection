@@ -34,31 +34,50 @@ Item { // Page 2: Discover Page
 
     // Add a boolean variable to track the drawer's state
     property bool isDrawerOpen: false // Start with the drawer closed
+    property bool isDrawer2Open: false // Start with the drawer closed
+
     property int selectedIndex: 0
     property var cards: [] // List of card objects
 
 
-    function toggleDrawer() {
+    function toggleLeftDrawer() {
         if (customDrawer.x < 0) {
 
-            customDrawer.x = 8
+            customDrawer.x = 0
             isDrawerOpen = true
 
             // Animate ball button rotation on drawer open
             rotateAnimation.from = ballButton.rotation
-            rotateAnimation.to = 270 // Rotate by 90 degrees
+            rotateAnimation.to = 90 // Rotate by 90 degrees
             rotateAnimation.start()
         } else {
 
-            customDrawer.x = -customDrawer.width + 6 // hide drawer
+            customDrawer.x = -customDrawer.width // hide drawer
             isDrawerOpen = false
 
             // Animate rotation on drawer close
             rotateAnimation.from = ballButton.rotation
-            rotateAnimation.to = 90 // Reset to 0 degrees rotation
+            rotateAnimation.to = 270 // Reset to 0 degrees rotation
             rotateAnimation.start()
         }
     }
+
+    function toggleRightDrawer() {
+        if (customDrawer2.x >= 600) { // Closed position
+            customDrawer2.x = 600 - customDrawer2.width; // Slide into view
+            isDrawer2Open = true;
+            rotateAnimation2.from = ballButton2.rotation;
+            rotateAnimation2.to = 270;
+            rotateAnimation2.start();
+        } else { // Open position
+            customDrawer2.x = 600; // Hide off the right edge
+            isDrawer2Open = false;
+            rotateAnimation2.from = ballButton2.rotation;
+            rotateAnimation2.to = 90;
+            rotateAnimation2.start();
+        }
+    }
+
 
     // Function to update attack information based on selectedIndex
     function updateAttackInfo() {
@@ -409,12 +428,13 @@ Item { // Page 2: Discover Page
         Rectangle {
             id: rectangle27
             height: 20
-            color: "#ffffff"
+            color: blockBG
             border.width: 0
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.leftMargin: 0
             anchors.rightMargin: 0
+            z: 1
             Rectangle {
                 id: rectangle28
                 y: -600
@@ -483,7 +503,7 @@ Item { // Page 2: Discover Page
             anchors.right: parent.right
             anchors.leftMargin: 0
             anchors.rightMargin: 0
-            z: 0
+            z: 1
 
             Pane {
                 id: viewPane
@@ -496,8 +516,8 @@ Item { // Page 2: Discover Page
                 rightPadding: 0
                 leftPadding: 0
                 horizontalPadding: 6
-                contentWidth: 468
-                contentHeight: 300
+                contentWidth: 600
+                contentHeight: 440
                 Rectangle {
                     visible: true
                     color: dataFlow.color
@@ -514,8 +534,8 @@ Item { // Page 2: Discover Page
 
                 Rectangle {
                     id: customDrawer
-                    x: -298
-                    width: 300
+                    x: -274
+                    width: 274
                     height: 438
                     opacity: 1
                     visible: true
@@ -545,7 +565,7 @@ Item { // Page 2: Discover Page
                     Rectangle {
                         id: rectangle2
                         x: -290
-                        width: 300
+                        width: 274
                         height: 438
                         visible: true
                         color: "#00ffffff"
@@ -554,6 +574,7 @@ Item { // Page 2: Discover Page
                         border.width: 4
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.right: parent.right
+                        z: 1
                         anchors.horizontalCenter: parent.horizontalCenter
                     }
                     clip: true
@@ -564,566 +585,146 @@ Item { // Page 2: Discover Page
                         contentWidth: 368
 
                         contentHeight: 1651
+
                         Column {
-                            id: column1
-                            width: 300
-                            height: 1424
-                            spacing: 16
-
-                            Column {
-                                id: rightSideColumn
-                                width: 276
-                                height: 430
-                                anchors.horizontalCenter: parent.horizontalCenter
-                                spacing: 3
-                                Rectangle {
-                                    id: supertypeBlock
-                                    width: 190
-                                    height: 40
-                                    color: "#c80d0d"
-                                    radius: 8
-                                    border.color: "#6c0101"
-                                    border.width: 2
-                                    Rectangle {
-                                        id: rectangle33
-                                        color: "#b2b2b2"
-                                        radius: 8
-                                        border.color: "#616161"
-                                        border.width: 2
-                                        anchors.fill: parent
-                                        anchors.leftMargin: 4
-                                        anchors.rightMargin: 4
-                                        anchors.topMargin: 3
-                                        anchors.bottomMargin: 3
-                                    }
-
-                                    Rectangle {
-                                        id: supertypeScreen
-                                        color: screenColor
-                                        radius: 4
-                                        border.color: "#128c17"
-                                        border.width: 2
-                                        anchors.fill: parent
-                                        anchors.leftMargin: 11
-                                        anchors.rightMargin: 11
-                                        anchors.topMargin: 7
-                                        anchors.bottomMargin: 7
-                                        Text {
-                                            id: supertypeText
-                                            color: "#c5002a02"
-                                            text: "Super Type"
-                                            anchors.left: parent.left
-                                            anchors.right: parent.right
-                                            anchors.top: parent.top
-                                            anchors.bottom: parent.bottom
-                                            anchors.leftMargin: 4
-                                            anchors.rightMargin: 4
-                                            anchors.topMargin: 4
-                                            anchors.bottomMargin: 4
-                                            horizontalAlignment: Text.AlignHCenter
-                                            verticalAlignment: Text.AlignVCenter
-                                            wrapMode: Text.Wrap
-                                            z: 1
-                                            minimumPointSize: 8
-                                            minimumPixelSize: 8
-                                            fontSizeMode: Text.Fit
-                                            font.styleName: "Bold Italic"
-                                            font.pointSize: 30
-                                        }
-
-                                        DropShadow {
-                                            opacity: 0.8
-                                            color: "#095f0c"
-                                            radius: 3.8
-                                            verticalOffset: 3
-                                            samples: 16
-                                            horizontalOffset: 3
-                                        }
-
-                                        Text {
-                                            id: supertypeDropText
-                                            visible: false
-                                            color: "#2a7b2d"
-                                            text: supertypeText.text
-                                            anchors.left: parent.left
-                                            anchors.right: parent.right
-                                            anchors.top: parent.top
-                                            anchors.bottom: parent.bottom
-                                            anchors.leftMargin: 6
-                                            anchors.rightMargin: 2
-                                            anchors.topMargin: 7
-                                            anchors.bottomMargin: 1
-                                            horizontalAlignment: Text.AlignHCenter
-                                            verticalAlignment: Text.AlignVCenter
-                                            wrapMode: Text.Wrap
-                                            z: 0
-                                            minimumPointSize: 8
-                                            minimumPixelSize: 8
-                                            fontSizeMode: Text.Fit
-                                            font.styleName: "Bold Italic"
-                                            font.pointSize: 30
-                                        }
-
-                                        Rectangle {
-                                            id: rectangle34
-                                            x: -8
-                                            y: -4
-                                            color: "#00ffffff"
-                                            radius: 4
-                                            border.color: "#25fb2e"
-                                            border.width: 1
-                                            anchors.fill: parent
-                                            anchors.leftMargin: 3
-                                            anchors.rightMargin: 3
-                                            anchors.topMargin: 3
-                                            anchors.bottomMargin: 3
-                                        }
-                                        clip: true
-                                    }
-                                    anchors.horizontalCenter: parent.horizontalCenter
-                                }
-
-                                Rectangle {
-                                    id: nameBlock
-                                    width: 240
-                                    height: 70
-                                    color: "#c80d0d"
-                                    radius: 8
-                                    border.color: borderColor
-                                    border.width: 1
-                                    Rectangle {
-                                        id: rectangle12
-                                        color: "#b2b2b2"
-                                        radius: 8
-                                        border.color: "#616161"
-                                        border.width: 2
-                                        anchors.fill: parent
-                                        anchors.leftMargin: 4
-                                        anchors.rightMargin: 4
-                                        anchors.topMargin: 3
-                                        anchors.bottomMargin: 3
-                                    }
-
-                                    Rectangle {
-                                        id: nameScreen
-                                        color: screenColor
-                                        radius: 4
-                                        border.color: "#128c17"
-                                        border.width: 2
-                                        anchors.fill: parent
-                                        anchors.leftMargin: 11
-                                        anchors.rightMargin: 11
-                                        anchors.topMargin: 7
-                                        anchors.bottomMargin: 7
-                                        Text {
-                                            id: nameText
-                                            color: "#c5002a02"
-                                            text: (selectedIndex >= 0
-                                                   && selectedIndex < cards.length) ? cards[selectedIndex].name || "No Name Available" // Fallback if name is undefined
-                                                                                    : "Name"
-                                            anchors.left: parent.left
-                                            anchors.right: parent.right
-                                            anchors.top: parent.top
-                                            anchors.bottom: parent.bottom
-                                            anchors.leftMargin: 4
-                                            anchors.rightMargin: 4
-                                            anchors.topMargin: 4
-                                            anchors.bottomMargin: 4
-                                            horizontalAlignment: Text.AlignHCenter
-                                            verticalAlignment: Text.AlignVCenter
-                                            wrapMode: Text.Wrap
-                                            z: 1
-                                            minimumPointSize: 8
-                                            minimumPixelSize: 8
-                                            fontSizeMode: Text.Fit
-                                            font.styleName: "Bold Italic"
-                                            font.pointSize: 30
-                                        }
-
-                                        DropShadow {
-                                            opacity: 0.8
-                                            color: "#095f0c"
-                                            radius: 3.8
-                                            verticalOffset: 3
-                                            samples: 16
-                                            horizontalOffset: 3
-                                        }
-
-                                        Text {
-                                            id: nameDropText
-                                            visible: false
-                                            color: "#2a7b2d"
-                                            text: nameText.text
-                                            anchors.left: parent.left
-                                            anchors.right: parent.right
-                                            anchors.top: parent.top
-                                            anchors.bottom: parent.bottom
-                                            anchors.leftMargin: 6
-                                            anchors.rightMargin: 2
-                                            anchors.topMargin: 7
-                                            anchors.bottomMargin: 1
-                                            horizontalAlignment: Text.AlignHCenter
-                                            verticalAlignment: Text.AlignVCenter
-                                            wrapMode: Text.Wrap
-                                            z: 0
-                                            minimumPointSize: 8
-                                            minimumPixelSize: 8
-                                            fontSizeMode: Text.Fit
-                                            font.styleName: "Bold Italic"
-                                            font.pointSize: 30
-                                        }
-
-                                        Rectangle {
-                                            id: rectangle35
-                                            x: -8
-                                            y: -4
-                                            color: "#00ffffff"
-                                            radius: 4
-                                            border.color: "#25fb2e"
-                                            border.width: 1
-                                            anchors.fill: parent
-                                            anchors.leftMargin: 3
-                                            anchors.rightMargin: 3
-                                            anchors.topMargin: 3
-                                            anchors.bottomMargin: 3
-                                        }
-                                        clip: true
-                                    }
-                                    anchors.horizontalCenter: parent.horizontalCenter
-                                }
-
-                                Row {
-                                    id: typesRow
-                                    width: 221
-                                    height: 106
-                                    spacing: 4
-                                    TypeBlock {
-                                        id: typeBlock
-                                        width: 55
-                                        height: 106
-                                        color: "#ff0000"
-                                        radius: 8
-                                        border.color: borderColor
-                                        border.width: 1
-                                        anchors.verticalCenter: parent.verticalCenter
-                                        type2Type: "Type 2"
-                                        type1Type: "Type 1"
-                                    }
-
-                                    SubtypeBlock {
-                                        id: subtypeBlock
-                                        width: 164
-                                        height: 106
-                                        color: window.blockBG
-                                        radius: 6
-                                        border.color: "#006c0101"
-                                        border.width: 0
-                                        anchors.verticalCenter: parent.verticalCenter
-                                        sub4Text: "Subtype 4"
-                                        sub3Text: "Subtype 3"
-                                        sub2Text: "Subtype 2"
-                                        sub1Text: "Subtype 1"
-                                        blockBorderColor: "#6c0101"
-                                    }
-                                    anchors.horizontalCenter: parent.horizontalCenter
-                                }
-
-                                FlavorTextBlock {
-                                    id: flavorTextBlock
-                                    width: 225
-                                    height: 150
-                                    visible: true
-                                    screenShadeColor: window.screenShadeColor
-                                    screenHighlightColor: window.screenHighlightColor
-                                    screenColor: window.screenColor
-                                    descText: "Flavor Text"
-                                    blockBG: window.blockBG
-                                    bezelColor: window.bezelColor
-                                    bezelBorderColor: window.bezelBorderColor
-                                    anchors.horizontalCenter: parent.horizontalCenter
-                                }
-
-                                SetLogoBlock {
-                                    id: setLogoBlock
-                                    width: 225
-                                    height: 200
-                                    visible: true
-                                    color: "#c80d0d"
-                                    radius: 8
-                                    border.color: "#6c0101"
-                                    border.width: 2
-                                    logoSource: (selectedIndex >= 0 && selectedIndex < cards.length) ? cards[selectedIndex].setLogo : ""
-                                    logoScreenText: (selectedIndex >= 0
-                                                     && selectedIndex < cards.length) ? "" // Fallback if name is undefined
-                                                                                      : "Set Logo"
-                                    anchors.horizontalCenter: parent.horizontalCenter
-                                }
-
-                                Row {
-                                    id: setSymbolRow
-                                    width: 200
-                                    height: 66
-                                    spacing: 3
-                                    SetSymbolBlock {
-                                        id: setSymbolBlock
-                                        width: 75
-                                        height: 65
-                                        color: "#c80d0d"
-                                        radius: 8
-                                        border.color: "#6c0101"
-                                        border.width: 2
-                                        imageSource: (selectedIndex >= 0
-                                                      && selectedIndex < cards.length) ? cards[selectedIndex].setSymbol : ""
-                                        blockText: (selectedIndex >= 0
-                                                    && selectedIndex < cards.length) ? "" // Fallback if name is undefined
-                                                                                     : "Set Symbol"
-                                    }
-
-                                    Rectangle {
-                                        id: setBlock
-                                        width: 120
-                                        height: 65
-                                        color: "#c80d0d"
-                                        radius: 8
-                                        border.color: "#6c0101"
-                                        border.width: 2
-                                        Rectangle {
-                                            id: setNameBezel
-                                            color: "#b2b2b2"
-                                            radius: 8
-                                            border.color: "#6c0101"
-                                            border.width: 2
-                                            anchors.fill: parent
-                                            anchors.leftMargin: 4
-                                            anchors.rightMargin: 4
-                                            anchors.topMargin: 3
-                                            anchors.bottomMargin: 3
-                                            Rectangle {
-                                                id: setNameScreen
-                                                x: 10
-                                                y: 4
-                                                color: screenColor
-                                                radius: 6
-                                                border.color: "#128c17"
-                                                border.width: 2
-                                                anchors.fill: parent
-                                                anchors.leftMargin: 6
-                                                anchors.rightMargin: 6
-                                                anchors.topMargin: 4
-                                                anchors.bottomMargin: 4
-                                                Text {
-                                                    id: setNameText
-                                                    color: "#c5002a02"
-                                                    text: (selectedIndex >= 0
-                                                           && selectedIndex < cards.length) ? cards[selectedIndex].set || "No Name Available" // Fallback if name is undefined
-                                                                                            : "Set Name"
-                                                    anchors.fill: parent
-                                                    anchors.leftMargin: 4
-                                                    anchors.rightMargin: 4
-                                                    anchors.topMargin: 4
-                                                    anchors.bottomMargin: 4
-                                                    horizontalAlignment: Text.AlignHCenter
-                                                    verticalAlignment: Text.AlignVCenter
-                                                    wrapMode: Text.Wrap
-                                                    z: 1
-                                                    minimumPointSize: 6
-                                                    minimumPixelSize: 6
-                                                    fontSizeMode: Text.Fit
-                                                    font.styleName: "ExtraBold Italic"
-                                                    font.pointSize: 13
-                                                }
-
-                                                DropShadow {
-                                                    opacity: 0.8
-                                                    color: "#095f0c"
-                                                    radius: 3.8
-                                                    verticalOffset: 5
-                                                    samples: 16
-                                                    horizontalOffset: 5
-                                                }
-
-                                                Text {
-                                                    id: setNameDropText
-                                                    color: "#095f0c"
-                                                    text: setNameText.text
-                                                    anchors.fill: parent
-                                                    anchors.leftMargin: 4
-                                                    anchors.rightMargin: 4
-                                                    anchors.topMargin: 4
-                                                    anchors.bottomMargin: 4
-                                                    horizontalAlignment: Text.AlignHCenter
-                                                    verticalAlignment: Text.AlignVCenter
-                                                    wrapMode: Text.Wrap
-                                                    z: 0
-                                                    minimumPointSize: 6
-                                                    minimumPixelSize: 6
-                                                    fontSizeMode: Text.Fit
-                                                    font.styleName: "ExtraBold Italic"
-                                                    font.pointSize: 13
-                                                }
-
-                                                Rectangle {
-                                                    id: rectangle36
-                                                    x: -7
-                                                    y: -4
-                                                    color: "#00ffffff"
-                                                    radius: 4
-                                                    border.color: "#25fb2e"
-                                                    border.width: 1
-                                                    anchors.fill: parent
-                                                    anchors.leftMargin: 3
-                                                    anchors.rightMargin: 3
-                                                    anchors.topMargin: 3
-                                                    anchors.bottomMargin: 3
-                                                }
-                                                clip: true
-                                            }
-                                        }
-                                    }
-                                    anchors.horizontalCenter: parent.horizontalCenter
-                                }
+                            id: leftSideColumn
+                            y: 10
+                            width: 253
+                            height: 536
+                            anchors.horizontalCenterOffset: -47
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            spacing: 4
+                            FlavorTextBlock {
+                                id: rule1TextBlock
+                                width: 250
+                                height: 100
+                                screenShadeColor: window.screenShadeColor
+                                screenHighlightColor: window.screenHighlightColor
+                                screenColor: window.screenColor
+                                descText: "Rule 1"
+                                blockBG: window.blockBG
+                                bezelColor: window.bezelColor
+                                bezelBorderColor: window.bezelBorderColor
                             }
 
-                            Column {
-                                id: leftSideColumn
-                                width: 283
-                                height: 536
-                                anchors.horizontalCenter: parent.horizontalCenter
-                                spacing: 4
-                                FlavorTextBlock {
-                                    id: rule1TextBlock
-                                    width: 250
-                                    height: 100
-                                    screenShadeColor: window.screenShadeColor
-                                    screenHighlightColor: window.screenHighlightColor
-                                    screenColor: window.screenColor
-                                    descText: "Rule 1"
-                                    blockBG: window.blockBG
-                                    bezelColor: window.bezelColor
-                                    bezelBorderColor: window.bezelBorderColor
-                                }
-
-                                FlavorTextBlock {
-                                    id: rule2TextBlock
-                                    width: 250
-                                    height: 100
-                                    visible: false
-                                    screenShadeColor: window.screenShadeColor
-                                    screenHighlightColor: window.screenHighlightColor
-                                    screenColor: window.screenColor
-                                    descText: "Rule 2"
-                                    blockBG: window.blockBG
-                                    bezelColor: window.bezelColor
-                                    bezelBorderColor: window.bezelBorderColor
-                                }
-
-                                FlavorTextBlock {
-                                    id: rule3TextBlock
-                                    width: 250
-                                    height: 100
-                                    visible: false
-                                    screenShadeColor: window.screenShadeColor
-                                    screenHighlightColor: window.screenHighlightColor
-                                    screenColor: window.screenColor
-                                    descText: "Rule 3"
-                                    blockBG: window.blockBG
-                                    bezelColor: window.bezelColor
-                                    bezelBorderColor: window.bezelBorderColor
-                                }
-
-                                FlavorTextBlock {
-                                    id: rule4TextBlock
-                                    width: 250
-                                    height: 100
-                                    visible: false
-                                    screenShadeColor: window.screenShadeColor
-                                    screenHighlightColor: window.screenHighlightColor
-                                    screenColor: window.screenColor
-                                    descText: "Rule 4"
-                                    blockBG: window.blockBG
-                                    bezelColor: window.bezelColor
-                                    bezelBorderColor: window.bezelBorderColor
-                                }
-
-                                AttackInfoBlock {
-                                    id: attack1Block
-                                    width: 250
-                                    height: 200
-                                    visible: true
-                                    textColor: window.textColor
-                                    screenColor: window.screenColor
-                                    nameText: "Attack 1"
-                                    mainColor: window.primaryColor
-                                    dropTextColor: window.dropTextColor
-                                    dropBorderColor: window.dropBorderColor
-                                    borderColor: window.borderColor
-                                    bezelColor: window.bezelColor
-                                }
-
-                                AttackInfoBlock {
-                                    id: attack2Block
-                                    width: 250
-                                    height: 200
-                                    visible: false
-                                    textColor: window.textColor
-                                    screenColor: window.screenColor
-                                    nameText: "Attack 2"
-                                    mainColor: window.primaryColor
-                                    dropTextColor: window.dropTextColor
-                                    dropBorderColor: window.dropBorderColor
-                                    borderColor: window.borderColor
-                                    bezelColor: window.bezelColor
-                                }
-
-                                AttackInfoBlock {
-                                    id: attack3Block
-                                    width: 250
-                                    height: 200
-                                    visible: false
-                                    textColor: window.textColor
-                                    screenColor: window.screenColor
-                                    nameText: "Attack 3"
-                                    mainColor: window.primaryColor
-                                    dropTextColor: window.dropTextColor
-                                    dropBorderColor: window.dropBorderColor
-                                    borderColor: window.borderColor
-                                    bezelColor: window.bezelColor
-                                }
-
-                                AttackInfoBlock {
-                                    id: attack4Block
-                                    width: 250
-                                    height: 200
-                                    visible: false
-                                    textColor: window.textColor
-                                    screenColor: window.screenColor
-                                    nameText: "Attack 4"
-                                    mainColor: window.primaryColor
-                                    dropTextColor: window.dropTextColor
-                                    dropBorderColor: window.dropBorderColor
-                                    borderColor: window.borderColor
-                                    bezelColor: window.bezelColor
-                                }
-
-                                AbilityInfoBlock {
-                                    id: ability1
-                                    width: 250
-                                    typeText: "Ability 1 Type"
-                                    nameText: "Ability 1"
-                                    descText: "Ability 1 Description"
-                                }
-
-                                AbilityInfoBlock {
-                                    id: ability2
-                                    width: 250
-                                    visible: false
-                                    typeText: "Ability 2 Type"
-                                    nameText: "Ability 2"
-                                    descText: "Ability 2 Description"
-                                }
+                            FlavorTextBlock {
+                                id: rule2TextBlock
+                                width: 250
+                                height: 100
+                                visible: false
+                                screenShadeColor: window.screenShadeColor
+                                screenHighlightColor: window.screenHighlightColor
+                                screenColor: window.screenColor
+                                descText: "Rule 2"
+                                blockBG: window.blockBG
+                                bezelColor: window.bezelColor
+                                bezelBorderColor: window.bezelBorderColor
                             }
 
+                            FlavorTextBlock {
+                                id: rule3TextBlock
+                                width: 250
+                                height: 100
+                                visible: false
+                                screenShadeColor: window.screenShadeColor
+                                screenHighlightColor: window.screenHighlightColor
+                                screenColor: window.screenColor
+                                descText: "Rule 3"
+                                blockBG: window.blockBG
+                                bezelColor: window.bezelColor
+                                bezelBorderColor: window.bezelBorderColor
+                            }
 
+                            FlavorTextBlock {
+                                id: rule4TextBlock
+                                width: 250
+                                height: 100
+                                visible: false
+                                screenShadeColor: window.screenShadeColor
+                                screenHighlightColor: window.screenHighlightColor
+                                screenColor: window.screenColor
+                                descText: "Rule 4"
+                                blockBG: window.blockBG
+                                bezelColor: window.bezelColor
+                                bezelBorderColor: window.bezelBorderColor
+                            }
+
+                            AttackInfoBlock {
+                                id: attack1Block
+                                width: 250
+                                height: 200
+                                visible: true
+                                textColor: window.textColor
+                                screenColor: window.screenColor
+                                nameText: "Attack 1"
+                                mainColor: window.primaryColor
+                                dropTextColor: window.dropTextColor
+                                dropBorderColor: window.dropBorderColor
+                                borderColor: window.borderColor
+                                bezelColor: window.bezelColor
+                            }
+
+                            AttackInfoBlock {
+                                id: attack2Block
+                                width: 250
+                                height: 200
+                                visible: false
+                                textColor: window.textColor
+                                screenColor: window.screenColor
+                                nameText: "Attack 2"
+                                mainColor: window.primaryColor
+                                dropTextColor: window.dropTextColor
+                                dropBorderColor: window.dropBorderColor
+                                borderColor: window.borderColor
+                                bezelColor: window.bezelColor
+                            }
+
+                            AttackInfoBlock {
+                                id: attack3Block
+                                width: 250
+                                height: 200
+                                visible: false
+                                textColor: window.textColor
+                                screenColor: window.screenColor
+                                nameText: "Attack 3"
+                                mainColor: window.primaryColor
+                                dropTextColor: window.dropTextColor
+                                dropBorderColor: window.dropBorderColor
+                                borderColor: window.borderColor
+                                bezelColor: window.bezelColor
+                            }
+
+                            AttackInfoBlock {
+                                id: attack4Block
+                                width: 250
+                                height: 200
+                                visible: false
+                                textColor: window.textColor
+                                screenColor: window.screenColor
+                                nameText: "Attack 4"
+                                mainColor: window.primaryColor
+                                dropTextColor: window.dropTextColor
+                                dropBorderColor: window.dropBorderColor
+                                borderColor: window.borderColor
+                                bezelColor: window.bezelColor
+                            }
+
+                            AbilityInfoBlock {
+                                id: ability1
+                                width: 250
+                                typeText: "Ability 1 Type"
+                                nameText: "Ability 1"
+                                descText: "Ability 1 Description"
+                            }
+
+                            AbilityInfoBlock {
+                                id: ability2
+                                width: 250
+                                visible: false
+                                typeText: "Ability 2 Type"
+                                nameText: "Ability 2"
+                                descText: "Ability 2 Description"
+                            }
                         }
                     }
                 }
@@ -1146,7 +747,7 @@ Item { // Page 2: Discover Page
                         ballButton.scale = 0.7
                     }
                     onClicked: {
-                        toggleDrawer();
+                        toggleLeftDrawer();
                     }
                     hoverEnabled: true
                     Rectangle {
@@ -1158,7 +759,7 @@ Item { // Page 2: Discover Page
                         anchors.fill: parent
                         MouseArea {
                             onClicked: {
-                                toggleDrawer();
+                                toggleLeftDrawer();
                             }
                         }
 
@@ -1207,7 +808,7 @@ Item { // Page 2: Discover Page
                                 drawerCircle.scale = 1.2
                             }
                             onClicked: {
-                                toggleDrawer();
+                                toggleLeftDrawer();
                             }
                             hoverEnabled: true
                             cursorShape: Qt.PointingHandCursor
@@ -1216,14 +817,15 @@ Item { // Page 2: Discover Page
 
                     Image {
                         id: ballButton
-                        x: -4
                         width: 60
                         height: 60
                         anchors.verticalCenter: parent.verticalCenter
-                        source: "ball.png"
+                        source: "topBall.png"
+                        anchors.horizontalCenterOffset: 13
+                        anchors.horizontalCenter: parent.horizontalCenter
                         sourceSize.height: 50
                         scale: 0.6
-                        rotation: 90
+                        rotation: 270
                         mirror: false
                         mipmap: false
                         fillMode: Image.Stretch
@@ -1236,7 +838,11 @@ Item { // Page 2: Discover Page
 
                         MouseArea {
                             id: ballMouseArea
-                            anchors.fill: parent
+                            width: 60
+                            height: 32
+                            anchors.verticalCenter: parent.verticalCenter
+                            anchors.verticalCenterOffset: 15
+                            anchors.horizontalCenter: parent.horizontalCenter
                             onExited: {
                                 // Scale down when not hovered
                                 ballButton.scale = 0.6
@@ -1246,7 +852,7 @@ Item { // Page 2: Discover Page
                                 ballButton.scale = 0.7
                             }
                             onClicked: {
-                                toggleDrawer();
+                                toggleLeftDrawer();
                             }
                             hoverEnabled: true
                             cursorShape: Qt.PointingHandCursor
@@ -1268,26 +874,35 @@ Item { // Page 2: Discover Page
 
                 Rectangle {
                     id: dataFlow
+                    height: 440
                     opacity: 1
                     visible: true
                     color: "#541515"
                     border.width: 0
-                    anchors.fill: parent
-                    anchors.leftMargin: 35
-                    anchors.rightMargin: 6
-                    anchors.topMargin: 5
-                    anchors.bottomMargin: 6
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.left: parent.left
+                    anchors.horizontalCenter: parent.horizontalCenter
                     Frame {
                         id: frame
                         visible: true
-                        anchors.fill: parent
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        padding: 0
+                        rightPadding: 0
+                        bottomPadding: 0
+                        leftPadding: 0
+                        topPadding: 0
+                        clip: false
                         View3D {
                             id: view
-                            anchors.fill: parent
-                            scale: 1.206
+                            width: 540
+                            height: 430
+                            scale: 1
                             clip: false
-                            z: 3
-                            visible: false
+                            z: 0
+                            visible: true
+                            anchors.verticalCenter: parent.verticalCenter
+                            anchors.horizontalCenter: parent.horizontalCenter
 
                             PerspectiveCamera {
                                 y: 0
@@ -1420,7 +1035,7 @@ Item { // Page 2: Discover Page
                                         // Gradually reduce the angle towards zero
                                         var returnSpeed = 0.07; // Adjust the return speed to control how quickly it comes to rest
                                         if (cardNode.rotation.y > 0) {
-                                           // console.log(cardNode.rotation.y)
+                                            // console.log(cardNode.rotation.y)
                                             //console.log(cardNode.eulerRotation.y)
                                             cardNode.rotation.y -= returnSpeed; // Move back towards 0
                                             if (cardNode.rotation.y < 0) cardNode.rotation.y = 0; // Clamp to zero
@@ -1432,6 +1047,15 @@ Item { // Page 2: Discover Page
                                 }
                             }
 
+                        }
+
+                        Rectangle {
+                            id: rectangle5
+                            visible: false
+                            color: deepBG
+                            border.width: 0
+                            anchors.fill: parent
+                            z: -1
                         }
                     }
 
@@ -1572,10 +1196,625 @@ Item { // Page 2: Discover Page
 
                     clip: true
                 }
+
+
+                MouseArea {
+                    id: openButton2
+                    x: 572
+                    width: 28
+                    height: parent.height
+                    opacity: 1
+                    anchors.verticalCenter: customDrawer2.verticalCenter
+                    anchors.right: customDrawer2.left
+                    anchors.rightMargin: -1
+                    z: 1
+                    onExited: {
+                        // Scale down when not hovered
+                        ballButton2.scale = 0.6
+                    }
+                    onEntered: {
+                        // Scale up on hover
+                        ballButton2.scale = 0.7
+                    }
+                    onClicked: {
+                        toggleRightDrawer();
+                    }
+                    hoverEnabled: true
+                    Rectangle {
+                        id: buttonBackground2
+                        color: "#ee1414"
+                        radius: 0
+                        border.color: "#620808"
+                        border.width: 2
+                        anchors.fill: parent
+                        MouseArea {
+                            onClicked: {
+                                toggleRightDrawer();
+                            }
+                        }
+
+                        Rectangle {
+                            id: rectangle41
+                            color: "#00ffffff"
+                            radius: 3
+                            border.color: "#ee0000"
+                            border.width: 2
+                            anchors.fill: parent
+                            anchors.leftMargin: 5
+                            anchors.rightMargin: 5
+                            anchors.topMargin: 10
+                            anchors.bottomMargin: 10
+                        }
+                    }
+
+                    Rectangle {
+                        id: drawerCircle2
+                        x: 8
+                        width: 26
+                        height: 26
+                        visible: false
+                        color: "#6c0101"
+                        radius: 9
+                        border.color: "#c80d0d"
+                        border.width: 2
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.right: parent.right
+                        anchors.rightMargin: 0
+                        Behavior {
+                            NumberAnimation {
+                                duration: 200
+                            }
+                        }
+
+                        MouseArea {
+                            id: mouseArea2
+                            anchors.fill: parent
+                            onExited: {
+                                // Scale down when not hovered
+                                drawerCircle2.scale = 1
+                            }
+                            onEntered: {
+                                // Scale up on hover
+                                drawerCircle2.scale = 1.2
+                            }
+                            onClicked: {
+                                toggleRightDrawer();
+                            }
+                            hoverEnabled: true
+                            cursorShape: Qt.PointingHandCursor
+                        }
+                    }
+
+                    Image {
+                        id: ballButton2
+                        width: 60
+                        height: 60
+                        anchors.verticalCenter: parent.verticalCenter
+                        source: "bottomBall.png"
+                        anchors.horizontalCenterOffset: -13
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        sourceSize.height: 50
+                        scale: 0.6
+                        rotation: 90
+                        mirror: false
+                        mipmap: false
+                        fillMode: Image.Stretch
+                        NumberAnimation {
+                            id: rotateAnimation2
+                            target: ballButton2
+                            property: "rotation"
+                            duration: 500
+                        }
+
+                        MouseArea {
+                            id: ballMouseArea2
+                            width: 60
+                            height: 30
+                            anchors.verticalCenter: parent.verticalCenter
+                            anchors.verticalCenterOffset: 15
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            onExited: {
+                                // Scale down when not hovered
+                                ballButton2.scale = 0.6
+                            }
+                            onEntered: {
+                                // Scale up on hover
+                                ballButton2.scale = 0.7
+                            }
+                            onClicked: {
+                                toggleRightDrawer();
+                            }
+                            hoverEnabled: true
+                            cursorShape: Qt.PointingHandCursor
+                        }
+                        autoTransform: false
+                        anchors.verticalCenterOffset: 0
+                    }
+                    cursorShape: Qt.PointingHandCursor
+                }
+
+                PropertyAnimation {
+                    id: drawerAnimation2
+                    target: customDrawer2
+                    property: "x"
+                    running: false
+                    duration: 200
+                    alwaysRunToEnd: false
+                }
                 bottomPadding: 0
                 Layout.margins: 0
                 Layout.fillWidth: true
                 Layout.fillHeight: true
+                Rectangle {
+                    id: customDrawer2
+                    x: 600
+                    width: 274
+                    height: 438
+                    opacity: 1
+                    visible: true
+                    color: screenColor
+                    radius: 4
+                    border.color: "#25fb2e"
+                    border.width: 6
+                    anchors.verticalCenter: parent.verticalCenter
+                    z: 0
+                    scale: 1
+                    Behavior {
+                        NumberAnimation {
+                            duration: 500
+                        }
+                    }
+
+                    MouseArea {
+                        visible: true
+                        anchors.fill: parent
+                        anchors.leftMargin: 1
+                        anchors.rightMargin: -1
+                        anchors.topMargin: 0
+                        anchors.bottomMargin: 0
+                    }
+
+                    Rectangle {
+                        id: rectangle3
+                        x: -290
+                        width: 274
+                        height: 438
+                        visible: true
+                        color: "#00ffffff"
+                        radius: 3
+                        border.color: "#128c17"
+                        border.width: 4
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.right: parent.right
+                        anchors.horizontalCenter: parent.horizontalCenter
+                    }
+
+                    Flickable {
+                        id: dataScrollView1
+                        anchors.fill: parent
+
+                        Column {
+                            id: rightSideColumn1
+                            x: 12
+                            y: 10
+                            width: 245
+                            height: 430
+                            anchors.horizontalCenterOffset: -47
+                            spacing: 3
+                            Rectangle {
+                                id: supertypeBlock1
+                                width: 190
+                                height: 40
+                                color: "#c80d0d"
+                                radius: 8
+                                border.color: "#6c0101"
+                                border.width: 2
+                                Rectangle {
+                                    id: rectangle37
+                                    color: "#b2b2b2"
+                                    radius: 8
+                                    border.color: "#616161"
+                                    border.width: 2
+                                    anchors.fill: parent
+                                    anchors.leftMargin: 4
+                                    anchors.rightMargin: 4
+                                    anchors.topMargin: 3
+                                    anchors.bottomMargin: 3
+                                }
+
+                                Rectangle {
+                                    id: supertypeScreen1
+                                    color: screenColor
+                                    radius: 4
+                                    border.color: "#128c17"
+                                    border.width: 2
+                                    anchors.fill: parent
+                                    anchors.leftMargin: 11
+                                    anchors.rightMargin: 11
+                                    anchors.topMargin: 7
+                                    anchors.bottomMargin: 7
+                                    Text {
+                                        id: supertypeText1
+                                        color: "#c5002a02"
+                                        text: "Super Type"
+                                        anchors.left: parent.left
+                                        anchors.right: parent.right
+                                        anchors.top: parent.top
+                                        anchors.bottom: parent.bottom
+                                        anchors.leftMargin: 4
+                                        anchors.rightMargin: 4
+                                        anchors.topMargin: 4
+                                        anchors.bottomMargin: 4
+                                        horizontalAlignment: Text.AlignHCenter
+                                        verticalAlignment: Text.AlignVCenter
+                                        wrapMode: Text.Wrap
+                                        z: 1
+                                        minimumPointSize: 8
+                                        minimumPixelSize: 8
+                                        fontSizeMode: Text.Fit
+                                        font.styleName: "Bold Italic"
+                                        font.pointSize: 30
+                                    }
+
+                                    DropShadow {
+                                        opacity: 0.8
+                                        color: "#095f0c"
+                                        radius: 3.8
+                                        verticalOffset: 3
+                                        samples: 16
+                                        horizontalOffset: 3
+                                    }
+
+                                    Text {
+                                        id: supertypeDropText1
+                                        visible: false
+                                        color: "#2a7b2d"
+                                        text: supertypeText1.text
+                                        anchors.left: parent.left
+                                        anchors.right: parent.right
+                                        anchors.top: parent.top
+                                        anchors.bottom: parent.bottom
+                                        anchors.leftMargin: 6
+                                        anchors.rightMargin: 2
+                                        anchors.topMargin: 7
+                                        anchors.bottomMargin: 1
+                                        horizontalAlignment: Text.AlignHCenter
+                                        verticalAlignment: Text.AlignVCenter
+                                        wrapMode: Text.Wrap
+                                        z: 0
+                                        minimumPointSize: 8
+                                        minimumPixelSize: 8
+                                        fontSizeMode: Text.Fit
+                                        font.styleName: "Bold Italic"
+                                        font.pointSize: 30
+                                    }
+
+                                    Rectangle {
+                                        id: rectangle38
+                                        x: -8
+                                        y: -4
+                                        color: "#00ffffff"
+                                        radius: 4
+                                        border.color: "#25fb2e"
+                                        border.width: 1
+                                        anchors.fill: parent
+                                        anchors.leftMargin: 3
+                                        anchors.rightMargin: 3
+                                        anchors.topMargin: 3
+                                        anchors.bottomMargin: 3
+                                    }
+                                    clip: true
+                                }
+                                anchors.horizontalCenter: parent.horizontalCenter
+                            }
+
+                            Rectangle {
+                                id: nameBlock1
+                                width: 240
+                                height: 70
+                                color: "#c80d0d"
+                                radius: 8
+                                border.color: borderColor
+                                border.width: 1
+                                Rectangle {
+                                    id: rectangle13
+                                    color: "#b2b2b2"
+                                    radius: 8
+                                    border.color: "#616161"
+                                    border.width: 2
+                                    anchors.fill: parent
+                                    anchors.leftMargin: 4
+                                    anchors.rightMargin: 4
+                                    anchors.topMargin: 3
+                                    anchors.bottomMargin: 3
+                                }
+
+                                Rectangle {
+                                    id: nameScreen1
+                                    color: screenColor
+                                    radius: 4
+                                    border.color: "#128c17"
+                                    border.width: 2
+                                    anchors.fill: parent
+                                    anchors.leftMargin: 11
+                                    anchors.rightMargin: 11
+                                    anchors.topMargin: 7
+                                    anchors.bottomMargin: 7
+                                    Text {
+                                        id: nameText1
+                                        color: "#c5002a02"
+                                        text: (selectedIndex >= 0
+                                               && selectedIndex < cards.length) ? cards[selectedIndex].name || "No Name Available" // Fallback if name is undefined
+                                                                                : "Name"
+                                        anchors.left: parent.left
+                                        anchors.right: parent.right
+                                        anchors.top: parent.top
+                                        anchors.bottom: parent.bottom
+                                        anchors.leftMargin: 4
+                                        anchors.rightMargin: 4
+                                        anchors.topMargin: 4
+                                        anchors.bottomMargin: 4
+                                        horizontalAlignment: Text.AlignHCenter
+                                        verticalAlignment: Text.AlignVCenter
+                                        wrapMode: Text.Wrap
+                                        z: 1
+                                        minimumPointSize: 8
+                                        minimumPixelSize: 8
+                                        fontSizeMode: Text.Fit
+                                        font.styleName: "Bold Italic"
+                                        font.pointSize: 30
+                                    }
+
+                                    DropShadow {
+                                        opacity: 0.8
+                                        color: "#095f0c"
+                                        radius: 3.8
+                                        verticalOffset: 3
+                                        samples: 16
+                                        horizontalOffset: 3
+                                    }
+
+                                    Text {
+                                        id: nameDropText1
+                                        visible: false
+                                        color: "#2a7b2d"
+                                        text: nameText1.text
+                                        anchors.left: parent.left
+                                        anchors.right: parent.right
+                                        anchors.top: parent.top
+                                        anchors.bottom: parent.bottom
+                                        anchors.leftMargin: 6
+                                        anchors.rightMargin: 2
+                                        anchors.topMargin: 7
+                                        anchors.bottomMargin: 1
+                                        horizontalAlignment: Text.AlignHCenter
+                                        verticalAlignment: Text.AlignVCenter
+                                        wrapMode: Text.Wrap
+                                        z: 0
+                                        minimumPointSize: 8
+                                        minimumPixelSize: 8
+                                        fontSizeMode: Text.Fit
+                                        font.styleName: "Bold Italic"
+                                        font.pointSize: 30
+                                    }
+
+                                    Rectangle {
+                                        id: rectangle39
+                                        x: -8
+                                        y: -4
+                                        color: "#00ffffff"
+                                        radius: 4
+                                        border.color: "#25fb2e"
+                                        border.width: 1
+                                        anchors.fill: parent
+                                        anchors.leftMargin: 3
+                                        anchors.rightMargin: 3
+                                        anchors.topMargin: 3
+                                        anchors.bottomMargin: 3
+                                    }
+                                    clip: true
+                                }
+                                anchors.horizontalCenter: parent.horizontalCenter
+                            }
+
+                            Row {
+                                id: typesRow1
+                                width: 221
+                                height: 106
+                                spacing: 4
+                                TypeBlock {
+                                    id: typeBlock1
+                                    width: 55
+                                    height: 106
+                                    color: "#ff0000"
+                                    radius: 8
+                                    border.color: borderColor
+                                    border.width: 1
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    type2Type: "Type 2"
+                                    type1Type: "Type 1"
+                                }
+
+                                SubtypeBlock {
+                                    id: subtypeBlock1
+                                    width: 164
+                                    height: 106
+                                    color: window.blockBG
+                                    radius: 6
+                                    border.color: "#006c0101"
+                                    border.width: 0
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    sub4Text: "Subtype 4"
+                                    sub3Text: "Subtype 3"
+                                    sub2Text: "Subtype 2"
+                                    sub1Text: "Subtype 1"
+                                    blockBorderColor: "#6c0101"
+                                }
+                                anchors.horizontalCenter: parent.horizontalCenter
+                            }
+
+                            FlavorTextBlock {
+                                id: flavorTextBlock1
+                                width: 225
+                                height: 150
+                                visible: true
+                                screenShadeColor: window.screenShadeColor
+                                screenHighlightColor: window.screenHighlightColor
+                                screenColor: window.screenColor
+                                descText: "Flavor Text"
+                                blockBG: window.blockBG
+                                bezelColor: window.bezelColor
+                                bezelBorderColor: window.bezelBorderColor
+                                anchors.horizontalCenter: parent.horizontalCenter
+                            }
+
+                            SetLogoBlock {
+                                id: setLogoBlock1
+                                width: 225
+                                height: 200
+                                visible: true
+                                color: "#c80d0d"
+                                radius: 8
+                                border.color: "#6c0101"
+                                border.width: 2
+                                logoSource: (selectedIndex >= 0 && selectedIndex < cards.length) ? cards[selectedIndex].setLogo : ""
+                                logoScreenText: (selectedIndex >= 0
+                                                 && selectedIndex < cards.length) ? "" // Fallback if name is undefined
+                                                                                  : "Set Logo"
+                                anchors.horizontalCenter: parent.horizontalCenter
+                            }
+
+                            Row {
+                                id: setSymbolRow1
+                                width: 200
+                                height: 66
+                                spacing: 3
+                                SetSymbolBlock {
+                                    id: setSymbolBlock1
+                                    width: 75
+                                    height: 65
+                                    color: "#c80d0d"
+                                    radius: 8
+                                    border.color: "#6c0101"
+                                    border.width: 2
+                                    imageSource: (selectedIndex >= 0
+                                                  && selectedIndex < cards.length) ? cards[selectedIndex].setSymbol : ""
+                                    blockText: (selectedIndex >= 0
+                                                && selectedIndex < cards.length) ? "" // Fallback if name is undefined
+                                                                                 : "Set Symbol"
+                                }
+
+                                Rectangle {
+                                    id: setBlock1
+                                    width: 120
+                                    height: 65
+                                    color: "#c80d0d"
+                                    radius: 8
+                                    border.color: "#6c0101"
+                                    border.width: 2
+                                    Rectangle {
+                                        id: setNameBezel1
+                                        color: "#b2b2b2"
+                                        radius: 8
+                                        border.color: "#6c0101"
+                                        border.width: 2
+                                        anchors.fill: parent
+                                        anchors.leftMargin: 4
+                                        anchors.rightMargin: 4
+                                        anchors.topMargin: 3
+                                        anchors.bottomMargin: 3
+                                        Rectangle {
+                                            id: setNameScreen1
+                                            x: 10
+                                            y: 4
+                                            color: screenColor
+                                            radius: 6
+                                            border.color: "#128c17"
+                                            border.width: 2
+                                            anchors.fill: parent
+                                            anchors.leftMargin: 6
+                                            anchors.rightMargin: 6
+                                            anchors.topMargin: 4
+                                            anchors.bottomMargin: 4
+                                            Text {
+                                                id: setNameText1
+                                                color: "#c5002a02"
+                                                text: (selectedIndex >= 0
+                                                       && selectedIndex < cards.length) ? cards[selectedIndex].set || "No Name Available" // Fallback if name is undefined
+                                                                                        : "Set Name"
+                                                anchors.fill: parent
+                                                anchors.leftMargin: 4
+                                                anchors.rightMargin: 4
+                                                anchors.topMargin: 4
+                                                anchors.bottomMargin: 4
+                                                horizontalAlignment: Text.AlignHCenter
+                                                verticalAlignment: Text.AlignVCenter
+                                                wrapMode: Text.Wrap
+                                                z: 1
+                                                minimumPointSize: 6
+                                                minimumPixelSize: 6
+                                                fontSizeMode: Text.Fit
+                                                font.styleName: "ExtraBold Italic"
+                                                font.pointSize: 13
+                                            }
+
+                                            DropShadow {
+                                                opacity: 0.8
+                                                color: "#095f0c"
+                                                radius: 3.8
+                                                verticalOffset: 5
+                                                samples: 16
+                                                horizontalOffset: 5
+                                            }
+
+                                            Text {
+                                                id: setNameDropText1
+                                                color: "#095f0c"
+                                                text: setNameText1.text
+                                                anchors.fill: parent
+                                                anchors.leftMargin: 4
+                                                anchors.rightMargin: 4
+                                                anchors.topMargin: 4
+                                                anchors.bottomMargin: 4
+                                                horizontalAlignment: Text.AlignHCenter
+                                                verticalAlignment: Text.AlignVCenter
+                                                wrapMode: Text.Wrap
+                                                z: 0
+                                                minimumPointSize: 6
+                                                minimumPixelSize: 6
+                                                fontSizeMode: Text.Fit
+                                                font.styleName: "ExtraBold Italic"
+                                                font.pointSize: 13
+                                            }
+
+                                            Rectangle {
+                                                id: rectangle40
+                                                x: -7
+                                                y: -4
+                                                color: "#00ffffff"
+                                                radius: 4
+                                                border.color: "#25fb2e"
+                                                border.width: 1
+                                                anchors.fill: parent
+                                                anchors.leftMargin: 3
+                                                anchors.rightMargin: 3
+                                                anchors.topMargin: 3
+                                                anchors.bottomMargin: 3
+                                            }
+                                            clip: true
+                                        }
+                                    }
+                                }
+                                anchors.horizontalCenter: parent.horizontalCenter
+                            }
+                            anchors.horizontalCenter: parent.horizontalCenter
+                        }
+                        contentWidth: 368
+                        contentHeight: 1651
+                    }
+                    clip: true
+                    anchors.verticalCenterOffset: 0
+                }
             }
         }
 
@@ -1591,6 +1830,7 @@ Item { // Page 2: Discover Page
             anchors.right: parent.right
             anchors.leftMargin: 0
             anchors.rightMargin: 0
+            z: 1
 
             MySearchFilterTools {
                 id: searchFilterTools
@@ -1634,6 +1874,7 @@ Item { // Page 2: Discover Page
             anchors.right: parent.right
             anchors.leftMargin: 0
             anchors.rightMargin: 0
+            z: 1
             Rectangle {
                 id: rectangle18
                 y: -600
@@ -1712,6 +1953,7 @@ Item { // Page 2: Discover Page
             color: "#ee0000"
             border.color: borderColor
             border.width: 2
+            z: 1
             Row {
                 id: searchRow
                 height: 25
@@ -1961,6 +2203,7 @@ Item { // Page 2: Discover Page
             anchors.right: parent.right
             anchors.leftMargin: 0
             anchors.rightMargin: 0
+            z: 1
             Rectangle {
                 id: rectangle23
                 y: -600
@@ -2149,6 +2392,7 @@ Item { // Page 2: Discover Page
         id: rectangle14
         color: blockBG
         anchors.fill: parent
+        z: 0
         border.color: borderColor
     }
 
@@ -2163,6 +2407,7 @@ Item { // Page 2: Discover Page
 
 /*##^##
 Designer {
-    D{i:0}D{i:71;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}
+    D{i:0}D{i:7}D{i:16}D{i:35}D{i:37}D{i:41;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}
+D{i:56}D{i:57}D{i:58}D{i:65}D{i:67}
 }
 ##^##*/

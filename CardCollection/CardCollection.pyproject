@@ -25,6 +25,9 @@
         "FlavorTextBlock.qml",
         "Type.qml",
         "ViewingArea.qml",
-        "Discover.qml"
+        "Discover.qml",
+        "topBall.png",
+        "bottomBall.png"
+
     ]
 }
