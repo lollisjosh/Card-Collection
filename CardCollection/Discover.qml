@@ -66,6 +66,7 @@ Item { // Page 2: Discover Page
         if (customDrawer2.x >= 600) { // Closed position
             customDrawer2.x = 600 - customDrawer2.width; // Slide into view
             isDrawer2Open = true;
+
             rotateAnimation2.from = ballButton2.rotation;
             rotateAnimation2.to = 270;
             rotateAnimation2.start();
@@ -546,9 +547,11 @@ Item { // Page 2: Discover Page
                     anchors.verticalCenter: parent.verticalCenter
                     z: 1
                     scale: 1
-                    Behavior {
+                    // Animate the x position when it changes
+                    Behavior on x {
                         NumberAnimation {
-                            duration: 500
+                            duration: 500 // Adjust the duration for the desired speed
+                            easing.type: Easing.OutQuad // Smooth easing effect
                         }
                     }
 
@@ -729,6 +732,17 @@ Item { // Page 2: Discover Page
                     }
                 }
 
+                // Define the animation
+                PropertyAnimation {
+                    id: drawerAnimation
+                    target: customDrawer
+                    property: "x"
+                    alwaysRunToEnd: false
+                    running: false
+                    duration: 200  // Duration of the animation in milliseconds
+                    easing.type: Easing.InOutQuad  // Easing function for smoothness
+                }
+
                 MouseArea {
                     id: openButton
                     width: 28
@@ -861,15 +875,9 @@ Item { // Page 2: Discover Page
                         anchors.verticalCenterOffset: 0
                     }
                     cursorShape: Qt.PointingHandCursor
-                }
 
-                PropertyAnimation {
-                    id: drawerAnimation
-                    target: customDrawer
-                    property: "x"
-                    running: false
-                    duration: 200
-                    alwaysRunToEnd: false
+
+
                 }
 
                 Rectangle {
@@ -1059,140 +1067,7 @@ Item { // Page 2: Discover Page
                         }
                     }
 
-                    // Frame {
-                    //     id: frame
-                    //     visible: true
-                    //     anchors.fill: parent
-                    //     View3D {
-                    //         id: view
-                    //         anchors.fill: parent
-                    //         scale: 1.206
-                    //         clip: false
-                    //         z: 3
-                    //         visible: false
 
-                    //         PerspectiveCamera {
-                    //             y: 0
-                    //             position: Qt.vector3d(0, 200, 300)
-                    //             pivot.z: 0
-                    //             pivot.y: 0
-                    //             pivot.x: 0
-                    //             lookAtNode: cardNode
-                    //             frustumCullingEnabled: false
-                    //             z: 0
-                    //             eulerRotation.x: 0
-                    //         }
-
-                    //         DirectionalLight {
-                    //             eulerRotation.x: -30
-                    //         }
-
-                    //         Node {
-                    //             id: cardNode
-                    //             x: 0
-                    //             y: 200
-                    //             z: -25
-                    //             scale.y: 3
-                    //             scale.x: 2.5
-
-                    //             // Front side of the card
-                    //             Model {
-                    //                 id: frontCard
-                    //                 source: "#Rectangle"
-                    //                 receivesShadows: false
-                    //                 castsShadows: false
-                    //                 scale: Qt.vector3d(1, 1, 1) // Adjust dimensions for card thickness
-                    //                 eulerRotation.y: 0
-
-                    //                 materials: [
-                    //                     DefaultMaterial {
-                    //                         diffuseMap: Texture {
-                    //                             sourceItem: Image {
-                    //                                 anchors.centerIn: parent
-                    //                                 width: 413
-                    //                                 height: 577
-                    //                                 source: (selectedIndex >= 0 && selectedIndex < cards.length) ? cards[selectedIndex].imageUrl : ""
-                    //                                 sourceSize: Qt.size(width, height)
-                    //                                 cache: false
-                    //                             }
-                    //                         }
-                    //                     }
-                    //                 ]
-
-                    //             }
-
-                    //             // Back side of the card, rotated 180 degrees
-                    //             Model {
-                    //                 id: backCard
-                    //                 source: "#Rectangle"
-                    //                 scale: Qt.vector3d(1, 1, 1)
-                    //                 eulerRotation.y: 180 // Rotated to face the opposite direction
-
-                    //                 materials: [
-                    //                     DefaultMaterial {
-                    //                         diffuseColor: "#ffffff"
-                    //                         diffuseMap: Texture {
-                    //                             sourceItem: Image {
-                    //                                 anchors.centerIn: parent
-                    //                                 width: 413
-                    //                                 height: 577
-                    //                                 source: "cardback.png" // URL for the back image
-                    //                                 sourceSize: Qt.size(width, height)
-                    //                                 cache: false
-                    //                             }
-                    //                         }
-                    //                     }
-                    //                 ]
-
-                    //             }
-                    //         }
-
-                    //         MouseArea {
-                    //             id: dragArea
-                    //             anchors.fill: parent
-                    //             anchors.leftMargin: 0
-                    //             anchors.rightMargin: 0
-                    //             anchors.topMargin: 0
-                    //             anchors.bottomMargin: 0
-                    //             property real previousX: 0
-                    //             property real velocityY: 0
-                    //             property real dragSensitivity: 0.2
-                    //             property real momentumDecay: 0.98 // Controls how quickly momentum fades
-
-                    //             onPressed: {
-                    //                 previousX = mouse.x
-                    //                 velocityY = 0
-                    //                 momentumTimer.stop()
-                    //             }
-
-                    //             onPositionChanged: {
-                    //                 var deltaX = mouse.x - previousX
-                    //                 velocityY = deltaX * dragSensitivity
-                    //                 cardNode.eulerRotation.y += velocityY
-                    //                 previousX = mouse.x
-                    //             }
-
-                    //             onReleased: {
-                    //                 momentumTimer.start()
-                    //             }
-                    //         }
-
-                    //         // Timer for applying momentum after drag release
-                    //         Timer {
-                    //             id: momentumTimer
-                    //             interval: 16 // About 60 FPS
-                    //             repeat: true
-                    //             onTriggered: {
-                    //                 if (Math.abs(dragArea.velocityY) < 0.1) {
-                    //                     momentumTimer.stop()
-                    //                 } else {
-                    //                     cardNode.eulerRotation.y += dragArea.velocityY
-                    //                     dragArea.velocityY *= dragArea.momentumDecay
-                    //                 }
-                    //             }
-                    //         }
-                    //     }
-                    // }
 
                     clip: true
                 }
@@ -1331,16 +1206,21 @@ Item { // Page 2: Discover Page
                         anchors.verticalCenterOffset: 0
                     }
                     cursorShape: Qt.PointingHandCursor
+
+                    // Define the animation
+                    PropertyAnimation {
+                        id: drawerAnimation2
+                        target: customDrawer2
+                        property: "x"
+                        alwaysRunToEnd: false
+                        running: false
+                        duration: 200  // Duration of the animation in milliseconds
+                        easing.type: Easing.InOutQuad  // Easing function for smoothness
+                    }
+
                 }
 
-                PropertyAnimation {
-                    id: drawerAnimation2
-                    target: customDrawer2
-                    property: "x"
-                    running: false
-                    duration: 200
-                    alwaysRunToEnd: false
-                }
+
                 bottomPadding: 0
                 Layout.margins: 0
                 Layout.fillWidth: true
@@ -1359,9 +1239,11 @@ Item { // Page 2: Discover Page
                     anchors.verticalCenter: parent.verticalCenter
                     z: 0
                     scale: 1
-                    Behavior {
+                    // Animate the x position when it changes
+                    Behavior on x {
                         NumberAnimation {
-                            duration: 500
+                            duration: 500 // Adjust the duration for the desired speed
+                            easing.type: Easing.OutQuad // Smooth easing effect
                         }
                     }
 
