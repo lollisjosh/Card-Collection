@@ -24,6 +24,7 @@
         "Subtype.qml",
         "FlavorTextBlock.qml",
         "Type.qml",
-        "ViewingArea.qml"
+        "ViewingArea.qml",
+        "Discover.qml"
     ]
 }

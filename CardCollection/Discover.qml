@@ -350,13 +350,13 @@ Item { // Page 2: Discover Page
         cardNode.eulerRotation.y = 0;
     }
     function resetLeftColumnScroll() {
-        leftScrollView.contentX = 0;
-        leftScrollView.contentY = 0;
+        //leftScrollView.contentX = 0;
+        //leftScrollView.contentY = 0;
     }
 
     function resetRightColumnScroll() {
-        rightScrollView.contentX = 0;
-        rightScrollView.contentY = 0;
+        //rightScrollView.contentX = 0;
+        //rightScrollView.contentY = 0;
     }
 
     // Function to handle next button click
@@ -373,7 +373,7 @@ Item { // Page 2: Discover Page
             resetRightColumnScroll();
             resetCardRotation();
             updateLeftScrollView();
-            updateRightScrollView();
+            //updateRightScrollView();
         }
     }
 
@@ -390,8 +390,8 @@ Item { // Page 2: Discover Page
             resetLeftColumnScroll();
             resetRightColumnScroll();
             resetCardRotation();
-            updateLeftScrollView();
-            updateRightScrollView();
+            //updateLeftScrollView();
+            //updateRightScrollView();
         }
     }
 
@@ -541,139 +541,6 @@ Item { // Page 2: Discover Page
                         anchors.bottomMargin: 0
                     }
 
-                    Frame {
-                        id: frame
-                        visible: true
-                        anchors.fill: parent
-                        View3D {
-                            id: view
-                            anchors.fill: parent
-                            clip: false
-                            z: 3
-                            visible: false
-
-                            PerspectiveCamera {
-                                y: 0
-                                position: Qt.vector3d(0, 200, 300)
-                                pivot.z: 0
-                                pivot.y: 0
-                                pivot.x: 0
-                                lookAtNode: cardNode
-                                frustumCullingEnabled: false
-                                z: 0
-                                eulerRotation.x: 0
-                            }
-
-                            DirectionalLight {
-                                eulerRotation.x: -30
-                            }
-
-                            Node {
-                                id: cardNode
-                                x: 0
-                                y: 200
-                                z: -25
-                                scale.y: 3
-                                scale.x: 2.5
-
-                                // Front side of the card
-                                Model {
-                                    id: frontCard
-                                    source: "#Rectangle"
-                                    receivesShadows: false
-                                    castsShadows: false
-                                    scale: Qt.vector3d(1, 1, 1) // Adjust dimensions for card thickness
-                                    eulerRotation.y: 0
-
-                                    materials: [
-                                        DefaultMaterial {
-                                            diffuseMap: Texture {
-                                                sourceItem: Image {
-                                                    anchors.centerIn: parent
-                                                    width: 413
-                                                    height: 577
-                                                    source: (selectedIndex >= 0 && selectedIndex < cards.length) ? cards[selectedIndex].imageUrl : ""
-                                                    sourceSize: Qt.size(width, height)
-                                                    cache: false
-                                                }
-                                            }
-                                        }
-                                    ]
-
-                                }
-
-                                // Back side of the card, rotated 180 degrees
-                                Model {
-                                    id: backCard
-                                    source: "#Rectangle"
-                                    scale: Qt.vector3d(1, 1, 1)
-                                    eulerRotation.y: 180 // Rotated to face the opposite direction
-
-                                    materials: [
-                                        DefaultMaterial {
-                                            diffuseColor: "#ffffff"
-                                            diffuseMap: Texture {
-                                                sourceItem: Image {
-                                                    anchors.centerIn: parent
-                                                    width: 413
-                                                    height: 577
-                                                    source: "cardback.png" // URL for the back image
-                                                    sourceSize: Qt.size(width, height)
-                                                    cache: false
-                                                }
-                                            }
-                                        }
-                                    ]
-
-                                }
-                            }
-
-                            MouseArea {
-                                id: dragArea
-                                anchors.fill: parent
-                                anchors.leftMargin: 0
-                                anchors.rightMargin: 0
-                                anchors.topMargin: 0
-                                anchors.bottomMargin: 0
-                                property real previousX: 0
-                                property real velocityY: 0
-                                property real dragSensitivity: 0.2
-                                property real momentumDecay: 0.98 // Controls how quickly momentum fades
-
-                                onPressed: {
-                                    previousX = mouse.x
-                                    velocityY = 0
-                                    momentumTimer.stop()
-                                }
-
-                                onPositionChanged: {
-                                    var deltaX = mouse.x - previousX
-                                    velocityY = deltaX * dragSensitivity
-                                    cardNode.eulerRotation.y += velocityY
-                                    previousX = mouse.x
-                                }
-
-                                onReleased: {
-                                    momentumTimer.start()
-                                }
-                            }
-
-                            // Timer for applying momentum after drag release
-                            Timer {
-                                id: momentumTimer
-                                interval: 16 // About 60 FPS
-                                repeat: true
-                                onTriggered: {
-                                    if (Math.abs(dragArea.velocityY) < 0.1) {
-                                        momentumTimer.stop()
-                                    } else {
-                                        cardNode.eulerRotation.y += dragArea.velocityY
-                                        dragArea.velocityY *= dragArea.momentumDecay
-                                    }
-                                }
-                            }
-                        }
-                    }
 
                     Rectangle {
                         id: rectangle2
@@ -691,6 +558,574 @@ Item { // Page 2: Discover Page
                     }
                     clip: true
                     anchors.verticalCenterOffset: 0
+                    Flickable {
+                        id: dataScrollView
+                        anchors.fill: parent
+                        contentWidth: 368
+
+                        contentHeight: 1651
+                        Column {
+                            id: column1
+                            width: 300
+                            height: 1424
+                            spacing: 16
+
+                            Column {
+                                id: rightSideColumn
+                                width: 276
+                                height: 430
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                spacing: 3
+                                Rectangle {
+                                    id: supertypeBlock
+                                    width: 190
+                                    height: 40
+                                    color: "#c80d0d"
+                                    radius: 8
+                                    border.color: "#6c0101"
+                                    border.width: 2
+                                    Rectangle {
+                                        id: rectangle33
+                                        color: "#b2b2b2"
+                                        radius: 8
+                                        border.color: "#616161"
+                                        border.width: 2
+                                        anchors.fill: parent
+                                        anchors.leftMargin: 4
+                                        anchors.rightMargin: 4
+                                        anchors.topMargin: 3
+                                        anchors.bottomMargin: 3
+                                    }
+
+                                    Rectangle {
+                                        id: supertypeScreen
+                                        color: screenColor
+                                        radius: 4
+                                        border.color: "#128c17"
+                                        border.width: 2
+                                        anchors.fill: parent
+                                        anchors.leftMargin: 11
+                                        anchors.rightMargin: 11
+                                        anchors.topMargin: 7
+                                        anchors.bottomMargin: 7
+                                        Text {
+                                            id: supertypeText
+                                            color: "#c5002a02"
+                                            text: "Super Type"
+                                            anchors.left: parent.left
+                                            anchors.right: parent.right
+                                            anchors.top: parent.top
+                                            anchors.bottom: parent.bottom
+                                            anchors.leftMargin: 4
+                                            anchors.rightMargin: 4
+                                            anchors.topMargin: 4
+                                            anchors.bottomMargin: 4
+                                            horizontalAlignment: Text.AlignHCenter
+                                            verticalAlignment: Text.AlignVCenter
+                                            wrapMode: Text.Wrap
+                                            z: 1
+                                            minimumPointSize: 8
+                                            minimumPixelSize: 8
+                                            fontSizeMode: Text.Fit
+                                            font.styleName: "Bold Italic"
+                                            font.pointSize: 30
+                                        }
+
+                                        DropShadow {
+                                            opacity: 0.8
+                                            color: "#095f0c"
+                                            radius: 3.8
+                                            verticalOffset: 3
+                                            samples: 16
+                                            horizontalOffset: 3
+                                        }
+
+                                        Text {
+                                            id: supertypeDropText
+                                            visible: false
+                                            color: "#2a7b2d"
+                                            text: supertypeText.text
+                                            anchors.left: parent.left
+                                            anchors.right: parent.right
+                                            anchors.top: parent.top
+                                            anchors.bottom: parent.bottom
+                                            anchors.leftMargin: 6
+                                            anchors.rightMargin: 2
+                                            anchors.topMargin: 7
+                                            anchors.bottomMargin: 1
+                                            horizontalAlignment: Text.AlignHCenter
+                                            verticalAlignment: Text.AlignVCenter
+                                            wrapMode: Text.Wrap
+                                            z: 0
+                                            minimumPointSize: 8
+                                            minimumPixelSize: 8
+                                            fontSizeMode: Text.Fit
+                                            font.styleName: "Bold Italic"
+                                            font.pointSize: 30
+                                        }
+
+                                        Rectangle {
+                                            id: rectangle34
+                                            x: -8
+                                            y: -4
+                                            color: "#00ffffff"
+                                            radius: 4
+                                            border.color: "#25fb2e"
+                                            border.width: 1
+                                            anchors.fill: parent
+                                            anchors.leftMargin: 3
+                                            anchors.rightMargin: 3
+                                            anchors.topMargin: 3
+                                            anchors.bottomMargin: 3
+                                        }
+                                        clip: true
+                                    }
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                }
+
+                                Rectangle {
+                                    id: nameBlock
+                                    width: 240
+                                    height: 70
+                                    color: "#c80d0d"
+                                    radius: 8
+                                    border.color: borderColor
+                                    border.width: 1
+                                    Rectangle {
+                                        id: rectangle12
+                                        color: "#b2b2b2"
+                                        radius: 8
+                                        border.color: "#616161"
+                                        border.width: 2
+                                        anchors.fill: parent
+                                        anchors.leftMargin: 4
+                                        anchors.rightMargin: 4
+                                        anchors.topMargin: 3
+                                        anchors.bottomMargin: 3
+                                    }
+
+                                    Rectangle {
+                                        id: nameScreen
+                                        color: screenColor
+                                        radius: 4
+                                        border.color: "#128c17"
+                                        border.width: 2
+                                        anchors.fill: parent
+                                        anchors.leftMargin: 11
+                                        anchors.rightMargin: 11
+                                        anchors.topMargin: 7
+                                        anchors.bottomMargin: 7
+                                        Text {
+                                            id: nameText
+                                            color: "#c5002a02"
+                                            text: (selectedIndex >= 0
+                                                   && selectedIndex < cards.length) ? cards[selectedIndex].name || "No Name Available" // Fallback if name is undefined
+                                                                                    : "Name"
+                                            anchors.left: parent.left
+                                            anchors.right: parent.right
+                                            anchors.top: parent.top
+                                            anchors.bottom: parent.bottom
+                                            anchors.leftMargin: 4
+                                            anchors.rightMargin: 4
+                                            anchors.topMargin: 4
+                                            anchors.bottomMargin: 4
+                                            horizontalAlignment: Text.AlignHCenter
+                                            verticalAlignment: Text.AlignVCenter
+                                            wrapMode: Text.Wrap
+                                            z: 1
+                                            minimumPointSize: 8
+                                            minimumPixelSize: 8
+                                            fontSizeMode: Text.Fit
+                                            font.styleName: "Bold Italic"
+                                            font.pointSize: 30
+                                        }
+
+                                        DropShadow {
+                                            opacity: 0.8
+                                            color: "#095f0c"
+                                            radius: 3.8
+                                            verticalOffset: 3
+                                            samples: 16
+                                            horizontalOffset: 3
+                                        }
+
+                                        Text {
+                                            id: nameDropText
+                                            visible: false
+                                            color: "#2a7b2d"
+                                            text: nameText.text
+                                            anchors.left: parent.left
+                                            anchors.right: parent.right
+                                            anchors.top: parent.top
+                                            anchors.bottom: parent.bottom
+                                            anchors.leftMargin: 6
+                                            anchors.rightMargin: 2
+                                            anchors.topMargin: 7
+                                            anchors.bottomMargin: 1
+                                            horizontalAlignment: Text.AlignHCenter
+                                            verticalAlignment: Text.AlignVCenter
+                                            wrapMode: Text.Wrap
+                                            z: 0
+                                            minimumPointSize: 8
+                                            minimumPixelSize: 8
+                                            fontSizeMode: Text.Fit
+                                            font.styleName: "Bold Italic"
+                                            font.pointSize: 30
+                                        }
+
+                                        Rectangle {
+                                            id: rectangle35
+                                            x: -8
+                                            y: -4
+                                            color: "#00ffffff"
+                                            radius: 4
+                                            border.color: "#25fb2e"
+                                            border.width: 1
+                                            anchors.fill: parent
+                                            anchors.leftMargin: 3
+                                            anchors.rightMargin: 3
+                                            anchors.topMargin: 3
+                                            anchors.bottomMargin: 3
+                                        }
+                                        clip: true
+                                    }
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                }
+
+                                Row {
+                                    id: typesRow
+                                    width: 221
+                                    height: 106
+                                    spacing: 4
+                                    TypeBlock {
+                                        id: typeBlock
+                                        width: 55
+                                        height: 106
+                                        color: "#ff0000"
+                                        radius: 8
+                                        border.color: borderColor
+                                        border.width: 1
+                                        anchors.verticalCenter: parent.verticalCenter
+                                        type2Type: "Type 2"
+                                        type1Type: "Type 1"
+                                    }
+
+                                    SubtypeBlock {
+                                        id: subtypeBlock
+                                        width: 164
+                                        height: 106
+                                        color: window.blockBG
+                                        radius: 6
+                                        border.color: "#006c0101"
+                                        border.width: 0
+                                        anchors.verticalCenter: parent.verticalCenter
+                                        sub4Text: "Subtype 4"
+                                        sub3Text: "Subtype 3"
+                                        sub2Text: "Subtype 2"
+                                        sub1Text: "Subtype 1"
+                                        blockBorderColor: "#6c0101"
+                                    }
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                }
+
+                                FlavorTextBlock {
+                                    id: flavorTextBlock
+                                    width: 225
+                                    height: 150
+                                    visible: true
+                                    screenShadeColor: window.screenShadeColor
+                                    screenHighlightColor: window.screenHighlightColor
+                                    screenColor: window.screenColor
+                                    descText: "Flavor Text"
+                                    blockBG: window.blockBG
+                                    bezelColor: window.bezelColor
+                                    bezelBorderColor: window.bezelBorderColor
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                }
+
+                                SetLogoBlock {
+                                    id: setLogoBlock
+                                    width: 225
+                                    height: 200
+                                    visible: true
+                                    color: "#c80d0d"
+                                    radius: 8
+                                    border.color: "#6c0101"
+                                    border.width: 2
+                                    logoSource: (selectedIndex >= 0 && selectedIndex < cards.length) ? cards[selectedIndex].setLogo : ""
+                                    logoScreenText: (selectedIndex >= 0
+                                                     && selectedIndex < cards.length) ? "" // Fallback if name is undefined
+                                                                                      : "Set Logo"
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                }
+
+                                Row {
+                                    id: setSymbolRow
+                                    width: 200
+                                    height: 66
+                                    spacing: 3
+                                    SetSymbolBlock {
+                                        id: setSymbolBlock
+                                        width: 75
+                                        height: 65
+                                        color: "#c80d0d"
+                                        radius: 8
+                                        border.color: "#6c0101"
+                                        border.width: 2
+                                        imageSource: (selectedIndex >= 0
+                                                      && selectedIndex < cards.length) ? cards[selectedIndex].setSymbol : ""
+                                        blockText: (selectedIndex >= 0
+                                                    && selectedIndex < cards.length) ? "" // Fallback if name is undefined
+                                                                                     : "Set Symbol"
+                                    }
+
+                                    Rectangle {
+                                        id: setBlock
+                                        width: 120
+                                        height: 65
+                                        color: "#c80d0d"
+                                        radius: 8
+                                        border.color: "#6c0101"
+                                        border.width: 2
+                                        Rectangle {
+                                            id: setNameBezel
+                                            color: "#b2b2b2"
+                                            radius: 8
+                                            border.color: "#6c0101"
+                                            border.width: 2
+                                            anchors.fill: parent
+                                            anchors.leftMargin: 4
+                                            anchors.rightMargin: 4
+                                            anchors.topMargin: 3
+                                            anchors.bottomMargin: 3
+                                            Rectangle {
+                                                id: setNameScreen
+                                                x: 10
+                                                y: 4
+                                                color: screenColor
+                                                radius: 6
+                                                border.color: "#128c17"
+                                                border.width: 2
+                                                anchors.fill: parent
+                                                anchors.leftMargin: 6
+                                                anchors.rightMargin: 6
+                                                anchors.topMargin: 4
+                                                anchors.bottomMargin: 4
+                                                Text {
+                                                    id: setNameText
+                                                    color: "#c5002a02"
+                                                    text: (selectedIndex >= 0
+                                                           && selectedIndex < cards.length) ? cards[selectedIndex].set || "No Name Available" // Fallback if name is undefined
+                                                                                            : "Set Name"
+                                                    anchors.fill: parent
+                                                    anchors.leftMargin: 4
+                                                    anchors.rightMargin: 4
+                                                    anchors.topMargin: 4
+                                                    anchors.bottomMargin: 4
+                                                    horizontalAlignment: Text.AlignHCenter
+                                                    verticalAlignment: Text.AlignVCenter
+                                                    wrapMode: Text.Wrap
+                                                    z: 1
+                                                    minimumPointSize: 6
+                                                    minimumPixelSize: 6
+                                                    fontSizeMode: Text.Fit
+                                                    font.styleName: "ExtraBold Italic"
+                                                    font.pointSize: 13
+                                                }
+
+                                                DropShadow {
+                                                    opacity: 0.8
+                                                    color: "#095f0c"
+                                                    radius: 3.8
+                                                    verticalOffset: 5
+                                                    samples: 16
+                                                    horizontalOffset: 5
+                                                }
+
+                                                Text {
+                                                    id: setNameDropText
+                                                    color: "#095f0c"
+                                                    text: setNameText.text
+                                                    anchors.fill: parent
+                                                    anchors.leftMargin: 4
+                                                    anchors.rightMargin: 4
+                                                    anchors.topMargin: 4
+                                                    anchors.bottomMargin: 4
+                                                    horizontalAlignment: Text.AlignHCenter
+                                                    verticalAlignment: Text.AlignVCenter
+                                                    wrapMode: Text.Wrap
+                                                    z: 0
+                                                    minimumPointSize: 6
+                                                    minimumPixelSize: 6
+                                                    fontSizeMode: Text.Fit
+                                                    font.styleName: "ExtraBold Italic"
+                                                    font.pointSize: 13
+                                                }
+
+                                                Rectangle {
+                                                    id: rectangle36
+                                                    x: -7
+                                                    y: -4
+                                                    color: "#00ffffff"
+                                                    radius: 4
+                                                    border.color: "#25fb2e"
+                                                    border.width: 1
+                                                    anchors.fill: parent
+                                                    anchors.leftMargin: 3
+                                                    anchors.rightMargin: 3
+                                                    anchors.topMargin: 3
+                                                    anchors.bottomMargin: 3
+                                                }
+                                                clip: true
+                                            }
+                                        }
+                                    }
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                }
+                            }
+
+                            Column {
+                                id: leftSideColumn
+                                width: 283
+                                height: 536
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                spacing: 4
+                                FlavorTextBlock {
+                                    id: rule1TextBlock
+                                    width: 250
+                                    height: 100
+                                    screenShadeColor: window.screenShadeColor
+                                    screenHighlightColor: window.screenHighlightColor
+                                    screenColor: window.screenColor
+                                    descText: "Rule 1"
+                                    blockBG: window.blockBG
+                                    bezelColor: window.bezelColor
+                                    bezelBorderColor: window.bezelBorderColor
+                                }
+
+                                FlavorTextBlock {
+                                    id: rule2TextBlock
+                                    width: 250
+                                    height: 100
+                                    visible: false
+                                    screenShadeColor: window.screenShadeColor
+                                    screenHighlightColor: window.screenHighlightColor
+                                    screenColor: window.screenColor
+                                    descText: "Rule 2"
+                                    blockBG: window.blockBG
+                                    bezelColor: window.bezelColor
+                                    bezelBorderColor: window.bezelBorderColor
+                                }
+
+                                FlavorTextBlock {
+                                    id: rule3TextBlock
+                                    width: 250
+                                    height: 100
+                                    visible: false
+                                    screenShadeColor: window.screenShadeColor
+                                    screenHighlightColor: window.screenHighlightColor
+                                    screenColor: window.screenColor
+                                    descText: "Rule 3"
+                                    blockBG: window.blockBG
+                                    bezelColor: window.bezelColor
+                                    bezelBorderColor: window.bezelBorderColor
+                                }
+
+                                FlavorTextBlock {
+                                    id: rule4TextBlock
+                                    width: 250
+                                    height: 100
+                                    visible: false
+                                    screenShadeColor: window.screenShadeColor
+                                    screenHighlightColor: window.screenHighlightColor
+                                    screenColor: window.screenColor
+                                    descText: "Rule 4"
+                                    blockBG: window.blockBG
+                                    bezelColor: window.bezelColor
+                                    bezelBorderColor: window.bezelBorderColor
+                                }
+
+                                AttackInfoBlock {
+                                    id: attack1Block
+                                    width: 250
+                                    height: 200
+                                    visible: true
+                                    textColor: window.textColor
+                                    screenColor: window.screenColor
+                                    nameText: "Attack 1"
+                                    mainColor: window.primaryColor
+                                    dropTextColor: window.dropTextColor
+                                    dropBorderColor: window.dropBorderColor
+                                    borderColor: window.borderColor
+                                    bezelColor: window.bezelColor
+                                }
+
+                                AttackInfoBlock {
+                                    id: attack2Block
+                                    width: 250
+                                    height: 200
+                                    visible: false
+                                    textColor: window.textColor
+                                    screenColor: window.screenColor
+                                    nameText: "Attack 2"
+                                    mainColor: window.primaryColor
+                                    dropTextColor: window.dropTextColor
+                                    dropBorderColor: window.dropBorderColor
+                                    borderColor: window.borderColor
+                                    bezelColor: window.bezelColor
+                                }
+
+                                AttackInfoBlock {
+                                    id: attack3Block
+                                    width: 250
+                                    height: 200
+                                    visible: false
+                                    textColor: window.textColor
+                                    screenColor: window.screenColor
+                                    nameText: "Attack 3"
+                                    mainColor: window.primaryColor
+                                    dropTextColor: window.dropTextColor
+                                    dropBorderColor: window.dropBorderColor
+                                    borderColor: window.borderColor
+                                    bezelColor: window.bezelColor
+                                }
+
+                                AttackInfoBlock {
+                                    id: attack4Block
+                                    width: 250
+                                    height: 200
+                                    visible: false
+                                    textColor: window.textColor
+                                    screenColor: window.screenColor
+                                    nameText: "Attack 4"
+                                    mainColor: window.primaryColor
+                                    dropTextColor: window.dropTextColor
+                                    dropBorderColor: window.dropBorderColor
+                                    borderColor: window.borderColor
+                                    bezelColor: window.bezelColor
+                                }
+
+                                AbilityInfoBlock {
+                                    id: ability1
+                                    width: 250
+                                    typeText: "Ability 1 Type"
+                                    nameText: "Ability 1"
+                                    descText: "Ability 1 Description"
+                                }
+
+                                AbilityInfoBlock {
+                                    id: ability2
+                                    width: 250
+                                    visible: false
+                                    typeText: "Ability 2 Type"
+                                    nameText: "Ability 2"
+                                    descText: "Ability 2 Description"
+                                }
+                            }
+
+
+                        }
+                    }
                 }
 
                 MouseArea {
@@ -842,593 +1277,299 @@ Item { // Page 2: Discover Page
                     anchors.rightMargin: 6
                     anchors.topMargin: 5
                     anchors.bottomMargin: 6
-                    Flickable {
-                        id: leftScrollView
-                        width: 260
-                        anchors.left: parent.left
-                        anchors.top: parent.top
-                        anchors.bottom: parent.bottom
-                        anchors.leftMargin: 15
-                        anchors.topMargin: 4
-                        anchors.bottomMargin: 4
-                        flickableDirection: Flickable.VerticalFlick
-                        Column {
-                            id: leftSideColumn
-                            x: 5
-                            y: 0
-                            width: 283
-                            height: 446
-                            spacing: 4
-                            FlavorTextBlock {
-                                id: rule1TextBlock
-                                width: 250
-                                height: 100
-                                screenShadeColor: window.screenShadeColor
-                                screenHighlightColor: window.screenHighlightColor
-                                screenColor: window.screenColor
-                                descText: "Rule 1"
-                                blockBG: window.blockBG
-                                bezelColor: window.bezelColor
-                                bezelBorderColor: window.bezelBorderColor
+                    Frame {
+                        id: frame
+                        visible: true
+                        anchors.fill: parent
+                        View3D {
+                            id: view
+                            anchors.fill: parent
+                            scale: 1.206
+                            clip: false
+                            z: 3
+                            visible: false
+
+                            PerspectiveCamera {
+                                y: 0
+                                position: Qt.vector3d(0, 200, 300)
+                                pivot.z: 0
+                                pivot.y: 0
+                                pivot.x: 0
+                                lookAtNode: cardNode
+                                frustumCullingEnabled: false
+                                z: 0
+                                eulerRotation.x: 0
                             }
 
-                            FlavorTextBlock {
-                                id: rule2TextBlock
-                                width: 250
-                                height: 100
-                                visible: false
-                                screenShadeColor: window.screenShadeColor
-                                screenHighlightColor: window.screenHighlightColor
-                                screenColor: window.screenColor
-                                descText: "Rule 2"
-                                blockBG: window.blockBG
-                                bezelColor: window.bezelColor
-                                bezelBorderColor: window.bezelBorderColor
+                            DirectionalLight {
+                                eulerRotation.x: -30
                             }
 
-                            FlavorTextBlock {
-                                id: rule3TextBlock
-                                width: 250
-                                height: 100
-                                visible: false
-                                screenShadeColor: window.screenShadeColor
-                                screenHighlightColor: window.screenHighlightColor
-                                screenColor: window.screenColor
-                                descText: "Rule 3"
-                                blockBG: window.blockBG
-                                bezelColor: window.bezelColor
-                                bezelBorderColor: window.bezelBorderColor
-                            }
+                            Node {
+                                id: cardNode
+                                x: 0
+                                y: 200
+                                z: -25
+                                scale.y: 3
+                                scale.x: 2.5
 
-                            FlavorTextBlock {
-                                id: rule4TextBlock
-                                width: 250
-                                height: 100
-                                visible: false
-                                screenShadeColor: window.screenShadeColor
-                                screenHighlightColor: window.screenHighlightColor
-                                screenColor: window.screenColor
-                                descText: "Rule 4"
-                                blockBG: window.blockBG
-                                bezelColor: window.bezelColor
-                                bezelBorderColor: window.bezelBorderColor
-                            }
+                                // Front side of the card
+                                Model {
+                                    id: frontCard
+                                    source: "#Rectangle"
+                                    receivesShadows: false
+                                    castsShadows: false
+                                    scale: Qt.vector3d(1, 1, 1) // Adjust dimensions for card thickness
+                                    eulerRotation.y: 0
 
-                            AttackInfoBlock {
-                                id: attack1Block
-                                width: 250
-                                height: 200
-                                visible: true
-                                textColor: window.textColor
-                                screenColor: window.screenColor
-                                nameText: "Attack 1"
-                                mainColor: window.primaryColor
-                                dropTextColor: window.dropTextColor
-                                dropBorderColor: window.dropBorderColor
-                                borderColor: window.borderColor
-                                bezelColor: window.bezelColor
-                            }
-
-                            AttackInfoBlock {
-                                id: attack2Block
-                                width: 250
-                                height: 200
-                                visible: false
-                                textColor: window.textColor
-                                screenColor: window.screenColor
-                                nameText: "Attack 2"
-                                mainColor: window.primaryColor
-                                dropTextColor: window.dropTextColor
-                                dropBorderColor: window.dropBorderColor
-                                borderColor: window.borderColor
-                                bezelColor: window.bezelColor
-                            }
-
-                            AttackInfoBlock {
-                                id: attack3Block
-                                width: 250
-                                height: 200
-                                visible: false
-                                textColor: window.textColor
-                                screenColor: window.screenColor
-                                nameText: "Attack 3"
-                                mainColor: window.primaryColor
-                                dropTextColor: window.dropTextColor
-                                dropBorderColor: window.dropBorderColor
-                                borderColor: window.borderColor
-                                bezelColor: window.bezelColor
-                            }
-
-                            AttackInfoBlock {
-                                id: attack4Block
-                                width: 250
-                                height: 200
-                                visible: false
-                                textColor: window.textColor
-                                screenColor: window.screenColor
-                                nameText: "Attack 4"
-                                mainColor: window.primaryColor
-                                dropTextColor: window.dropTextColor
-                                dropBorderColor: window.dropBorderColor
-                                borderColor: window.borderColor
-                                bezelColor: window.bezelColor
-                            }
-
-                            AbilityInfoBlock {
-                                id: ability1
-                                width: 250
-                                typeText: "Ability 1 Type"
-                                nameText: "Ability 1"
-                                descText: "Ability 1 Description"
-                            }
-
-                            AbilityInfoBlock {
-                                id: ability2
-                                width: 250
-                                visible: false
-                                typeText: "Ability 2 Type"
-                                nameText: "Ability 2"
-                                descText: "Ability 2 Description"
-                            }
-                        }
-                        contentWidth: 250
-                        contentHeight: 506
-                        clip: false
-                        boundsMovement: Flickable.FollowBoundsBehavior
-                        boundsBehavior: Flickable.DragOverBounds
-                    }
-
-                    Flickable {
-                        id: rightScrollView
-                        height: 430
-                        anchors.left: leftScrollView.right
-                        anchors.right: parent.right
-                        anchors.top: parent.top
-                        anchors.leftMargin: 18
-                        anchors.rightMargin: 4
-                        anchors.topMargin: 4
-                        flickableDirection: Flickable.VerticalFlick
-                        Column {
-                            id: rightSideColumn
-                            x: 0
-                            y: 0
-                            width: 276
-                            height: 430
-                            spacing: 3
-                            Rectangle {
-                                id: supertypeBlock
-                                width: 190
-                                height: 40
-                                color: "#c80d0d"
-                                radius: 8
-                                border.color: "#6c0101"
-                                border.width: 2
-                                Rectangle {
-                                    id: rectangle33
-                                    color: "#b2b2b2"
-                                    radius: 8
-                                    border.color: "#616161"
-                                    border.width: 2
-                                    anchors.fill: parent
-                                    anchors.leftMargin: 4
-                                    anchors.rightMargin: 4
-                                    anchors.topMargin: 3
-                                    anchors.bottomMargin: 3
-                                }
-
-                                Rectangle {
-                                    id: supertypeScreen
-                                    color: screenColor
-                                    radius: 4
-                                    border.color: "#128c17"
-                                    border.width: 2
-                                    anchors.fill: parent
-                                    anchors.leftMargin: 11
-                                    anchors.rightMargin: 11
-                                    anchors.topMargin: 7
-                                    anchors.bottomMargin: 7
-                                    Text {
-                                        id: supertypeText
-                                        color: "#c5002a02"
-                                        text: "Super Type"
-                                        anchors.left: parent.left
-                                        anchors.right: parent.right
-                                        anchors.top: parent.top
-                                        anchors.bottom: parent.bottom
-                                        anchors.leftMargin: 4
-                                        anchors.rightMargin: 4
-                                        anchors.topMargin: 4
-                                        anchors.bottomMargin: 4
-                                        horizontalAlignment: Text.AlignHCenter
-                                        verticalAlignment: Text.AlignVCenter
-                                        wrapMode: Text.Wrap
-                                        z: 1
-                                        minimumPointSize: 8
-                                        minimumPixelSize: 8
-                                        fontSizeMode: Text.Fit
-                                        font.styleName: "Bold Italic"
-                                        font.pointSize: 30
-                                    }
-
-                                    DropShadow {
-                                        opacity: 0.8
-                                        color: "#095f0c"
-                                        radius: 3.8
-                                        verticalOffset: 3
-                                        samples: 16
-                                        horizontalOffset: 3
-                                    }
-
-                                    Text {
-                                        id: supertypeDropText
-                                        visible: false
-                                        color: "#2a7b2d"
-                                        text: supertypeText.text
-                                        anchors.left: parent.left
-                                        anchors.right: parent.right
-                                        anchors.top: parent.top
-                                        anchors.bottom: parent.bottom
-                                        anchors.leftMargin: 6
-                                        anchors.rightMargin: 2
-                                        anchors.topMargin: 7
-                                        anchors.bottomMargin: 1
-                                        horizontalAlignment: Text.AlignHCenter
-                                        verticalAlignment: Text.AlignVCenter
-                                        wrapMode: Text.Wrap
-                                        z: 0
-                                        minimumPointSize: 8
-                                        minimumPixelSize: 8
-                                        fontSizeMode: Text.Fit
-                                        font.styleName: "Bold Italic"
-                                        font.pointSize: 30
-                                    }
-
-                                    Rectangle {
-                                        id: rectangle34
-                                        x: -8
-                                        y: -4
-                                        color: "#00ffffff"
-                                        radius: 4
-                                        border.color: "#25fb2e"
-                                        border.width: 1
-                                        anchors.fill: parent
-                                        anchors.leftMargin: 3
-                                        anchors.rightMargin: 3
-                                        anchors.topMargin: 3
-                                        anchors.bottomMargin: 3
-                                    }
-                                    clip: true
-                                }
-                                anchors.horizontalCenter: parent.horizontalCenter
-                            }
-
-                            Rectangle {
-                                id: nameBlock
-                                width: 240
-                                height: 70
-                                color: "#c80d0d"
-                                radius: 8
-                                border.color: borderColor
-                                border.width: 1
-                                Rectangle {
-                                    id: rectangle12
-                                    color: "#b2b2b2"
-                                    radius: 8
-                                    border.color: "#616161"
-                                    border.width: 2
-                                    anchors.fill: parent
-                                    anchors.leftMargin: 4
-                                    anchors.rightMargin: 4
-                                    anchors.topMargin: 3
-                                    anchors.bottomMargin: 3
-                                }
-
-                                Rectangle {
-                                    id: nameScreen
-                                    color: screenColor
-                                    radius: 4
-                                    border.color: "#128c17"
-                                    border.width: 2
-                                    anchors.fill: parent
-                                    anchors.leftMargin: 11
-                                    anchors.rightMargin: 11
-                                    anchors.topMargin: 7
-                                    anchors.bottomMargin: 7
-                                    Text {
-                                        id: nameText
-                                        color: "#c5002a02"
-                                        text: (selectedIndex >= 0
-                                               && selectedIndex < cards.length) ? cards[selectedIndex].name || "No Name Available" // Fallback if name is undefined
-                                                                                : "Name"
-                                        anchors.left: parent.left
-                                        anchors.right: parent.right
-                                        anchors.top: parent.top
-                                        anchors.bottom: parent.bottom
-                                        anchors.leftMargin: 4
-                                        anchors.rightMargin: 4
-                                        anchors.topMargin: 4
-                                        anchors.bottomMargin: 4
-                                        horizontalAlignment: Text.AlignHCenter
-                                        verticalAlignment: Text.AlignVCenter
-                                        wrapMode: Text.Wrap
-                                        z: 1
-                                        minimumPointSize: 8
-                                        minimumPixelSize: 8
-                                        fontSizeMode: Text.Fit
-                                        font.styleName: "Bold Italic"
-                                        font.pointSize: 30
-                                    }
-
-                                    DropShadow {
-                                        opacity: 0.8
-                                        color: "#095f0c"
-                                        radius: 3.8
-                                        verticalOffset: 3
-                                        samples: 16
-                                        horizontalOffset: 3
-                                    }
-
-                                    Text {
-                                        id: nameDropText
-                                        visible: false
-                                        color: "#2a7b2d"
-                                        text: nameText.text
-                                        anchors.left: parent.left
-                                        anchors.right: parent.right
-                                        anchors.top: parent.top
-                                        anchors.bottom: parent.bottom
-                                        anchors.leftMargin: 6
-                                        anchors.rightMargin: 2
-                                        anchors.topMargin: 7
-                                        anchors.bottomMargin: 1
-                                        horizontalAlignment: Text.AlignHCenter
-                                        verticalAlignment: Text.AlignVCenter
-                                        wrapMode: Text.Wrap
-                                        z: 0
-                                        minimumPointSize: 8
-                                        minimumPixelSize: 8
-                                        fontSizeMode: Text.Fit
-                                        font.styleName: "Bold Italic"
-                                        font.pointSize: 30
-                                    }
-
-                                    Rectangle {
-                                        id: rectangle35
-                                        x: -8
-                                        y: -4
-                                        color: "#00ffffff"
-                                        radius: 4
-                                        border.color: "#25fb2e"
-                                        border.width: 1
-                                        anchors.fill: parent
-                                        anchors.leftMargin: 3
-                                        anchors.rightMargin: 3
-                                        anchors.topMargin: 3
-                                        anchors.bottomMargin: 3
-                                    }
-                                    clip: true
-                                }
-                                anchors.horizontalCenter: parent.horizontalCenter
-                            }
-
-                            Row {
-                                id: typesRow
-                                width: 221
-                                height: 106
-                                spacing: 4
-                                TypeBlock {
-                                    id: typeBlock
-                                    width: 55
-                                    height: 106
-                                    color: "#ff0000"
-                                    radius: 8
-                                    border.color: borderColor
-                                    border.width: 1
-                                    anchors.verticalCenter: parent.verticalCenter
-                                    type2Type: "Type 2"
-                                    type1Type: "Type 1"
-                                }
-
-                                SubtypeBlock {
-                                    id: subtypeBlock
-                                    width: 164
-                                    height: 106
-                                    color: window.blockBG
-                                    radius: 6
-                                    border.color: "#006c0101"
-                                    border.width: 0
-                                    anchors.verticalCenter: parent.verticalCenter
-                                    sub4Text: "Subtype 4"
-                                    sub3Text: "Subtype 3"
-                                    sub2Text: "Subtype 2"
-                                    sub1Text: "Subtype 1"
-                                    blockBorderColor: "#6c0101"
-                                }
-                                anchors.horizontalCenter: parent.horizontalCenter
-                            }
-
-                            FlavorTextBlock {
-                                id: flavorTextBlock
-                                width: 225
-                                height: 150
-                                visible: true
-                                screenShadeColor: window.screenShadeColor
-                                screenHighlightColor: window.screenHighlightColor
-                                screenColor: window.screenColor
-                                descText: "Flavor Text"
-                                blockBG: window.blockBG
-                                bezelColor: window.bezelColor
-                                bezelBorderColor: window.bezelBorderColor
-                                anchors.horizontalCenter: parent.horizontalCenter
-                            }
-
-                            SetLogoBlock {
-                                id: setLogoBlock
-                                width: 225
-                                height: 200
-                                visible: true
-                                color: "#c80d0d"
-                                radius: 8
-                                border.color: "#6c0101"
-                                border.width: 2
-                                logoSource: (selectedIndex >= 0 && selectedIndex < cards.length) ? cards[selectedIndex].setLogo : ""
-                                logoScreenText: (selectedIndex >= 0
-                                                 && selectedIndex < cards.length) ? "" // Fallback if name is undefined
-                                                                                  : "Set Logo"
-                                anchors.horizontalCenter: parent.horizontalCenter
-                            }
-
-                            Row {
-                                id: setSymbolRow
-                                width: 200
-                                height: 66
-                                spacing: 3
-                                SetSymbolBlock {
-                                    id: setSymbolBlock
-                                    width: 75
-                                    height: 65
-                                    color: "#c80d0d"
-                                    radius: 8
-                                    border.color: "#6c0101"
-                                    border.width: 2
-                                    imageSource: (selectedIndex >= 0
-                                                  && selectedIndex < cards.length) ? cards[selectedIndex].setSymbol : ""
-                                    blockText: (selectedIndex >= 0
-                                                && selectedIndex < cards.length) ? "" // Fallback if name is undefined
-                                                                                 : "Set Symbol"
-                                }
-
-                                Rectangle {
-                                    id: setBlock
-                                    width: 120
-                                    height: 65
-                                    color: "#c80d0d"
-                                    radius: 8
-                                    border.color: "#6c0101"
-                                    border.width: 2
-                                    Rectangle {
-                                        id: setNameBezel
-                                        color: "#b2b2b2"
-                                        radius: 8
-                                        border.color: "#6c0101"
-                                        border.width: 2
-                                        anchors.fill: parent
-                                        anchors.leftMargin: 4
-                                        anchors.rightMargin: 4
-                                        anchors.topMargin: 3
-                                        anchors.bottomMargin: 3
-                                        Rectangle {
-                                            id: setNameScreen
-                                            x: 10
-                                            y: 4
-                                            color: screenColor
-                                            radius: 6
-                                            border.color: "#128c17"
-                                            border.width: 2
-                                            anchors.fill: parent
-                                            anchors.leftMargin: 6
-                                            anchors.rightMargin: 6
-                                            anchors.topMargin: 4
-                                            anchors.bottomMargin: 4
-                                            Text {
-                                                id: setNameText
-                                                color: "#c5002a02"
-                                                text: (selectedIndex >= 0
-                                                       && selectedIndex < cards.length) ? cards[selectedIndex].set || "No Name Available" // Fallback if name is undefined
-                                                                                        : "Set Name"
-                                                anchors.fill: parent
-                                                anchors.leftMargin: 4
-                                                anchors.rightMargin: 4
-                                                anchors.topMargin: 4
-                                                anchors.bottomMargin: 4
-                                                horizontalAlignment: Text.AlignHCenter
-                                                verticalAlignment: Text.AlignVCenter
-                                                wrapMode: Text.Wrap
-                                                z: 1
-                                                minimumPointSize: 6
-                                                minimumPixelSize: 6
-                                                fontSizeMode: Text.Fit
-                                                font.styleName: "ExtraBold Italic"
-                                                font.pointSize: 13
+                                    materials: [
+                                        DefaultMaterial {
+                                            diffuseMap: Texture {
+                                                sourceItem: Image {
+                                                    anchors.centerIn: parent
+                                                    width: 413
+                                                    height: 577
+                                                    source: (selectedIndex >= 0 && selectedIndex < cards.length) ? cards[selectedIndex].imageUrl : ""
+                                                    sourceSize: Qt.size(width, height)
+                                                    cache: false
+                                                }
                                             }
+                                        }
+                                    ]
+                                }
 
-                                            DropShadow {
-                                                opacity: 0.8
-                                                color: "#095f0c"
-                                                radius: 3.8
-                                                verticalOffset: 5
-                                                samples: 16
-                                                horizontalOffset: 5
-                                            }
+                                // Back side of the card, rotated 180 degrees
+                                Model {
+                                    id: backCard
+                                    source: "#Rectangle"
+                                    scale: Qt.vector3d(1, 1, 1)
+                                    eulerRotation.y: 180 // Rotated to face the opposite direction
 
-                                            Text {
-                                                id: setNameDropText
-                                                color: "#095f0c"
-                                                text: setNameText.text
-                                                anchors.fill: parent
-                                                anchors.leftMargin: 4
-                                                anchors.rightMargin: 4
-                                                anchors.topMargin: 4
-                                                anchors.bottomMargin: 4
-                                                horizontalAlignment: Text.AlignHCenter
-                                                verticalAlignment: Text.AlignVCenter
-                                                wrapMode: Text.Wrap
-                                                z: 0
-                                                minimumPointSize: 6
-                                                minimumPixelSize: 6
-                                                fontSizeMode: Text.Fit
-                                                font.styleName: "ExtraBold Italic"
-                                                font.pointSize: 13
+                                    materials: [
+                                        DefaultMaterial {
+                                            diffuseColor: "#ffffff"
+                                            diffuseMap: Texture {
+                                                sourceItem: Image {
+                                                    anchors.centerIn: parent
+                                                    width: 413
+                                                    height: 577
+                                                    source: "cardback.png" // URL for the back image
+                                                    sourceSize: Qt.size(width, height)
+                                                    cache: false
+                                                }
                                             }
+                                        }
+                                    ]
+                                }
+                            }
 
-                                            Rectangle {
-                                                id: rectangle36
-                                                x: -7
-                                                y: -4
-                                                color: "#00ffffff"
-                                                radius: 4
-                                                border.color: "#25fb2e"
-                                                border.width: 1
-                                                anchors.fill: parent
-                                                anchors.leftMargin: 3
-                                                anchors.rightMargin: 3
-                                                anchors.topMargin: 3
-                                                anchors.bottomMargin: 3
-                                            }
-                                            clip: true
+                            MouseArea {
+                                id: dragArea
+                                anchors.fill: parent
+                                property real previousX: 0
+                                property real velocityY: 0
+                                property real dragSensitivity: 0.2
+                                property real momentumDecay: 0.98 // Controls how quickly momentum fades
+
+                                onPressed: {
+                                    previousX = mouse.x
+                                    velocityY = 0
+                                    momentumTimer.stop()
+                                    returnToZeroTimer.stop(); // Stop the return to zero timer when dragging
+                                }
+
+                                onPositionChanged: {
+                                    var deltaX = mouse.x - previousX
+                                    velocityY = deltaX * dragSensitivity
+                                    cardNode.eulerRotation.y += velocityY
+                                    previousX = mouse.x
+                                }
+
+                                onReleased: {
+                                    momentumTimer.start() // Start applying momentum after release
+                                }
+                            }
+
+                            // Timer for applying momentum after drag release
+                            Timer {
+                                id: momentumTimer
+                                interval: 16 // About 60 FPS
+                                repeat: true
+                                onTriggered: {
+                                    if (Math.abs(dragArea.velocityY) < 0.1) {
+                                        // If the velocity is low, stop the momentum and start returning to zero
+                                        momentumTimer.stop();
+                                        returnToZeroTimer.start(); // Start the return to zero timer
+                                    } else {
+                                        cardNode.eulerRotation.y += dragArea.velocityY; // Apply the current velocity
+                                        dragArea.velocityY *= dragArea.momentumDecay; // Decay the velocity
+                                    }
+                                }
+                            }
+
+                            // Timer for gradually returning to zero rotation on the Y-axis
+                            Timer {
+                                id: returnToZeroTimer
+                                interval: 16 // About 60 FPS
+                                repeat: true
+                                onTriggered: {
+                                    if (Math.abs(cardNode.eulerRotation.y) < 0.1) {
+                                        cardNode.eulerRotation.y = 0; // Set to zero to avoid oscillation
+                                        returnToZeroTimer.stop(); // Stop the timer when close enough to zero
+                                    } else {
+                                        // Gradually reduce the angle towards zero
+                                        var returnSpeed = 0.07; // Adjust the return speed to control how quickly it comes to rest
+                                        if (cardNode.rotation.y > 0) {
+                                           // console.log(cardNode.rotation.y)
+                                            //console.log(cardNode.eulerRotation.y)
+                                            cardNode.rotation.y -= returnSpeed; // Move back towards 0
+                                            if (cardNode.rotation.y < 0) cardNode.rotation.y = 0; // Clamp to zero
+                                        } else {
+                                            cardNode.rotation.y += returnSpeed; // Move back towards 0
+                                            if (cardNode.rotation.y > 0) cardNode.rotation.y = 0; // Clamp to zero
                                         }
                                     }
                                 }
-                                anchors.horizontalCenter: parent.horizontalCenter
                             }
+
                         }
-                        contentX: 0
-                        contentWidth: 250
-                        contentHeight: 645
-                        clip: false
-                        boundsMovement: Flickable.FollowBoundsBehavior
-                        boundsBehavior: Flickable.DragOverBounds
                     }
+
+                    // Frame {
+                    //     id: frame
+                    //     visible: true
+                    //     anchors.fill: parent
+                    //     View3D {
+                    //         id: view
+                    //         anchors.fill: parent
+                    //         scale: 1.206
+                    //         clip: false
+                    //         z: 3
+                    //         visible: false
+
+                    //         PerspectiveCamera {
+                    //             y: 0
+                    //             position: Qt.vector3d(0, 200, 300)
+                    //             pivot.z: 0
+                    //             pivot.y: 0
+                    //             pivot.x: 0
+                    //             lookAtNode: cardNode
+                    //             frustumCullingEnabled: false
+                    //             z: 0
+                    //             eulerRotation.x: 0
+                    //         }
+
+                    //         DirectionalLight {
+                    //             eulerRotation.x: -30
+                    //         }
+
+                    //         Node {
+                    //             id: cardNode
+                    //             x: 0
+                    //             y: 200
+                    //             z: -25
+                    //             scale.y: 3
+                    //             scale.x: 2.5
+
+                    //             // Front side of the card
+                    //             Model {
+                    //                 id: frontCard
+                    //                 source: "#Rectangle"
+                    //                 receivesShadows: false
+                    //                 castsShadows: false
+                    //                 scale: Qt.vector3d(1, 1, 1) // Adjust dimensions for card thickness
+                    //                 eulerRotation.y: 0
+
+                    //                 materials: [
+                    //                     DefaultMaterial {
+                    //                         diffuseMap: Texture {
+                    //                             sourceItem: Image {
+                    //                                 anchors.centerIn: parent
+                    //                                 width: 413
+                    //                                 height: 577
+                    //                                 source: (selectedIndex >= 0 && selectedIndex < cards.length) ? cards[selectedIndex].imageUrl : ""
+                    //                                 sourceSize: Qt.size(width, height)
+                    //                                 cache: false
+                    //                             }
+                    //                         }
+                    //                     }
+                    //                 ]
+
+                    //             }
+
+                    //             // Back side of the card, rotated 180 degrees
+                    //             Model {
+                    //                 id: backCard
+                    //                 source: "#Rectangle"
+                    //                 scale: Qt.vector3d(1, 1, 1)
+                    //                 eulerRotation.y: 180 // Rotated to face the opposite direction
+
+                    //                 materials: [
+                    //                     DefaultMaterial {
+                    //                         diffuseColor: "#ffffff"
+                    //                         diffuseMap: Texture {
+                    //                             sourceItem: Image {
+                    //                                 anchors.centerIn: parent
+                    //                                 width: 413
+                    //                                 height: 577
+                    //                                 source: "cardback.png" // URL for the back image
+                    //                                 sourceSize: Qt.size(width, height)
+                    //                                 cache: false
+                    //                             }
+                    //                         }
+                    //                     }
+                    //                 ]
+
+                    //             }
+                    //         }
+
+                    //         MouseArea {
+                    //             id: dragArea
+                    //             anchors.fill: parent
+                    //             anchors.leftMargin: 0
+                    //             anchors.rightMargin: 0
+                    //             anchors.topMargin: 0
+                    //             anchors.bottomMargin: 0
+                    //             property real previousX: 0
+                    //             property real velocityY: 0
+                    //             property real dragSensitivity: 0.2
+                    //             property real momentumDecay: 0.98 // Controls how quickly momentum fades
+
+                    //             onPressed: {
+                    //                 previousX = mouse.x
+                    //                 velocityY = 0
+                    //                 momentumTimer.stop()
+                    //             }
+
+                    //             onPositionChanged: {
+                    //                 var deltaX = mouse.x - previousX
+                    //                 velocityY = deltaX * dragSensitivity
+                    //                 cardNode.eulerRotation.y += velocityY
+                    //                 previousX = mouse.x
+                    //             }
+
+                    //             onReleased: {
+                    //                 momentumTimer.start()
+                    //             }
+                    //         }
+
+                    //         // Timer for applying momentum after drag release
+                    //         Timer {
+                    //             id: momentumTimer
+                    //             interval: 16 // About 60 FPS
+                    //             repeat: true
+                    //             onTriggered: {
+                    //                 if (Math.abs(dragArea.velocityY) < 0.1) {
+                    //                     momentumTimer.stop()
+                    //                 } else {
+                    //                     cardNode.eulerRotation.y += dragArea.velocityY
+                    //                     dragArea.velocityY *= dragArea.momentumDecay
+                    //                 }
+                    //             }
+                    //         }
+                    //     }
+                    // }
+
                     clip: true
                 }
                 bottomPadding: 0
@@ -1444,7 +1585,8 @@ Item { // Page 2: Discover Page
             height: 70
             opacity: 1
             color: "#00ffffff"
-            border.width: 0
+            border.color: "#6c0101"
+            border.width: 2
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.leftMargin: 0
@@ -1457,18 +1599,21 @@ Item { // Page 2: Discover Page
                 Layout.preferredHeight: 40
                 Layout.topMargin: 0
                 //toolbarContentHeight: 30
-                height: 70
                 color: "#00ff0000"
                 border.color: "#006c0101"
                 border.width: 2
-                blockBorderWidth: 4
+                blockBorderWidth: 3
                 anchors.left: parent.left
                 anchors.right: parent.right
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
                 anchors.leftMargin: 0
                 anchors.rightMargin: 0
+                anchors.topMargin: 0
+                anchors.bottomMargin: 0
+                toolsBorderColor: "#6c0101"
                 toolsFillColor: deepBG
                 mainColor: "#790000"
-                toolsBorderColor: borderColor
                 z: 2
                 Layout.preferredWidth: 500
 
@@ -1991,8 +2136,8 @@ Item { // Page 2: Discover Page
                 updateFlavorText();
                 resetLeftColumnScroll();
                 resetRightColumnScroll();
-                updateLeftScrollView();
-                updateRightScrollView();
+                //updateLeftScrollView();
+                //updateRightScrollView();
                 view.visible = true
             }
         }
@@ -2018,7 +2163,6 @@ Item { // Page 2: Discover Page
 
 /*##^##
 Designer {
-    D{i:0}D{i:2}D{i:8}D{i:15;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}D{i:88}D{i:90}
-D{i:92}D{i:96}D{i:97}D{i:102}D{i:109}
+    D{i:0}D{i:71;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}
 }
 ##^##*/
