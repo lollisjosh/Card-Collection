@@ -39,7 +39,7 @@ Window {
     property color dropBorderColor: "#25fb2e"
 
 
-    onActiveFocusItemChanged: console.log(activeFocusItem)
+    //onActiveFocusItemChanged: console.log(activeFocusItem)
 
     Rectangle {
         id: columnLayout1

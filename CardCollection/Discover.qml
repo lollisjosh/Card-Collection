@@ -202,7 +202,7 @@ Item { // Page 2: Discover Page
                 typesRow1.height = 106;
             }
 
-             console.log(subtypeBlock1.sub1Text)
+            // console.log(subtypeBlock1.sub1Text)
         }
 
     }

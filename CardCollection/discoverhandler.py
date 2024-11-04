@@ -1,7 +1,11 @@
+import random
+from collections import defaultdict
+
 from pokemontcgsdk import Card
 from backend import Backend
 from cardprocessor import CardProcessor
-import random
+
+
 
 
 class DiscoverHandler:
@@ -28,17 +32,17 @@ class DiscoverHandler:
     def handle_discover(self, param_list: list[tuple[str, str, str]]) -> list[dict[str, str]]:
         print([element for element in param_list if element[0] != 'set'])
 
-        randomSet = DiscoverHandler.random_select_set(param_list)
-
+        #randomSet = DiscoverHandler.random_select_set(param_list)
+        randomSelect = DiscoverHandler.random_select(param_list)
         # Initialize tempList with tuples from param_list not starting with 'set'
-        tempList = [element for element in param_list if element[0] != 'set']
+        # tempList = [element for element in param_list if element[0] != 'set']
 
         # Append randomSet to tempList if randomSet is not None
-        if randomSet is not None:
-            tempList.append(randomSet)
+        # if randomSet is not None:
+        #     tempList.append(randomSet)
 
-        query = Backend.construct_query(self, tempList)
-
+        # query = Backend.construct_query(self, tempList)
+        query = Backend.construct_query(self, randomSelect)
         print("Query: " + query)
 
         results = Backend.query_api(self, query)
@@ -50,39 +54,25 @@ class DiscoverHandler:
 
         return randomChoice
 
-    def random_select_set(select_list : list[tuple[str,str,str]]) -> tuple[str,str,str]:
+    def random_select(select_list: list[tuple[str, str, str]]) -> list[tuple[str, str, str]]:
         """
         Summary:
-            Randomly selects a set from the provided list of sets.
+            Builds a list containing one randomly selected tuple from each unique category (first element of each tuple).
 
         Args:
-            self : The self object
-            select_list : A list[tuple[str, str, str]] representing the 
-                available sets to choose from.
+            select_list : A list[tuple[str, str, str]] representing the available items,
+                          where each tuple's first element represents a category.
 
         Return:
-            A tuple[str, str, str] representing the randomly selected set.
+            A list[tuple[str, str, str]] with one randomly selected item from each category.
         """
 
-        temp = [element for element in select_list if element[0] == 'set']
-        if temp:
-            randomChoice = random.choice(temp)
-            print(randomChoice)
-            return randomChoice
-        else:
-            #print("No set found.")
-            return None
+        # Group items by category
+        category_dict = defaultdict(list)
+        for item in select_list:
+            category_dict[item[0]].append(item)
 
-    def random_select_type(self, select_list : list[tuple[str, str, str]]) -> tuple[str,str,str]:
-        """
-        Summary:
-            Randomly selects a type from the provided list of types.
+        # Randomly select one item per category
+        result = [random.choice(items) for items in category_dict.values()]
 
-        Args:
-            self : The self object
-            select_list : A list[tuple[str, str, str]] representing the
-                available types to choose from.
-
-        Return:
-            A tuple[str, str, str] representing the randomly selected type.
-        """
+        return result
