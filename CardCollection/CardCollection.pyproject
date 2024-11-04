@@ -28,7 +28,8 @@
         "Discover.qml",
         "topBall.png",
         "bottomBall.png",
-        "Search.qml"
+        "Search.qml",
+        "discoverhandler.py"
 
     ]
 }
