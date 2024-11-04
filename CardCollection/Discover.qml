@@ -7,6 +7,7 @@ import Qt5Compat.GraphicalEffects
 
 Item { // Page 2: Discover Page
 
+    focus: true
     id: discoverPage
     width: 600
     height: 600
@@ -39,8 +40,12 @@ Item { // Page 2: Discover Page
     property int selectedIndex: 0
     property var cards: [] // List of card objects
 
+    property bool leftBusy: false
+    property bool rightBusy: false
 
     function toggleLeftDrawer() {
+
+        leftBusy = true;
         if (customDrawer.x < 0) {
 
             customDrawer.x = 0
@@ -63,6 +68,8 @@ Item { // Page 2: Discover Page
     }
 
     function toggleRightDrawer() {
+
+        rightBusy = true;
         if (customDrawer2.x >= 600) { // Closed position
             customDrawer2.x = 600 - customDrawer2.width; // Slide into view
             isDrawer2Open = true;
@@ -77,6 +84,21 @@ Item { // Page 2: Discover Page
             rotateAnimation2.to = 90;
             rotateAnimation2.start();
         }
+    }
+
+    function toggleBothDrawers() {
+
+        if(!leftBusy && !rightBusy) {
+            leftBusy = true;
+            rightBusy = true;
+
+            toggleLeftDrawer();
+            leftBusy = false;
+            toggleRightDrawer();
+            rightBusy = false;
+        }
+
+
     }
 
 
@@ -161,30 +183,33 @@ Item { // Page 2: Discover Page
     function updateSubTypeInfo() {
         if(cards[selectedIndex]) {
             //subtypeBlock.subtype1
-            subtypeBlock.sub1Text = cards[selectedIndex].subtype1
+
+            subtypeBlock1.sub1Text = cards[selectedIndex].subtype1
                     || "Sub Type 1"
-            subtypeBlock.sub2Text = cards[selectedIndex].subtype2
+            subtypeBlock1.sub2Text = cards[selectedIndex].subtype2
                     || "Sub Type 2"
-            subtypeBlock.sub3Text = cards[selectedIndex].subtype3
+            subtypeBlock1.sub3Text = cards[selectedIndex].subtype3
                     || "Sub Type 3"
-            subtypeBlock.sub4Text = cards[selectedIndex].subtype4
+            subtypeBlock1.sub4Text = cards[selectedIndex].subtype4
                     || "Sub Type 4"
 
-            subtypeBlock.updateSubTypeInfo();
+            subtypeBlock1.updateSubTypeInfo();
 
-            if(!subtypeBlock.visible && !typeBlock.visible) {
-                typesRow.height = 0;
+            if(!subtypeBlock1.visible && !typeBlock1.visible) {
+                typesRow1.height = 0;
             }
             else {
-                typesRow.height = 106;
+                typesRow1.height = 106;
             }
+
+             console.log(subtypeBlock1.sub1Text)
         }
 
     }
 
     function updateSuperTypeInfo() {
         if(cards[selectedIndex]) {
-            supertypeText.text = cards[selectedIndex].supertype
+            supertypeText1.text = cards[selectedIndex].supertype
                     || "Super Type"
         }
     }
@@ -212,8 +237,8 @@ Item { // Page 2: Discover Page
         if (!cards[selectedIndex]) {
             // console.log("cards[selectedIndex] doesn't exist")
             // Reset to defaults if no card is selected
-            typeBlock.type1Type = defaultType1;
-            typeBlock.type2Type= defaultType2;
+            typeBlock1.type1Type = defaultType1;
+            typeBlock1.type2Type= defaultType2;
             return; // Exit early if no card is found
         }
         else {
@@ -224,27 +249,27 @@ Item { // Page 2: Discover Page
         const normalizedType1 = cards[selectedIndex]?.type1?.trim().toLowerCase() || "";
         const normalizedType2 = cards[selectedIndex]?.type2?.trim().toLowerCase() || "";
 
-        typeBlock.type1Type = normalizedType1 || defaultType1;
-        typeBlock.type2Type = normalizedType2 || defaultType2;
+        typeBlock1.type1Type = normalizedType1 || defaultType1;
+        typeBlock1.type2Type = normalizedType2 || defaultType2;
 
-        if(typeBlock.type1Type === defaultType1 && typeBlock.type2Type === defaultType2) {
+        if(typeBlock1.type1Type === defaultType1 && typeBlock.type2Type === defaultType2) {
 
-            typeBlock.visible = false;
+            typeBlock1.visible = false;
         }
         else {
-            typeBlock.visible = true;
+            typeBlock1.visible = true;
         }
 
-        if(typeBlock.visible && subtypeBlock.visible) {
+        if(typeBlock1.visible && subtypeBlock1.visible) {
 
-            typesRow.width = typeBlock.width + subtypeBlock.width
+            typesRow1.width = typeBlock1.width + subtypeBlock1.width
 
-        } else if (typeBlock.visible && !subtypeBlock.visible) {
+        } else if (typeBlock1.visible && !subtypeBlock1.visible) {
 
-            typesRow.width = typeBlock.width
+            typesRow1.width = typeBlock1.width
 
-        } else if (!typeBlock.visible && subtypeBlock.visible) {
-            typesRow.width = subtypeBlock.width
+        } else if (!typeBlock1.visible && subtypeBlock1.visible) {
+            typesRow1.width = subtypeBlock1.width
         }
 
 
@@ -253,13 +278,13 @@ Item { // Page 2: Discover Page
     function updateFlavorText() {
         if(cards[selectedIndex] && cards[selectedIndex].flavorText !== "") {
             // console.log();
-            flavorTextBlock.descText = cards[selectedIndex].flavorText;
+            flavorTextBlock1.descText = cards[selectedIndex].flavorText;
             rule1TextBlock.descText = cards[selectedIndex].rule1;
             rule2TextBlock.descText = cards[selectedIndex].rule2;
             rule3TextBlock.descText = cards[selectedIndex].rule3;
             rule4TextBlock.descText = cards[selectedIndex].rule4;
 
-            flavorTextBlock.visible = flavorTextBlock.descText !== "" && flavorTextBlock.descText !== "Flavor Text"
+            flavorTextBlock1.visible = flavorTextBlock1.descText !== "" && flavorTextBlock1.descText !== "Flavor Text"
             rule1TextBlock.visible = rule1TextBlock.descText !== "" && rule1TextBlock.descText !== "Rule 1"
             rule2TextBlock.visible = rule2TextBlock.descText !== "" && rule2TextBlock.descText !== "Rule 2"
             rule3TextBlock.visible = rule3TextBlock.descText !== "" && rule3TextBlock.descText !== "Rule 3"
@@ -540,9 +565,9 @@ Item { // Page 2: Discover Page
                     height: 438
                     opacity: 1
                     visible: true
-                    color: screenColor
+                    color: "#541515"
                     radius: 4
-                    border.color: "#25fb2e"
+                    border.color: "#580a0a"
                     border.width: 6
                     anchors.verticalCenter: parent.verticalCenter
                     z: 1
@@ -573,7 +598,7 @@ Item { // Page 2: Discover Page
                         visible: true
                         color: "#00ffffff"
                         radius: 3
-                        border.color: "#128c17"
+                        border.color: "#ff0000"
                         border.width: 4
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.right: parent.right
@@ -737,7 +762,7 @@ Item { // Page 2: Discover Page
                     id: drawerAnimation
                     target: customDrawer
                     property: "x"
-                    alwaysRunToEnd: false
+                    alwaysRunToEnd: true
                     running: false
                     duration: 200  // Duration of the animation in milliseconds
                     easing.type: Easing.InOutQuad  // Easing function for smoothness
@@ -1212,14 +1237,13 @@ Item { // Page 2: Discover Page
                         id: drawerAnimation2
                         target: customDrawer2
                         property: "x"
-                        alwaysRunToEnd: false
-                        running: false
+                        alwaysRunToEnd: true
                         duration: 200  // Duration of the animation in milliseconds
                         easing.type: Easing.InOutQuad  // Easing function for smoothness
+
                     }
 
                 }
-
 
                 bottomPadding: 0
                 Layout.margins: 0
@@ -1232,10 +1256,10 @@ Item { // Page 2: Discover Page
                     height: 438
                     opacity: 1
                     visible: true
-                    color: screenColor
-                    radius: 4
-                    border.color: "#25fb2e"
-                    border.width: 6
+                    color: deepBG
+                    radius: 8
+                    border.color: "#580a0a"
+                    border.width: 7
                     anchors.verticalCenter: parent.verticalCenter
                     z: 0
                     scale: 1
@@ -1264,10 +1288,12 @@ Item { // Page 2: Discover Page
                         visible: true
                         color: "#00ffffff"
                         radius: 3
-                        border.color: "#128c17"
+                        border.color: "#ff0000"
                         border.width: 4
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.right: parent.right
+                        z: 1
+                        clip: true
                         anchors.horizontalCenter: parent.horizontalCenter
                     }
 
@@ -1733,7 +1759,7 @@ Item { // Page 2: Discover Page
                 anchors.rightMargin: 0
                 anchors.topMargin: 0
                 anchors.bottomMargin: 0
-                toolsBorderColor: "#6c0101"
+                toolsBorderColor: "#ff0000"
                 toolsFillColor: deepBG
                 mainColor: "#790000"
                 z: 2
@@ -1836,19 +1862,6 @@ Item { // Page 2: Discover Page
             border.color: borderColor
             border.width: 2
             z: 1
-            Row {
-                id: searchRow
-                height: 25
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.leftMargin: 8
-                anchors.rightMargin: 8
-                anchors.verticalCenterOffset: 1
-                z: 1
-                spacing: 82
-
-            }
 
             Rectangle {
                 id: rectangle1
@@ -1907,6 +1920,7 @@ Item { // Page 2: Discover Page
 
                 // override space key handling to toggle items when the popup is visible
                 Keys.onSpacePressed: {
+                    console.log("Space Pressed")
                     if (setComboBox.popup.visible) {
                         var currentItem = setComboBox.popup.contentItem.currentItem
                         if (currentItem) {
@@ -1972,12 +1986,15 @@ Item { // Page 2: Discover Page
 
             Button {
                 id: btnSearch
-                x: 385
+                x: 295
                 y: 8
                 width: 181
                 height: 25
                 text: qsTr("Discover")
                 anchors.verticalCenter: parent.verticalCenter
+                anchors.right: roundButton.left
+                anchors.rightMargin: 52
+                anchors.verticalCenterOffset: 0
                 //   anchors.right: parent.right
                 //  anchors.rightMargin: -585
                 z: 1
@@ -2074,222 +2091,274 @@ Item { // Page 2: Discover Page
                     }
                 }
             }
-        }
 
-        Rectangle {
-            id: rectangle22
-            height: 10
-            color: "#ffffff"
-            border.width: 0
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.leftMargin: 0
-            anchors.rightMargin: 0
-            z: 1
+            Image {
+                id: ballToggleImage
+                x: 497
+                y: -25
+                width: 100
+                height: 100
+                opacity: 1
+                source: "newBall.png"
+                z: 1
+                scale: 0.35
+                fillMode: Image.PreserveAspectFit
+            }
+
+            RoundButton {
+                id: roundButton
+                x: 531
+                opacity: 1
+                text: ""
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.right: parent.right
+                anchors.rightMargin: 37
+                highlighted: false
+                flat: false
+                anchors.verticalCenterOffset: 0
+
+                Connections {
+                    target: roundButton
+                    onClicked: {
+                       // console.log("clicked")
+
+                        toggleBothDrawers();
+                        }
+
+                    }
+
+                    Connections {
+                        target: roundButton
+                        onPressed: {
+                            ballToggleImage.opacity = 0.5;
+                        }
+                    }
+
+                    Connections {
+                        target: roundButton
+                        onReleased: {
+                            ballToggleImage.opacity = 1;
+
+                        }
+                    }
+
+                }
+
+            }
+
             Rectangle {
-                id: rectangle23
-                y: -600
-                color: "#ee0000"
-                radius: 0
-                border.color: "#cc1c1c"
-                border.width: 2
+                id: rectangle22
+                height: 10
+                color: "#ffffff"
+                border.width: 0
                 anchors.left: parent.left
                 anchors.right: parent.right
-                anchors.top: parent.top
-                anchors.bottom: parent.bottom
+                anchors.leftMargin: 0
                 anchors.rightMargin: 0
-                anchors.topMargin: 0
-                anchors.bottomMargin: 0
-                z: 0
+                z: 1
                 Rectangle {
-                    id: rectangle104
-                    color: deepBG
-                    radius: 3
-                    border.color: "#ee0000"
-                    border.width: 1
+                    id: rectangle23
+                    y: -600
+                    color: "#ee0000"
+                    radius: 0
+                    border.color: "#cc1c1c"
+                    border.width: 2
                     anchors.left: parent.left
                     anchors.right: parent.right
                     anchors.top: parent.top
                     anchors.bottom: parent.bottom
-                    anchors.leftMargin: 5
-                    anchors.rightMargin: 5
-                    anchors.topMargin: 4
-                    anchors.bottomMargin: 4
+                    anchors.rightMargin: 0
+                    anchors.topMargin: 0
+                    anchors.bottomMargin: 0
+                    z: 0
+                    Rectangle {
+                        id: rectangle104
+                        color: deepBG
+                        radius: 3
+                        border.color: "#ee0000"
+                        border.width: 1
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        anchors.top: parent.top
+                        anchors.bottom: parent.bottom
+                        anchors.leftMargin: 5
+                        anchors.rightMargin: 5
+                        anchors.topMargin: 4
+                        anchors.bottomMargin: 4
+                    }
+                }
+
+                Rectangle {
+                    id: rectangle24
+                    color: "#00951111"
+                    radius: 0
+                    border.color: "#6c0101"
+                    border.width: 1
+                    anchors.fill: parent
+                    z: 0
+                }
+
+                Rectangle {
+                    id: rectangle25
+                    color: "#541515"
+                    radius: 2
+                    border.color: "#ee0000"
+                    border.width: 0
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.top: parent.top
+                    anchors.bottom: parent.bottom
+                    anchors.leftMargin: 3
+                    anchors.rightMargin: 3
+                    anchors.topMargin: 3
+                    anchors.bottomMargin: 3
+                    z: 0
+                }
+
+                Rectangle {
+                    id: rectangle26
+                    y: 20
+                    color: "#00951111"
+                    radius: 2
+                    border.color: "#6c0101"
+                    border.width: 1
+                    anchors.fill: parent
+                    z: 0
                 }
             }
+        }
 
-            Rectangle {
-                id: rectangle24
-                color: "#00951111"
-                radius: 0
-                border.color: "#6c0101"
-                border.width: 1
-                anchors.fill: parent
-                z: 0
-            }
+        Connections {
+            target: backendController
+            function onDiscoverResults(response) {
 
-            Rectangle {
-                id: rectangle25
-                color: "#541515"
-                radius: 2
-                border.color: "#ee0000"
-                border.width: 0
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.top: parent.top
-                anchors.bottom: parent.bottom
-                anchors.leftMargin: 3
-                anchors.rightMargin: 3
-                anchors.topMargin: 3
-                anchors.bottomMargin: 3
-                z: 0
-            }
+                var data = JSON.parse(response)
 
-            Rectangle {
-                id: rectangle26
-                y: 20
-                color: "#00951111"
-                radius: 2
-                border.color: "#6c0101"
-                border.width: 1
-                anchors.fill: parent
-                z: 0
+                if (data.error) {
+                    console.log("Error in response:",
+                                data.error) // Log the error message
+                    cards = []
+                } else {
+                    cards = data.map(card => ({
+                                                  "name": card.name,
+                                                  "id": card.id,
+                                                  "supertype": card.supertype,
+                                                  "type1": card.type1,
+                                                  "type2": card.type2,
+
+                                                  // Card Scan Image Hi-Res
+                                                  "imageUrl": card.imageUrl
+                                                              || "",
+
+                                                  "set": card.set,
+                                                  "setSymbol": card.setSymbol,
+                                                  "setLogo": card.setLogo,
+
+                                                  "flavorText": card.flavorText,
+
+                                                  "rule1": card.rule1,
+                                                  "rule2": card.rule2,
+                                                  "rule3": card.rule3,
+                                                  "rule4": card.rule4,
+
+                                                  // Ability 1
+                                                  "ability1Name": card.ability1Name || "",
+                                                  "ability1Text": card.ability1Text || "",
+                                                  "ability1Type": card.ability1Type || "",
+
+                                                  // Ability 2
+                                                  "ability2Name": card.ability2Name || "",
+                                                  "ability2Text": card.ability2Text || "",
+                                                  "ability2Type": card.ability2Type || "",
+
+                                                  // Attack 1
+                                                  "attack1Name": card.attack1Name || "",
+                                                  "attack1Text": card.attack1Text || "",
+                                                  "attack1Damage": card.attack1Damage || "",
+                                                  "attack1ConvertedEnergyCost": card.attack1ConvertedEnergyCost || 0,
+                                                  "attack1Cost1": card.attack1Cost1 || "Cost 1",
+                                                  "attack1Cost2": card.attack1Cost2 || "Cost 2",
+                                                  "attack1Cost3": card.attack1Cost3 || "Cost 3",
+                                                  "attack1Cost4": card.attack1Cost4 || "Cost 4",
+                                                  "attack1Cost5": card.attack1Cost5 || "Cost 5",
+
+                                                  // Attack 2
+                                                  "attack2Name": card.attack2Name || "",
+                                                  "attack2Text": card.attack2Text || "",
+                                                  "attack2Damage": card.attack2Damage || "",
+                                                  "attack2ConvertedEnergyCost": card.attack2ConvertedEnergyCost || 0,
+                                                  "attack2Cost1": card.attack2Cost1 || "Cost 1",
+                                                  "attack2Cost2": card.attack2Cost2 || "Cost 2",
+                                                  "attack2Cost3": card.attack2Cost3 || "Cost 3",
+                                                  "attack2Cost4": card.attack2Cost4 || "Cost 4",
+                                                  "attack2Cost5": card.attack2Cost5 || "",
+
+                                                  // Attack 3
+                                                  "attack3Name": card.attack3Name || "",
+                                                  "attack3Text": card.attack3Text || "",
+                                                  "attack3Damage": card.attack3Damage || "",
+                                                  "attack3ConvertedEnergyCost": card.attack3ConvertedEnergyCost || 0,
+                                                  "attack3Cost1": card.attack3Cost1 || "Cost 1",
+                                                  "attack3Cost2": card.attack3Cost2 || "Cost 2",
+                                                  "attack3Cost3": card.attack3Cost3 || "Cost 3",
+                                                  "attack3Cost4": card.attack3Cost4 || "Cost 4",
+                                                  "attack3Cost5": card.attack3Cost5 || "",
+
+                                                  // Attack 4
+                                                  "attack4Name": card.attack4Name || "",
+                                                  "attack4Text": card.attack4Text || "",
+                                                  "attack4Damage": card.attack4Damage || "",
+                                                  "attack4ConvertedEnergyCost": card.attack4ConvertedEnergyCost || 0,
+                                                  "attack4Cost1": card.attack4Cost1 || "Cost 1",
+                                                  "attack4Cost2": card.attack4Cost2 || "Cost 2",
+                                                  "attack4Cost3": card.attack4Cost3 || "Cost 3",
+                                                  "attack4Cost4": card.attack4Cost4 || "Cost 4",
+                                                  "attack4Cost5": card.attack4Cost5 || "",
+
+                                                  // Subtypes
+                                                  "subtype1" : card.subtype1 || "",
+                                                  "subtype2": card.subtype2 || "",
+                                                  "subtype3": card.subtype3 || "",
+                                                  "subtype4": card.subtype4 || ""
+                                              }))
+
+                    selectedIndex = 0; // Start with the first card
+                    updateAttackInfo();
+                    updateAbilityInfo();
+                    updateSubTypeInfo();
+                    updateSuperTypeInfo();
+                    updateTypeInfo();
+                    updateFlavorText();
+                    resetLeftColumnScroll();
+                    resetRightColumnScroll();
+                    //updateLeftScrollView();
+                    //updateRightScrollView();
+                    view.visible = true
+                }
             }
         }
-    }
 
-    Connections {
-        target: backendController
-        function onDiscoverResults(response) {
 
-            var data = JSON.parse(response)
 
-            if (data.error) {
-                console.log("Error in response:",
-                            data.error) // Log the error message
-                cards = []
-            } else {
-                cards = data.map(card => ({
-                                              "name": card.name,
-                                              "id": card.id,
-                                              "supertype": card.supertype,
-                                              "type1": card.type1,
-                                              "type2": card.type2,
-
-                                              // Card Scan Image Hi-Res
-                                              "imageUrl": card.imageUrl
-                                                          || "",
-
-                                              "set": card.set,
-                                              "setSymbol": card.setSymbol,
-                                              "setLogo": card.setLogo,
-
-                                              "flavorText": card.flavorText,
-
-                                              "rule1": card.rule1,
-                                              "rule2": card.rule2,
-                                              "rule3": card.rule3,
-                                              "rule4": card.rule4,
-
-                                              // Ability 1
-                                              "ability1Name": card.ability1Name || "",
-                                              "ability1Text": card.ability1Text || "",
-                                              "ability1Type": card.ability1Type || "",
-
-                                              // Ability 2
-                                              "ability2Name": card.ability2Name || "",
-                                              "ability2Text": card.ability2Text || "",
-                                              "ability2Type": card.ability2Type || "",
-
-                                              // Attack 1
-                                              "attack1Name": card.attack1Name || "",
-                                              "attack1Text": card.attack1Text || "",
-                                              "attack1Damage": card.attack1Damage || "",
-                                              "attack1ConvertedEnergyCost": card.attack1ConvertedEnergyCost || 0,
-                                              "attack1Cost1": card.attack1Cost1 || "Cost 1",
-                                              "attack1Cost2": card.attack1Cost2 || "Cost 2",
-                                              "attack1Cost3": card.attack1Cost3 || "Cost 3",
-                                              "attack1Cost4": card.attack1Cost4 || "Cost 4",
-                                              "attack1Cost5": card.attack1Cost5 || "Cost 5",
-
-                                              // Attack 2
-                                              "attack2Name": card.attack2Name || "",
-                                              "attack2Text": card.attack2Text || "",
-                                              "attack2Damage": card.attack2Damage || "",
-                                              "attack2ConvertedEnergyCost": card.attack2ConvertedEnergyCost || 0,
-                                              "attack2Cost1": card.attack2Cost1 || "Cost 1",
-                                              "attack2Cost2": card.attack2Cost2 || "Cost 2",
-                                              "attack2Cost3": card.attack2Cost3 || "Cost 3",
-                                              "attack2Cost4": card.attack2Cost4 || "Cost 4",
-                                              "attack2Cost5": card.attack2Cost5 || "",
-
-                                              // Attack 3
-                                              "attack3Name": card.attack3Name || "",
-                                              "attack3Text": card.attack3Text || "",
-                                              "attack3Damage": card.attack3Damage || "",
-                                              "attack3ConvertedEnergyCost": card.attack3ConvertedEnergyCost || 0,
-                                              "attack3Cost1": card.attack3Cost1 || "Cost 1",
-                                              "attack3Cost2": card.attack3Cost2 || "Cost 2",
-                                              "attack3Cost3": card.attack3Cost3 || "Cost 3",
-                                              "attack3Cost4": card.attack3Cost4 || "Cost 4",
-                                              "attack3Cost5": card.attack3Cost5 || "",
-
-                                              // Attack 4
-                                              "attack4Name": card.attack4Name || "",
-                                              "attack4Text": card.attack4Text || "",
-                                              "attack4Damage": card.attack4Damage || "",
-                                              "attack4ConvertedEnergyCost": card.attack4ConvertedEnergyCost || 0,
-                                              "attack4Cost1": card.attack4Cost1 || "Cost 1",
-                                              "attack4Cost2": card.attack4Cost2 || "Cost 2",
-                                              "attack4Cost3": card.attack4Cost3 || "Cost 3",
-                                              "attack4Cost4": card.attack4Cost4 || "Cost 4",
-                                              "attack4Cost5": card.attack4Cost5 || "",
-
-                                              // Subtypes
-                                              "subtype1" : card.subtype1 || "",
-                                              "subtype2": card.subtype2 || "",
-                                              "subtype3": card.subtype3 || "",
-                                              "subtype4": card.subtype4 || ""
-                                          }))
-
-                selectedIndex = 0; // Start with the first card
-                updateAttackInfo();
-                updateAbilityInfo();
-                updateSubTypeInfo();
-                updateSuperTypeInfo();
-                updateTypeInfo();
-                updateFlavorText();
-                resetLeftColumnScroll();
-                resetRightColumnScroll();
-                //updateLeftScrollView();
-                //updateRightScrollView();
-                view.visible = true
-            }
+        Rectangle {
+            id: rectangle14
+            color: blockBG
+            anchors.fill: parent
+            z: 0
+            border.color: borderColor
         }
+
+        Item {
+            id: __materialLibrary__
+        }
+        // Page content for browsePage
     }
 
 
 
-    Rectangle {
-        id: rectangle14
-        color: blockBG
-        anchors.fill: parent
-        z: 0
-        border.color: borderColor
-    }
 
-    Item {
-        id: __materialLibrary__
-    }
-    // Page content for browsePage
-}
-
-
-
-
-/*##^##
+    /*##^##
 Designer {
-    D{i:0}D{i:7}D{i:16}D{i:35}D{i:37}D{i:41;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}
-D{i:56}D{i:57}D{i:58}D{i:65}D{i:67}
+    D{i:0}D{i:41;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}
 }
 ##^##*/
