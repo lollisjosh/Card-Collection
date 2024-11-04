@@ -1,5 +1,5 @@
 import QtQuick 2.13
-import QtQuick.Controls 2.15
+import QtQuick.Controls 2.2
 import QtQuick.Layouts
 import QtQuick.Window 2.15
 import QtQuick.Controls.Fusion 2.15
@@ -422,16 +422,44 @@ Item {
                 Layout.topMargin: 0
                 //toolbarContentHeight: 30
                 height: 60
+                color: "#00000000"
+                radius: 0
+                border.color: "#ff0000"
+                border.width: 0
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.leftMargin: 0
                 anchors.rightMargin: 0
+                borderColor: "#ff0000"
+                blockBorderWidth: 2
                 z: 2
                 Layout.preferredWidth: 500
+                toolsBorderColor: "#ff0000"
+                toolsFillColor: "#00541515"
 
                 // Dynamic ListModel for sets
                 setsModel: ListModel {
                     id: setsModel
+                }
+
+                Rectangle {
+                    id: rectangle4
+                    color: "#00ffffff"
+                    radius: 8
+                    border.color: "#ff0000"
+                    border.width: 3
+                    anchors.fill: parent
+                    z: -1
+                }
+
+                Rectangle {
+                    id: rectangle5
+                    color: "#541515"
+                    radius: 0
+                    border.color: "#00ff0000"
+                    border.width: 0
+                    anchors.fill: parent
+                    z: -2
                 }
             }
 
@@ -457,18 +485,29 @@ Item {
                         width: 264
                         height: 25
                         anchors.verticalCenter: parent.verticalCenter
-                        //anchors.left: parent.left
-                        //anchors.right: txtSearchBox.left
                         anchors.leftMargin: 2
                         anchors.rightMargin: 6
                         Layout.leftMargin: 6
                         Layout.preferredHeight: -1
                         Layout.preferredWidth: -1
-                        //Layout.fillHeight: false
-                        //Layout.fillWidth: true
                         displayText: "Sets"
 
                         model: setsModel
+
+                        function handleSpacePressed(event) {
+                            console.log("Space pressed");
+                            if (setComboBox.popup.visible) {
+                                console.log("setComboBox.popup is visible");
+                                console.log("Highlighted index: " + setComboBox.highlightedIndex);
+                                if (setComboBox.highlightedIndex >= 0) {
+                                    var item = setsModel.get(setComboBox.highlightedIndex);
+                                    item.selected = !item.selected;  // Toggle the selected state
+                                    event.accepted = true;
+                                }
+                            }
+                        }
+
+                        Keys.onSpacePressed: handleSpacePressed
 
                         delegate: Item {
                             width: parent ? parent.width : 0
@@ -478,6 +517,12 @@ Item {
                                 checkDelegate.toggle()
                             }
 
+                            MouseArea {
+                                anchors.fill: parent
+                                onClicked: checkDelegate.checked = !checkDelegate.checked
+                                onEntered: setComboBox.highlightedIndex = index  // Manually set the highlighted index
+                            }
+
                             CheckDelegate {
                                 id: checkDelegate
                                 anchors.fill: parent
@@ -485,33 +530,15 @@ Item {
                                 highlighted: setComboBox.highlightedIndex == index
                                 checked: model.selected
                                 onCheckedChanged: {
-                                    if (model.selected !== checked) {
-                                        model.selected = checked;
-                                    }
+                                    model.selected = checked;
                                 }
                             }
-                        }
-
-                        // override space key handling to toggle items when the popup is visible
-                        Keys.onSpacePressed: {
-                            if (setComboBox.popup.visible) {
-                                var currentItem = setComboBox.popup.contentItem.currentItem
-                                if (currentItem) {
-                                    currentItem.toggle()
-                                    event.accepted = true
-                                }
-                            }
-                        }
-
-                        Keys.onReleased: {
-                            if (setComboBox.popup.visible)
-                                event.accepted = (event.key === Qt.Key_Space)
                         }
 
                         Component.onCompleted: {
                             // Request All Sets to populate combo box
-                            //console.log("Requesting sets from backend...")
                             backendController.request_sets_retrieve()
+                            forceActiveFocus()
                         }
 
                         Connections {
@@ -519,39 +546,26 @@ Item {
 
                             function onSetsResults(response) {
                                 var data = JSON.parse(response)
-                                setsModel.clear(
-                                            ) // Clear existing items in the model
+                                setsModel.clear() // Clear existing items in the model
 
                                 if (data.error) {
-                                    sets = [] // Clear the array of sets
                                     console.log("Error in the data received from backend.")
                                 } else {
-                                    // Collect sets into an array
                                     var tempSets = []
-
                                     data.forEach(function (set) {
-                                        // Collect each set object
                                         tempSets.push({
-                                                          "name": set.name,
-                                                          "selected": false
-                                                      })
+                                            "name": set.name,
+                                            "selected": false
+                                        })
                                     })
 
-                                    // Sort the array alphabetically by name
                                     tempSets.sort(function (a, b) {
-                                        return a.name.localeCompare(
-                                                    b.name) // Sort using localeCompare for proper alphabetical order
+                                        return a.name.localeCompare(b.name)
                                     })
 
-                                    // Append sorted sets to the model
-                                    tempSets.forEach(
-                                                function (sortedSet) {
-                                                    setsModel.append(
-                                                                sortedSet)
-                                                    //console.log("Appending set: ", sortedSet.name); // Debugging each appended set
-                                                })
-
-                                    //console.log("SetsModel updated with new sets: ", setsModel.count); // Check the number of elements
+                                    tempSets.forEach(function (sortedSet) {
+                                        setsModel.append(sortedSet)
+                                    })
                                 }
                             }
                         }
@@ -982,10 +996,37 @@ Item {
                                 repeat: true
                                 onTriggered: {
                                     if (Math.abs(dragArea.velocityY) < 0.1) {
-                                        momentumTimer.stop()
+                                        // If the velocity is low, stop the momentum and start returning to zero
+                                        momentumTimer.stop();
+                                        returnToZeroTimer.start(); // Start the return to zero timer
                                     } else {
-                                        cardNode.eulerRotation.y += dragArea.velocityY
-                                        dragArea.velocityY *= dragArea.momentumDecay
+                                        cardNode.eulerRotation.y += dragArea.velocityY; // Apply the current velocity
+                                        dragArea.velocityY *= dragArea.momentumDecay; // Decay the velocity
+                                    }
+                                }
+                            }
+
+                            // Timer for gradually returning to zero rotation on the Y-axis
+                            Timer {
+                                id: returnToZeroTimer
+                                interval: 16 // About 60 FPS
+                                repeat: true
+                                onTriggered: {
+                                    if (Math.abs(cardNode.eulerRotation.y) < 0.1) {
+                                        cardNode.eulerRotation.y = 0; // Set to zero to avoid oscillation
+                                        returnToZeroTimer.stop(); // Stop the timer when close enough to zero
+                                    } else {
+                                        // Gradually reduce the angle towards zero
+                                        var returnSpeed = 0.07; // Adjust the return speed to control how quickly it comes to rest
+                                        if (cardNode.rotation.y > 0) {
+                                            // console.log(cardNode.rotation.y)
+                                            //console.log(cardNode.eulerRotation.y)
+                                            cardNode.rotation.y -= returnSpeed; // Move back towards 0
+                                            if (cardNode.rotation.y < 0) cardNode.rotation.y = 0; // Clamp to zero
+                                        } else {
+                                            cardNode.rotation.y += returnSpeed; // Move back towards 0
+                                            if (cardNode.rotation.y > 0) cardNode.rotation.y = 0; // Clamp to zero
+                                        }
                                     }
                                 }
                             }
@@ -1116,7 +1157,7 @@ Item {
                         width: 60
                         height: 60
                         anchors.verticalCenter: parent.verticalCenter
-                        source: "ball.png"
+                        source: "newBall.png"
                         anchors.verticalCenterOffset: 0
                         scale: 0.6
                         mirror: false
@@ -1419,8 +1460,8 @@ Item {
                                 height: 40
                                 color: "#c80d0d"
                                 radius: 8
-                                border.color: "#6c0101"
-                                border.width: 2
+                                border.color: "#580a0a"
+                                border.width: 1
                                 Rectangle {
                                     id: rectangle30
                                     color: "#b2b2b2"
@@ -1528,7 +1569,7 @@ Item {
                                 height: 70
                                 color: "#c80d0d"
                                 radius: 8
-                                border.color: borderColor
+                                border.color: "#580a0a"
                                 border.width: 1
                                 anchors.horizontalCenter: parent.horizontalCenter
 
@@ -1647,12 +1688,12 @@ Item {
 
                                 TypeBlock {
                                     id: typeBlock
-                                    border.color: borderColor
                                     border.width: 1
                                     anchors.verticalCenter: parent.verticalCenter
                                     color: "#ff0000"
                                     height: 106
                                     radius: 8
+                                    border.color: "#580a0a"
                                     width: 55
                                     type1Type: "Type 1"
                                     type2Type: "Type 2"
@@ -2178,8 +2219,10 @@ Item {
     }
 }
 
+
+
 /*##^##
 Designer {
-    D{i:0}D{i:28;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}
+    D{i:0}D{i:5}D{i:6}D{i:30;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}D{i:31;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}
 }
 ##^##*/
