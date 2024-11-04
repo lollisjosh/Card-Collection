@@ -1,7 +1,10 @@
+import random
+from collections import defaultdict
+
 from pokemontcgsdk import Card
 from backend import Backend
 from cardprocessor import CardProcessor
-import random
+
 
 
 class DiscoverHandler:
@@ -47,19 +50,28 @@ class DiscoverHandler:
                     compatibility purposes it should still be a list.
         """
 
-    def random_select_set(self, select_list : list[tuple[str,str,str]]) -> tuple[str,str,str]:
+    def random_select(select_list: list[tuple[str, str, str]]) -> list[tuple[str, str, str]]:
         """
         Summary:
-            Randomly selects a set from the provided list of sets.
+            Builds a list containing one randomly selected tuple from each unique category (first element of each tuple).
 
         Args:
-            self : The self object
-            select_list : A list[tuple[str, str, str]] representing the 
-                available sets to choose from.
+            select_list : A list[tuple[str, str, str]] representing the available items,
+                          where each tuple's first element represents a category.
 
         Return:
-            A tuple[str, str, str] representing the randomly selected set.
+            A list[tuple[str, str, str]] with one randomly selected item from each category.
         """
+
+        # Group items by category
+        category_dict = defaultdict(list)
+        for item in select_list:
+            category_dict[item[0]].append(item)
+
+        # Randomly select one item per category
+        result = [random.choice(items) for items in category_dict.values()]
+
+        return result
 
     def random_select_type(self, select_list : list[tuple[str, str, str]]) -> tuple[str,str,str]:
         """
