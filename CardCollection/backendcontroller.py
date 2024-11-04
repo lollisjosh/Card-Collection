@@ -13,6 +13,7 @@ import json
 
 import inithandler
 import searchhandler
+import discoverhandler
 import cardprocessor
 
 
@@ -85,6 +86,19 @@ class BackendController(QObject):
             params (list[tuple[str, str, str]]):
                 List of search parameter tuples of the form (category, subcategory, target)
         """
+
+        try:
+
+            cards = discoverhandler.DiscoverHandler.handle_discover(self, params)
+
+            if cards is not None:
+                print(cards[0]["name"])
+                # Emit the result as JSON
+                self.discoverResults.emit(json.dumps(cards))
+
+        except Exception as e:
+            self.searchResults.emit(json.dumps({"error": str(e)}))
+
 
     @Slot()
     def request_load_collection(self):
