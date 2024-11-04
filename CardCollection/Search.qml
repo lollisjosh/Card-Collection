@@ -554,9 +554,9 @@ Item {
                                     var tempSets = []
                                     data.forEach(function (set) {
                                         tempSets.push({
-                                            "name": set.name,
-                                            "selected": false
-                                        })
+                                                          "name": set.name,
+                                                          "selected": false
+                                                      })
                                     })
 
                                     tempSets.sort(function (a, b) {
