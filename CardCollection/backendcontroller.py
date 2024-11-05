@@ -1,4 +1,6 @@
-from PySide6.QtCore import QObject, Slot, Signal
+import threading
+from PySide6.QtCore import QObject, Signal, QMetaObject, Slot, Qt, Q_ARG
+
 
 from pokemontcgsdk import Card
 from pokemontcgsdk import Set
@@ -14,7 +16,6 @@ import json
 import inithandler
 import searchhandler
 import discoverhandler
-import cardprocessor
 
 
 class BackendController(QObject):
@@ -58,21 +59,64 @@ class BackendController(QObject):
         except Exception as e:
             self.setsResults.emit(json.dump({"error": str(e)}))
 
+    # @Slot(list)
+    # def request_search(self, params: list[tuple[str, str, str]]):
+    #     try:
+    #         search_handler = searchhandler.SearchHandler()
+    #         cards = search_handler.handle_search(params)
+
+    #         if cards is not None:
+    #             # Process all cards at once
+    #            # processed_cards = cardprocessor.CardProcessor.process_cards(cards)
+    #             #print(processed_cards)
+    #             # Emit the result as JSON
+    #             self.searchResults.emit(json.dumps(cards))
+
+    #     except Exception as e:
+    #         self.searchResults.emit(json.dumps({"error": str(e)}))
+
+
+
     @Slot(list)
     def request_search(self, params: list[tuple[str, str, str]]):
+        print("DEBUG: request_search called on main thread:", threading.current_thread().name)
+
+        # Start the search in a new thread
+        query_thread = threading.Thread(target=self._perform_search, args=(params,))
+        query_thread.start()
+        print("DEBUG: Started query_thread:", query_thread.name)
+
+    def _perform_search(self, params):
+        print("DEBUG: _perform_search called on thread:", threading.current_thread().name)
+
         try:
+            # Instantiate search handler and process the search
             search_handler = searchhandler.SearchHandler()
             cards = search_handler.handle_search(params)
 
             if cards is not None:
-                # Process all cards at once
-               # processed_cards = cardprocessor.CardProcessor.process_cards(cards)
-                #print(processed_cards)
-                # Emit the result as JSON
-                self.searchResults.emit(json.dumps(cards))
+                json_result = json.dumps(cards)
+                print("DEBUG: Cards found and serialized")
+            else:
+                json_result = json.dumps({"error": "No cards found"})
+                print("DEBUG: No cards found")
 
         except Exception as e:
-            self.searchResults.emit(json.dumps({"error": str(e)}))
+            json_result = json.dumps({"error": str(e)})
+            print("DEBUG: Exception occurred:", e)
+
+        # Emit the searchResults signal from the main thread
+        print("DEBUG: Invoking _emit_search_results on main thread via QueuedConnection")
+        QMetaObject.invokeMethod(self, "_emit_search_results",
+                                 Qt.QueuedConnection,
+                                 Q_ARG(str, json_result))
+
+    @Slot(str)  # Mark as Slot so it’s recognized by invokeMethod
+    def _emit_search_results(self, json_result):
+        print("DEBUG: _emit_search_results called on main thread:", threading.current_thread().name)
+        self.searchResults.emit(json_result)
+        print("DEBUG: searchResults signal emitted to QML")
+
 
 
     @Slot(list)
