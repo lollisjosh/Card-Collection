@@ -2119,7 +2119,7 @@ Item { // Page 2: Discover Page
 
                 Connections {
                     target: roundButton
-                    onClicked: {
+                    function onClicked() {
                        // console.log("clicked")
 
                         toggleBothDrawers();
@@ -2129,14 +2129,14 @@ Item { // Page 2: Discover Page
 
                     Connections {
                         target: roundButton
-                        onPressed: {
+                        function onPressed() {
                             ballToggleImage.opacity = 0.5;
                         }
                     }
 
                     Connections {
                         target: roundButton
-                        onReleased: {
+                        function onReleased(){
                             ballToggleImage.opacity = 1;
 
                         }
