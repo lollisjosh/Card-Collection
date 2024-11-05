@@ -1,14 +1,6 @@
 import threading
 from PySide6.QtCore import QObject, Signal, QMetaObject, Slot, Qt, Q_ARG
 
-
-from pokemontcgsdk import Card
-from pokemontcgsdk import Set
-from pokemontcgsdk import Type
-from pokemontcgsdk import Supertype
-from pokemontcgsdk import Subtype
-from pokemontcgsdk import Rarity
-
 import json
 
 #from requests.exceptions import RequestException
@@ -58,24 +50,6 @@ class BackendController(QObject):
 
         except Exception as e:
             self.setsResults.emit(json.dump({"error": str(e)}))
-
-    # @Slot(list)
-    # def request_search(self, params: list[tuple[str, str, str]]):
-    #     try:
-    #         search_handler = searchhandler.SearchHandler()
-    #         cards = search_handler.handle_search(params)
-
-    #         if cards is not None:
-    #             # Process all cards at once
-    #            # processed_cards = cardprocessor.CardProcessor.process_cards(cards)
-    #             #print(processed_cards)
-    #             # Emit the result as JSON
-    #             self.searchResults.emit(json.dumps(cards))
-
-    #     except Exception as e:
-    #         self.searchResults.emit(json.dumps({"error": str(e)}))
-
-
 
     @Slot(list)
     def request_search(self, params: list[tuple[str, str, str]]):
