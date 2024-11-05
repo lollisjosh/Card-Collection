@@ -2043,66 +2043,99 @@ Item { // Page 2: Discover Page
                     // Initialize an empty array for the search parameters
                     var searchParams = []
 
-
-
+                    var setsParams = [];
                     // Collecting selected items from the ComboBox
                     for (var i = 0; i < setsModel.count; i++) {
                         var item = setsModel.get(i)
                         if (item.selected) {
                             // Build the tuple for each selected set item
-                            searchParams.push(
+                            setsParams.push(
                                         ['set', 'name', item.name])
                         }
                     }
 
+                    if(setsParams.length === 0) {
+                        for (var setIdx = 0; setIdx < setsModel.count; setIdx++) {
+                            var setItem = setsModel.get(setIdx)
+                            setsParams.push(
+                                        ['set', 'name', setItem.name])
+
+                        }
+                    }
+
+                    var typesParams = [];
                     // Check the state of each Pokémon TCG type button and add to search parameters if checked
                     if (searchFilterTools.fireChecked) {
-                        searchParams.push(
+                        typesParams.push(
                                     ['types', '', 'fire'])
                     }
                     if (searchFilterTools.waterChecked) {
-                        searchParams.push(
+                        typesParams.push(
                                     ['types', '', 'water'])
                     }
                     if (searchFilterTools.grassChecked) {
-                        searchParams.push(
+                        typesParams.push(
                                     ['types', '', 'grass'])
                     }
                     if (searchFilterTools.lightningChecked) {
-                        searchParams.push(
+                        typesParams.push(
                                     ['types', '', 'lightning'])
                     }
                     if (searchFilterTools.psychicChecked) {
-                        searchParams.push(
+                        typesParams.push(
                                     ['types', '', 'psychic'])
                     }
                     if (searchFilterTools.fightingChecked) {
-                        searchParams.push(
+                        typesParams.push(
                                     ['types', '', 'fighting'])
                     }
                     if (searchFilterTools.darknessChecked) {
-                        searchParams.push(
+                        typesParams.push(
                                     ['types', '', 'darkness'])
                     }
                     if (searchFilterTools.fairyChecked) {
-                        searchParams.push(
+                        typesParams.push(
                                     ['types', '', 'fairy'])
                     }
                     if (searchFilterTools.dragonChecked) {
-                        searchParams.push(
+                        typesParams.push(
                                     ['types', '', 'dragon'])
                     }
                     if (searchFilterTools.metalChecked) {
-                        searchParams.push(
+                        typesParams.push(
                                     ['types', '', 'metal'])
                     }
                     if (searchFilterTools.colorlessChecked) {
-                        searchParams.push(
+                        typesParams.push(
                                     ['types', '', 'colorless'])
                     }
 
+                    if(typesParams.length === 0) {
+                        typesParams.push(['types', '', 'fire']);
+                        typesParams.push(['types', '', 'grass']);
+                        typesParams.push(['types', '', 'water']);
+                        typesParams.push(['types', '', 'lightning']);
+                        typesParams.push(['types', '', 'fighting']);
+                        typesParams.push(['types', '', 'psychic']);
+                        typesParams.push(['types', '', 'darkness']);
+                        typesParams.push(['types', '', 'metal']);
+                        typesParams.push(['types', '', 'fairy']);
+                        typesParams.push(['types', '', 'dragon']);
+                        typesParams.push(['types', '', 'colorless']);
+                    }
+
+                    // console.log(setsParams);
+                    // console.log(typesParams)
+
+                    searchParams = searchParams.concat(typesParams);
+                    searchParams = searchParams.concat(setsParams);
+
+                    //console.log(searchParams)
+
+
                     // Call the request_search function with the built tuples if there are any
                     if (searchParams.length > 0) {
+                        //Print each tuple as a string to the console
                         for (var paramIndex = 0; paramIndex < searchParams.length; paramIndex++) {
                             var tupleString = "[" + searchParams[paramIndex][0] + ", "
                                     + searchParams[paramIndex][1] + ", "
@@ -2207,7 +2240,7 @@ Item { // Page 2: Discover Page
                     function onReleased(){
                         console.log("released")
 
-                       // ballToggleImage.opacity = 1;
+                        // ballToggleImage.opacity = 1;
 
                         if(isDrawerOpen &! isDrawer2Open) {
                             toggleRightDrawer();
