@@ -2046,7 +2046,7 @@ Item {
             Rectangle {
                 id: counterRect
                 y: 20
-                visible: counterVisible
+                visible: true
                 color: "#00951111"
                 radius: 3
                 border.color: "#6c0101"
