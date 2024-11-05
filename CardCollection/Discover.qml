@@ -22,6 +22,8 @@ Item { // Page 2: Discover Page
     // Timer to lock the toggle button for the animation duration
 
     // Define color scheme properties
+    property color pressedToggleColor: "#02d20b"
+    property color releasedToggleColor: "#c80d0d"
     property color primaryColor: "#c80d0d"
     property color blockBG: "#ff0000"
     property color deepBG: "#541515"
@@ -44,6 +46,7 @@ Item { // Page 2: Discover Page
     property var cards: [] // List of card objects
 
     function toggleLeftDrawer() {
+        toggleLockTimer.start(); // Start the timer to re-enable the button
 
         if (customDrawer.x < 0) {
 
@@ -67,6 +70,7 @@ Item { // Page 2: Discover Page
     }
 
     function toggleRightDrawer() {
+        toggleLockTimer.start(); // Start the timer to re-enable the button
 
         if (customDrawer2.x >= 600) { // Closed position
             customDrawer2.x = 600 - customDrawer2.width; // Slide into view
@@ -947,7 +951,7 @@ Item { // Page 2: Discover Page
                                 id: cardNode
                                 x: 0
                                 y: 200
-                                visible: false
+                                visible: true
                                 z: -25
                                 scale.y: 3
                                 scale.x: 2.5
@@ -1878,6 +1882,7 @@ Item { // Page 2: Discover Page
                 //anchors.right: txtSearchBox.left
                 anchors.leftMargin: 25
                 anchors.rightMargin: 65
+                z: 0
                 Layout.leftMargin: 6
                 Layout.preferredHeight: -1
                 Layout.preferredWidth: -1
@@ -1930,6 +1935,19 @@ Item { // Page 2: Discover Page
                     // Request All Sets to populate combo box
                     //console.log("Requesting sets from backend...")
                     backendController.request_sets_retrieve()
+                }
+
+                Rectangle {
+                    id: rectangle
+                    color: "#00ffffff"
+                    radius: 8
+                    border.color: "#ce0000"
+                    border.width: 2
+                    anchors.fill: parent
+                    anchors.leftMargin: -2
+                    anchors.rightMargin: -2
+                    anchors.topMargin: -2
+                    anchors.bottomMargin: -2
                 }
             }
 
@@ -1995,6 +2013,21 @@ Item { // Page 2: Discover Page
                 //Layout.fillWidth: false
                 palette {
                     button: "blue"
+                }
+
+                Rectangle {
+                    id: rectangle7
+                    x: -304
+                    y: -18
+                    color: "#00ffffff"
+                    radius: 8
+                    border.color: "#ce0000"
+                    border.width: 2
+                    anchors.fill: parent
+                    anchors.leftMargin: -2
+                    anchors.rightMargin: -2
+                    anchors.topMargin: -2
+                    anchors.bottomMargin: -2
                 }
                 hoverEnabled: true
 
@@ -2081,6 +2114,20 @@ Item { // Page 2: Discover Page
                         // resetRightColumnScroll()
                     }
                 }
+
+                Connections {
+                    target: btnSearch
+                    function onPressed() {
+                        rectangle7.border.color = pressedToggleColor;
+                    }
+                }
+
+                Connections {
+                    target: btnSearch
+                    function onReleased(){
+                        rectangle7.border.color = releasedToggleColor;
+                    }
+                }
             }
 
             Image {
@@ -2101,9 +2148,9 @@ Item { // Page 2: Discover Page
                 interval: lockTimerDuration
                 repeat: false
                 onTriggered: {
-                   // console.log("Toggle Timer Triggered");
-                   // toggleBothButton.enabled = true;
-                   // toggleBothButton.hoverEnabled = true;
+                    // console.log("Toggle Timer Triggered");
+                    // toggleBothButton.enabled = true;
+                    // toggleBothButton.hoverEnabled = true;
 
                 }
             }
@@ -2121,11 +2168,26 @@ Item { // Page 2: Discover Page
                 highlighted: false
                 flat: false
                 anchors.verticalCenterOffset: 0
+                hoverEnabled: true
+
+
+                MouseArea {
+                    visible: false
+                    anchors.fill: parent
+                    enabled: true
+                    preventStealing: false
+                    propagateComposedEvents: false
+                    hoverEnabled: false
+                    cursorShape: Qt.PointingHandCursor
+                    drag.target: toggleBothButton
+                    onEntered: ballToggleImage.scale = 0.40;
+                    onExited: ballToggleImage.scale = 0.35;
+                }
 
                 Connections {
                     target: toggleBothButton
                     function onClicked() {
-                       // console.log("clicked")
+                        // console.log("clicked")
 
                     }
 
@@ -2134,8 +2196,9 @@ Item { // Page 2: Discover Page
                 Connections {
                     target: toggleBothButton
                     function onPressed() {
-                       // console.log("pressed")
-                        ballToggleImage.opacity = 0.5;
+                        // console.log("pressed")
+                        //ballToggleImage.opacity = 0.5;
+                        toggleButtonHighlight.border.color = pressedToggleColor;
                     }
                 }
 
@@ -2144,16 +2207,39 @@ Item { // Page 2: Discover Page
                     function onReleased(){
                         console.log("released")
 
-                        ballToggleImage.opacity = 1;
-                        toggleBothDrawers()
+                       // ballToggleImage.opacity = 1;
+
+                        if(isDrawerOpen &! isDrawer2Open) {
+                            toggleRightDrawer();
+                        }
+                        else if(isDrawer2Open &! isDrawerOpen) {
+                            toggleLeftDrawer();
+                        }
+                        else {
+                            toggleBothDrawers()
+
+                        }
 
 
+                        toggleButtonHighlight.border.color = releasedToggleColor;
                     }
                 }
 
+                Rectangle {
+                    id: toggleButtonHighlight
+                    x: -539
+                    y: -557
+                    color: "#00ffffff"
+                    radius: 20
+                    border.color: "#ff0000"
+                    border.width: 30
+                    anchors.fill: parent
+                    anchors.leftMargin: -3
+                    anchors.rightMargin: -3
+                    anchors.topMargin: -3
+                    anchors.bottomMargin: -3
+                }
             }
-
-
         }
 
         Rectangle {
@@ -2341,14 +2427,10 @@ Item { // Page 2: Discover Page
                 updateFlavorText();
                 resetLeftColumnScroll();
                 resetRightColumnScroll();
-                //updateLeftScrollView();
-                //updateRightScrollView();
                 view.visible = true
             }
         }
     }
-
-
 
     Rectangle {
         id: rectangle14
@@ -2369,6 +2451,6 @@ Item { // Page 2: Discover Page
 
 /*##^##
 Designer {
-    D{i:0}D{i:41;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}
+    D{i:0}D{i:41;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}D{i:118}D{i:121}
 }
 ##^##*/

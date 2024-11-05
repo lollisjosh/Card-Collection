@@ -18,6 +18,7 @@ Item {
     Layout.fillHeight: false
     Layout.fillWidth: false
 
+    property bool counterVisible: false
 
     property int selectedIndex: 0
     property var cards: [] // List of card objects
@@ -1995,10 +1996,10 @@ Item {
 
             Rectangle {
                 id: rectangle
-                color: "#951111"
-                radius: 4
-                border.color: "#cc1c1c"
-                border.width: 8
+                color: "#6c0101"
+                radius: 0
+                border.color: "#ee0000"
+                border.width: 3
                 anchors.fill: parent
                 anchors.leftMargin: -6
                 anchors.rightMargin: -6
@@ -2009,29 +2010,31 @@ Item {
                 Rectangle {
                     id: rectangle100
                     color: "#00ffffff"
-                    radius: 3
+                    radius: 9
                     border.color: "#ee0000"
-                    border.width: 2
+                    border.width: 4
                     anchors.fill: parent
                 }
             }
 
             Rectangle {
                 id: rectangle2
+                visible: false
                 color: "#00951111"
-                radius: 3
+                radius: 8
                 border.color: "#6c0101"
-                border.width: 2
+                border.width: 1
                 anchors.fill: parent
                 anchors.leftMargin: 0
                 anchors.rightMargin: 0
-                anchors.topMargin: 8
-                anchors.bottomMargin: 8
+                anchors.topMargin: 2
+                anchors.bottomMargin: 2
                 z: 0
             }
 
             Rectangle {
                 id: rectangle3
+                visible: false
                 color: "#00951111"
                 radius: 4
                 border.color: "#6c0101"
@@ -2041,13 +2044,16 @@ Item {
             }
 
             Rectangle {
-                id: rectangle11
+                id: counterRect
                 y: 20
+                visible: counterVisible
                 color: "#00951111"
                 radius: 3
                 border.color: "#6c0101"
                 border.width: 2
                 anchors.fill: parent
+                anchors.leftMargin: 0
+                anchors.rightMargin: 0
                 z: 0
 
                 Text {
@@ -2055,12 +2061,13 @@ Item {
                     width: 109
                     height: 30
                     color: "#ffffff"
-                    text: cards.length ? (selectedIndex + 1) + "/" + cards.length : "-/-"
+                    text: cards.length ? ((selectedIndex + 1) + "/" + cards.length) : "-/-"
                     anchors.verticalCenter: parent.verticalCenter
                     font.pixelSize: 12
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                     wrapMode: Text.Wrap
+                    clip: false
                     anchors.horizontalCenter: parent.horizontalCenter
                     fontSizeMode: Text.HorizontalFit
                     font.styleName: "Bold Italic"
@@ -2223,6 +2230,6 @@ Item {
 
 /*##^##
 Designer {
-    D{i:0}D{i:5}D{i:6}D{i:30;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}D{i:31;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}
+    D{i:0}D{i:30;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}D{i:31;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}
 }
 ##^##*/
