@@ -43,79 +43,6 @@ Item { // Page 2: Discover Page
     property int selectedIndex: 0
     property var cards: [] // List of card objects
 
-    // QtObject {
-    //     id: stackContainer
-
-    //     property var stack: [] // Initialize an empty array for stack storage
-
-    //     // Pushes an element onto the stack
-    //     function push(element) {
-    //         stack.push(element)
-    //     }
-
-    //     // Removes the top element from the stack and returns it
-    //     function pop() {
-    //         if (stack.length > 0) {
-    //             return stack.pop()
-    //         } else {
-    //             console.warn("Stack is empty")
-    //             return null
-    //         }
-    //     }
-
-    //     // Returns the top element without removing it
-    //     function peek() {
-    //         if (stack.length > 0) {
-    //             return stack[stack.length - 1]
-    //         } else {
-    //             console.warn("Stack is empty")
-    //             return null
-    //         }
-    //     }
-
-    //     // Checks if the stack is empty
-    //     function isEmpty() {
-    //         return stack.length === 0
-    //     }
-
-    //     // Returns the current size of the stack
-    //     function size() {
-    //         return stack.length
-    //     }
-    // }
-
-    // // Function to process the next toggle action in the stack
-    // function processToggleAction() {
-    //     if (stackContainer.isEmpty()) return; // No actions to process
-
-    //     // Retrieve the next toggle action from the stack
-    //     var action = stackContainer.pop();
-
-    //     if (action === "toggleLeft") {
-    //         toggleLeftDrawer();
-    //     } else if (action === "toggleRight") {
-    //         toggleRightDrawer();
-    //     }
-
-    //     // Schedule the next action if the stack is not empty
-    //     if (!stackContainer.isEmpty()) {
-    //         // Use a delay to allow animations to complete before the next action
-    //         Qt.callLater(processToggleAction);
-    //     }
-    // }
-
-    // // Main function to toggle both drawers in sync
-    // function toggleDrawersInSync() {
-    //     // Push the actions onto the stack
-    //     stackContainer.push("toggleLeft");
-    //     stackContainer.push("toggleRight");
-
-    //     // Start processing the stack if not already in process
-    //     if (stackContainer.size() === 2) { // Initial call with two items only
-    //         processToggleAction();
-    //     }
-    // }
-
     function toggleLeftDrawer() {
 
         if (customDrawer.x < 0) {
@@ -159,13 +86,9 @@ Item { // Page 2: Discover Page
 
     function toggleBothDrawers() {
         // Disable the toggle button to prevent rapid clicks
-        console.log("toggleBothDrawers()");
         toggleLockTimer.start(); // Start the timer to re-enable the button
         toggleLeftDrawer();
         toggleRightDrawer();
-
-
-
     }
 
 
@@ -1024,6 +947,7 @@ Item { // Page 2: Discover Page
                                 id: cardNode
                                 x: 0
                                 y: 200
+                                visible: false
                                 z: -25
                                 scale.y: 3
                                 scale.x: 2.5
@@ -2177,7 +2101,7 @@ Item { // Page 2: Discover Page
                 interval: lockTimerDuration
                 repeat: false
                 onTriggered: {
-                    console.log("Toggle Timer Triggered");
+                   // console.log("Toggle Timer Triggered");
                    // toggleBothButton.enabled = true;
                    // toggleBothButton.hoverEnabled = true;
 
@@ -2201,7 +2125,7 @@ Item { // Page 2: Discover Page
                 Connections {
                     target: toggleBothButton
                     function onClicked() {
-                        console.log("clicked")
+                       // console.log("clicked")
 
                     }
 
@@ -2210,8 +2134,7 @@ Item { // Page 2: Discover Page
                 Connections {
                     target: toggleBothButton
                     function onPressed() {
-                        console.log("pressed")
-
+                       // console.log("pressed")
                         ballToggleImage.opacity = 0.5;
                     }
                 }
@@ -2222,8 +2145,6 @@ Item { // Page 2: Discover Page
                         console.log("released")
 
                         ballToggleImage.opacity = 1;
-                       // toggleBothButton.enabled = true;
-                       // toggleBothButton.hoverEnabled = true;
                         toggleBothDrawers()
 
 
