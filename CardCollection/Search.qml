@@ -755,19 +755,19 @@ Item {
                                             ['types', '', 'colorless'])
                             }
 
-                            if(typesParams.length === 0) {
-                                typesParams.push(['types', '', 'fire']);
-                                typesParams.push(['types', '', 'grass']);
-                                typesParams.push(['types', '', 'water']);
-                                typesParams.push(['types', '', 'lightning']);
-                                typesParams.push(['types', '', 'fighting']);
-                                typesParams.push(['types', '', 'psychic']);
-                                typesParams.push(['types', '', 'darkness']);
-                                typesParams.push(['types', '', 'metal']);
-                                typesParams.push(['types', '', 'fairy']);
-                                typesParams.push(['types', '', 'dragon']);
-                                typesParams.push(['types', '', 'colorless']);
-                            }
+                            // if(typesParams.length === 0) {
+                            //     typesParams.push(['types', '', 'fire']);
+                            //     typesParams.push(['types', '', 'grass']);
+                            //     typesParams.push(['types', '', 'water']);
+                            //     typesParams.push(['types', '', 'lightning']);
+                            //     typesParams.push(['types', '', 'fighting']);
+                            //     typesParams.push(['types', '', 'psychic']);
+                            //     typesParams.push(['types', '', 'darkness']);
+                            //     typesParams.push(['types', '', 'metal']);
+                            //     typesParams.push(['types', '', 'fairy']);
+                            //     typesParams.push(['types', '', 'dragon']);
+                            //     typesParams.push(['types', '', 'colorless']);
+                            // }
 
                             searchParams = searchParams.concat(typesParams);
                             searchParams = searchParams.concat(setsParams);
@@ -2387,6 +2387,10 @@ Item {
                                               "subtype3": card.subtype3 || "",
                                               "subtype4": card.subtype4 || ""
                                           }))
+
+                for(var i = 0; i < cards.length; i++) {
+                    console.log(cards[i].name);
+                }
 
                 selectedIndex = 0; // Start with the first card
                 updateAttackInfo();
