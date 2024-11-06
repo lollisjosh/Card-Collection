@@ -518,13 +518,13 @@ Item {
                             function onClearParams() {
                                 //console.log("Signal onClearParams() called");
 
-                                    // Clear all items in setsModel
+                                // Clear all items in setsModel
                                 setsModel.clear();
 
                                 // Create a temporary list to hold the items
                                 var tempList = [];
                                 for(var i = 0; i < cachedSets.length; i++) {
-                                   setsModel.append(cachedSets[i]);
+                                    setsModel.append(cachedSets[i]);
                                     //console.log(cachedSets[i].name);
                                 }
 
@@ -556,14 +556,14 @@ Item {
                             Connections {
                                 target: setComboBox
                                 function onClearSignal() {
-                                   // console.log("onClearSignal called");
+                                    // console.log("onClearSignal called");
                                     toggle();
                                 }
 
                             }
 
                             function toggle() {
-                               // console.log("itemDelegate.toggle() called...");
+                                // console.log("itemDelegate.toggle() called...");
                                 checkDelegate.toggle()
                             }
 
@@ -2113,11 +2113,34 @@ Item {
                 z: 0
             }
 
-            RoundButton {
+            Rectangle {
+                id: clearButtonHighlight
+                x: 486
+                y: 7
+                width: 55
+                height: 40
+                visible: true
+                color: "#6c0101"
+                radius: 8
+                border.color: primaryColor
+                border.width: 0
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenterOffset: 218
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.verticalCenterOffset: 0
+                z: 0
+            }
+
+            Button {
                 id: btnClear
                 x: 486
+                width: 50
+                height: 35
                 text: ""
                 anchors.verticalCenter: parent.verticalCenter
+                horizontalPadding: 0
+                verticalPadding: 0
+                clip: true
                 z: 0
                 activeFocusOnTab: false
 
@@ -2139,21 +2162,18 @@ Item {
 
                 }
 
-                Rectangle {
-                    id: clearButtonHighlight
-                    y: -7
-                    width: 34
-                    height: 34
-                    visible: true
-                    color: primaryColor
-                    radius: 14
-                    border.color: primaryColor
-                    border.width: 0
-                    anchors.verticalCenter: parent.verticalCenter
+                Image {
+                    id: image
+                    y: -52
+                    width: 176
+                    height: 210
+                    source: "https://images.pokemontcg.io/swsh35/51_hires.png"
                     anchors.horizontalCenterOffset: 0
                     anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.verticalCenterOffset: 0
-                    z: -1
+                    scale: 0.6
+                    sourceSize.height: 209
+                    sourceSize.width: 150
+                    fillMode: Image.PreserveAspectCrop
                 }
             }
 
@@ -2250,6 +2270,7 @@ Item {
                     }
                 }
             }
+
 
 
         }
@@ -2389,7 +2410,7 @@ Item {
                                           }))
 
                 for(var i = 0; i < cards.length; i++) {
-                    console.log(cards[i].name);
+                    console.log((i+1) + ": " + cards[i].imageUrl);
                 }
 
                 selectedIndex = 0; // Start with the first card
@@ -2414,6 +2435,6 @@ Item {
 /*##^##
 Designer {
     D{i:0}D{i:30;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}D{i:31;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}
-D{i:105}D{i:111}D{i:112}D{i:116}D{i:117}D{i:118}
+D{i:33;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}D{i:115}
 }
 ##^##*/
