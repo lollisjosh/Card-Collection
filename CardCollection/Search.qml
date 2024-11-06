@@ -1981,7 +1981,7 @@ Item {
         ToolBar {
             id: pagingButtonsToolbar
             width: 600
-            height: 50
+            height: 65
             Layout.preferredHeight: 50
             Layout.fillHeight: false
             Layout.fillWidth: true
@@ -1992,10 +1992,11 @@ Item {
                 anchors.horizontalCenter: parent.horizontalCenter
                 z: 1
                 uniformCellSizes: false
-                spacing: 120
+                spacing: 90
 
                 Button {
                     id: button
+                    width: 70
                     text: "Previous"
                     Layout.fillHeight: false
                     Layout.fillWidth: false
@@ -2012,15 +2013,13 @@ Item {
 
                     Rectangle {
                         id: rectangle8
-                        x: -6
-                        y: -8
                         color: "#00ffffff"
                         radius: 8
                         border.color: "#6c0101"
                         border.width: 3
                         anchors.fill: parent
-                        anchors.leftMargin: -3
-                        anchors.rightMargin: -3
+                        anchors.leftMargin: -2
+                        anchors.rightMargin: -2
                         anchors.topMargin: -2
                         anchors.bottomMargin: -2
                     }
@@ -2036,6 +2035,8 @@ Item {
                 }
 
                 Button {
+                    id: button1
+                    width: 70
                     text: "Next"
                     font.styleName: "Bold Italic"
                     font.pointSize: 11
@@ -2050,8 +2051,6 @@ Item {
 
                     Rectangle {
                         id: rectangle10
-                        x: -6
-                        y: -8
                         color: "#00ffffff"
                         radius: 8
                         border.color: "#6c0101"
@@ -2115,65 +2114,71 @@ Item {
 
             Rectangle {
                 id: clearButtonHighlight
-                x: 486
-                y: 7
-                width: 55
-                height: 40
+                x: 9
+                width: 80
+                height: 50
                 visible: true
-                color: "#6c0101"
-                radius: 8
+                color: "#c80d0d"
+                radius: 3
                 border.color: primaryColor
                 border.width: 0
                 anchors.verticalCenter: parent.verticalCenter
-                anchors.horizontalCenterOffset: 218
-                anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenterOffset: 0
                 z: 0
-            }
 
-            Button {
-                id: btnClear
-                x: 486
-                width: 50
-                height: 35
-                text: ""
-                anchors.verticalCenter: parent.verticalCenter
-                horizontalPadding: 0
-                verticalPadding: 0
-                clip: true
-                z: 0
-                activeFocusOnTab: false
+                Button {
+                    id: btnClear
+                    text: ""
+                    anchors.fill: parent
+                    anchors.leftMargin: 3
+                    anchors.rightMargin: 4
+                    anchors.topMargin: 3
+                    anchors.bottomMargin: 4
+                    padding: 0
+                    horizontalPadding: 0
+                    verticalPadding: 0
+                    clip: true
+                    z: 0
+                    activeFocusOnTab: false
 
-                signal clearParams;
+                    signal clearParams;
+                    x: -4
+                    y: 2
 
-                onClicked: {
-                    // setComboBox.clearParams();
-                    //console.log("Calling signal clearParams()");
-                    clearParams();
+                    ToolTip.delay: 800
+                    ToolTip.timeout: 5000
+                    ToolTip.visible: hovered
+                    ToolTip.text: qsTr("Clear all search parameters.")
 
-                }
-                onPressed: {
-                    clearButtonHighlight.border.color = screenColor;
-                    clearButtonHighlight.color = screenColor;
-                }
-                onReleased: {
-                    clearButtonHighlight.border.color = primaryColor;
-                    clearButtonHighlight.color = primaryColor;
+                    onClicked: {
+                        // setComboBox.clearParams();
+                        //console.log("Calling signal clearParams()");
+                        clearParams();
 
-                }
+                    }
+                    onPressed: {
+                        clearButtonHighlight.border.color = screenColor;
+                        clearButtonHighlight.color = screenColor;
+                    }
+                    onReleased: {
+                        clearButtonHighlight.border.color = primaryColor;
+                        clearButtonHighlight.color = primaryColor;
 
-                Image {
-                    id: image
-                    y: -52
-                    width: 176
-                    height: 210
-                    source: "https://images.pokemontcg.io/swsh35/51_hires.png"
-                    anchors.horizontalCenterOffset: 0
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    scale: 0.6
-                    sourceSize.height: 209
-                    sourceSize.width: 150
-                    fillMode: Image.PreserveAspectCrop
+                    }
+
+                    Image {
+                        id: image
+                        y: -52
+                        width: 176
+                        height: 210
+                        source: "https://images.pokemontcg.io/swsh35/51_hires.png"
+                        anchors.horizontalCenterOffset: 0
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        scale: 0.6
+                        sourceSize.height: 209
+                        sourceSize.width: 150
+                        fillMode: Image.PreserveAspectCrop
+                    }
                 }
             }
 
@@ -2214,7 +2219,7 @@ Item {
                     id: rectangle3
                     x: 149
                     y: 8
-                    width: 289
+                    width: 265
                     height: 34
                     visible: true
                     color: "#6c0101"
@@ -2222,6 +2227,8 @@ Item {
                     border.color: "#ff0000"
                     border.width: 2
                     anchors.verticalCenter: parent.verticalCenter
+                    anchors.verticalCenterOffset: -1
+                    anchors.horizontalCenterOffset: 0
                     anchors.horizontalCenter: parent.horizontalCenter
                     z: 0
 
@@ -2435,6 +2442,7 @@ Item {
 /*##^##
 Designer {
     D{i:0}D{i:30;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}D{i:31;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}
-D{i:33;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}D{i:115}
+D{i:33;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}D{i:107}D{i:109}D{i:113}D{i:114}
+D{i:115}
 }
 ##^##*/
