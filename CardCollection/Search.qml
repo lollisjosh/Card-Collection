@@ -22,6 +22,7 @@ Item {
 
     property int selectedIndex: 0
     property var cards: [] // List of card objects
+    property var cachedSets: [] // List to hold set names
     //property int selectedTabIndex: 0
 
     // Define color scheme properties
@@ -516,23 +517,44 @@ Item {
                             target: btnClear
                             function onClearParams() {
                                 console.log("Signal onClearParams() called");
-                                backendController.request_sets_retrieve(); // Called to just reinstantiate the list Rudimentary but works.
 
+                                    // Clear all items in setsModel
+                                setsModel.clear();
+
+                                // Create a temporary list to hold the items
+                                var tempList = [];
+                                // cachedSets.forEach(function (sortedSet) {
+                                //     console.log(sortedSet.name);
+                                //     tempList.push(sortedSet);
+                                // });
+
+                                for(var i = 0; i < cachedSets.length; i++) {
+                                   setsModel.append(cachedSets[i]);
+                                    console.log(cachedSets[i].name);
+                                }
+
+                                // // Append each item to setsModel in a single, deliberate update step
+                                // tempList.forEach(function (item) {
+                                //     setsModel.append(item);
+                                // });
+                                // Reset filter states
                                 searchFilterTools.fireChecked = false;
-                                searchFilterTools.waterChecked  = false;
-                                searchFilterTools.grassChecked  = false;
-                                searchFilterTools.lightningChecked  = false;
-                                searchFilterTools.psychicChecked  = false;
-                                searchFilterTools.fightingChecked  = false;
-                                searchFilterTools.darknessChecked  = false;
-                                searchFilterTools.fairyChecked  = false;
-                                searchFilterTools.dragonChecked  = false;
-                                searchFilterTools.metalChecked  = false;
-                                searchFilterTools.colorlessChecked  = false;
+                                searchFilterTools.waterChecked = false;
+                                searchFilterTools.grassChecked = false;
+                                searchFilterTools.lightningChecked = false;
+                                searchFilterTools.psychicChecked = false;
+                                searchFilterTools.fightingChecked = false;
+                                searchFilterTools.darknessChecked = false;
+                                searchFilterTools.fairyChecked = false;
+                                searchFilterTools.dragonChecked = false;
+                                searchFilterTools.metalChecked = false;
+                                searchFilterTools.colorlessChecked = false;
 
-                                txtSearchBox.text = ""
+                                // Clear search box text
+                                txtSearchBox.text = "";
                             }
                         }
+
 
                         delegate: Item {
                             id: itemDelegate
@@ -602,8 +624,11 @@ Item {
                                     })
 
                                     tempSets.forEach(function (sortedSet) {
-                                        setsModel.append(sortedSet)
+                                        setsModel.append(sortedSet);
                                     })
+
+                                    cachedSets = [];
+                                    cachedSets = tempSets;
                                 }
                             }
                         }
