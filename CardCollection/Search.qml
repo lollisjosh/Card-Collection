@@ -1971,16 +1971,18 @@ Item {
                     }
 
                     Rectangle {
-                        id: rectangle9
+                        id: rectangle8
+                        x: -6
+                        y: -8
                         color: "#00ffffff"
-                        radius: 3
+                        radius: 8
                         border.color: "#6c0101"
-                        border.width: 2
+                        border.width: 3
                         anchors.fill: parent
-                        anchors.leftMargin: -1
-                        anchors.rightMargin: 0
-                        anchors.topMargin: -1
-                        anchors.bottomMargin: -1
+                        anchors.leftMargin: -3
+                        anchors.rightMargin: -3
+                        anchors.topMargin: -2
+                        anchors.bottomMargin: -2
                     }
                     hoverEnabled: true
 
@@ -2008,17 +2010,17 @@ Item {
 
                     Rectangle {
                         id: rectangle10
-                        x: -134
-                        y: -6
+                        x: -6
+                        y: -8
                         color: "#00ffffff"
-                        radius: 3
+                        radius: 8
                         border.color: "#6c0101"
                         border.width: 2
                         anchors.fill: parent
-                        anchors.leftMargin: -1
-                        anchors.rightMargin: 0
-                        anchors.topMargin: -1
-                        anchors.bottomMargin: -1
+                        anchors.leftMargin: -2
+                        anchors.rightMargin: -2
+                        anchors.topMargin: -2
+                        anchors.bottomMargin: -2
                     }
                     hoverEnabled: true
 
@@ -2034,24 +2036,26 @@ Item {
 
             Rectangle {
                 id: rectangle
+                visible: true
                 color: "#6c0101"
-                radius: 0
+                radius: 10
                 border.color: "#ee0000"
-                border.width: 3
+                border.width: 5
                 anchors.fill: parent
                 anchors.leftMargin: -6
                 anchors.rightMargin: -6
                 anchors.topMargin: 0
-                anchors.bottomMargin: 0
+                anchors.bottomMargin: -1
                 z: 0
 
                 Rectangle {
                     id: rectangle100
                     color: "#00ffffff"
-                    radius: 9
+                    radius: 0
                     border.color: "#ee0000"
                     border.width: 4
                     anchors.fill: parent
+                    anchors.bottomMargin: 0
                 }
             }
 
@@ -2063,22 +2067,49 @@ Item {
                 border.color: "#6c0101"
                 border.width: 1
                 anchors.fill: parent
-                anchors.leftMargin: 0
-                anchors.rightMargin: 0
-                anchors.topMargin: 2
-                anchors.bottomMargin: 2
+                anchors.leftMargin: -6
+                anchors.rightMargin: -6
+                anchors.bottomMargin: 0
                 z: 0
             }
 
-            Rectangle {
-                id: rectangle3
-                visible: false
-                color: "#00951111"
-                radius: 4
-                border.color: "#6c0101"
-                border.width: 2
-                anchors.fill: parent
+            RoundButton {
+                id: btnClear
+                x: 486
+                text: ""
+                anchors.verticalCenter: parent.verticalCenter
                 z: 0
+                activeFocusOnTab: false
+
+                onClicked: {
+
+                }
+                onPressed: {
+                    clearButtonHighlight.border.color = screenColor;
+                    clearButtonHightlight.color = screenColor;
+                }
+                onReleased: {
+                    clearButtonHighlight.border.color = primaryColor;
+                    clearButtonHighlight.color = primaryColor;
+
+                }
+
+                Rectangle {
+                    id: clearButtonHighlight
+                    y: -7
+                    width: 34
+                    height: 34
+                    visible: true
+                    color: primaryColor
+                    radius: 14
+                    border.color: primaryColor
+                    border.width: 0
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.horizontalCenterOffset: 0
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenterOffset: 0
+                    z: -1
+                }
             }
 
             Rectangle {
@@ -2090,27 +2121,92 @@ Item {
                 border.color: "#6c0101"
                 border.width: 2
                 anchors.fill: parent
-                anchors.leftMargin: 0
-                anchors.rightMargin: 0
+                anchors.leftMargin: -6
+                anchors.rightMargin: -6
+                anchors.topMargin: 0
+                anchors.bottomMargin: -1
                 z: 0
 
                 Text {
                     id: _text
                     width: 109
                     height: 30
-                    color: "#ffffff"
+                    color: dropTextColor
                     text: cards.length ? ((selectedIndex + 1) + "/" + cards.length) : "-/-"
                     anchors.verticalCenter: parent.verticalCenter
                     font.pixelSize: 12
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                     wrapMode: Text.Wrap
+                    z: 1
                     clip: false
                     anchors.horizontalCenter: parent.horizontalCenter
                     fontSizeMode: Text.HorizontalFit
                     font.styleName: "Bold Italic"
                 }
+
+                Rectangle {
+                    id: rectangle3
+                    x: 149
+                    y: 8
+                    width: 289
+                    height: 34
+                    visible: true
+                    color: "#6c0101"
+                    radius: 8
+                    border.color: "#ff0000"
+                    border.width: 2
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    z: 0
+
+                    Rectangle {
+                        id: counterBezel
+                        width: 79
+                        height: 25
+                        color: bezelColor
+                        radius: 4
+                        border.color: bezelBorderColor
+                        border.width: 2
+                        anchors.verticalCenter: parent.verticalCenter
+                        z: 0
+                        anchors.horizontalCenter: parent.horizontalCenter
+
+                        Rectangle {
+                            id: counterScreen
+                            y: -4
+                            color: screenColor
+                            radius: 4
+                            border.color: screenShadeColor
+                            border.width: 2
+                            anchors.fill: parent
+                            anchors.leftMargin: 4
+                            anchors.rightMargin: 4
+                            anchors.topMargin: 4
+                            anchors.bottomMargin: 4
+                            z: 1
+                        }
+
+                        Rectangle {
+                            id: counterScreen1
+                            y: -4
+                            color: "#0000FFFF"
+                            radius: 4
+                            border.color: borderColor
+                            border.width: 2
+                            anchors.fill: parent
+                            anchors.leftMargin: 0
+                            anchors.rightMargin: 0
+                            anchors.topMargin: 0
+                            anchors.bottomMargin: 0
+                            state: ""
+                            z: 1
+                        }
+                    }
+                }
             }
+
+
         }
 
     }
@@ -2269,5 +2365,6 @@ Item {
 /*##^##
 Designer {
     D{i:0}D{i:30;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}D{i:31;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}
+D{i:105}D{i:111}D{i:112}D{i:116}D{i:117}D{i:118}
 }
 ##^##*/
