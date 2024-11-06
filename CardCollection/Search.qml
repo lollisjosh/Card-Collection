@@ -2278,6 +2278,75 @@ Item {
                 }
             }
 
+            Rectangle {
+                id: settingsButtonHighlight
+                x: 498
+                width: 80
+                height: 50
+                visible: true
+                color: "#c80d0d"
+                radius: 3
+                border.color: primaryColor
+                border.width: 0
+                anchors.verticalCenter: parent.verticalCenter
+                z: 0
+                Button {
+                    id: btnSettings
+                    x: -4
+                    y: 2
+                    text: ""
+                    anchors.fill: parent
+                    anchors.leftMargin: 3
+                    anchors.rightMargin: 4
+                    anchors.topMargin: 3
+                    anchors.bottomMargin: 4
+                    z: 0
+                    verticalPadding: 0
+                    padding: 0
+
+                   // hoverEnabled: true;
+                    ToolTip.timeout: 5000
+                    ToolTip.delay: 800
+                    ToolTip.visible: hovered
+                    ToolTip.text: qsTr("Search Settings")
+
+                    onReleased: {
+                                    settingsButtonHighlight.border.color = primaryColor;
+                                    settingsButtonHighlight.color = primaryColor;
+
+                                }
+                    onPressed: {
+                                    settingsButtonHighlight.border.color = screenColor;
+                                    settingsButtonHighlight.color = screenColor;
+                                }
+                    onClicked: {
+                                    // setComboBox.clearParams();
+                                    //console.log("Calling signal clearParams()");
+
+                                }
+                    horizontalPadding: 0
+
+                    Image {
+                        id: settingsButtonImage
+                        y: -59
+                        width: 176
+                        height: 210
+                        source: "https://images.pokemontcg.io/swsh2/168_hires.png"
+                        sourceSize.width: 150
+                        sourceSize.height: 209
+                        scale: 0.52
+                        fillMode: Image.PreserveAspectCrop
+                        anchors.horizontalCenterOffset: 0
+                        anchors.horizontalCenter: parent.horizontalCenter
+                    }
+                    clip: true
+                   // activeFocusOnTab: false
+
+
+                }
+                anchors.verticalCenterOffset: 0
+            }
+
 
 
         }
@@ -2443,6 +2512,6 @@ Item {
 Designer {
     D{i:0}D{i:30;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}D{i:31;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}
 D{i:33;cameraSpeed3d:25;cameraSpeed3dMultiplier:1}D{i:107}D{i:109}D{i:113}D{i:114}
-D{i:115}
+D{i:115}D{i:122}
 }
 ##^##*/
