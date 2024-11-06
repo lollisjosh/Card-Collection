@@ -510,19 +510,43 @@ Item {
 
                         Keys.onSpacePressed: handleSpacePressed
 
+                        signal clearSignal;
+
+                        Connections {
+                            target: btnClear
+                            function onClearParams() {
+                                console.log("Signal onClearParams() called");
+                                backendController.request_sets_retrieve(); // Called to just reinstantiate the list Rudimentary but works.
+                            }
+                        }
+
+
+
+
                         delegate: Item {
+                            id: itemDelegate
                             width: parent ? parent.width : 0
                             height: checkDelegate ? checkDelegate.height : 30
 
-                            MouseArea {
-                                anchors.fill: parent
-                                onClicked: {
-                                    // Toggle the checked state directly in the delegate
-                                    var currentCheckedState = checkDelegate.checked;
-                                    checkDelegate.checked = !currentCheckedState;
-                                    // Update the model selected state based on the new checked state
-                                    model.selected = !currentCheckedState;
+
+                            Connections {
+                                target: setComboBox
+                                function onClearSignal() {
+                                    console.log("onClearSignal called");
+                                    toggle();
                                 }
+
+                            }
+
+                            function toggle() {
+                                console.log("itemDelegate.toggle() called...");
+                                checkDelegate.toggle()
+                            }
+
+                            MouseArea {
+                                id: comboBoxDelegateMouseArea
+                                anchors.fill: parent
+                                onClicked: checkDelegate.checked = !checkDelegate.checked
                                 onEntered: setComboBox.highlightedIndex = index  // Manually set the highlighted index
                             }
 
@@ -532,6 +556,9 @@ Item {
                                 text: model.name
                                 highlighted: setComboBox.highlightedIndex == index
                                 checked: model.selected
+                                onCheckedChanged: {
+                                    model.selected = checked;
+                                }
                             }
                         }
 
@@ -570,7 +597,6 @@ Item {
                             }
                         }
                     }
-
                     TextField {
                         id: txtSearchBox
                         x: 111
@@ -659,6 +685,7 @@ Item {
                                     var setItem = setsModel.get(setIdx)
                                     setsParams.push(
                                                 ['set', 'name', setItem.name])
+                                    console.log(setsParams[setIdx]);
 
                                 }
                             }
@@ -731,7 +758,7 @@ Item {
                             searchParams = searchParams.concat(setsParams);
 
                             if(nameParam.length !== 0) {
-                                searchParams.concat(nameParam);
+                                searchParams = searchParams.concat(nameParam);
                             }
 
                             //console.log(searchParams)
@@ -2081,12 +2108,17 @@ Item {
                 z: 0
                 activeFocusOnTab: false
 
+                signal clearParams;
+
                 onClicked: {
+                    // setComboBox.clearParams();
+                    console.log("Calling signal clearParams()");
+                    clearParams();
 
                 }
                 onPressed: {
                     clearButtonHighlight.border.color = screenColor;
-                    clearButtonHightlight.color = screenColor;
+                    clearButtonHighlight.color = screenColor;
                 }
                 onReleased: {
                     clearButtonHighlight.border.color = primaryColor;
