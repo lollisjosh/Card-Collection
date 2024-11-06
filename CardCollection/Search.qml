@@ -516,27 +516,18 @@ Item {
                         Connections {
                             target: btnClear
                             function onClearParams() {
-                                console.log("Signal onClearParams() called");
+                                //console.log("Signal onClearParams() called");
 
                                     // Clear all items in setsModel
                                 setsModel.clear();
 
                                 // Create a temporary list to hold the items
                                 var tempList = [];
-                                // cachedSets.forEach(function (sortedSet) {
-                                //     console.log(sortedSet.name);
-                                //     tempList.push(sortedSet);
-                                // });
-
                                 for(var i = 0; i < cachedSets.length; i++) {
                                    setsModel.append(cachedSets[i]);
-                                    console.log(cachedSets[i].name);
+                                    //console.log(cachedSets[i].name);
                                 }
 
-                                // // Append each item to setsModel in a single, deliberate update step
-                                // tempList.forEach(function (item) {
-                                //     setsModel.append(item);
-                                // });
                                 // Reset filter states
                                 searchFilterTools.fireChecked = false;
                                 searchFilterTools.waterChecked = false;
@@ -565,14 +556,14 @@ Item {
                             Connections {
                                 target: setComboBox
                                 function onClearSignal() {
-                                    console.log("onClearSignal called");
+                                   // console.log("onClearSignal called");
                                     toggle();
                                 }
 
                             }
 
                             function toggle() {
-                                console.log("itemDelegate.toggle() called...");
+                               // console.log("itemDelegate.toggle() called...");
                                 checkDelegate.toggle()
                             }
 
@@ -640,11 +631,7 @@ Item {
                         height: 25
                         text: "Deoxys"
                         anchors.verticalCenter: parent.verticalCenter
-                        //anchors.right: btnSearch.left
-                        //anchors.rightMargin: 6
-                        //Layout.fillHeight: false
                         z: 1
-                        //Layout.leftMargin: 6
                         Layout.preferredHeight: 25
                         Layout.preferredWidth: 200
                         placeholderText: qsTr("Enter card name")
@@ -672,13 +659,8 @@ Item {
                         height: 25
                         text: qsTr("Search")
                         anchors.verticalCenter: parent.verticalCenter
-                        //   anchors.right: parent.right
-                        //  anchors.rightMargin: -585
                         z: 1
                         font.styleName: "Bold Italic"
-                        // Layout.fillHeight: false
-                        // Layout.rightMargin: 6
-                        //Layout.fillWidth: false
                         palette {
                             button: "blue"
                         }
@@ -721,7 +703,7 @@ Item {
                                     var setItem = setsModel.get(setIdx)
                                     setsParams.push(
                                                 ['set', 'name', setItem.name])
-                                    console.log(setsParams[setIdx]);
+                                    //console.log(setsParams[setIdx]);
 
                                 }
                             }
@@ -787,17 +769,12 @@ Item {
                                 typesParams.push(['types', '', 'colorless']);
                             }
 
-                            // console.log(setsParams);
-                            // console.log(typesParams)
-
                             searchParams = searchParams.concat(typesParams);
                             searchParams = searchParams.concat(setsParams);
 
                             if(nameParam.length !== 0) {
                                 searchParams = searchParams.concat(nameParam);
                             }
-
-                            //console.log(searchParams)
 
                             // Call the request_search function with the built tuples if there are any
                             if (searchParams.length > 0) {
@@ -2148,7 +2125,7 @@ Item {
 
                 onClicked: {
                     // setComboBox.clearParams();
-                    console.log("Calling signal clearParams()");
+                    //console.log("Calling signal clearParams()");
                     clearParams();
 
                 }
