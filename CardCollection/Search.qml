@@ -517,6 +517,20 @@ Item {
                             function onClearParams() {
                                 console.log("Signal onClearParams() called");
                                 backendController.request_sets_retrieve(); // Called to just reinstantiate the list Rudimentary but works.
+
+                                searchFilterTools.fireChecked = false;
+                                searchFilterTools.waterChecked  = false;
+                                searchFilterTools.grassChecked  = false;
+                                searchFilterTools.lightningChecked  = false;
+                                searchFilterTools.psychicChecked  = false;
+                                searchFilterTools.fightingChecked  = false;
+                                searchFilterTools.darknessChecked  = false;
+                                searchFilterTools.fairyChecked  = false;
+                                searchFilterTools.dragonChecked  = false;
+                                searchFilterTools.metalChecked  = false;
+                                searchFilterTools.colorlessChecked  = false;
+
+
                             }
                         }
 
