@@ -530,12 +530,9 @@ Item {
                                 searchFilterTools.metalChecked  = false;
                                 searchFilterTools.colorlessChecked  = false;
 
-
+                                txtSearchBox.text = ""
                             }
                         }
-
-
-
 
                         delegate: Item {
                             id: itemDelegate
